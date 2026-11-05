@@ -35,7 +35,7 @@ body.inapp #start{display:none} body.inapp #bar{display:flex}
 <div id="start">
  <h1>Учимся играя</h1>
  <p class="sub">Выбери возраст 👇</p>
- <div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay">0–2 года</span><span class="an">Малышкина страна</span><span class="ad">12 игр: звери, лицо и тело, семья, день и ночь…</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay">2–4 года</span><span class="an">Умняшки</span><span class="ad">15 игр: цвета, фигуры, счёт, пазлы, первые буквы…</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay">5–6 лет</span><span class="an">Весёлая азбука</span><span class="ad">12 игр: все буквы, слоги, чтение, счёт до 10…</span></button></div>
+ <div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay">0–2 года</span><span class="an">Малышкина страна</span><span class="ad">13 игр: звери, лицо и тело, семья, день и ночь, первые слова по-английски</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay">2–4 года</span><span class="an">Умняшки</span><span class="ad">19 игр: цвета, фигуры, счёт, пазлы, первые буквы, English ABC</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay">5–6 лет</span><span class="an">Весёлая азбука</span><span class="ad">19 игр: буквы и чтение, математика, English</span></button></div>
  <p class="credit">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
 </div>
 <div id="bar"><button id="back">⬅ Возраст</button><span id="ttl"></span></div>
@@ -191,6 +191,18 @@ const SFX={
 const play=k=&gt;{if(!soundOn)return;try{SFX[k]&amp;&amp;SFX[k]();}catch(e){}};
 document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&#x27;🔊&#x27;:&#x27;🔇&#x27;;try{speechSynthesis.cancel()}catch(e){}};
 
+/* ===== English voice ===== */
+let enVoice=null;
+function pickEn(){try{const v=speechSynthesis.getVoices();enVoice=v.find(x=&gt;/^en[-_]US/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^en[-_](US|GB)/i.test(x.lang))||v.find(x=&gt;/^en/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickEn();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickEn);}
+function speakEn(t,delay=0){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;en-US&#x27;;if(enVoice)u.voice=enVoice;u.rate=.8;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}},delay);}
+const ABC_EN=[[&quot;A&quot;,&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;B&quot;,&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;C&quot;,&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;D&quot;,&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;E&quot;,&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;F&quot;,&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;G&quot;,&quot;🍇&quot;,&quot;grapes&quot;,&quot;виноград&quot;],
+ [&quot;H&quot;,&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;I&quot;,&quot;🍦&quot;,&quot;ice cream&quot;,&quot;мороженое&quot;],[&quot;J&quot;,&quot;🧃&quot;,&quot;juice&quot;,&quot;сок&quot;],[&quot;K&quot;,&quot;🪁&quot;,&quot;kite&quot;,&quot;воздушный змей&quot;],[&quot;L&quot;,&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],[&quot;M&quot;,&quot;🌙&quot;,&quot;moon&quot;,&quot;луна&quot;],[&quot;N&quot;,&quot;👃&quot;,&quot;nose&quot;,&quot;нос&quot;],
+ [&quot;O&quot;,&quot;🍊&quot;,&quot;orange&quot;,&quot;апельсин&quot;],[&quot;P&quot;,&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;Q&quot;,&quot;👸&quot;,&quot;queen&quot;,&quot;королева&quot;],[&quot;R&quot;,&quot;🐰&quot;,&quot;rabbit&quot;,&quot;кролик&quot;],[&quot;S&quot;,&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;T&quot;,&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;U&quot;,&quot;☂️&quot;,&quot;umbrella&quot;,&quot;зонт&quot;],
+ [&quot;V&quot;,&quot;🚐&quot;,&quot;van&quot;,&quot;фургон&quot;],[&quot;W&quot;,&quot;🐳&quot;,&quot;whale&quot;,&quot;кит&quot;],[&quot;X&quot;,&quot;🦊&quot;,&quot;fox&quot;,&quot;лиса&quot;],[&quot;Y&quot;,&quot;🪀&quot;,&quot;yo-yo&quot;,&quot;йо-йо&quot;],[&quot;Z&quot;,&quot;🦓&quot;,&quot;zebra&quot;,&quot;зебра&quot;]];
+const EN_WORDS=[[&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;🐮&quot;,&quot;cow&quot;,&quot;корова&quot;],[&quot;🦆&quot;,&quot;duck&quot;,&quot;утка&quot;],[&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;🐦&quot;,&quot;bird&quot;,&quot;птичка&quot;],[&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],
+ [&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;🍌&quot;,&quot;banana&quot;,&quot;банан&quot;],[&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;🚗&quot;,&quot;car&quot;,&quot;машина&quot;],[&quot;🚌&quot;,&quot;bus&quot;,&quot;автобус&quot;],[&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;🏠&quot;,&quot;house&quot;,&quot;дом&quot;],[&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;📕&quot;,&quot;book&quot;,&quot;книга&quot;],[&quot;🐻&quot;,&quot;bear&quot;,&quot;медведь&quot;]];
+
 /* ================== ОБЩЕЕ ================== */
 const app=document.getElementById(&#x27;app&#x27;);
 let timers=[],cleanup=null;
@@ -223,7 +235,7 @@ const COLORS=[[&quot;#FF4D4D&quot;,&quot;Красный&quot;],[&quot;#FFD21F&qu
 const GAMES=[
  [&quot;🐮&quot;,&quot;Кто как говорит&quot;,&quot;#FF9A4D&quot;,animals],[&quot;👶&quot;,&quot;Лицо&quot;,&quot;#FF6FA0&quot;,face],[&quot;🧍&quot;,&quot;Тело&quot;,&quot;#9C7BFF&quot;,body],[&quot;🌞&quot;,&quot;День и ночь&quot;,&quot;#4F8BFF&quot;,daynight],
  [&quot;👨‍👩‍👧&quot;,&quot;Моя семья&quot;,&quot;#FF7B7B&quot;,family],[&quot;🚗&quot;,&quot;Транспорт&quot;,&quot;#2FB5C9&quot;,transport],[&quot;🫧&quot;,&quot;Пузыри и цвета&quot;,&quot;#5AB8FF&quot;,bubbles],[&quot;🎹&quot;,&quot;Ксилофон&quot;,&quot;#4CC46F&quot;,xylo],
- [&quot;🙈&quot;,&quot;Ку-ку!&quot;,&quot;#E9A23B&quot;,peek],[&quot;👉&quot;,&quot;Покажи, где&quot;,&quot;#7A6CF0&quot;,showme],[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],[&quot;🖍️&quot;,&quot;Рисуем&quot;,&quot;#F08BD8&quot;,paint]];
+ [&quot;🙈&quot;,&quot;Ку-ку!&quot;,&quot;#E9A23B&quot;,peek],[&quot;👉&quot;,&quot;Покажи, где&quot;,&quot;#7A6CF0&quot;,showme],[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],[&quot;🖍️&quot;,&quot;Рисуем&quot;,&quot;#F08BD8&quot;,paint],[&quot;🇬🇧&quot;,&quot;English&quot;,&quot;#3D63D8&quot;,english02]];
 function home(){reset();
  app.innerHTML=`&lt;div class=&quot;menu&quot;&gt;${GAMES.map((g,i)=&gt;`&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();play(&#x27;pop&#x27;);GAMES[+b.dataset.i][3]();});
@@ -388,6 +400,15 @@ function paint(){reset();
  const onR=()=&gt;fit();window.addEventListener(&#x27;resize&#x27;,onR);cleanup=()=&gt;window.removeEventListener(&#x27;resize&#x27;,onR);
  speak(&#x27;Рисуй пальчиком!&#x27;);
 }
+/* 13. English для малышей */
+function english02(){reset();
+ const L=[[&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;,&quot;cat&quot;],[&quot;🐶&quot;,&quot;dog&quot;,&quot;собачка&quot;,&quot;dog&quot;],[&quot;🐮&quot;,&quot;cow&quot;,&quot;коровка&quot;,&quot;cow&quot;],[&quot;🦆&quot;,&quot;duck&quot;,&quot;уточка&quot;,&quot;duck&quot;],[&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;,&quot;pig&quot;],[&quot;🐦&quot;,&quot;bird&quot;,&quot;птичка&quot;,&quot;bird&quot;],
+  [&quot;⚽&quot;,&quot;ball&quot;,&quot;мячик&quot;,null],[&quot;🚗&quot;,&quot;car&quot;,&quot;машина&quot;,&quot;car&quot;],[&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;,&quot;yum&quot;],[&quot;🍌&quot;,&quot;banana&quot;,&quot;банан&quot;,&quot;yum&quot;],[&quot;👶&quot;,&quot;baby&quot;,&quot;малыш&quot;,null],[&quot;🧸&quot;,&quot;teddy bear&quot;,&quot;мишка&quot;,null]];
+ app.innerHTML=`&lt;h2&gt;English 🇬🇧&lt;/h2&gt;&lt;div class=&quot;cards&quot;&gt;${L.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;p class=&quot;hint&quot;&gt;Малыш нажимает — голос называет слово по-английски. Внизу подсказка по-русски для взрослых.&lt;/p&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=L[+b.dataset.i];bump(b);if(a[3])play(a[3]);label(`${a[1]} — ${a[2]}`);speakEn(`${a[1]}! ${a[1]}!`,a[3]&amp;&amp;a[3]!==&#x27;yum&#x27;?900:250);});
+ speakEn(&#x27;Hello! Let\&#x27;s play!&#x27;);
+}
 home();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -489,6 +510,18 @@ const sfx={ok:()=&gt;[[660,0],[880,.1],[1320,.2]].forEach(([f,t])=&gt;osc(&#x27;
  win:()=&gt;[[523,0],[659,.12],[784,.24],[1046,.38],[1318,.52]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.25)),
  bad:()=&gt;osc(&#x27;sine&#x27;,300,200,0,.25,.15),pop:()=&gt;osc(&#x27;sine&#x27;,900,200,0,.12,.25),flip:()=&gt;osc(&#x27;triangle&#x27;,600,900,0,.1,.15),snap:()=&gt;osc(&#x27;square&#x27;,500,800,0,.08,.12)};
 document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&#x27;🔊&#x27;:&#x27;🔇&#x27;;try{speechSynthesis.cancel()}catch(e){}};
+/* ===== English voice ===== */
+let enVoice=null;
+function pickEn(){try{const v=speechSynthesis.getVoices();enVoice=v.find(x=&gt;/^en[-_]US/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^en[-_](US|GB)/i.test(x.lang))||v.find(x=&gt;/^en/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickEn();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickEn);}
+function speakEn(t,delay=0){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;en-US&#x27;;if(enVoice)u.voice=enVoice;u.rate=.8;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}},delay);}
+const ABC_EN=[[&quot;A&quot;,&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;B&quot;,&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;C&quot;,&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;D&quot;,&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;E&quot;,&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;F&quot;,&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;G&quot;,&quot;🍇&quot;,&quot;grapes&quot;,&quot;виноград&quot;],
+ [&quot;H&quot;,&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;I&quot;,&quot;🍦&quot;,&quot;ice cream&quot;,&quot;мороженое&quot;],[&quot;J&quot;,&quot;🧃&quot;,&quot;juice&quot;,&quot;сок&quot;],[&quot;K&quot;,&quot;🪁&quot;,&quot;kite&quot;,&quot;воздушный змей&quot;],[&quot;L&quot;,&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],[&quot;M&quot;,&quot;🌙&quot;,&quot;moon&quot;,&quot;луна&quot;],[&quot;N&quot;,&quot;👃&quot;,&quot;nose&quot;,&quot;нос&quot;],
+ [&quot;O&quot;,&quot;🍊&quot;,&quot;orange&quot;,&quot;апельсин&quot;],[&quot;P&quot;,&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;Q&quot;,&quot;👸&quot;,&quot;queen&quot;,&quot;королева&quot;],[&quot;R&quot;,&quot;🐰&quot;,&quot;rabbit&quot;,&quot;кролик&quot;],[&quot;S&quot;,&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;T&quot;,&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;U&quot;,&quot;☂️&quot;,&quot;umbrella&quot;,&quot;зонт&quot;],
+ [&quot;V&quot;,&quot;🚐&quot;,&quot;van&quot;,&quot;фургон&quot;],[&quot;W&quot;,&quot;🐳&quot;,&quot;whale&quot;,&quot;кит&quot;],[&quot;X&quot;,&quot;🦊&quot;,&quot;fox&quot;,&quot;лиса&quot;],[&quot;Y&quot;,&quot;🪀&quot;,&quot;yo-yo&quot;,&quot;йо-йо&quot;],[&quot;Z&quot;,&quot;🦓&quot;,&quot;zebra&quot;,&quot;зебра&quot;]];
+const EN_WORDS=[[&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;🐮&quot;,&quot;cow&quot;,&quot;корова&quot;],[&quot;🦆&quot;,&quot;duck&quot;,&quot;утка&quot;],[&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;🐦&quot;,&quot;bird&quot;,&quot;птичка&quot;],[&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],
+ [&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;🍌&quot;,&quot;banana&quot;,&quot;банан&quot;],[&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;🚗&quot;,&quot;car&quot;,&quot;машина&quot;],[&quot;🚌&quot;,&quot;bus&quot;,&quot;автобус&quot;],[&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;🏠&quot;,&quot;house&quot;,&quot;дом&quot;],[&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;📕&quot;,&quot;book&quot;,&quot;книга&quot;],[&quot;🐻&quot;,&quot;bear&quot;,&quot;медведь&quot;]];
+
 /* ---------- общее ---------- */
 const app=document.getElementById(&#x27;app&#x27;);let timers=[];
 function reset(){timers.forEach(t=&gt;{clearTimeout(t);clearInterval(t)});timers=[];try{speechSynthesis.cancel()}catch(e){}}
@@ -540,7 +573,8 @@ const NUMS=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;�
 const G=[[&quot;🎨&quot;,&quot;Найди цвет&quot;,&quot;#FF6B6B&quot;,gColor],[&quot;🧺&quot;,&quot;Разложи по цветам&quot;,&quot;#FF9A4D&quot;,gSort],[&quot;🔺&quot;,&quot;Фигуры&quot;,&quot;#4F8BFF&quot;,gShape],[&quot;🧩&quot;,&quot;Вставь фигурку&quot;,&quot;#22B8C8&quot;,gSorter],
  [&quot;🐘&quot;,&quot;Большой и маленький&quot;,&quot;#9C7BFF&quot;,gSize],[&quot;🔢&quot;,&quot;Считаем до 5&quot;,&quot;#43C26B&quot;,gCount],[&quot;🥕&quot;,&quot;Покорми зверюшку&quot;,&quot;#E8A33B&quot;,gFeed],[&quot;👤&quot;,&quot;Найди тень&quot;,&quot;#6C6A8A&quot;,gShadow],
  [&quot;🃏&quot;,&quot;Найди пару&quot;,&quot;#B15CE6&quot;,gMem],[&quot;🖼️&quot;,&quot;Собери картинку&quot;,&quot;#F07FB0&quot;,gPuzzle],[&quot;🤔&quot;,&quot;Что лишнее?&quot;,&quot;#2FA37E&quot;,gOdd],[&quot;☂️&quot;,&quot;Одень по погоде&quot;,&quot;#3A9BDC&quot;,gWeather],
- [&quot;😀&quot;,&quot;Настроение&quot;,&quot;#F5B700&quot;,gEmo],[&quot;🅰️&quot;,&quot;Первые буквы&quot;,&quot;#F0435A&quot;,gLetters],[&quot;🔍&quot;,&quot;Найди букву&quot;,&quot;#2F6FE4&quot;,gFindL]];
+ [&quot;😀&quot;,&quot;Настроение&quot;,&quot;#F5B700&quot;,gEmo],[&quot;🅰️&quot;,&quot;Первые буквы&quot;,&quot;#F0435A&quot;,gLetters],[&quot;🔍&quot;,&quot;Найди букву&quot;,&quot;#2F6FE4&quot;,gFindL],
+ [&quot;🔤&quot;,&quot;English ABC&quot;,&quot;#3D63D8&quot;,eABC],[&quot;🌈&quot;,&quot;Colors&quot;,&quot;#E8505B&quot;,eColors],[&quot;🐶&quot;,&quot;Where is…?&quot;,&quot;#2FA37E&quot;,eWhere],[&quot;🔢&quot;,&quot;Count 1–5&quot;,&quot;#9C7BFF&quot;,eCount]];
 function home(){reset();app.innerHTML=`&lt;div class=&quot;menu&quot;&gt;${G.map((g,i)=&gt;`&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[+b.dataset.i][3]();});}
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
@@ -633,6 +667,31 @@ function gFindL(){reset();const opts=shuffle(LETTERS).slice(0,3),t=rnd(opts),q=`
  app.innerHTML=askBar(`Найди букву`)+`&lt;div class=&quot;opts&quot;&gt;${opts.map(l=&gt;`&lt;button class=&quot;opt lt ${l[1]}&quot; data-l=&quot;${l[0]}&quot;&gt;${l[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
  app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.l===t[0]){bump(b);good(b,`Да! Это ${t[2]}. ${t[4]}!`);confetti();later(gFindL,2400);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
   else{const l=LETTERS.find(z=&gt;z[0]===b.dataset.l);shake(b);sfx.bad();speak(`Это буква ${l[2]}. А где ${t[2]}?`);}});}
+/* ===== English ===== */
+const EN_COL=[[&quot;#FF4D4D&quot;,&quot;red&quot;,&quot;красный&quot;],[&quot;#FFD21F&quot;,&quot;yellow&quot;,&quot;жёлтый&quot;],[&quot;#3CC75A&quot;,&quot;green&quot;,&quot;зелёный&quot;],[&quot;#3B7BFF&quot;,&quot;blue&quot;,&quot;синий&quot;],[&quot;#FF8C1A&quot;,&quot;orange&quot;,&quot;оранжевый&quot;],[&quot;#9B5CFF&quot;,&quot;purple&quot;,&quot;фиолетовый&quot;],[&quot;#FF7BC0&quot;,&quot;pink&quot;,&quot;розовый&quot;]];
+const EN_N=[&quot;zero&quot;,&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;four&quot;,&quot;five&quot;];
+function eABC(){reset();
+ app.innerHTML=`&lt;h2&gt;English ABC&lt;/h2&gt;&lt;div class=&quot;opts&quot; style=&quot;gap:12px&quot;&gt;${ABC_EN.map((l,i)=&gt;`&lt;button class=&quot;opt&quot; data-i=&quot;${i}&quot; style=&quot;min-width:110px;min-height:110px;font-size:80px;color:${i%2?&#x27;#2F6FE4&#x27;:&#x27;#F0435A&#x27;}&quot;&gt;${l[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ speakEn(&#x27;Hello! This is the A B C!&#x27;);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const l=ABC_EN[+b.dataset.i];bump(b);sfx.pop();label(`${l[0]} ${l[0].toLowerCase()} — ${l[1]} ${l[2]}`);speakEn(`${l[0]}. ${l[0]} is for ${l[2]}.`);});}
+function eColors(){reset();const o=shuffle(EN_COL).slice(0,3),t=rnd(o);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Where is ${t[1]}? &lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;opts&quot;&gt;${o.map(c=&gt;`&lt;button class=&quot;dot&quot; data-c=&quot;${c[1]}&quot; style=&quot;background:${c[0]}&quot;&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;p class=&quot;voice&quot;&gt;(${t[2]})&lt;/p&gt;`;
+ document.getElementById(&#x27;rep&#x27;).onclick=()=&gt;speakEn(`Where is ${t[1]}?`);speakEn(`Where is ${t[1]}?`);
+ app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const c=EN_COL.find(x=&gt;x[1]===b.dataset.c);
+  if(c===t){bump(b);star();sfx.ok();confetti();label(`${t[1]} — ${t[2]}`);speakEn(`Yes! ${t[1]}!`);app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(eColors,2200);}
+  else{shake(b);sfx.bad();speakEn(`This is ${c[1]}. Where is ${t[1]}?`);}});}
+function eWhere(){reset();const o=shuffle(EN_WORDS).slice(0,3),t=rnd(o);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Where is the ${t[1]}? &lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;opts&quot;&gt;${o.map(x=&gt;`&lt;button class=&quot;opt&quot; data-w=&quot;${x[1]}&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;p class=&quot;voice&quot;&gt;(Где ${t[2]}?)&lt;/p&gt;`;
+ document.getElementById(&#x27;rep&#x27;).onclick=()=&gt;speakEn(`Where is the ${t[1]}?`);speakEn(`Where is the ${t[1]}?`);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=EN_WORDS.find(z=&gt;z[1]===b.dataset.w);
+  if(x===t){bump(b);b.classList.add(&#x27;ok&#x27;);star();sfx.ok();label(`${t[1]} — ${t[2]}`);speakEn(`Yes! The ${t[1]}!`);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);later(eWhere,2200);}
+  else{shake(b);sfx.bad();speakEn(`This is a ${x[1]}.`);}});}
+function eCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c=0;const opts=shuffle([n,...shuffle([1,2,3,4,5].filter(x=&gt;x!==n)).slice(0,2)]);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Let&#x27;s count! (Посчитаем по-английски)&lt;/div&gt;&lt;div class=&quot;count&quot;&gt;${Array.from({length:n},()=&gt;`&lt;span class=&quot;c&quot;&gt;${o[0]}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speakEn(&quot;Let&#x27;s count!&quot;);
+ app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();speakEn(EN_N[c]);});
+ app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);b.classList.add(&#x27;ok&#x27;);star();sfx.ok();confetti();speakEn(`Yes! ${EN_N[n]}!`);label(`${n} — ${EN_N[n]}`);later(eCount,2300);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{shake(b);sfx.bad();speakEn(EN_N[+b.dataset.n]+&#x27;. Try again!&#x27;);}});}
 home();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -776,6 +835,25 @@ h2{font-size:44px;text-align:center;margin:4px 0 18px;color:var(--ink)}
 .cnt{display:grid;grid-template-columns:repeat(5,auto);justify-content:center;gap:10px 18px;margin:0 0 18px}
 .cnt span{font-size:clamp(56px,8vw,84px);line-height:1;cursor:pointer;position:relative}
 .cnt span i{position:absolute;top:-8px;right:-10px;background:#3D63D8;color:#fff;font-style:normal;font-size:24px;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center}
+.sec{font-size:30px;margin:22px 4px 12px;color:var(--ink);display:flex;align-items:center;gap:10px}
+.sec:first-of-type{margin-top:4px}
+.t13{background:linear-gradient(140deg,#FFB547,#F08A00)}.t14{background:linear-gradient(140deg,#6FD3FF,#1E9BD7)}.t15{background:linear-gradient(140deg,#A3E06A,#5BB531)}.t16{background:linear-gradient(140deg,#FF8FA3,#E8455E)}
+.t17{background:linear-gradient(140deg,#7B8CFF,#3D4FD8)}.t18{background:linear-gradient(140deg,#5CE0C6,#13A58A)}.t19{background:linear-gradient(140deg,#C58BFF,#8A3FE0)}
+.cmp{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.grp{background:#F6F1FF;border-radius:28px;padding:12px 16px;min-width:220px;text-align:center}
+.grp .n{font-size:110px;line-height:1;color:var(--cons)}
+.grp .o{font-size:30px;letter-spacing:2px;max-width:260px;margin:6px auto 0;line-height:1.3}
+.sign{width:120px;height:120px;border-radius:30px;border:6px dashed #D9CFF5;font-size:90px;display:flex;align-items:center;justify-content:center;color:var(--violet)}
+.seq{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
+.seq span{min-width:100px;height:110px;border-radius:24px;background:#FFF6E3;display:flex;align-items:center;justify-content:center;font-size:72px;padding:0 10px}
+.seq span.q{background:#fff;border:6px dashed var(--sun);color:var(--sun)}
+.ex{font-size:clamp(70px,12vw,120px);text-align:center;letter-spacing:6px;margin:4px 0 6px}
+.ex .q{display:inline-block;min-width:1.2em;border-bottom:10px solid var(--sun);color:transparent}
+.ex .q.show{color:var(--green)}
+.pics2{font-size:46px;text-align:center;letter-spacing:4px;margin-bottom:16px;line-height:1.4}
+.pics2 s{opacity:.35;text-decoration:none;position:relative}
+.pics2 s::after{content:&quot;&quot;;position:absolute;left:-2px;right:-2px;top:50%;height:6px;background:#F0435A;transform:rotate(-30deg)}
+.enw{font-size:clamp(70px,12vw,120px);text-align:center;color:#3D4FD8;letter-spacing:3px;margin:6px 0 14px}
 canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:15}
 .note{font-size:18px;color:var(--muted);text-align:center;margin-top:16px;font-weight:400}
 @media (max-width:700px){.round{width:52px;height:52px;font-size:24px}.pill{font-size:22px;padding:6px 12px}.logo span{font-size:34px}.pics{grid-template-columns:1fr 1fr}.pic .w{font-size:30px}.pic .em{font-size:80px}.logo{font-size:26px}h2{font-size:34px}.say{font-size:28px}.word{font-size:48px}}
@@ -840,12 +918,24 @@ let soundOn=true, ruVoice=null, actx=null;
 function pickVoice(){try{const vs=speechSynthesis.getVoices();ruVoice=vs.find(v=&gt;/^ru/i.test(v.lang)&amp;&amp;v.localService)||vs.find(v=&gt;/^ru/i.test(v.lang))||null;
   document.getElementById(&#x27;voiceNote&#x27;).textContent=ruVoice?&quot;&quot;:&quot;Подсказка: чтобы игра говорила, на устройстве должен быть установлен русский голос (в Windows, Android и iPad он обычно уже есть).&quot;;}catch(e){}}
 if(&#x27;speechSynthesis&#x27; in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
-function speak(t,rate=.8){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&quot;ru-RU&quot;;if(ruVoice)u.voice=ruVoice;u.rate=rate;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}}
+function speak(t,rate=.8,r2){if(r2!==undefined)rate=r2;if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&quot;ru-RU&quot;;if(ruVoice)u.voice=ruVoice;u.rate=rate;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}}
 function tone(kind){if(!soundOn)return;try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();
   const seq=kind===&quot;ok&quot;?[[660,0],[880,.1],[1320,.2]]:kind===&quot;win&quot;?[[523,0],[659,.12],[784,.24],[1046,.36],[1318,.5]]:kind===&quot;pop&quot;?[[900,0]]:[[300,0],[220,.14]];
   seq.forEach(([f,t])=&gt;{const o=actx.createOscillator(),g=actx.createGain(),n=actx.currentTime+t;o.type=kind===&quot;bad&quot;?&quot;square&quot;:&quot;triangle&quot;;o.frequency.setValueAtTime(f,n);if(kind===&quot;pop&quot;)o.frequency.exponentialRampToValueAtTime(200,n+.12);
     g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(kind===&quot;bad&quot;?.08:.25,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+.22);o.connect(g).connect(actx.destination);o.start(n);o.stop(n+.25);});}catch(e){}}
 document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&quot;🔊&quot;:&quot;🔇&quot;;if(!soundOn)try{speechSynthesis.cancel()}catch(e){}};
+
+/* ===== English voice ===== */
+let enVoice=null;
+function pickEn(){try{const v=speechSynthesis.getVoices();enVoice=v.find(x=&gt;/^en[-_]US/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^en[-_](US|GB)/i.test(x.lang))||v.find(x=&gt;/^en/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickEn();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickEn);}
+function speakEn(t,delay=0){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;en-US&#x27;;if(enVoice)u.voice=enVoice;u.rate=.8;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}},delay);}
+const ABC_EN=[[&quot;A&quot;,&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;B&quot;,&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;C&quot;,&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;D&quot;,&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;E&quot;,&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;F&quot;,&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;G&quot;,&quot;🍇&quot;,&quot;grapes&quot;,&quot;виноград&quot;],
+ [&quot;H&quot;,&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;I&quot;,&quot;🍦&quot;,&quot;ice cream&quot;,&quot;мороженое&quot;],[&quot;J&quot;,&quot;🧃&quot;,&quot;juice&quot;,&quot;сок&quot;],[&quot;K&quot;,&quot;🪁&quot;,&quot;kite&quot;,&quot;воздушный змей&quot;],[&quot;L&quot;,&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],[&quot;M&quot;,&quot;🌙&quot;,&quot;moon&quot;,&quot;луна&quot;],[&quot;N&quot;,&quot;👃&quot;,&quot;nose&quot;,&quot;нос&quot;],
+ [&quot;O&quot;,&quot;🍊&quot;,&quot;orange&quot;,&quot;апельсин&quot;],[&quot;P&quot;,&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;Q&quot;,&quot;👸&quot;,&quot;queen&quot;,&quot;королева&quot;],[&quot;R&quot;,&quot;🐰&quot;,&quot;rabbit&quot;,&quot;кролик&quot;],[&quot;S&quot;,&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;T&quot;,&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;U&quot;,&quot;☂️&quot;,&quot;umbrella&quot;,&quot;зонт&quot;],
+ [&quot;V&quot;,&quot;🚐&quot;,&quot;van&quot;,&quot;фургон&quot;],[&quot;W&quot;,&quot;🐳&quot;,&quot;whale&quot;,&quot;кит&quot;],[&quot;X&quot;,&quot;🦊&quot;,&quot;fox&quot;,&quot;лиса&quot;],[&quot;Y&quot;,&quot;🪀&quot;,&quot;yo-yo&quot;,&quot;йо-йо&quot;],[&quot;Z&quot;,&quot;🦓&quot;,&quot;zebra&quot;,&quot;зебра&quot;]];
+const EN_WORDS=[[&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;🐮&quot;,&quot;cow&quot;,&quot;корова&quot;],[&quot;🦆&quot;,&quot;duck&quot;,&quot;утка&quot;],[&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;🐦&quot;,&quot;bird&quot;,&quot;птичка&quot;],[&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],
+ [&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;🍌&quot;,&quot;banana&quot;,&quot;банан&quot;],[&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;🚗&quot;,&quot;car&quot;,&quot;машина&quot;],[&quot;🚌&quot;,&quot;bus&quot;,&quot;автобус&quot;],[&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;🏠&quot;,&quot;house&quot;,&quot;дом&quot;],[&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;📕&quot;,&quot;book&quot;,&quot;книга&quot;],[&quot;🐻&quot;,&quot;bear&quot;,&quot;медведь&quot;]];
 
 /* ===== Конфетти, звёзды ===== */
 const cv=document.getElementById(&#x27;conf&#x27;),cx=cv.getContext(&#x27;2d&#x27;);let parts=[];
@@ -869,20 +959,9 @@ function back(){return `&lt;button class=&quot;big-btn y&quot; onclick=&quot;hom
 
 /* ===== Меню ===== */
 function home(){clearT();
-  app.innerHTML=`&lt;h2&gt;Во что поиграем?&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;
-   &lt;button class=&quot;tile t1&quot; onclick=&quot;abc()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Азбука&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t2&quot; onclick=&quot;findLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔍&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди букву&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t3&quot; onclick=&quot;firstLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🐱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Первая буква&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t4&quot; onclick=&quot;mergeGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏃&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Бежит к букве&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t5&quot; onclick=&quot;balloons()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎈&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Лопни шарик&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t6&quot; onclick=&quot;vowelGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎵&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Поющие буквы&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t7&quot; onclick=&quot;picWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🖼️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди слово&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t8&quot; onclick=&quot;readMenu()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📖&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Читаем слова&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t9&quot; onclick=&quot;sayGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Скажи слово&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t10&quot; onclick=&quot;buildWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🧱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Собери слово&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t11&quot; onclick=&quot;sylGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;👏&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Сколько слогов?&lt;/span&gt;&lt;/button&gt;
-   &lt;button class=&quot;tile t12&quot; onclick=&quot;count10()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔟&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Считаем до 10&lt;/span&gt;&lt;/button&gt;
-  &lt;/div&gt;`;
+  app.innerHTML=`&lt;div class=&quot;sec&quot;&gt;📚 Буквы и чтение&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;&lt;button class=&quot;tile t1&quot; onclick=&quot;abc()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Азбука&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t2&quot; onclick=&quot;findLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔍&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди букву&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t3&quot; onclick=&quot;firstLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🐱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Первая буква&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t4&quot; onclick=&quot;mergeGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏃&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Бежит к букве&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t5&quot; onclick=&quot;balloons()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎈&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Лопни шарик&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t6&quot; onclick=&quot;vowelGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎵&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Поющие буквы&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t7&quot; onclick=&quot;picWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🖼️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди слово&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t8&quot; onclick=&quot;readMenu()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📖&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Читаем слова&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t9&quot; onclick=&quot;sayGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Скажи слово&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t10&quot; onclick=&quot;buildWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🧱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Собери слово&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t11&quot; onclick=&quot;sylGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;👏&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Сколько слогов?&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;sec&quot;&gt;🔢 Математика&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;&lt;button class=&quot;tile t12&quot; onclick=&quot;count10()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔟&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Считаем до 10&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t13&quot; onclick=&quot;cmpGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;⚖️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Больше, меньше&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t14&quot; onclick=&quot;patGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔁&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Продолжи ряд&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t15&quot; onclick=&quot;nbGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏘️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Соседи числа&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t16&quot; onclick=&quot;addSub()&quot;&gt;&lt;span class=&quot;e&quot;&gt;➕&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Плюс и минус&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;sec&quot;&gt;🇬🇧 English&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;&lt;button class=&quot;tile t17&quot; onclick=&quot;enABC()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;English ABC&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t18&quot; onclick=&quot;enRead()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📗&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Read &amp; find&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t19&quot; onclick=&quot;enListen()&quot;&gt;&lt;span class=&quot;e&quot;&gt;👂&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Listen &amp; find&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;`;
 }
 document.getElementById(&#x27;home&#x27;).onclick=home;
 
@@ -1262,6 +1341,101 @@ function c10Q(){
     if(+b.dataset.n===n){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=null);if(!tries){c10.ok++;star();}tone(&#x27;ok&#x27;);speak(`${praise()} ${N10[n]}!`);c10.n++;timers.push(setTimeout(c10Q,1800));}
     else{tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(&#x27;Посчитай ещё раз!&#x27;);}});
 }
+
+
+/* ===== МАТЕМАТИКА ===== */
+const N20=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;,&quot;восемь&quot;,&quot;девять&quot;,&quot;десять&quot;,&quot;одиннадцать&quot;,&quot;двенадцать&quot;,&quot;тринадцать&quot;,&quot;четырнадцать&quot;,&quot;пятнадцать&quot;,&quot;шестнадцать&quot;,&quot;семнадцать&quot;,&quot;восемнадцать&quot;,&quot;девятнадцать&quot;,&quot;двадцать&quot;];
+function mathRound(st,q,again){if(st.n&gt;=8)return finish(st.ok,8,again);q();}
+function mathOK(st,b,say,next){if(b){b.classList.add(&#x27;ok&#x27;);}app.querySelectorAll(&#x27;.ch,.opt&#x27;).forEach(x=&gt;x.onclick=null);if(!st.tries){st.ok++;star();}tone(&#x27;ok&#x27;);speak(say);st.n++;timers.push(setTimeout(next,2300));}
+function mathBad(st,b,say){st.tries++;if(b){b.classList.add(&#x27;no&#x27;);b.classList.remove(&#x27;shake&#x27;);void b.offsetWidth;b.classList.add(&#x27;shake&#x27;);}tone(&#x27;bad&#x27;);speak(say||&#x27;Подумай ещё!&#x27;);}
+/* Больше, меньше, равно */
+let cm={n:0,ok:0};
+function cmpGame(){clearT();cm={n:0,ok:0};mathRound(cm,cmQ,cmpGame);}
+function cmQ(){cm.tries=0;const max=cm.n&lt;4?10:20;let a=Math.floor(Math.random()*(max+1)),b=Math.random()&lt;.2?a:Math.floor(Math.random()*(max+1));
+  const sign=a&gt;b?&#x27;&gt;&#x27;:a&lt;b?&#x27;&lt;&#x27;:&#x27;=&#x27;;const e=rnd([&quot;🍎&quot;,&quot;⭐&quot;,&quot;🐟&quot;,&quot;🌸&quot;,&quot;🍓&quot;]);
+  app.innerHTML=`&lt;h2&gt;Поставь знак: больше, меньше или равно&lt;/h2&gt;
+   &lt;div class=&quot;cmp&quot;&gt;&lt;div class=&quot;grp&quot;&gt;&lt;div class=&quot;n&quot;&gt;${a}&lt;/div&gt;${max===10?`&lt;div class=&quot;o&quot;&gt;${e.repeat(a)||&#x27;—&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;div class=&quot;sign&quot; id=&quot;sg&quot;&gt;?&lt;/div&gt;&lt;div class=&quot;grp&quot;&gt;&lt;div class=&quot;n&quot;&gt;${b}&lt;/div&gt;${max===10?`&lt;div class=&quot;o&quot;&gt;${e.repeat(b)||&#x27;—&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${[&#x27;&lt;&#x27;,&#x27;=&#x27;,&#x27;&gt;&#x27;].map(s=&gt;`&lt;button class=&quot;ch c&quot; data-s=&quot;${s}&quot; style=&quot;color:var(--violet)&quot;&gt;${s}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(cm.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(`Сравни: ${N20[a]} и ${N20[b]}`);
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(x.dataset.s===sign){document.getElementById(&#x27;sg&#x27;).textContent=sign;
+      mathOK(cm,x,sign===&#x27;=&#x27;?`${N20[a]} равно ${N20[b]}`:`${N20[a]} ${sign===&#x27;&gt;&#x27;?&#x27;больше&#x27;:&#x27;меньше&#x27;}, чем ${N20[b]}`,()=&gt;mathRound(cm,cmQ,cmpGame));}
+    else mathBad(cm,x,&#x27;Посмотри внимательно, где больше!&#x27;);});}
+/* Продолжи ряд (закономерности) */
+let pt={n:0,ok:0};
+function patGame(){clearT();pt={n:0,ok:0};mathRound(pt,ptQ,patGame);}
+function ptQ(){pt.tries=0;let seq,ans,opts,say;
+  if(pt.n&lt;4){const sets=[[&quot;🍎&quot;,&quot;🍌&quot;],[&quot;🔴&quot;,&quot;🔵&quot;],[&quot;🐱&quot;,&quot;🐶&quot;],[&quot;⭐&quot;,&quot;🌙&quot;],[&quot;🟨&quot;,&quot;🟩&quot;,&quot;🟥&quot;],[&quot;🐸&quot;,&quot;🐸&quot;,&quot;🐞&quot;],[&quot;🍓&quot;,&quot;🍋&quot;,&quot;🍇&quot;]];const s=rnd(sets);
+    const full=Array.from({length:7},(_,i)=&gt;s[i%s.length]);seq=full.slice(0,6);ans=full[6];opts=shuffle([...new Set([ans,...s,rnd([&quot;🚗&quot;,&quot;🎈&quot;,&quot;🐟&quot;])])]).slice(0,3);if(!opts.includes(ans))opts[0]=ans;opts=shuffle(opts);say=&#x27;Что будет дальше?&#x27;;}
+  else{const step=rnd([1,1,2,2,-1,5,10]);let st=step&gt;0?Math.floor(Math.random()*5)+(step===10?0:1):10+Math.floor(Math.random()*5);if(step===5)st=0;if(step===10)st=0;
+    seq=Array.from({length:5},(_,i)=&gt;st+i*step);ans=st+5*step;opts=shuffle([ans,ans+1,ans-1].filter(x=&gt;x&gt;=0));
+    while(opts.length&lt;3)opts.push(ans+2);opts=shuffle(opts);say=&#x27;Какое число будет дальше?&#x27;;}
+  app.innerHTML=`&lt;h2&gt;Продолжи ряд&lt;/h2&gt;&lt;div class=&quot;seq&quot;&gt;${seq.map(x=&gt;`&lt;span&gt;${x}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;span class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${opts.map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons);font-size:${typeof o===&#x27;number&#x27;?&#x27;&#x27;:&#x27;90px&#x27;}&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(pt.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(say);
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(x.dataset.o==String(ans)){const q=document.getElementById(&#x27;qq&#x27;);q.textContent=ans;q.classList.remove(&#x27;q&#x27;);mathOK(pt,x,praise(),()=&gt;mathRound(pt,ptQ,patGame));}
+    else mathBad(pt,x,&#x27;Найди, что повторяется!&#x27;);});}
+/* Соседи числа */
+let nb={n:0,ok:0};
+function nbGame(){clearT();nb={n:0,ok:0};mathRound(nb,nbQ,nbGame);}
+function nbQ(){nb.tries=0;const max=nb.n&lt;4?10:20;const x=1+Math.floor(Math.random()*(max-1));let step=0;
+  const opts=shuffle([...new Set([x-1,x+1,x-2,x+2,x].filter(v=&gt;v&gt;=0&amp;&amp;v&lt;=max+1))]);
+  app.innerHTML=`&lt;h2&gt;Найди соседей числа ${x}&lt;/h2&gt;
+   &lt;div class=&quot;seq&quot;&gt;&lt;span class=&quot;q&quot; id=&quot;l&quot;&gt;?&lt;/span&gt;&lt;span style=&quot;background:#E9E4FF;color:var(--violet);font-size:90px&quot;&gt;${x}&lt;/span&gt;&lt;span class=&quot;q&quot; id=&quot;r&quot;&gt;?&lt;/span&gt;&lt;/div&gt;
+   &lt;p class=&quot;say&quot; id=&quot;hint&quot;&gt;Кто живёт перед числом ${x}?&lt;/p&gt;
+   &lt;div class=&quot;choices&quot;&gt;${opts.map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(nb.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(`Найди соседей числа ${N20[x]}. Какое число стоит перед ним?`);
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const v=+b.dataset.o;
+    if(step===0&amp;&amp;v===x-1){const l=document.getElementById(&#x27;l&#x27;);l.textContent=v;l.classList.remove(&#x27;q&#x27;);b.classList.add(&#x27;ok&#x27;);b.onclick=null;tone(&#x27;pop&#x27;);step=1;document.getElementById(&#x27;hint&#x27;).textContent=`А после числа ${x}?`;speak(`Правильно, ${N20[v]}. А какое число стоит после ${N20[x]}?`.replace(&#x27;после &#x27;+N20[x],&#x27;после числа &#x27;+N20[x]));}
+    else if(step===1&amp;&amp;v===x+1){const r=document.getElementById(&#x27;r&#x27;);r.textContent=v;r.classList.remove(&#x27;q&#x27;);mathOK(nb,b,`Молодец! Соседи числа ${N20[x]}: ${N20[x-1]} и ${N20[x+1]}`,()=&gt;mathRound(nb,nbQ,nbGame));}
+    else mathBad(nb,b,step===0?&#x27;Это число не стоит прямо перед ним. Посчитай назад!&#x27;:&#x27;Посчитай вперёд на один!&#x27;);});}
+/* Плюс и минус в пределах 10 */
+let as={n:0,ok:0};
+function addSub(){clearT();as={n:0,ok:0};mathRound(as,asQ,addSub);}
+function asQ(){as.tries=0;const plus=Math.random()&lt;.5;let a,b,r;
+  if(plus){a=Math.floor(Math.random()*10);b=Math.floor(Math.random()*(11-a));r=a+b;}else{a=1+Math.floor(Math.random()*10);b=Math.floor(Math.random()*(a+1));r=a-b;}
+  const e=rnd([&quot;🍎&quot;,&quot;🐥&quot;,&quot;⭐&quot;,&quot;🍬&quot;,&quot;🐞&quot;,&quot;🎈&quot;]);
+  const pics=plus?`${e.repeat(a)}${a&amp;&amp;b?&#x27; ➕ &#x27;:&#x27;&#x27;}${e.repeat(b)}`:`${e.repeat(a-b)}${`&lt;s&gt;${e}&lt;/s&gt;`.repeat(b)}`;
+  const opts=shuffle([...new Set([r,r+1,Math.max(0,r-1),r+2])]).slice(0,3);if(!opts.includes(r))opts[0]=r;
+  app.innerHTML=`&lt;h2&gt;${plus?&#x27;Сложи&#x27;:&#x27;Вычти&#x27;}&lt;/h2&gt;&lt;div class=&quot;pics2&quot;&gt;${pics||&#x27;—&#x27;}&lt;/div&gt;
+   &lt;div class=&quot;ex&quot;&gt;${a} ${plus?&#x27;+&#x27;:&#x27;−&#x27;} ${b} = &lt;span class=&quot;q&quot; id=&quot;qq&quot;&gt;${r}&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${shuffle(opts).map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(as.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(`${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]}. Сколько будет?`);
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===r){document.getElementById(&#x27;qq&#x27;).classList.add(&#x27;show&#x27;);mathOK(as,x,`${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]} будет ${N20[r]}!`,()=&gt;mathRound(as,asQ,addSub));}
+    else mathBad(as,x,&#x27;Посчитай картинки!&#x27;);});}
+/* ===== ENGLISH 5–6 ===== */
+function enABC(){clearT();
+  app.innerHTML=`&lt;h2&gt;English ABC&lt;/h2&gt;&lt;div class=&quot;grid&quot;&gt;${ABC_EN.map((l,i)=&gt;`&lt;button class=&quot;lt ${&#x27;AEIOU&#x27;.includes(l[0])?&#x27;v&#x27;:&#x27;c&#x27;}&quot; data-i=&quot;${i}&quot;&gt;${l[0]}&lt;small&gt;${l[0].toLowerCase()}&lt;/small&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speakEn(&#x27;The English alphabet. Tap a letter!&#x27;);
+  app.querySelectorAll(&#x27;.lt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const l=ABC_EN[+b.dataset.i];clearT();
+    app.innerHTML=`&lt;div class=&quot;letterpage&quot;&gt;&lt;button class=&quot;huge ${&#x27;AEIOU&#x27;.includes(l[0])?&#x27;v&#x27;:&#x27;c&#x27;}&quot; id=&quot;bl&quot;&gt;${l[0]}${l[0].toLowerCase()}&lt;/button&gt;
+      &lt;div style=&quot;text-align:center&quot;&gt;&lt;div style=&quot;font-size:150px;line-height:1.1&quot;&gt;${l[1]}&lt;/div&gt;&lt;div class=&quot;enw&quot;&gt;${l[2]}&lt;/div&gt;&lt;div class=&quot;say&quot;&gt;${l[3]}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;navrow&quot;&gt;&lt;button class=&quot;big-btn&quot; onclick=&quot;enABC()&quot;&gt;🔤 ABC&lt;/button&gt;${back()}&lt;/div&gt;`;
+    const s=()=&gt;speakEn(`${l[0]}. ${l[0]} is for ${l[2]}. ${l[2]}.`);document.getElementById(&#x27;bl&#x27;).onclick=s;s();});
+}
+let er={n:0,ok:0};
+function enRead(){clearT();er={n:0,ok:0};mathRound(er,erQ,enRead);}
+function erQ(){er.tries=0;const pool=EN_WORDS.filter(w=&gt;w[1].length&lt;=5);const o=shuffle(pool).slice(0,3),t=rnd(o);
+  app.innerHTML=`&lt;h2&gt;Read the word and find the picture&lt;/h2&gt;&lt;div class=&quot;enw&quot;&gt;${t[1]}&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${o.map(x=&gt;`&lt;button class=&quot;ch&quot; data-w=&quot;${x[1]}&quot; style=&quot;background:#FFF6E3&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(er.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; id=&quot;hint&quot;&gt;💡 Hint&lt;/button&gt;&lt;/div&gt;`;
+  document.getElementById(&#x27;hint&#x27;).onclick=()=&gt;{er.tries++;speakEn(t[1]);};speak(&#x27;Прочитай английское слово и найди картинку&#x27;);
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=EN_WORDS.find(z=&gt;z[1]===b.dataset.w);
+    if(x===t){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(z=&gt;z.onclick=null);if(!er.tries){er.ok++;star();}tone(&#x27;ok&#x27;);speakEn(`Yes! ${t[1]}!`);er.n++;timers.push(setTimeout(()=&gt;mathRound(er,erQ,enRead),2200));}
+    else{er.tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speakEn(`No, this is a ${x[1]}.`);}});}
+let el={n:0,ok:0};
+function enListen(){clearT();el={n:0,ok:0};mathRound(el,elQ,enListen);}
+function elQ(){el.tries=0;const o=shuffle(EN_WORDS).slice(0,4),t=rnd(o);
+  app.innerHTML=`&lt;div class=&quot;row&quot;&gt;&lt;h2 style=&quot;margin:0&quot;&gt;Listen and find!&lt;/h2&gt;&lt;button class=&quot;speaker&quot; id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${o.map(x=&gt;`&lt;button class=&quot;ch&quot; data-w=&quot;${x[1]}&quot; style=&quot;background:#FFF6E3&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(el.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  const ask=()=&gt;speakEn(`Find the ${t[1]}.`);document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=EN_WORDS.find(z=&gt;z[1]===b.dataset.w);
+    if(x===t){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(z=&gt;z.onclick=null);if(!el.tries){el.ok++;star();}tone(&#x27;ok&#x27;);speakEn(`Great! The ${t[1]}!`);el.n++;timers.push(setTimeout(()=&gt;mathRound(el,elQ,enListen),2200));}
+    else{el.tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speakEn(`This is a ${x[1]}. Find the ${t[1]}.`);}});}
 
 /* ===== Итог ===== */
 function finish(ok,n,again){clearT();
