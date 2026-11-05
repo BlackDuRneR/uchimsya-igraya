@@ -1,0 +1,1298 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#FF6FA0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Учимся играя">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Учимся играя</title>
+<style>
+:root{--bg:#FFF7EA;--ink:#33304F;--muted:#8A86A3}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Arial Rounded MT Bold","Segoe UI",system-ui,Arial,sans-serif;font-weight:700;
+ background-image:radial-gradient(circle at 6% 10%,#FFE1A8 0 90px,transparent 91px),radial-gradient(circle at 95% 18%,#D6F2FF 0 80px,transparent 81px),radial-gradient(circle at 88% 94%,#FFDCE8 0 130px,transparent 131px);background-attachment:fixed}
+#start{max-width:1150px;margin:0 auto;padding:22px 16px;min-height:100%;display:flex;flex-direction:column}
+h1{text-align:center;font-size:clamp(40px,7vw,64px);margin:6px 0 4px;color:#E8505B;letter-spacing:1px}
+.sub{text-align:center;font-size:clamp(22px,3.4vw,30px);color:var(--muted);margin:0 0 26px}
+.ages{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;flex:1;align-content:start}
+.age{border:none;border-radius:40px;padding:26px 20px 28px;color:#fff;font:inherit;cursor:pointer;box-shadow:0 10px 0 rgba(0,0,0,.15);display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .12s}
+.age:active{transform:scale(.97)}
+.ae{font-size:120px;line-height:1.1} .ay{font-size:52px;margin-top:4px} .an{font-size:30px;opacity:.95;margin-top:2px} .ad{font-size:19px;opacity:.9;margin-top:10px;font-weight:400}
+.credit{text-align:center;color:var(--muted);font-size:17px;margin:26px 0 4px}
+#bar{display:none;align-items:center;gap:12px;height:64px;padding:8px 12px;background:#fff;box-shadow:0 3px 0 rgba(0,0,0,.06)}
+#bar button{white-space:nowrap;flex:none;border:none;border-radius:18px;background:#FFC83D;font:inherit;font-size:22px;padding:10px 18px;cursor:pointer;box-shadow:0 4px 0 #D29B00;color:#3a2a00}
+#bar span{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+iframe{display:none;width:100%;height:calc(100% - 64px);border:0;background:var(--bg)}
+body.inapp #start{display:none} body.inapp #bar{display:flex}
+@media (max-width:600px){.ae{font-size:90px}.ay{font-size:40px}#bar span{font-size:16px}#bar button{font-size:18px;padding:8px 12px}}
+</style></head>
+<body>
+<div id="start">
+ <h1>Учимся играя</h1>
+ <p class="sub">Выбери возраст 👇</p>
+ <div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay">0–2 года</span><span class="an">Малышкина страна</span><span class="ad">12 игр: звери, лицо и тело, семья, день и ночь…</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay">2–4 года</span><span class="an">Умняшки</span><span class="ad">15 игр: цвета, фигуры, счёт, пазлы, первые буквы…</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay">5–6 лет</span><span class="an">Весёлая азбука</span><span class="ad">12 игр: все буквы, слоги, чтение, счёт до 10…</span></button></div>
+ <p class="credit">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
+</div>
+<div id="bar"><button id="back">⬅ Возраст</button><span id="ttl"></span></div>
+<iframe id="a02" title="Малышкина страна" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;
+&lt;title&gt;Малышкина страна&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#FFF7E8;--ink:#3A3355;--muted:#8C86A6;--pink:#FF6FA0;--sun:#FFC83D;--sky:#7FD3FF;--green:#4CC46F;--violet:#9C7BFF;--orange:#FF9A4D;--blue:#4F8BFF}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html,body{margin:0;height:100%;overscroll-behavior:none}
+body{background:var(--bg);color:var(--ink);font-family:&quot;Trebuchet MS&quot;,&quot;Arial Rounded MT Bold&quot;,&quot;Segoe UI&quot;,system-ui,Arial,sans-serif;font-weight:700;touch-action:manipulation;
+ background-image:radial-gradient(circle at 6% 10%,#FFE2A8 0 80px,transparent 81px),radial-gradient(circle at 96% 18%,#D6F2FF 0 70px,transparent 71px),radial-gradient(circle at 90% 94%,#FFDCE8 0 120px,transparent 121px);background-attachment:fixed}
+.wrap{max-width:1200px;margin:0 auto;padding:12px 14px 18px;min-height:100%;display:flex;flex-direction:column}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.logo{font-size:30px;color:var(--pink);display:flex;align-items:center;gap:8px}
+.logo span{font-size:42px}
+.hb{display:flex;gap:10px}
+.rb{width:64px;height:64px;border-radius:50%;border:none;background:#fff;font-size:32px;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.08)}
+main{flex:1;background:#fff;border-radius:34px;padding:16px;box-shadow:0 8px 0 rgba(0,0,0,.06);position:relative;overflow:hidden;min-height:70vh}
+.credit{text-align:center;font-size:16px;color:var(--muted);margin:10px 0 0}
+.voice{text-align:center;font-size:15px;color:var(--muted);margin:6px 0 0;font-weight:400}
+/* меню */
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.tile{border:none;border-radius:32px;padding:16px 10px 14px;cursor:pointer;color:#fff;font:inherit;box-shadow:0 8px 0 rgba(0,0,0,.14);transition:transform .12s}
+.tile:active{transform:scale(.95)}
+.tile .e{font-size:96px;line-height:1.05;display:block}
+.tile .t{font-size:26px;display:block;margin-top:6px}
+/* общие */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.card{border:none;border-radius:32px;background:#FFF5E1;cursor:pointer;font:inherit;color:var(--ink);padding:10px 6px 12px;box-shadow:0 7px 0 #F2DDB2;position:relative;overflow:hidden}
+.card .em{font-size:110px;line-height:1.15;display:block}
+.card .nm{font-size:26px;display:block}
+.card:active{transform:scale(.94)}
+.jump{animation:jump .6s}
+@keyframes jump{0%{transform:scale(1)}30%{transform:scale(1.18) rotate(-6deg)}60%{transform:scale(.95) rotate(4deg)}100%{transform:scale(1)}}
+.label{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:52px;opacity:0;pointer-events:none;transition:.25s;z-index:5;white-space:nowrap;box-shadow:0 8px 0 rgba(0,0,0,.1)}
+.label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+h2{text-align:center;font-size:36px;margin:0 0 12px}
+svg .part{cursor:pointer;transition:filter .2s,transform .3s;transform-box:fill-box;transform-origin:center}
+svg .part.lit{filter:drop-shadow(0 0 14px #FFD400) drop-shadow(0 0 6px #FFB000);transform:scale(1.08)}
+.svgbox{display:flex;justify-content:center}
+.svgbox svg{width:min(560px,92vw);height:auto;max-height:72vh}
+/* день-ночь */
+.scene{position:relative;height:70vh;min-height:420px;border-radius:26px;overflow:hidden;cursor:pointer;transition:background 1.2s}
+.scene .sun,.scene .moon{position:absolute;font-size:140px;transition:all 1.4s ease-in-out;line-height:1}
+.scene .ground{position:absolute;left:0;right:0;bottom:0;height:28%;background:#6CCB5F;transition:background 1.2s}
+.scene .house{position:absolute;bottom:20%;left:12%;font-size:170px;line-height:1}
+.scene .tree{position:absolute;bottom:22%;right:12%;font-size:150px;line-height:1}
+.scene .who{position:absolute;bottom:6%;left:46%;font-size:110px;line-height:1;transition:all .6s}
+.scene .star{position:absolute;font-size:44px;transition:opacity 1s}
+.scene .cap{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.85);border-radius:22px;padding:6px 26px;font-size:40px}
+.phases{display:flex;justify-content:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.phases button{border:none;border-radius:24px;font-size:56px;padding:6px 18px;background:#F3F0FF;cursor:pointer}
+.phases button.on{background:var(--sun)}
+/* пузыри */
+.pond{position:relative;height:72vh;min-height:420px;border-radius:26px;background:linear-gradient(#CDEFFF,#F2FBFF);overflow:hidden}
+.bub{position:absolute;border-radius:50%;cursor:pointer;box-shadow:inset -12px -12px 0 rgba(0,0,0,.08),inset 10px 10px 0 rgba(255,255,255,.5)}
+.bub.pop{animation:bpop .28s forwards}
+@keyframes bpop{to{transform:scale(1.7);opacity:0}}
+@keyframes rise{from{transform:translateY(0)}to{transform:translateY(calc(-72vh - 260px))}}
+/* ксилофон */
+.xylo{display:flex;gap:10px;height:66vh;min-height:380px;align-items:center;justify-content:center}
+.key{flex:1;max-width:130px;border:none;border-radius:24px;cursor:pointer;font-size:54px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:18px;box-shadow:0 8px 0 rgba(0,0,0,.18);transition:transform .08s}
+.key:active,.key.hit{transform:translateY(6px) scale(.97);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+/* ку-ку */
+.hide{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.box{height:clamp(160px,28vh,240px);border:none;border-radius:32px;cursor:pointer;font-size:120px;position:relative;background:#E6F7E2;box-shadow:0 7px 0 #BFE5B5;overflow:hidden}
+.box .an{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:translateY(100%);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.box .co{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .35s}
+.box.open .an{transform:translateY(0)} .box.open .co{transform:translateY(-110%)}
+/* покажи где */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:820px;margin:0 auto}
+.two .card .em{font-size:clamp(130px,22vw,210px)}
+.ask{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:14px;font-size:44px}
+.ask button{border:none;background:var(--sun);border-radius:50%;width:80px;height:80px;font-size:40px;cursor:pointer;box-shadow:0 6px 0 #D29B00}
+/* рисовалка */
+.paintwrap{display:flex;flex-direction:column;gap:10px;height:74vh;min-height:420px}
+canvas#paint{flex:1;width:100%;border-radius:24px;background:#fff;border:5px dashed #F0E2C3;touch-action:none;cursor:crosshair}
+.pal{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pal button{width:70px;height:70px;border-radius:50%;border:5px solid #fff;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.pal button.on{border-color:var(--ink);transform:scale(1.12)}
+/* семья */
+.photo{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:24px;display:block}
+.cam{position:absolute;top:8px;right:8px;width:46px;height:46px;border-radius:50%;border:none;background:#fff;font-size:24px;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.hint{text-align:center;color:var(--muted);font-size:18px;margin:12px 0 0;font-weight:400}
+canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (max-width:640px){.rb{width:52px;height:52px;font-size:26px}.logo span{font-size:32px}.tile .e{font-size:76px}.tile .t{font-size:22px}.menu{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr 1fr}.card .em{font-size:90px}.label{font-size:40px}.hide{grid-template-columns:1fr 1fr}.logo{font-size:22px}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id=&quot;conf&quot;&gt;&lt;/canvas&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+  &lt;header&gt;
+    &lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🧸&lt;/span&gt;Малышкина страна&lt;/div&gt;
+    &lt;div class=&quot;hb&quot;&gt;&lt;button class=&quot;rb&quot; id=&quot;homeB&quot; title=&quot;Меню&quot;&gt;🏠&lt;/button&gt;&lt;button class=&quot;rb&quot; id=&quot;snd&quot; title=&quot;Звук&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+  &lt;/header&gt;
+  &lt;main id=&quot;app&quot;&gt;&lt;/main&gt;
+  &lt;p class=&quot;voice&quot; id=&quot;vnote&quot;&gt;&lt;/p&gt;
+  &lt;p class=&quot;credit&quot;&gt;Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.&lt;/p&gt;
+&lt;/div&gt;
+&lt;input type=&quot;file&quot; id=&quot;file&quot; accept=&quot;image/*&quot; style=&quot;display:none&quot;&gt;
+&lt;script&gt;
+/* ================== ЗВУК ================== */
+let soundOn=true,ru=null,A=null;
+function pickV(){try{const v=speechSynthesis.getVoices();ru=v.find(x=&gt;/^ru/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^ru/i.test(x.lang))||null;
+ document.getElementById(&#x27;vnote&#x27;).textContent=ru?&#x27;&#x27;:&#x27;Чтобы малыш слышал слова, на устройстве нужен русский голос (обычно уже есть в Windows, Android, iPad).&#x27;;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickV();speechSynthesis.onvoiceschanged=pickV;}
+function speak(t,delay=0,rate=.85){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;ru-RU&#x27;;if(ru)u.voice=ru;u.rate=rate;u.pitch=1.25;speechSynthesis.speak(u);}catch(e){}},delay);}
+function ac(){if(!A)A=new (window.AudioContext||window.webkitAudioContext)();if(A.state===&#x27;suspended&#x27;)A.resume();return A;}
+function osc(type,f0,f1,t0,dur,vol=.25,filt=null){const a=ac(),o=a.createOscillator(),g=a.createGain(),n=a.currentTime+t0;o.type=type;o.frequency.setValueAtTime(f0,n);
+ if(f1)o.frequency.exponentialRampToValueAtTime(f1,n+dur);g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol,n+Math.min(.05,dur/4));g.gain.setValueAtTime(vol,n+dur*.7);g.gain.exponentialRampToValueAtTime(.0001,n+dur);
+ let node=o;if(filt){const f=a.createBiquadFilter();f.type=filt[0];f.frequency.value=filt[1];if(filt[2])f.Q.value=filt[2];o.connect(f);node=f;}node.connect(g).connect(a.destination);o.start(n);o.stop(n+dur+.05);return o;}
+function vib(o,rate,depth,t0,dur){const a=ac(),l=a.createOscillator(),g=a.createGain();l.frequency.value=rate;g.gain.value=depth;l.connect(g).connect(o.frequency);l.start(a.currentTime+t0);l.stop(a.currentTime+t0+dur+.05);}
+function noise(t0,dur,vol=.2,filt=[&#x27;lowpass&#x27;,800]){const a=ac(),b=a.createBuffer(1,a.sampleRate*dur,a.sampleRate),d=b.getChannelData(0);for(let i=0;i&lt;d.length;i++)d[i]=Math.random()*2-1;
+ const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain(),n=a.currentTime+t0;s.buffer=b;f.type=filt[0];f.frequency.value=filt[1];
+ g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol,n+.03);g.gain.exponentialRampToValueAtTime(.0001,n+dur);s.connect(f).connect(g).connect(a.destination);s.start(n);}
+const SFX={
+ cat:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,450,null,0,.75,.18,[&#x27;bandpass&#x27;,1100,3]);o.frequency.linearRampToValueAtTime(850,ac().currentTime+.25);o.frequency.linearRampToValueAtTime(520,ac().currentTime+.75);},
+ dog:()=&gt;{[0,.32].forEach(t=&gt;{osc(&#x27;square&#x27;,260,110,t,.18,.22,[&#x27;lowpass&#x27;,900]);noise(t,.15,.25,[&#x27;bandpass&#x27;,600]);});},
+ cow:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,115,95,0,1.4,.28,[&#x27;lowpass&#x27;,520]);o.frequency.linearRampToValueAtTime(140,ac().currentTime+.4);vib(o,5,3,0,1.4);},
+ duck:()=&gt;{[0,.22,.44].forEach(t=&gt;osc(&#x27;square&#x27;,520,430,t,.16,.16,[&#x27;bandpass&#x27;,1300,4]));},
+ bird:()=&gt;{[0,.14,.28,.5,.62].forEach(t=&gt;osc(&#x27;sine&#x27;,2400,3800,t,.1,.18));},
+ frog:()=&gt;{[0,.35].forEach(t=&gt;{const o=osc(&#x27;square&#x27;,170,140,t,.25,.2,[&#x27;lowpass&#x27;,700]);vib(o,32,60,t,.25);});},
+ sheep:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,380,340,0,1.1,.2,[&#x27;bandpass&#x27;,1200,2]);vib(o,8,28,0,1.1);},
+ pig:()=&gt;{[0,.24,.48].forEach(t=&gt;{osc(&#x27;sawtooth&#x27;,160,110,t,.17,.2,[&#x27;lowpass&#x27;,700]);noise(t,.15,.15,[&#x27;lowpass&#x27;,500]);});},
+ horse:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,900,380,0,1.1,.18,[&#x27;bandpass&#x27;,1500,2]);vib(o,14,90,0,1.1);},
+ rooster:()=&gt;{[[500,700,0,.18],[700,800,.2,.18],[800,1000,.4,.2],[1000,600,.62,.7]].forEach(([a,b,t,d])=&gt;osc(&#x27;sawtooth&#x27;,a,b,t,d,.15,[&#x27;bandpass&#x27;,1400,2]));},
+ lion:()=&gt;{noise(0,1.3,.4,[&#x27;lowpass&#x27;,300]);const o=osc(&#x27;sawtooth&#x27;,90,60,0,1.3,.25,[&#x27;lowpass&#x27;,400]);vib(o,18,10,0,1.3);},
+ bee:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,230,250,0,1.2,.12,[&#x27;bandpass&#x27;,900,2]);vib(o,9,12,0,1.2);},
+ mouse:()=&gt;{[0,.18,.36].forEach(t=&gt;osc(&#x27;sine&#x27;,3200,3900,t,.09,.15));},
+ owl:()=&gt;{osc(&#x27;sine&#x27;,420,380,0,.35,.3);osc(&#x27;sine&#x27;,420,360,.5,.6,.3);},
+ goat:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,520,470,0,.9,.18,[&#x27;bandpass&#x27;,1400,2]);vib(o,11,45,0,.9);},
+ car:()=&gt;{osc(&#x27;square&#x27;,420,null,0,.22,.18);osc(&#x27;square&#x27;,420,null,.3,.35,.18);},
+ train:()=&gt;{[0,.25,.5,.75].forEach(t=&gt;noise(t,.18,.25,[&#x27;highpass&#x27;,1500]));osc(&#x27;triangle&#x27;,880,null,1.05,.6,.2);osc(&#x27;triangle&#x27;,1100,null,1.05,.6,.15);},
+ plane:()=&gt;{noise(0,2,.35,[&#x27;bandpass&#x27;,700]);osc(&#x27;sawtooth&#x27;,160,320,0,2,.06,[&#x27;lowpass&#x27;,600]);},
+ bus:()=&gt;{osc(&#x27;square&#x27;,330,null,0,.5,.18);},
+ fire:()=&gt;{const o=osc(&#x27;sawtooth&#x27;,600,null,0,2.4,.12,[&#x27;lowpass&#x27;,2000]);o.frequency.setValueAtTime(600,ac().currentTime);for(let i=0;i&lt;4;i++){o.frequency.linearRampToValueAtTime(i%2?600:1000,ac().currentTime+.6*(i+1));}},
+ amb:()=&gt;{const o=osc(&#x27;square&#x27;,700,null,0,2.4,.1,[&#x27;lowpass&#x27;,2200]);for(let i=0;i&lt;8;i++)o.frequency.setValueAtTime(i%2?950:700,ac().currentTime+.3*i);},
+ heli:()=&gt;{for(let i=0;i&lt;14;i++)noise(i*.09,.06,.35,[&#x27;lowpass&#x27;,400]);},
+ ship:()=&gt;{osc(&#x27;sawtooth&#x27;,110,null,0,1.4,.25,[&#x27;lowpass&#x27;,500]);},
+ bike:()=&gt;{osc(&#x27;sine&#x27;,2600,null,0,.6,.2);osc(&#x27;sine&#x27;,3300,null,0,.5,.1);osc(&#x27;sine&#x27;,2600,null,.35,.6,.15);},
+ tractor:()=&gt;{for(let i=0;i&lt;12;i++)osc(&#x27;square&#x27;,70,60,i*.1,.08,.2,[&#x27;lowpass&#x27;,300]);},
+ pop:()=&gt;{osc(&#x27;sine&#x27;,900,180,0,.12,.3);},
+ yum:()=&gt;{noise(0,.12,.3,[&#x27;highpass&#x27;,2000]);noise(.16,.1,.25,[&#x27;highpass&#x27;,2500]);},
+ twinkle:()=&gt;{[0,.1,.2].forEach((t,i)=&gt;osc(&#x27;sine&#x27;,1500+i*400,null,t,.25,.12));},
+ yay:()=&gt;{[[523,0],[659,.12],[784,.24],[1046,.38]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.25,.22));},
+ lull:()=&gt;{[[392,0],[330,.45],[392,.9],[330,1.35],[349,1.8],[294,2.3]].forEach(([f,t])=&gt;osc(&#x27;sine&#x27;,f,null,t,.45,.18));},
+ morning:()=&gt;{[[392,0],[523,.18],[659,.36],[784,.54]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.3,.2));},
+};
+const play=k=&gt;{if(!soundOn)return;try{SFX[k]&amp;&amp;SFX[k]();}catch(e){}};
+document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&#x27;🔊&#x27;:&#x27;🔇&#x27;;try{speechSynthesis.cancel()}catch(e){}};
+
+/* ================== ОБЩЕЕ ================== */
+const app=document.getElementById(&#x27;app&#x27;);
+let timers=[],cleanup=null;
+function reset(){timers.forEach(t=&gt;{clearTimeout(t);clearInterval(t)});timers=[];if(cleanup){cleanup();cleanup=null;}try{speechSynthesis.cancel()}catch(e){}}
+const rnd=a=&gt;a[Math.floor(Math.random()*a.length)];
+const shuffle=a=&gt;{a=[...a];for(let i=a.length-1;i&gt;0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+function bump(el){el.classList.remove(&#x27;jump&#x27;);void el.offsetWidth;el.classList.add(&#x27;jump&#x27;);}
+let lblT;function label(txt){let l=document.getElementById(&#x27;lbl&#x27;);if(!l){l=document.createElement(&#x27;div&#x27;);l.id=&#x27;lbl&#x27;;l.className=&#x27;label&#x27;;app.appendChild(l);}l.textContent=txt;l.classList.add(&#x27;show&#x27;);clearTimeout(lblT);lblT=setTimeout(()=&gt;l.classList.remove(&#x27;show&#x27;),1500);}
+const cv=document.getElementById(&#x27;conf&#x27;),cx=cv.getContext(&#x27;2d&#x27;);let parts=[];
+function confetti(){cv.width=innerWidth;cv.height=innerHeight;const c=[&quot;#FF6FA0&quot;,&quot;#FFC83D&quot;,&quot;#4CC46F&quot;,&quot;#4F8BFF&quot;,&quot;#9C7BFF&quot;,&quot;#FF9A4D&quot;];const st=!parts.length;
+ for(let i=0;i&lt;120;i++)parts.push({x:innerWidth/2,y:innerHeight/2.6,vx:(Math.random()-.5)*16,vy:Math.random()*-14-4,s:10+Math.random()*8,c:c[i%6],r:Math.random()*6,l:130});if(st)requestAnimationFrame(tk);}
+function tk(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=&gt;{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+ parts=parts.filter(p=&gt;p.l&gt;0&amp;&amp;p.y&lt;cv.height+30);if(parts.length)requestAnimationFrame(tk);else cx.clearRect(0,0,cv.width,cv.height);}
+document.addEventListener(&#x27;contextmenu&#x27;,e=&gt;e.preventDefault());
+document.addEventListener(&#x27;dblclick&#x27;,e=&gt;e.preventDefault());
+
+/* ================== ДАННЫЕ ================== */
+const ANIMALS=[
+ [&quot;🐱&quot;,&quot;Кошка&quot;,&quot;мяу-мяу&quot;,&quot;cat&quot;],[&quot;🐶&quot;,&quot;Собачка&quot;,&quot;гав-гав&quot;,&quot;dog&quot;],[&quot;🐮&quot;,&quot;Коровка&quot;,&quot;му-у&quot;,&quot;cow&quot;],[&quot;🦆&quot;,&quot;Уточка&quot;,&quot;кря-кря&quot;,&quot;duck&quot;],
+ [&quot;🐦&quot;,&quot;Птичка&quot;,&quot;чик-чирик&quot;,&quot;bird&quot;],[&quot;🐸&quot;,&quot;Лягушка&quot;,&quot;ква-ква&quot;,&quot;frog&quot;],[&quot;🐑&quot;,&quot;Овечка&quot;,&quot;бе-е&quot;,&quot;sheep&quot;],[&quot;🐷&quot;,&quot;Свинка&quot;,&quot;хрю-хрю&quot;,&quot;pig&quot;],
+ [&quot;🐴&quot;,&quot;Лошадка&quot;,&quot;и-го-го&quot;,&quot;horse&quot;],[&quot;🐓&quot;,&quot;Петушок&quot;,&quot;ку-ка-ре-ку&quot;,&quot;rooster&quot;],[&quot;🦁&quot;,&quot;Лев&quot;,&quot;р-р-р&quot;,&quot;lion&quot;],[&quot;🐝&quot;,&quot;Пчёлка&quot;,&quot;ж-ж-ж&quot;,&quot;bee&quot;],
+ [&quot;🐭&quot;,&quot;Мышка&quot;,&quot;пи-пи-пи&quot;,&quot;mouse&quot;],[&quot;🦉&quot;,&quot;Сова&quot;,&quot;у-ху&quot;,&quot;owl&quot;],[&quot;🐐&quot;,&quot;Козочка&quot;,&quot;ме-е&quot;,&quot;goat&quot;]];
+const TRANSPORT=[[&quot;🚗&quot;,&quot;Машина&quot;,&quot;би-би&quot;,&quot;car&quot;],[&quot;🚂&quot;,&quot;Паровоз&quot;,&quot;чух-чух, ту-ту&quot;,&quot;train&quot;],[&quot;✈️&quot;,&quot;Самолёт&quot;,&quot;у-у-у&quot;,&quot;plane&quot;],[&quot;🚌&quot;,&quot;Автобус&quot;,&quot;би-бип&quot;,&quot;bus&quot;],
+ [&quot;🚒&quot;,&quot;Пожарная машина&quot;,&quot;иу-иу&quot;,&quot;fire&quot;],[&quot;🚑&quot;,&quot;Скорая помощь&quot;,&quot;виу-виу&quot;,&quot;amb&quot;],[&quot;🚁&quot;,&quot;Вертолёт&quot;,&quot;тр-тр-тр&quot;,&quot;heli&quot;],[&quot;🚢&quot;,&quot;Корабль&quot;,&quot;ту-у&quot;,&quot;ship&quot;],[&quot;🚲&quot;,&quot;Велосипед&quot;,&quot;дзинь-дзинь&quot;,&quot;bike&quot;],[&quot;🚜&quot;,&quot;Трактор&quot;,&quot;тр-р-р&quot;,&quot;tractor&quot;]];
+const FOOD=[[&quot;🍎&quot;,&quot;Яблоко&quot;],[&quot;🍌&quot;,&quot;Банан&quot;],[&quot;🍐&quot;,&quot;Груша&quot;],[&quot;🍓&quot;,&quot;Клубника&quot;],[&quot;🍊&quot;,&quot;Апельсин&quot;],[&quot;🍉&quot;,&quot;Арбуз&quot;],[&quot;🥕&quot;,&quot;Морковка&quot;],[&quot;🥒&quot;,&quot;Огурчик&quot;],[&quot;🍅&quot;,&quot;Помидор&quot;],[&quot;🍇&quot;,&quot;Виноград&quot;],[&quot;🍪&quot;,&quot;Печенье&quot;],[&quot;🥛&quot;,&quot;Молоко&quot;]];
+const FAMILY=[[&quot;👩&quot;,&quot;Мама&quot;],[&quot;👨&quot;,&quot;Папа&quot;],[&quot;👵&quot;,&quot;Бабушка&quot;],[&quot;👴&quot;,&quot;Дедушка&quot;],[&quot;👦&quot;,&quot;Брат&quot;],[&quot;👧&quot;,&quot;Сестра&quot;],[&quot;🧔&quot;,&quot;Дядя&quot;],[&quot;👱‍♀️&quot;,&quot;Тётя&quot;],[&quot;👶&quot;,&quot;Малыш&quot;]];
+const COLORS=[[&quot;#FF4D4D&quot;,&quot;Красный&quot;],[&quot;#FFD21F&quot;,&quot;Жёлтый&quot;],[&quot;#3CC75A&quot;,&quot;Зелёный&quot;],[&quot;#3B7BFF&quot;,&quot;Синий&quot;],[&quot;#FF8C1A&quot;,&quot;Оранжевый&quot;],[&quot;#9B5CFF&quot;,&quot;Фиолетовый&quot;],[&quot;#FF7BC0&quot;,&quot;Розовый&quot;]];
+
+/* ================== МЕНЮ ================== */
+const GAMES=[
+ [&quot;🐮&quot;,&quot;Кто как говорит&quot;,&quot;#FF9A4D&quot;,animals],[&quot;👶&quot;,&quot;Лицо&quot;,&quot;#FF6FA0&quot;,face],[&quot;🧍&quot;,&quot;Тело&quot;,&quot;#9C7BFF&quot;,body],[&quot;🌞&quot;,&quot;День и ночь&quot;,&quot;#4F8BFF&quot;,daynight],
+ [&quot;👨‍👩‍👧&quot;,&quot;Моя семья&quot;,&quot;#FF7B7B&quot;,family],[&quot;🚗&quot;,&quot;Транспорт&quot;,&quot;#2FB5C9&quot;,transport],[&quot;🫧&quot;,&quot;Пузыри и цвета&quot;,&quot;#5AB8FF&quot;,bubbles],[&quot;🎹&quot;,&quot;Ксилофон&quot;,&quot;#4CC46F&quot;,xylo],
+ [&quot;🙈&quot;,&quot;Ку-ку!&quot;,&quot;#E9A23B&quot;,peek],[&quot;👉&quot;,&quot;Покажи, где&quot;,&quot;#7A6CF0&quot;,showme],[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],[&quot;🖍️&quot;,&quot;Рисуем&quot;,&quot;#F08BD8&quot;,paint]];
+function home(){reset();
+ app.innerHTML=`&lt;div class=&quot;menu&quot;&gt;${GAMES.map((g,i)=&gt;`&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();play(&#x27;pop&#x27;);GAMES[+b.dataset.i][3]();});
+}
+document.getElementById(&#x27;homeB&#x27;).onclick=home;
+
+/* 1. Кто как говорит */
+function animals(){reset();
+ app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${ANIMALS.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=ANIMALS[+b.dataset.i];bump(b);play(a[3]);label(a[2]);speak(`${a[1]} говорит: ${a[2]}!`,900);});
+ speak(&#x27;Нажми на зверюшку!&#x27;);
+}
+/* 2. Лицо */
+function face(){reset();
+ app.innerHTML=`&lt;h2&gt;Где глазки? Где носик?&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;svg viewBox=&quot;0 0 400 430&quot;&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это ушко&quot; cx=&quot;58&quot; cy=&quot;245&quot; rx=&quot;34&quot; ry=&quot;50&quot; fill=&quot;#F7C29A&quot;/&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это ушко&quot; cx=&quot;342&quot; cy=&quot;245&quot; rx=&quot;34&quot; ry=&quot;50&quot; fill=&quot;#F7C29A&quot;/&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это лицо&quot; cx=&quot;200&quot; cy=&quot;240&quot; rx=&quot;150&quot; ry=&quot;165&quot; fill=&quot;#FFD9B8&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;Это волосы&quot; d=&quot;M52 200 C50 90 140 55 200 55 C270 55 352 90 348 200 C330 150 290 120 250 130 C230 100 170 100 150 130 C110 120 70 150 52 200Z&quot; fill=&quot;#8B5A2B&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;Это бровки&quot; d=&quot;M110 175 Q145 155 180 172&quot; stroke=&quot;#6B4220&quot; stroke-width=&quot;12&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;Это бровки&quot; d=&quot;M220 172 Q255 155 290 175&quot; stroke=&quot;#6B4220&quot; stroke-width=&quot;12&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+  &lt;g class=&quot;part&quot; data-n=&quot;Это глазик&quot;&gt;&lt;ellipse cx=&quot;145&quot; cy=&quot;215&quot; rx=&quot;30&quot; ry=&quot;34&quot; fill=&quot;#fff&quot; stroke=&quot;#3A3355&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;149&quot; cy=&quot;220&quot; r=&quot;15&quot; fill=&quot;#3A6BD8&quot;/&gt;&lt;circle cx=&quot;150&quot; cy=&quot;221&quot; r=&quot;8&quot; fill=&quot;#111&quot;/&gt;&lt;circle cx=&quot;154&quot; cy=&quot;214&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
+  &lt;g class=&quot;part&quot; data-n=&quot;Это глазик&quot;&gt;&lt;ellipse cx=&quot;255&quot; cy=&quot;215&quot; rx=&quot;30&quot; ry=&quot;34&quot; fill=&quot;#fff&quot; stroke=&quot;#3A3355&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;251&quot; cy=&quot;220&quot; r=&quot;15&quot; fill=&quot;#3A6BD8&quot;/&gt;&lt;circle cx=&quot;250&quot; cy=&quot;221&quot; r=&quot;8&quot; fill=&quot;#111&quot;/&gt;&lt;circle cx=&quot;254&quot; cy=&quot;214&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;Это щёчки&quot; cx=&quot;118&quot; cy=&quot;290&quot; r=&quot;26&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.75&quot;/&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;Это щёчки&quot; cx=&quot;282&quot; cy=&quot;290&quot; r=&quot;26&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.75&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;Это носик&quot; d=&quot;M200 235 C185 270 175 285 200 290 C225 285 215 270 200 235Z&quot; fill=&quot;#F4B48A&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;Это ротик&quot; d=&quot;M145 325 Q200 380 255 325 Q200 345 145 325Z&quot; fill=&quot;#E8505B&quot; stroke=&quot;#B83242&quot; stroke-width=&quot;4&quot;/&gt;
+ &lt;/svg&gt;&lt;/div&gt;`;
+ bindParts();speak(&#x27;Нажми: где глазки, где носик?&#x27;);
+}
+/* 3. Тело */
+function body(){reset();
+ app.innerHTML=`&lt;h2&gt;Ручки, ножки, голова&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;svg viewBox=&quot;0 0 320 560&quot;&gt;
+  &lt;rect class=&quot;part&quot; data-n=&quot;Это ножка&quot; x=&quot;108&quot; y=&quot;330&quot; width=&quot;44&quot; height=&quot;160&quot; rx=&quot;20&quot; fill=&quot;#3B7BFF&quot;/&gt;
+  &lt;rect class=&quot;part&quot; data-n=&quot;Это ножка&quot; x=&quot;168&quot; y=&quot;330&quot; width=&quot;44&quot; height=&quot;160&quot; rx=&quot;20&quot; fill=&quot;#3B7BFF&quot;/&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это стопа&quot; cx=&quot;122&quot; cy=&quot;505&quot; rx=&quot;38&quot; ry=&quot;20&quot; fill=&quot;#E8505B&quot;/&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это стопа&quot; cx=&quot;198&quot; cy=&quot;505&quot; rx=&quot;38&quot; ry=&quot;20&quot; fill=&quot;#E8505B&quot;/&gt;
+  &lt;rect class=&quot;part&quot; data-n=&quot;Это ручка&quot; x=&quot;38&quot; y=&quot;175&quot; width=&quot;40&quot; height=&quot;150&quot; rx=&quot;20&quot; fill=&quot;#FFC83D&quot; transform=&quot;rotate(14 58 175)&quot;/&gt;
+  &lt;rect class=&quot;part&quot; data-n=&quot;Это ручка&quot; x=&quot;242&quot; y=&quot;175&quot; width=&quot;40&quot; height=&quot;150&quot; rx=&quot;20&quot; fill=&quot;#FFC83D&quot; transform=&quot;rotate(-14 262 175)&quot;/&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;Это ладошка&quot; cx=&quot;40&quot; cy=&quot;335&quot; r=&quot;26&quot; fill=&quot;#FFD9B8&quot;/&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;Это ладошка&quot; cx=&quot;280&quot; cy=&quot;335&quot; r=&quot;26&quot; fill=&quot;#FFD9B8&quot;/&gt;
+  &lt;rect class=&quot;part&quot; data-n=&quot;Это туловище, тут животик&quot; x=&quot;80&quot; y=&quot;160&quot; width=&quot;160&quot; height=&quot;190&quot; rx=&quot;40&quot; fill=&quot;#FFC83D&quot;/&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;Это пупок&quot; cx=&quot;160&quot; cy=&quot;290&quot; r=&quot;7&quot; fill=&quot;#C9961F&quot;/&gt;
+  &lt;rect class=&quot;part&quot; data-n=&quot;Это шея&quot; x=&quot;140&quot; y=&quot;132&quot; width=&quot;40&quot; height=&quot;36&quot; rx=&quot;10&quot; fill=&quot;#F7C29A&quot;/&gt;
+  &lt;g class=&quot;part&quot; data-n=&quot;Это голова&quot;&gt;&lt;circle cx=&quot;160&quot; cy=&quot;82&quot; r=&quot;62&quot; fill=&quot;#FFD9B8&quot;/&gt;&lt;path d=&quot;M100 70 C100 20 220 20 220 70 C200 45 120 45 100 70Z&quot; fill=&quot;#8B5A2B&quot;/&gt;
+   &lt;circle cx=&quot;138&quot; cy=&quot;85&quot; r=&quot;7&quot; fill=&quot;#3A3355&quot;/&gt;&lt;circle cx=&quot;182&quot; cy=&quot;85&quot; r=&quot;7&quot; fill=&quot;#3A3355&quot;/&gt;&lt;path d=&quot;M140 108 Q160 125 180 108&quot; stroke=&quot;#E8505B&quot; stroke-width=&quot;6&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+ &lt;/svg&gt;&lt;/div&gt;`;
+ bindParts();speak(&#x27;Где ручки? Где ножки? Нажимай!&#x27;);
+}
+function bindParts(){app.querySelectorAll(&#x27;.part&#x27;).forEach(p=&gt;p.addEventListener(&#x27;pointerdown&#x27;,e=&gt;{e.stopPropagation();const n=p.dataset.n;
+  app.querySelectorAll(&#x27;.part.lit&#x27;).forEach(x=&gt;x.classList.remove(&#x27;lit&#x27;));
+  app.querySelectorAll(`.part[data-n=&quot;${n}&quot;]`).forEach(x=&gt;x.classList.add(&#x27;lit&#x27;));timers.push(setTimeout(()=&gt;app.querySelectorAll(&#x27;.part.lit&#x27;).forEach(x=&gt;x.classList.remove(&#x27;lit&#x27;)),1300));
+  play(&#x27;pop&#x27;);label(n.replace(&#x27;Это &#x27;,&#x27;&#x27;).split(&#x27;,&#x27;)[0]);speak(n+&#x27;!&#x27;,150);}));}
+/* 4. День и ночь */
+function daynight(){reset();
+ const PH=[
+  {k:&quot;Утро&quot;,ic:&quot;🌅&quot;,sky:&quot;linear-gradient(#FFB88C,#FFE3B3)&quot;,gr:&quot;#7FCB6A&quot;,sun:[12,48],moon:[80,110],who:&quot;🐓&quot;,stars:0,say:&quot;Утро! Петушок кричит: ку-ка-ре-ку! Доброе утро!&quot;,sfx:&quot;rooster&quot;},
+  {k:&quot;День&quot;,ic:&quot;☀️&quot;,sky:&quot;linear-gradient(#5FC3FF,#BFEAFF)&quot;,gr:&quot;#5DC24E&quot;,sun:[42,6],moon:[80,110],who:&quot;🧒&quot;,stars:0,say:&quot;День! Солнышко светит. Гуляем!&quot;,sfx:&quot;morning&quot;},
+  {k:&quot;Вечер&quot;,ic:&quot;🌇&quot;,sky:&quot;linear-gradient(#FF8A65,#9C6ADE)&quot;,gr:&quot;#4E9A47&quot;,sun:[75,52],moon:[80,110],who:&quot;🛁&quot;,stars:.3,say:&quot;Вечер. Солнышко садится. Пора купаться.&quot;,sfx:&quot;twinkle&quot;},
+  {k:&quot;Ночь&quot;,ic:&quot;🌙&quot;,sky:&quot;linear-gradient(#0E1A4A,#2C2F7A)&quot;,gr:&quot;#244A2A&quot;,sun:[80,110],moon:[62,8],who:&quot;😴&quot;,stars:1,say:&quot;Ночь. Луна и звёздочки. Все спят. Баю-бай!&quot;,sfx:&quot;lull&quot;}];
+ let i=0;
+ app.innerHTML=`&lt;div class=&quot;scene&quot; id=&quot;sc&quot;&gt;&lt;div class=&quot;sun&quot; id=&quot;sun&quot;&gt;☀️&lt;/div&gt;&lt;div class=&quot;moon&quot; id=&quot;moon&quot;&gt;🌙&lt;/div&gt;
+   ${Array.from({length:14},(_,j)=&gt;`&lt;div class=&quot;star&quot; style=&quot;left:${(j*37)%92+3}%;top:${(j*23)%40+4}%&quot;&gt;⭐&lt;/div&gt;`).join(&#x27;&#x27;)}
+   &lt;div class=&quot;ground&quot; id=&quot;gr&quot;&gt;&lt;/div&gt;&lt;div class=&quot;house&quot;&gt;🏠&lt;/div&gt;&lt;div class=&quot;tree&quot;&gt;🌳&lt;/div&gt;&lt;div class=&quot;who&quot; id=&quot;who&quot;&gt;&lt;/div&gt;&lt;div class=&quot;cap&quot; id=&quot;cap&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;phases&quot;&gt;${PH.map((p,j)=&gt;`&lt;button data-j=&quot;${j}&quot;&gt;${p.ic}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ const sc=document.getElementById(&#x27;sc&#x27;);
+ const set=(j,talk=true)=&gt;{i=j;const p=PH[j];sc.style.background=p.sky;document.getElementById(&#x27;gr&#x27;).style.background=p.gr;
+  const s=document.getElementById(&#x27;sun&#x27;),m=document.getElementById(&#x27;moon&#x27;);s.style.left=p.sun[0]+&#x27;%&#x27;;s.style.top=p.sun[1]+&#x27;%&#x27;;m.style.left=p.moon[0]+&#x27;%&#x27;;m.style.top=p.moon[1]+&#x27;%&#x27;;
+  sc.querySelectorAll(&#x27;.star&#x27;).forEach(x=&gt;x.style.opacity=p.stars);const w=document.getElementById(&#x27;who&#x27;);w.textContent=p.who;bump(w);
+  document.getElementById(&#x27;cap&#x27;).textContent=p.k;app.querySelectorAll(&#x27;.phases button&#x27;).forEach((b,k)=&gt;b.classList.toggle(&#x27;on&#x27;,k===j));
+  if(talk){play(p.sfx);speak(p.say,p.sfx===&#x27;rooster&#x27;?1100:500);}};
+ sc.onclick=e=&gt;{if(e.target.classList.contains(&#x27;star&#x27;)){play(&#x27;twinkle&#x27;);bump(e.target);speak(&#x27;Звёздочка!&#x27;);return;}set((i+1)%4);};
+ app.querySelectorAll(&#x27;.phases button&#x27;).forEach(b=&gt;b.onclick=()=&gt;set(+b.dataset.j));
+ set(0,false);speak(&#x27;Нажми на картинку: утро, день, вечер, ночь!&#x27;);
+}
+/* 5. Семья (можно поставить свои фото) */
+let photos={};try{photos=JSON.parse(localStorage.getItem(&#x27;m_photos&#x27;)||&#x27;{}&#x27;);}catch(e){}
+function family(){reset();
+ app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${FAMILY.map((f,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;${photos[f[1]]?`&lt;img class=&quot;photo&quot; src=&quot;${photos[f[1]]}&quot; alt=&quot;&quot;&gt;`:`&lt;span class=&quot;em&quot;&gt;${f[0]}&lt;/span&gt;`}&lt;span class=&quot;nm&quot;&gt;${f[1]}&lt;/span&gt;&lt;span class=&quot;cam&quot; data-c=&quot;${i}&quot; role=&quot;button&quot;&gt;📷&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;p class=&quot;hint&quot;&gt;Для взрослых: нажмите 📷, чтобы поставить настоящую фотографию мамы, папы, бабушки…&lt;/p&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=e=&gt;{const f=FAMILY[+b.dataset.i];
+  if(e.target.dataset.c!==undefined){pickPhoto(f[1]);return;}
+  bump(b);play(&#x27;yay&#x27;);label(f[1]);speak(f[1]===&#x27;Малыш&#x27;?&#x27;Это малыш! Это ты!&#x27;:`Это ${f[1].toLowerCase()}!`,250);});
+ speak(&#x27;Это моя семья!&#x27;);
+}
+function pickPhoto(name){const inp=document.getElementById(&#x27;file&#x27;);inp.value=&#x27;&#x27;;inp.onchange=()=&gt;{const fl=inp.files[0];if(!fl)return;const img=new Image();const r=new FileReader();
+  r.onload=()=&gt;{img.onload=()=&gt;{const c=document.createElement(&#x27;canvas&#x27;),S=320;c.width=c.height=S;const k=Math.max(S/img.width,S/img.height),w=img.width*k,h=img.height*k;
+   c.getContext(&#x27;2d&#x27;).drawImage(img,(S-w)/2,(S-h)/2,w,h);photos[name]=c.toDataURL(&#x27;image/jpeg&#x27;,.8);try{localStorage.setItem(&#x27;m_photos&#x27;,JSON.stringify(photos));}catch(e){}family();};img.src=r.result;};r.readAsDataURL(fl);};inp.click();}
+/* 6. Транспорт */
+function transport(){reset();
+ app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${TRANSPORT.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=TRANSPORT[+b.dataset.i];bump(b);play(a[3]);label(a[2]);speak(`${a[1]}: ${a[2]}!`,a[3]===&#x27;plane&#x27;||a[3]===&#x27;fire&#x27;||a[3]===&#x27;amb&#x27;?1800:900);});
+ speak(&#x27;Нажми на машинку!&#x27;);
+}
+/* 7. Пузыри и цвета */
+function bubbles(){reset();
+ app.innerHTML=`&lt;div class=&quot;pond&quot; id=&quot;pond&quot;&gt;&lt;/div&gt;`;const pond=document.getElementById(&#x27;pond&#x27;);
+ const spawn=()=&gt;{const [c,n]=rnd(COLORS),s=110+Math.random()*80,b=document.createElement(&#x27;div&#x27;);b.className=&#x27;bub&#x27;;
+  Object.assign(b.style,{width:s+&#x27;px&#x27;,height:s+&#x27;px&#x27;,left:(Math.random()*85)+&#x27;%&#x27;,bottom:-s+&#x27;px&#x27;,background:c,animation:`rise ${8+Math.random()*4}s linear forwards`});
+  b.onpointerdown=()=&gt;{if(b.dataset.p)return;b.dataset.p=1;b.style.animation=&#x27;bpop .28s forwards&#x27;;play(&#x27;pop&#x27;);speak(n+&#x27;!&#x27;);timers.push(setTimeout(()=&gt;b.remove(),300));};
+  pond.appendChild(b);timers.push(setTimeout(()=&gt;b.remove(),13000));};
+ for(let k=0;k&lt;4;k++)timers.push(setTimeout(spawn,k*400));timers.push(setInterval(spawn,1100));
+ speak(&#x27;Лопай пузыри!&#x27;);
+}
+/* 8. Ксилофон */
+function xylo(){reset();
+ const N=[[523,&quot;#FF4D4D&quot;,&quot;🐱&quot;],[587,&quot;#FF8C1A&quot;,&quot;🐶&quot;],[659,&quot;#FFD21F&quot;,&quot;🐥&quot;],[698,&quot;#3CC75A&quot;,&quot;🐸&quot;],[784,&quot;#2FB5C9&quot;,&quot;🐳&quot;],[880,&quot;#3B7BFF&quot;,&quot;🦋&quot;],[988,&quot;#9B5CFF&quot;,&quot;🦄&quot;],[1046,&quot;#FF7BC0&quot;,&quot;🐷&quot;]];
+ app.innerHTML=`&lt;div class=&quot;xylo&quot;&gt;${N.map((n,i)=&gt;`&lt;button class=&quot;key&quot; data-i=&quot;${i}&quot; style=&quot;background:${n[1]};height:${96-i*6}%&quot;&gt;${n[2]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;phases&quot;&gt;&lt;button id=&quot;song&quot;&gt;🎶&lt;/button&gt;&lt;/div&gt;`;
+ const hit=i=&gt;{const [f]=N[i];if(soundOn){osc(&#x27;triangle&#x27;,f,null,0,.6,.3);osc(&#x27;sine&#x27;,f*2,null,0,.3,.08);}const k=app.querySelectorAll(&#x27;.key&#x27;)[i];k.classList.add(&#x27;hit&#x27;);setTimeout(()=&gt;k.classList.remove(&#x27;hit&#x27;),140);};
+ app.querySelectorAll(&#x27;.key&#x27;).forEach(k=&gt;k.onpointerdown=()=&gt;hit(+k.dataset.i));
+ // «В лесу родилась ёлочка» (народная мелодия, 1905)
+ const SONG=[[0,1],[5,1],[5,1],[4,1],[5,1],[3,1],[0,1],[0,1],[0,1],[5,1],[5,1],[6,1],[4,1],[7,2]];
+ document.getElementById(&#x27;song&#x27;).onclick=()=&gt;{let t=0;SONG.forEach(([n,d])=&gt;{timers.push(setTimeout(()=&gt;hit(n),t));t+=d*380;});};
+}
+/* 9. Ку-ку */
+function peek(){reset();
+ const covers=[&quot;🌳&quot;,&quot;🎁&quot;,&quot;🌷&quot;,&quot;🧺&quot;,&quot;🪣&quot;,&quot;☁️&quot;];const pick=shuffle(ANIMALS).slice(0,6);
+ app.innerHTML=`&lt;h2&gt;Кто спрятался?&lt;/h2&gt;&lt;div class=&quot;hide&quot;&gt;${pick.map((a,i)=&gt;`&lt;button class=&quot;box&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;co&quot;&gt;${covers[i]}&lt;/span&gt;&lt;span class=&quot;an&quot;&gt;${a[0]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.box&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=pick[+b.dataset.i];const open=b.classList.toggle(&#x27;open&#x27;);
+  if(open){play(a[3]);speak(`Ку-ку! Это ${a[1].toLowerCase()}!`,800);}else play(&#x27;pop&#x27;);});
+ speak(&#x27;Кто спрятался? Нажми!&#x27;);
+}
+/* 10. Покажи, где */
+let sw={};
+function showme(){reset();sw={n:0};swQ();}
+function swQ(){
+ const pool=shuffle([...ANIMALS.map(a=&gt;[a[0],a[1],a[3]]),...TRANSPORT.slice(0,4).map(a=&gt;[a[0],a[1],a[3]]),...FOOD.slice(0,6).map(f=&gt;[f[0],f[1],&#x27;yum&#x27;])]);
+ const t=pool[0],o=pool[1],opts=shuffle([t,o]);
+ const ask=()=&gt;speak(`Где ${t[1].toLowerCase()}?`);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Где ${t[1].toLowerCase()}? &lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;two&quot;&gt;${opts.map((x,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${x[0]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];bump(b);
+  if(x===t){play(&#x27;yay&#x27;);confetti();label(&#x27;Молодец!&#x27;);speak(`Молодец! Вот ${t[1].toLowerCase()}!`,300);app.querySelectorAll(&#x27;.card&#x27;).forEach(c=&gt;c.onclick=null);timers.push(setTimeout(swQ,2600));}
+  else{play(x[2]);speak(`Это ${x[1].toLowerCase()}. А где ${t[1].toLowerCase()}?`,700);}});
+}
+/* 11. Ням-ням */
+function food(){reset();
+ app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${FOOD.map((f,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot; data-b=&quot;0&quot;&gt;&lt;span class=&quot;em&quot;&gt;${f[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${f[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const f=FOOD[+b.dataset.i];let n=+b.dataset.b+1;const em=b.querySelector(&#x27;.em&#x27;);
+  play(&#x27;yum&#x27;);
+  if(n&lt;3){em.style.transform=`scale(${1-n*.25})`;speak(n===1?`${f[1]}. Ам!`:&#x27;Ам! Вкусно!&#x27;);}
+  else{em.style.transform=&#x27;scale(0)&#x27;;speak(&#x27;Всё съели! Ням-ням!&#x27;);timers.push(setTimeout(()=&gt;{em.style.transform=&#x27;scale(1)&#x27;;b.dataset.b=0;play(&#x27;pop&#x27;);},1400));n=0;}
+  em.style.transition=&#x27;transform .25s&#x27;;b.dataset.b=n;});
+ speak(&#x27;Покорми меня! Нажимай на еду!&#x27;);
+}
+/* 12. Рисуем */
+function paint(){reset();
+ const PAL=[&quot;#FF4D4D&quot;,&quot;#FF8C1A&quot;,&quot;#FFD21F&quot;,&quot;#3CC75A&quot;,&quot;#3B7BFF&quot;,&quot;#9B5CFF&quot;,&quot;#FF7BC0&quot;,&quot;#3A3355&quot;];
+ app.innerHTML=`&lt;div class=&quot;paintwrap&quot;&gt;&lt;canvas id=&quot;paint&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;pal&quot;&gt;${PAL.map((c,i)=&gt;`&lt;button data-c=&quot;${c}&quot; style=&quot;background:${c}&quot; class=&quot;${i?&#x27;&#x27;:&#x27;on&#x27;}&quot;&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;button id=&quot;clr&quot; style=&quot;background:#fff;font-size:34px&quot;&gt;🧽&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const c=document.getElementById(&#x27;paint&#x27;),g=c.getContext(&#x27;2d&#x27;);let col=PAL[0],down=false,last=null,lastS=0;
+ const fit=()=&gt;{const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;const img=c.width?g.getImageData(0,0,c.width,c.height):null;c.width=r.width*d;c.height=r.height*d;g.scale(d,d);g.lineCap=g.lineJoin=&#x27;round&#x27;;g.lineWidth=26;};
+ fit();
+ const pos=e=&gt;{const r=c.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top];};
+ c.onpointerdown=e=&gt;{down=true;last=pos(e);c.setPointerCapture(e.pointerId);g.fillStyle=col;g.beginPath();g.arc(last[0],last[1],13,0,7);g.fill();};
+ c.onpointermove=e=&gt;{if(!down)return;const p=pos(e);g.strokeStyle=col;g.beginPath();g.moveTo(...last);g.lineTo(...p);g.stroke();last=p;const now=Date.now();if(now-lastS&gt;250&amp;&amp;soundOn){lastS=now;osc(&#x27;sine&#x27;,600+Math.random()*700,null,0,.08,.05);}};
+ c.onpointerup=c.onpointercancel=()=&gt;{down=false;};
+ app.querySelectorAll(&#x27;.pal button[data-c]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{col=b.dataset.c;app.querySelectorAll(&#x27;.pal button&#x27;).forEach(x=&gt;x.classList.remove(&#x27;on&#x27;));b.classList.add(&#x27;on&#x27;);play(&#x27;pop&#x27;);
+  const nm=COLORS.find(x=&gt;x[0]===col);speak(nm?nm[1]:(col===&#x27;#3A3355&#x27;?&#x27;Чёрный&#x27;:&#x27;&#x27;));});
+ document.getElementById(&#x27;clr&#x27;).onclick=()=&gt;{g.clearRect(0,0,c.width,c.height);play(&#x27;pop&#x27;);};
+ const onR=()=&gt;fit();window.addEventListener(&#x27;resize&#x27;,onR);cleanup=()=&gt;window.removeEventListener(&#x27;resize&#x27;,onR);
+ speak(&#x27;Рисуй пальчиком!&#x27;);
+}
+home();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="a24" title="Умняшки" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;
+&lt;title&gt;Умняшки 2–4&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#F2FBF4;--ink:#33304F;--muted:#8A86A3;--sun:#FFC83D;--green:#43C26B;--pink:#FF6FA0;--blue:#4F8BFF;--violet:#9C7BFF;--orange:#FF9A4D;--teal:#22B8C8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html,body{margin:0;height:100%;overscroll-behavior:none}
+body{background:var(--bg);color:var(--ink);font-family:&quot;Trebuchet MS&quot;,&quot;Arial Rounded MT Bold&quot;,&quot;Segoe UI&quot;,system-ui,Arial,sans-serif;font-weight:700;touch-action:manipulation;
+ background-image:radial-gradient(circle at 5% 12%,#CFF2D9 0 80px,transparent 81px),radial-gradient(circle at 96% 20%,#FFE6B3 0 70px,transparent 71px),radial-gradient(circle at 88% 95%,#DCE7FF 0 120px,transparent 121px);background-attachment:fixed}
+.wrap{max-width:1200px;margin:0 auto;padding:12px 14px 18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.logo{font-size:30px;color:var(--green);display:flex;align-items:center;gap:8px}.logo span{font-size:42px}
+.hb{display:flex;gap:10px;align-items:center}
+.pill{background:#fff;border-radius:999px;padding:8px 16px;font-size:26px;box-shadow:0 5px 0 rgba(0,0,0,.08)}
+.rb{width:62px;height:62px;border-radius:50%;border:none;background:#fff;font-size:30px;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.08)}
+main{background:#fff;border-radius:34px;padding:16px;box-shadow:0 8px 0 rgba(0,0,0,.06);position:relative;overflow:hidden;min-height:72vh}
+.voice{text-align:center;font-size:15px;color:var(--muted);margin:8px 0 0;font-weight:400}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tile{border:none;border-radius:30px;padding:14px 8px 12px;cursor:pointer;color:#fff;font:inherit;box-shadow:0 8px 0 rgba(0,0,0,.14)}
+.tile:active{transform:scale(.95)}
+.tile .e{font-size:78px;line-height:1.1;display:block}.tile .t{font-size:23px;display:block;margin-top:4px}
+h2{text-align:center;font-size:38px;margin:4px 0 14px}
+.ask{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:14px;font-size:40px;text-align:center;flex-wrap:wrap}
+.ask button{border:none;background:var(--sun);border-radius:50%;width:76px;height:76px;font-size:38px;cursor:pointer;box-shadow:0 6px 0 #D29B00;flex:none}
+.opts{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.opt{min-width:clamp(140px,22vw,230px);min-height:clamp(140px,22vw,230px);border:none;border-radius:34px;background:#FFF6E3;cursor:pointer;font:inherit;font-size:clamp(90px,14vw,150px);line-height:1;box-shadow:0 8px 0 #EEDDB5;display:flex;align-items:center;justify-content:center;padding:10px;color:var(--ink)}
+.opt.ok{background:#D9F7E3;box-shadow:0 8px 0 var(--green)}
+.opt.no{opacity:.35}
+.stars{text-align:center;font-size:38px;min-height:46px;margin-top:14px;letter-spacing:4px}
+.jump{animation:jump .6s}
+@keyframes jump{0%{transform:scale(1)}30%{transform:scale(1.15) rotate(-5deg)}60%{transform:scale(.96) rotate(3deg)}100%{transform:scale(1)}}
+.shake{animation:shake .35s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.dot{width:clamp(120px,18vw,180px);height:clamp(120px,18vw,180px);border-radius:50%;border:none;cursor:pointer;box-shadow:inset -14px -14px 0 rgba(0,0,0,.1),0 8px 0 rgba(0,0,0,.12)}
+/* перетаскивание */
+.drag{cursor:grab;touch-action:none}
+.ghost{position:fixed;pointer-events:none;z-index:50;transform:translate(-50%,-50%) scale(1.15);filter:drop-shadow(0 10px 10px rgba(0,0,0,.25))}
+.tray{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;min-height:130px;margin:10px 0 20px}
+.item{font-size:90px;line-height:1;background:#FFF6E3;border-radius:26px;padding:10px;box-shadow:0 6px 0 #EEDDB5}
+.bowls{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.bowl{width:clamp(170px,26vw,260px);min-height:180px;border-radius:30px 30px 90px 90px;display:flex;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:10px;font-size:46px;gap:4px;border:8px solid rgba(0,0,0,.08)}
+.board{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;background:#F5E6CF;border-radius:34px;padding:26px;margin-bottom:20px}
+.hole{width:150px;height:150px;display:flex;align-items:center;justify-content:center}
+/* счёт */
+.count{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:0 0 18px}
+.count .c{font-size:100px;line-height:1;cursor:pointer;position:relative}
+.count .c i{position:absolute;top:-6px;right:-6px;background:var(--blue);color:#fff;font-style:normal;font-size:30px;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center}
+.num{font-size:clamp(90px,14vw,140px)!important;color:var(--blue)}
+/* память */
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:760px;margin:0 auto}
+.mc{aspect-ratio:1/1;border:none;border-radius:26px;cursor:pointer;font-size:clamp(60px,10vw,100px);background:linear-gradient(135deg,#9C7BFF,#4F8BFF);color:transparent;box-shadow:0 7px 0 #5B44C9;transition:transform .3s}
+.mc.open,.mc.done{background:#FFF6E3;color:inherit;box-shadow:0 7px 0 #EEDDB5;transform:rotateY(180deg)}
+.mc span{display:inline-block;transform:rotateY(180deg)}
+.mc.done{opacity:.55}
+/* пазл */
+.pz{display:grid;grid-template-columns:repeat(2,var(--ps));grid-template-rows:repeat(2,var(--ps));gap:6px;justify-content:center;margin:0 auto 18px;--ps:min(170px,36vw)}
+.slot{background:#EDE7DA;border-radius:16px;border:4px dashed #D4C7AE;overflow:hidden;position:relative}
+.piece{width:var(--ps);height:var(--ps);overflow:hidden;position:relative;border-radius:16px;background:#FFF6E3;box-shadow:0 5px 0 #EEDDB5}
+.piece span,.slot span{position:absolute;width:calc(var(--ps)*2);height:calc(var(--ps)*2);font-size:calc(var(--ps)*1.6);line-height:calc(var(--ps)*2);text-align:center}
+.ptray{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;--ps:min(150px,22vw)}
+.ptray .piece span{width:calc(var(--ps)*2);height:calc(var(--ps)*2);font-size:calc(var(--ps)*1.6);line-height:calc(var(--ps)*2)}
+/* буквы */
+.lt{font-size:clamp(110px,16vw,170px)!important;color:#F0435A}
+.lt.c{color:#2F6FE4}
+.weather{font-size:150px;text-align:center;line-height:1.1}
+.shadow{filter:brightness(0) opacity(.75)}
+canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
+.label{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:50px;opacity:0;pointer-events:none;transition:.25s;z-index:55;white-space:nowrap}
+.label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+@media (max-width:640px){.logo{font-size:22px}.logo span{font-size:32px}.rb{width:50px;height:50px;font-size:24px}.pill{font-size:20px;padding:6px 10px}.hb{gap:6px}.menu{grid-template-columns:1fr 1fr}.tile .e{font-size:64px}.tile .t{font-size:20px}h2,.ask{font-size:30px}.mem{grid-template-columns:repeat(3,1fr)}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id=&quot;conf&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;label&quot; id=&quot;lbl&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+ &lt;header&gt;&lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🦊&lt;/span&gt;Умняшки&lt;/div&gt;
+  &lt;div class=&quot;hb&quot;&gt;&lt;span class=&quot;pill&quot;&gt;⭐ &lt;span id=&quot;stars&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;rb&quot; id=&quot;homeB&quot;&gt;🏠&lt;/button&gt;&lt;button class=&quot;rb&quot; id=&quot;snd&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;
+ &lt;main id=&quot;app&quot;&gt;&lt;/main&gt;
+ &lt;p class=&quot;voice&quot; id=&quot;vnote&quot;&gt;&lt;/p&gt;
+ &lt;p class=&quot;voice&quot; style=&quot;font-weight:700&quot;&gt;Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+/* ---------- голос и звуки ---------- */
+let soundOn=true,ru=null,A=null;
+function pickV(){try{const v=speechSynthesis.getVoices();ru=v.find(x=&gt;/^ru/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^ru/i.test(x.lang))||null;
+ document.getElementById(&#x27;vnote&#x27;).textContent=ru?&#x27;&#x27;:&#x27;Чтобы игры говорили, на устройстве нужен русский голос (обычно уже есть в Windows, Android, iPad).&#x27;;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickV();speechSynthesis.onvoiceschanged=pickV;}
+function speak(t,delay=0,rate=.85){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;ru-RU&#x27;;if(ru)u.voice=ru;u.rate=rate;u.pitch=1.2;speechSynthesis.speak(u);}catch(e){}},delay);}
+function ac(){if(!A)A=new (window.AudioContext||window.webkitAudioContext)();if(A.state===&#x27;suspended&#x27;)A.resume();return A;}
+function osc(type,f0,f1,t0,dur,vol=.22){if(!soundOn)return;try{const a=ac(),o=a.createOscillator(),g=a.createGain(),n=a.currentTime+t0;o.type=type;o.frequency.setValueAtTime(f0,n);if(f1)o.frequency.exponentialRampToValueAtTime(f1,n+dur);
+ g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+dur);o.connect(g).connect(a.destination);o.start(n);o.stop(n+dur+.05);}catch(e){}}
+const sfx={ok:()=&gt;[[660,0],[880,.1],[1320,.2]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.2)),
+ win:()=&gt;[[523,0],[659,.12],[784,.24],[1046,.38],[1318,.52]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.25)),
+ bad:()=&gt;osc(&#x27;sine&#x27;,300,200,0,.25,.15),pop:()=&gt;osc(&#x27;sine&#x27;,900,200,0,.12,.25),flip:()=&gt;osc(&#x27;triangle&#x27;,600,900,0,.1,.15),snap:()=&gt;osc(&#x27;square&#x27;,500,800,0,.08,.12)};
+document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&#x27;🔊&#x27;:&#x27;🔇&#x27;;try{speechSynthesis.cancel()}catch(e){}};
+/* ---------- общее ---------- */
+const app=document.getElementById(&#x27;app&#x27;);let timers=[];
+function reset(){timers.forEach(t=&gt;{clearTimeout(t);clearInterval(t)});timers=[];try{speechSynthesis.cancel()}catch(e){}}
+const rnd=a=&gt;a[Math.floor(Math.random()*a.length)];
+const shuffle=a=&gt;{a=[...a];for(let i=a.length-1;i&gt;0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const later=(f,ms)=&gt;timers.push(setTimeout(f,ms));
+function bump(el){el.classList.remove(&#x27;jump&#x27;,&#x27;shake&#x27;);void el.offsetWidth;el.classList.add(&#x27;jump&#x27;);}
+function shake(el){el.classList.remove(&#x27;jump&#x27;,&#x27;shake&#x27;);void el.offsetWidth;el.classList.add(&#x27;shake&#x27;);}
+let lt;function label(t){const l=document.getElementById(&#x27;lbl&#x27;);l.textContent=t;l.classList.add(&#x27;show&#x27;);clearTimeout(lt);lt=setTimeout(()=&gt;l.classList.remove(&#x27;show&#x27;),1400);}
+const cv=document.getElementById(&#x27;conf&#x27;),cx=cv.getContext(&#x27;2d&#x27;);let parts=[];
+function confetti(){cv.width=innerWidth;cv.height=innerHeight;const c=[&quot;#FF6FA0&quot;,&quot;#FFC83D&quot;,&quot;#43C26B&quot;,&quot;#4F8BFF&quot;,&quot;#9C7BFF&quot;,&quot;#FF9A4D&quot;];const st=!parts.length;
+ for(let i=0;i&lt;120;i++)parts.push({x:innerWidth/2,y:innerHeight/2.6,vx:(Math.random()-.5)*16,vy:Math.random()*-14-4,s:10+Math.random()*8,c:c[i%6],r:Math.random()*6,l:130});if(st)requestAnimationFrame(tk);}
+function tk(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=&gt;{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+ parts=parts.filter(p=&gt;p.l&gt;0&amp;&amp;p.y&lt;cv.height+30);if(parts.length)requestAnimationFrame(tk);else cx.clearRect(0,0,cv.width,cv.height);}
+let stars=0;try{stars=+localStorage.getItem(&#x27;k24_stars&#x27;)||0;}catch(e){}
+const starsEl=document.getElementById(&#x27;stars&#x27;);starsEl.textContent=stars;
+function star(){stars++;starsEl.textContent=stars;try{localStorage.setItem(&#x27;k24_stars&#x27;,stars)}catch(e){}}
+const PR=[&quot;Молодец!&quot;,&quot;Умница!&quot;,&quot;Правильно!&quot;,&quot;Отлично!&quot;,&quot;Ура!&quot;,&quot;Здорово!&quot;];const praise=()=&gt;rnd(PR);
+function good(el,say){if(el)el.classList.add(&#x27;ok&#x27;);star();sfx.ok();speak(say||praise(),200);}
+function askBar(text,sayText){return `&lt;div class=&quot;ask&quot;&gt;${text}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;`;}
+function bindAsk(t){const b=document.getElementById(&#x27;rep&#x27;);if(b)b.onclick=()=&gt;speak(t);speak(t);}
+/* перетаскивание (палец и мышь) */
+function makeDrag(el,onDrop){el.classList.add(&#x27;drag&#x27;);
+ el.addEventListener(&#x27;pointerdown&#x27;,e=&gt;{e.preventDefault();const g=el.cloneNode(true);g.classList.add(&#x27;ghost&#x27;);g.classList.remove(&#x27;drag&#x27;);const r=el.getBoundingClientRect();g.style.width=r.width+&#x27;px&#x27;;g.style.height=r.height+&#x27;px&#x27;;
+  document.body.appendChild(g);el.style.opacity=.3;sfx.flip();const mv=ev=&gt;{g.style.left=ev.clientX+&#x27;px&#x27;;g.style.top=ev.clientY+&#x27;px&#x27;;};mv(e);
+  const up=ev=&gt;{document.removeEventListener(&#x27;pointermove&#x27;,mv);document.removeEventListener(&#x27;pointerup&#x27;,up);document.removeEventListener(&#x27;pointercancel&#x27;,up);g.remove();el.style.opacity=1;
+   const under=document.elementFromPoint(ev.clientX,ev.clientY);onDrop(under,ev);};
+  document.addEventListener(&#x27;pointermove&#x27;,mv);document.addEventListener(&#x27;pointerup&#x27;,up);document.addEventListener(&#x27;pointercancel&#x27;,up);});}
+
+/* ---------- данные ---------- */
+const COL={red:[&quot;#FF4D4D&quot;,&quot;красный&quot;,[&quot;🍎&quot;,&quot;🍓&quot;,&quot;🍅&quot;,&quot;🌹&quot;,&quot;🚗&quot;,&quot;🎈&quot;]],yellow:[&quot;#FFD21F&quot;,&quot;жёлтый&quot;,[&quot;🍌&quot;,&quot;🌻&quot;,&quot;🐥&quot;,&quot;⭐&quot;,&quot;🍋&quot;,&quot;🧀&quot;]],green:[&quot;#3CC75A&quot;,&quot;зелёный&quot;,[&quot;🥒&quot;,&quot;🐸&quot;,&quot;🍏&quot;,&quot;🥦&quot;,&quot;🌲&quot;,&quot;🦖&quot;]],
+ blue:[&quot;#3B7BFF&quot;,&quot;синий&quot;,[&quot;💧&quot;,&quot;🐳&quot;,&quot;👖&quot;,&quot;🧢&quot;,&quot;🦋&quot;,&quot;🚙&quot;]],orange:[&quot;#FF8C1A&quot;,&quot;оранжевый&quot;,[&quot;🍊&quot;,&quot;🥕&quot;,&quot;🎃&quot;,&quot;🦊&quot;,&quot;🏀&quot;]],purple:[&quot;#9B5CFF&quot;,&quot;фиолетовый&quot;,[&quot;🍇&quot;,&quot;🍆&quot;,&quot;🔮&quot;,&quot;☂️&quot;]]};
+const SHAPES={круг:&#x27;&lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;42&quot;/&gt;&#x27;,квадрат:&#x27;&lt;rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;80&quot; height=&quot;80&quot; rx=&quot;6&quot;/&gt;&#x27;,треугольник:&#x27;&lt;polygon points=&quot;50,8 94,90 6,90&quot;/&gt;&#x27;,
+ звёздочка:&#x27;&lt;polygon points=&quot;50,5 61,38 96,38 68,59 79,93 50,72 21,93 32,59 4,38 39,38&quot;/&gt;&#x27;,сердечко:&#x27;&lt;path d=&quot;M50 88 C10 60 4 34 22 20 C36 10 48 18 50 28 C52 18 64 10 78 20 C96 34 90 60 50 88Z&quot;/&gt;&#x27;,овал:&#x27;&lt;ellipse cx=&quot;50&quot; cy=&quot;50&quot; rx=&quot;44&quot; ry=&quot;30&quot;/&gt;&#x27;};
+const SHCOL=[&quot;#FF4D4D&quot;,&quot;#3B7BFF&quot;,&quot;#FFD21F&quot;,&quot;#3CC75A&quot;,&quot;#FF7BC0&quot;,&quot;#FF8C1A&quot;];
+const shapeSVG=(n,c,size=150)=&gt;`&lt;svg viewBox=&quot;0 0 100 100&quot; width=&quot;${size}&quot; height=&quot;${size}&quot; style=&quot;fill:${c}&quot;&gt;${SHAPES[n]}&lt;/svg&gt;`;
+const OBJ=[[&quot;🐻&quot;,&quot;мишка&quot;],[&quot;🐶&quot;,&quot;собачка&quot;],[&quot;🍎&quot;,&quot;яблоко&quot;],[&quot;🚗&quot;,&quot;машинка&quot;],[&quot;🐱&quot;,&quot;котик&quot;],[&quot;🎈&quot;,&quot;шарик&quot;],[&quot;🦆&quot;,&quot;уточка&quot;],[&quot;🐘&quot;,&quot;слон&quot;],[&quot;🌸&quot;,&quot;цветок&quot;],[&quot;🐟&quot;,&quot;рыбка&quot;]];
+const FEED=[[&quot;🐰&quot;,&quot;зайчик&quot;,&quot;🥕&quot;,&quot;морковку&quot;],[&quot;🐵&quot;,&quot;обезьянка&quot;,&quot;🍌&quot;,&quot;банан&quot;],[&quot;🐭&quot;,&quot;мышка&quot;,&quot;🧀&quot;,&quot;сыр&quot;],[&quot;🐻&quot;,&quot;мишка&quot;,&quot;🍯&quot;,&quot;мёд&quot;],[&quot;🐶&quot;,&quot;собачка&quot;,&quot;🦴&quot;,&quot;косточку&quot;],
+ [&quot;🐱&quot;,&quot;котик&quot;,&quot;🥛&quot;,&quot;молоко&quot;],[&quot;🐿️&quot;,&quot;белочка&quot;,&quot;🌰&quot;,&quot;орешек&quot;],[&quot;🐮&quot;,&quot;коровка&quot;,&quot;🌿&quot;,&quot;травку&quot;],[&quot;🐼&quot;,&quot;панда&quot;,&quot;🎋&quot;,&quot;бамбук&quot;],[&quot;🐔&quot;,&quot;курочка&quot;,&quot;🌾&quot;,&quot;зёрнышки&quot;]];
+const CATS=[[&quot;фрукты&quot;,[&quot;🍎&quot;,&quot;🍌&quot;,&quot;🍐&quot;,&quot;🍊&quot;,&quot;🍇&quot;,&quot;🍓&quot;]],[&quot;транспорт&quot;,[&quot;🚗&quot;,&quot;🚌&quot;,&quot;✈️&quot;,&quot;🚂&quot;,&quot;🚲&quot;,&quot;🚁&quot;]],[&quot;животные&quot;,[&quot;🐶&quot;,&quot;🐱&quot;,&quot;🐮&quot;,&quot;🐷&quot;,&quot;🐴&quot;,&quot;🐰&quot;]],[&quot;одежда&quot;,[&quot;👕&quot;,&quot;👖&quot;,&quot;🧦&quot;,&quot;🧢&quot;,&quot;👗&quot;,&quot;🧤&quot;]]];
+const WEATHER=[[&quot;❄️&quot;,&quot;Зима, холодно. Что наденем?&quot;,&quot;🧣&quot;,&quot;шарф&quot;],[&quot;🌧️&quot;,&quot;Идёт дождь. Что возьмём?&quot;,&quot;☂️&quot;,&quot;зонтик&quot;],[&quot;☀️&quot;,&quot;Лето, жарко. Что наденем?&quot;,&quot;🕶️&quot;,&quot;очки от солнца&quot;],[&quot;🌧️&quot;,&quot;Лужи! Что наденем на ножки?&quot;,&quot;🥾&quot;,&quot;сапожки&quot;],[&quot;❄️&quot;,&quot;Снег! Что наденем на ручки?&quot;,&quot;🧤&quot;,&quot;варежки&quot;],[&quot;☀️&quot;,&quot;Солнышко печёт. Что наденем?&quot;,&quot;👒&quot;,&quot;панамку&quot;]];
+const NOTW=[&quot;🩴&quot;,&quot;🧣&quot;,&quot;☂️&quot;,&quot;🕶️&quot;,&quot;🧤&quot;,&quot;👙&quot;,&quot;🥾&quot;];
+const EMO=[[&quot;😀&quot;,&quot;весёлый&quot;],[&quot;😢&quot;,&quot;грустный&quot;],[&quot;😠&quot;,&quot;сердитый&quot;],[&quot;😮&quot;,&quot;удивлённый&quot;],[&quot;😴&quot;,&quot;сонный&quot;]];
+const LETTERS=[[&quot;А&quot;,&quot;v&quot;,&quot;а&quot;,&quot;🍉&quot;,&quot;арбуз&quot;],[&quot;О&quot;,&quot;v&quot;,&quot;о&quot;,&quot;☁️&quot;,&quot;облако&quot;],[&quot;У&quot;,&quot;v&quot;,&quot;у&quot;,&quot;🦆&quot;,&quot;утка&quot;],[&quot;И&quot;,&quot;v&quot;,&quot;и&quot;,&quot;🦃&quot;,&quot;индюк&quot;],[&quot;Ы&quot;,&quot;v&quot;,&quot;ы&quot;,&quot;🧀&quot;,&quot;сыр&quot;],[&quot;Э&quot;,&quot;v&quot;,&quot;э&quot;,&quot;🍦&quot;,&quot;эскимо&quot;],
+ [&quot;М&quot;,&quot;c&quot;,&quot;мэ&quot;,&quot;🐭&quot;,&quot;мышка&quot;],[&quot;П&quot;,&quot;c&quot;,&quot;пэ&quot;,&quot;🐧&quot;,&quot;пингвин&quot;],[&quot;Б&quot;,&quot;c&quot;,&quot;бэ&quot;,&quot;🍌&quot;,&quot;банан&quot;],[&quot;Д&quot;,&quot;c&quot;,&quot;дэ&quot;,&quot;🏠&quot;,&quot;дом&quot;],[&quot;К&quot;,&quot;c&quot;,&quot;кэ&quot;,&quot;🐱&quot;,&quot;кошка&quot;],[&quot;Т&quot;,&quot;c&quot;,&quot;тэ&quot;,&quot;🐯&quot;,&quot;тигр&quot;]];
+const NUMS=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;];
+
+/* ---------- меню ---------- */
+const G=[[&quot;🎨&quot;,&quot;Найди цвет&quot;,&quot;#FF6B6B&quot;,gColor],[&quot;🧺&quot;,&quot;Разложи по цветам&quot;,&quot;#FF9A4D&quot;,gSort],[&quot;🔺&quot;,&quot;Фигуры&quot;,&quot;#4F8BFF&quot;,gShape],[&quot;🧩&quot;,&quot;Вставь фигурку&quot;,&quot;#22B8C8&quot;,gSorter],
+ [&quot;🐘&quot;,&quot;Большой и маленький&quot;,&quot;#9C7BFF&quot;,gSize],[&quot;🔢&quot;,&quot;Считаем до 5&quot;,&quot;#43C26B&quot;,gCount],[&quot;🥕&quot;,&quot;Покорми зверюшку&quot;,&quot;#E8A33B&quot;,gFeed],[&quot;👤&quot;,&quot;Найди тень&quot;,&quot;#6C6A8A&quot;,gShadow],
+ [&quot;🃏&quot;,&quot;Найди пару&quot;,&quot;#B15CE6&quot;,gMem],[&quot;🖼️&quot;,&quot;Собери картинку&quot;,&quot;#F07FB0&quot;,gPuzzle],[&quot;🤔&quot;,&quot;Что лишнее?&quot;,&quot;#2FA37E&quot;,gOdd],[&quot;☂️&quot;,&quot;Одень по погоде&quot;,&quot;#3A9BDC&quot;,gWeather],
+ [&quot;😀&quot;,&quot;Настроение&quot;,&quot;#F5B700&quot;,gEmo],[&quot;🅰️&quot;,&quot;Первые буквы&quot;,&quot;#F0435A&quot;,gLetters],[&quot;🔍&quot;,&quot;Найди букву&quot;,&quot;#2F6FE4&quot;,gFindL]];
+function home(){reset();app.innerHTML=`&lt;div class=&quot;menu&quot;&gt;${G.map((g,i)=&gt;`&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[+b.dataset.i][3]();});}
+document.getElementById(&#x27;homeB&#x27;).onclick=home;
+
+/* 1. Найди цвет */
+function gColor(){reset();const keys=shuffle(Object.keys(COL)).slice(0,3),t=rnd(keys),q=`Где ${COL[t][1]}?`;
+ app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${keys.map(k=&gt;`&lt;button class=&quot;dot&quot; data-k=&quot;${k}&quot; style=&quot;background:${COL[k][0]}&quot;&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.k===t){bump(b);good(null,`Да! Это ${COL[t][1]}!`);confetti();app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(gColor,2000);}
+  else{shake(b);sfx.bad();speak(`Это ${COL[b.dataset.k][1]}. А где ${COL[t][1]}?`);}});}
+/* 2. Разложи по цветам */
+function gSort(){reset();const keys=shuffle([&quot;red&quot;,&quot;yellow&quot;,&quot;green&quot;,&quot;blue&quot;]).slice(0,3);const items=shuffle(keys.flatMap(k=&gt;shuffle(COL[k][2]).slice(0,2).map(e=&gt;[e,k])));let left=items.length;
+ app.innerHTML=`&lt;h2&gt;Разложи по цветным тарелкам&lt;/h2&gt;&lt;div class=&quot;tray&quot;&gt;${items.map((it,i)=&gt;`&lt;div class=&quot;item&quot; data-i=&quot;${i}&quot;&gt;${it[0]}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;bowls&quot;&gt;${keys.map(k=&gt;`&lt;div class=&quot;bowl&quot; data-k=&quot;${k}&quot; style=&quot;background:${COL[k][0]}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Разложи по цветам! Перетащи пальчиком.&#x27;);
+ app.querySelectorAll(&#x27;.item&#x27;).forEach(el=&gt;makeDrag(el,under=&gt;{const bowl=under&amp;&amp;under.closest(&#x27;.bowl&#x27;);const it=items[+el.dataset.i];if(!bowl)return;
+  if(bowl.dataset.k===it[1]){bowl.appendChild(el);el.className=&#x27;&#x27;;el.style.fontSize=&#x27;46px&#x27;;star();sfx.snap();speak(COL[it[1]][1]);left--;if(!left){sfx.win();confetti();speak(&#x27;Всё разложили! Молодец!&#x27;,600);later(gSort,3000);}}
+  else{sfx.bad();shake(bowl);speak(`Это не ${COL[bowl.dataset.k][1]}!`);}}));}
+/* 3. Фигуры */
+function gShape(){reset();const names=shuffle(Object.keys(SHAPES)).slice(0,3),t=rnd(names),q=`Где ${t}?`;
+ app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${names.map((n,i)=&gt;`&lt;button class=&quot;opt&quot; data-n=&quot;${n}&quot;&gt;${shapeSVG(n,SHCOL[i+Math.floor(Math.random()*3)])}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.n===t){bump(b);good(b,`Да, это ${t}!`);confetti();app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);later(gShape,2000);}
+  else{shake(b);sfx.bad();speak(`Это ${b.dataset.n}. А где ${t}?`);}});}
+/* 4. Вставь фигурку (сортер) */
+function gSorter(){reset();const names=shuffle(Object.keys(SHAPES)).slice(0,3);let left=3;
+ app.innerHTML=`&lt;h2&gt;Вставь фигурку в домик&lt;/h2&gt;&lt;div class=&quot;board&quot;&gt;${names.map(n=&gt;`&lt;div class=&quot;hole&quot; data-n=&quot;${n}&quot;&gt;${shapeSVG(n,&#x27;#7A6A55&#x27;,150)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;tray&quot;&gt;${shuffle(names).map((n,i)=&gt;`&lt;div class=&quot;item sh&quot; data-n=&quot;${n}&quot; style=&quot;padding:6px&quot;&gt;${shapeSVG(n,SHCOL[i],120)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Вставь фигурку в свой домик!&#x27;);
+ app.querySelectorAll(&#x27;.sh&#x27;).forEach(el=&gt;makeDrag(el,under=&gt;{const h=under&amp;&amp;under.closest(&#x27;.hole&#x27;);if(!h||h.dataset.filled)return;
+  if(h.dataset.n===el.dataset.n){h.dataset.filled=1;h.innerHTML=el.innerHTML.replace(&#x27;width=&quot;120&quot; height=&quot;120&quot;&#x27;,&#x27;width=&quot;150&quot; height=&quot;150&quot;&#x27;);el.remove();star();sfx.snap();speak(el.dataset.n);left--;
+   if(!left){sfx.win();confetti();speak(&#x27;Все фигурки дома! Молодец!&#x27;,600);later(gSorter,3000);}}else{sfx.bad();shake(h);speak(&#x27;Не подходит! Попробуй другой домик.&#x27;);}}));}
+/* 5. Большой и маленький */
+function gSize(){reset();const o=rnd(OBJ),big=Math.random()&lt;.5,q=`Где ${big?&#x27;большой&#x27;:&#x27;маленький&#x27;}?`,ord=shuffle([1,0]);
+ app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot; style=&quot;align-items:flex-end&quot;&gt;${ord.map(b=&gt;`&lt;button class=&quot;opt&quot; data-b=&quot;${b}&quot; style=&quot;font-size:${b?170:70}px&quot;&gt;${o[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(+btn.dataset.b===(big?1:0)){bump(btn);good(btn,big?&#x27;Да! Большой!&#x27;:&#x27;Да! Маленький!&#x27;);later(gSize,1900);app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{shake(btn);sfx.bad();speak(big?&#x27;Это маленький. А где большой?&#x27;:&#x27;Это большой. А где маленький?&#x27;);}});}
+/* 6. Считаем до 5 */
+function gCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c=0;const opts=shuffle([n,...shuffle([1,2,3,4,5].filter(x=&gt;x!==n)).slice(0,2)]);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Посчитай! Нажимай на каждого&lt;/div&gt;&lt;div class=&quot;count&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;span class=&quot;c&quot;&gt;${o[0]}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Посчитаем? Нажимай на каждого!&#x27;);
+ app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();speak(NUMS[c]);if(c===n)speak(`Всего ${NUMS[n]}! Найди цифру ${n}`,900);});
+ app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,`Правильно! ${NUMS[n]}!`);confetti();later(gCount,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{shake(b);sfx.bad();speak(&#x27;Давай посчитаем ещё раз!&#x27;);}});}
+/* 7. Покорми зверюшку */
+function gFeed(){reset();const f=rnd(FEED),others=shuffle(FEED.filter(x=&gt;x!==f)).slice(0,2),opts=shuffle([f,...others]),q=`Что любит ${f[1]}?`;
+ app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; id=&quot;an&quot; style=&quot;font-size:150px;background:#E7F7EC;box-shadow:none&quot;&gt;${f[0]}&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map((x,i)=&gt;`&lt;button class=&quot;opt&quot; data-i=&quot;${i}&quot; style=&quot;font-size:100px;min-width:150px;min-height:150px&quot;&gt;${x[2]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];if(x===f){bump(b);bump(document.getElementById(&#x27;an&#x27;));good(b,`Ам-ам! ${f[1][0].toUpperCase()+f[1].slice(1)} любит ${f[3]}!`);later(gFeed,2600);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(b);sfx.bad();speak(`Нет, ${f[1]} не хочет. Попробуй другое!`);}});}
+/* 8. Найди тень */
+function gShadow(){reset();const pool=[&quot;🐘&quot;,&quot;🦒&quot;,&quot;🐰&quot;,&quot;🚗&quot;,&quot;✈️&quot;,&quot;🍎&quot;,&quot;🐢&quot;,&quot;🦋&quot;,&quot;🐟&quot;,&quot;🌲&quot;,&quot;🐓&quot;,&quot;🎸&quot;,&quot;🐌&quot;,&quot;☂️&quot;];const t=rnd(pool),opts=shuffle([t,...shuffle(pool.filter(x=&gt;x!==t)).slice(0,2)]);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Где тень?&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;background:#EAF6FF;box-shadow:none&quot;&gt;${t}&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot;&gt;&lt;span class=&quot;shadow&quot;&gt;${x}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(&#x27;Найди тень!&#x27;);
+ app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===t){b.querySelector(&#x27;span&#x27;).classList.remove(&#x27;shadow&#x27;);bump(b);good(b);confetti();later(gShadow,2000);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(b);sfx.bad();speak(&#x27;Не похоже. Посмотри ещё!&#x27;);}});}
+/* 9. Найди пару */
+function gMem(){reset();const set=shuffle([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🐰&quot;,&quot;🦊&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦁&quot;,&quot;🐷&quot;]).slice(0,4);const cards=shuffle([...set,...set]);let open=[],done=0,lock=false;
+ app.innerHTML=`&lt;h2&gt;Найди пару&lt;/h2&gt;&lt;div class=&quot;mem&quot;&gt;${cards.map((e,i)=&gt;`&lt;button class=&quot;mc&quot; data-i=&quot;${i}&quot;&gt;&lt;span&gt;${e}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Открывай карточки и ищи одинаковые!&#x27;);
+ app.querySelectorAll(&#x27;.mc&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(lock||b.classList.contains(&#x27;open&#x27;)||b.classList.contains(&#x27;done&#x27;))return;b.classList.add(&#x27;open&#x27;);sfx.flip();open.push(b);
+  if(open.length===2){lock=true;const [a,c]=open;if(cards[a.dataset.i]===cards[c.dataset.i]){later(()=&gt;{a.classList.add(&#x27;done&#x27;);c.classList.add(&#x27;done&#x27;);sfx.ok();star();open=[];lock=false;done++;
+     if(done===4){sfx.win();confetti();speak(&#x27;Все пары нашли! Ура!&#x27;);later(gMem,3000);}else speak(praise());},500);}
+   else later(()=&gt;{a.classList.remove(&#x27;open&#x27;);c.classList.remove(&#x27;open&#x27;);open=[];lock=false;},1000);}});}
+/* 10. Собери картинку */
+function gPuzzle(){reset();const e=rnd([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🦁&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦄&quot;,&quot;🐵&quot;,&quot;🐷&quot;,&quot;🐯&quot;,&quot;🦊&quot;]);let left=4;
+ const piece=(i)=&gt;`&lt;span style=&quot;left:${i%2?&#x27;calc(var(--ps)*-1)&#x27;:&#x27;0&#x27;};top:${i&gt;1?&#x27;calc(var(--ps)*-1)&#x27;:&#x27;0&#x27;}&quot;&gt;${e}&lt;/span&gt;`;
+ app.innerHTML=`&lt;h2&gt;Собери картинку&lt;/h2&gt;&lt;div class=&quot;pz&quot;&gt;${[0,1,2,3].map(i=&gt;`&lt;div class=&quot;slot&quot; data-i=&quot;${i}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;ptray&quot;&gt;${shuffle([0,1,2,3]).map(i=&gt;`&lt;div class=&quot;piece&quot; data-i=&quot;${i}&quot;&gt;${piece(i)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Собери картинку! Перетащи кусочки.&#x27;);
+ app.querySelectorAll(&#x27;.piece&#x27;).forEach(el=&gt;makeDrag(el,under=&gt;{const s=under&amp;&amp;under.closest(&#x27;.slot&#x27;);if(!s||s.dataset.f)return;
+  if(s.dataset.i===el.dataset.i){s.dataset.f=1;s.style.border=&#x27;none&#x27;;s.innerHTML=piece(+el.dataset.i);el.remove();sfx.snap();star();left--;
+   if(!left){sfx.win();confetti();speak(&#x27;Получилось! Молодец!&#x27;);later(gPuzzle,3000);}}else{sfx.bad();shake(s);}}));}
+/* 11. Что лишнее */
+function gOdd(){reset();const [a,b]=shuffle(CATS);const three=shuffle(a[1]).slice(0,3),odd=rnd(b[1]),opts=shuffle([...three,odd]);
+ app.innerHTML=askBar(&#x27;Что лишнее?&#x27;)+`&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:110px;min-width:160px;min-height:160px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(&#x27;Что здесь лишнее?&#x27;);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(btn.dataset.e===odd){bump(btn);good(btn,`Правильно! Остальные — это ${a[0]}.`);confetti();later(gOdd,2600);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(btn);sfx.bad();speak(&#x27;Подумай ещё!&#x27;);}});}
+/* 12. Одень по погоде */
+function gWeather(){reset();const w=rnd(WEATHER),opts=shuffle([w[2],...shuffle(NOTW.filter(x=&gt;x!==w[2]&amp;&amp;!(w[0]===&#x27;❄️&#x27;&amp;&amp;[&#x27;🧣&#x27;,&#x27;🧤&#x27;,&#x27;🥾&#x27;].includes(x))&amp;&amp;!(w[0]===&#x27;🌧️&#x27;&amp;&amp;[&#x27;☂️&#x27;,&#x27;🥾&#x27;].includes(x))&amp;&amp;!(w[0]===&#x27;☀️&#x27;&amp;&amp;[&#x27;🕶️&#x27;,&#x27;🩴&#x27;,&#x27;👙&#x27;].includes(x)))).slice(0,2)]);
+ app.innerHTML=askBar(w[1])+`&lt;div class=&quot;weather&quot;&gt;${w[0]}&lt;/div&gt;&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:110px;min-width:160px;min-height:160px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(w[1]);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(btn.dataset.e===w[2]){bump(btn);good(btn,`Правильно! ${w[3][0].toUpperCase()+w[3].slice(1)}!`);later(gWeather,2400);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(btn);sfx.bad();speak(&#x27;Нет, это не подходит. Попробуй ещё!&#x27;);}});}
+/* 13. Настроение */
+function gEmo(){reset();const opts=shuffle(EMO).slice(0,3),t=rnd(opts),q=`Где ${t[1]} смайлик?`;
+ app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x[0]}&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=EMO.find(z=&gt;z[0]===b.dataset.e);if(x===t){bump(b);good(b,`Да! Он ${t[1]}!`);later(gEmo,2000);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(b);sfx.bad();speak(`Это ${x[1]}. А где ${t[1]}?`);}});}
+/* 14. Первые буквы */
+function gLetters(){reset();
+ app.innerHTML=`&lt;h2&gt;Познакомимся с буквами!&lt;/h2&gt;&lt;div class=&quot;opts&quot;&gt;${LETTERS.map((l,i)=&gt;`&lt;button class=&quot;opt lt ${l[1]}&quot; data-i=&quot;${i}&quot; style=&quot;min-width:150px;min-height:150px;font-size:110px&quot;&gt;${l[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Нажми на букву!&#x27;);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const l=LETTERS[+b.dataset.i];bump(b);sfx.pop();label(`${l[0]} — ${l[3]} ${l[4]}`);
+  speak(l[1]===&#x27;v&#x27;?`${l[2]}-${l[2]}-${l[2]}! Буква ${l[2]}. ${l[4]}!`:`Буква ${l[2]}. ${l[4]}!`);});}
+/* 15. Найди букву */
+function gFindL(){reset();const opts=shuffle(LETTERS).slice(0,3),t=rnd(opts),q=`Найди букву ${t[2]}`;
+ app.innerHTML=askBar(`Найди букву`)+`&lt;div class=&quot;opts&quot;&gt;${opts.map(l=&gt;`&lt;button class=&quot;opt lt ${l[1]}&quot; data-l=&quot;${l[0]}&quot;&gt;${l[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.l===t[0]){bump(b);good(b,`Да! Это ${t[2]}. ${t[4]}!`);confetti();later(gFindL,2400);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{const l=LETTERS.find(z=&gt;z[0]===b.dataset.l);shake(b);sfx.bad();speak(`Это буква ${l[2]}. А где ${t[2]}?`);}});}
+home();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="a56" title="Весёлая азбука" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, user-scalable=no&quot;&gt;
+&lt;title&gt;Весёлая азбука&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --bg:#FFF6E5; --ink:#2C2A4A; --muted:#7A7896;
+  --vowel:#F0435A; --vowel-bg:#FFE3E7; --cons:#2F6FE4; --cons-bg:#E1ECFF; --sign:#8A93A6; --sign-bg:#ECEEF2;
+  --sun:#FFC83D; --green:#2FBF71; --violet:#8B5CF6; --orange:#FF8A3D; --teal:#18B5C7;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:&quot;Trebuchet MS&quot;,&quot;Arial Rounded MT Bold&quot;,&quot;Segoe UI&quot;,system-ui,Arial,sans-serif;font-weight:700;
+  background-image:radial-gradient(circle at 8% 12%,#FFE1A8 0 70px,transparent 71px),radial-gradient(circle at 95% 20%,#D9F4F7 0 60px,transparent 61px),radial-gradient(circle at 85% 92%,#FFD9E0 0 110px,transparent 111px);
+  background-attachment:fixed;user-select:none;overflow-x:hidden}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 16px 30px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.logo{font-size:34px;color:var(--violet);display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo span{font-size:46px}
+.hbtns{display:flex;gap:10px;align-items:center}
+.pill{background:#fff;border-radius:999px;padding:8px 18px;font-size:28px;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.round{width:62px;height:62px;border-radius:50%;border:none;background:#fff;font-size:30px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.panel{background:#fff;border-radius:34px;padding:22px;box-shadow:0 8px 0 rgba(0,0,0,.07);position:relative;min-height:60vh}
+h2{font-size:44px;text-align:center;margin:4px 0 18px;color:var(--ink)}
+.say{font-size:36px;text-align:center;margin:0 0 18px}
+/* меню */
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.tile{border:none;border-radius:30px;padding:22px 16px;cursor:pointer;color:#fff;font:inherit;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.15);transition:transform .15s}
+.tile:active{transform:translateY(5px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.tile .e{font-size:80px;display:block;line-height:1.1}
+.tile .t{font-size:34px;display:block;margin-top:8px}
+.t1{background:linear-gradient(140deg,#FF7A8A,#F0435A)}
+.t2{background:linear-gradient(140deg,#5B9BFF,#2F6FE4)}
+.t3{background:linear-gradient(140deg,#43D39A,#2FBF71)}
+.t4{background:linear-gradient(140deg,#FFB04D,#FF8A3D)}
+.t5{background:linear-gradient(140deg,#A98BFF,#8B5CF6)}
+.t6{background:linear-gradient(140deg,#4FD6E2,#18B5C7)}
+/* азбука */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.lt{border:none;border-radius:24px;font:inherit;font-size:76px;line-height:1;padding:14px 0 18px;cursor:pointer;position:relative;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.lt small{font-size:30px}
+.v{background:var(--vowel-bg);color:var(--vowel)}
+.c{background:var(--cons-bg);color:var(--cons)}
+.s{background:var(--sign-bg);color:var(--sign)}
+.lt .done{position:absolute;top:4px;right:8px;font-size:24px}
+.legend{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-size:26px;margin:0 0 16px}
+.legend b{display:inline-block;width:28px;height:28px;border-radius:8px;vertical-align:-4px;margin-right:6px}
+/* страница буквы */
+.letterpage{display:flex;flex-direction:column;gap:18px;align-items:center}
+.huge{font-size:clamp(170px,24vw,280px);line-height:1;text-align:center;border-radius:40px;padding:10px 60px 26px;cursor:pointer;border:none;font-family:inherit;font-weight:800}
+.pics{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;width:100%}
+.pic{background:#FFF9EE;border:5px solid #FFE6B8;border-radius:30px;padding:12px 6px 14px;text-align:center;cursor:pointer;font:inherit;color:var(--ink)}
+.pic .em{font-size:100px;line-height:1.15;display:block}
+.pic .w{font-size:40px;display:block;margin-top:4px}
+.pic .w i{font-style:normal}
+.navrow{display:flex;justify-content:space-between;margin-top:22px;gap:12px}
+.big-btn{border:none;border-radius:26px;padding:16px 30px;font:inherit;font-size:34px;cursor:pointer;color:#fff;background:var(--violet);box-shadow:0 6px 0 #6236C9}
+.big-btn.y{background:var(--sun);color:#4a3300;box-shadow:0 6px 0 #D29B00}
+.big-btn.g{background:var(--green);box-shadow:0 6px 0 #1E9454}
+.big-btn:active{transform:translateY(4px);box-shadow:none}
+/* выбор */
+.choices{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.ch{width:clamp(130px,20vw,200px);height:clamp(150px,24vw,230px);border:none;border-radius:34px;font:inherit;font-size:clamp(100px,15vw,160px);line-height:1;cursor:pointer;box-shadow:0 8px 0 rgba(0,0,0,.12)}
+.ch.ok{background:#D5F7E4!important;color:var(--green)!important;transform:scale(1.08)}
+.ch.no{opacity:.35;transform:scale(.92)}
+.picbig{font-size:clamp(130px,22vw,200px);text-align:center;line-height:1.1;cursor:pointer}
+.word{font-size:64px;text-align:center;margin:0 0 18px;letter-spacing:2px}
+.word .q{display:inline-block;min-width:60px;border-bottom:8px solid var(--sun);color:transparent}
+.word .q.show{color:inherit}
+.speaker{border:none;background:var(--sun);border-radius:50%;width:84px;height:84px;font-size:44px;cursor:pointer;box-shadow:0 6px 0 #D29B00;vertical-align:middle}
+.row{display:flex;justify-content:center;align-items:center;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+/* слияние */
+.merge{display:flex;align-items:flex-end;justify-content:center;gap:0;margin:10px 0 0}
+.mletter{font-size:clamp(130px,20vw,220px);line-height:1;padding:10px 26px 24px;border-radius:34px;font-weight:800}
+.track{position:relative;width:clamp(150px,26vw,320px);height:140px}
+.track .road{position:absolute;left:0;right:0;bottom:40px;height:14px;border-radius:7px;background:repeating-linear-gradient(90deg,#FFC83D 0 24px,#FFE6A6 24px 40px)}
+.track .runner{position:absolute;bottom:46px;left:0;font-size:80px;transform:scaleX(-1);transition:left 1.3s ease-in-out}
+.track.go .runner{left:calc(100% - 80px)}
+.syl{font-size:clamp(110px,17vw,180px);text-align:center;margin:8px 0 0;min-height:1.1em;letter-spacing:4px}
+.syl span{color:var(--cons)} .syl em{font-style:normal;color:var(--vowel)}
+/* шарики */
+.sky{position:relative;height:62vh;min-height:420px;border-radius:30px;background:linear-gradient(#BFE8FF,#E9F8FF);overflow:hidden}
+.ball{position:absolute;bottom:-160px;width:130px;height:156px;border-radius:50% 50% 48% 48%;display:flex;align-items:center;justify-content:center;font-size:84px;color:#fff;cursor:pointer;
+  text-shadow:0 3px 0 rgba(0,0,0,.2);box-shadow:inset -14px -14px 0 rgba(0,0,0,.12)}
+.ball::after{content:&quot;&quot;;position:absolute;bottom:-40px;left:50%;width:2px;height:42px;background:#999}
+.ball.pop{animation:pop .3s forwards}
+@keyframes pop{to{transform:scale(1.6);opacity:0}}
+@keyframes up{from{transform:translateY(0)}to{transform:translateY(calc(-62vh - 340px))}}
+.target{font-size:40px;text-align:center;margin-bottom:12px}
+.target b{font-size:90px;vertical-align:middle;padding:0 18px;border-radius:24px}
+/* звёзды, фидбек */
+.stars{font-size:42px;text-align:center;margin-top:14px;min-height:50px;letter-spacing:4px}
+.toast{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);font-size:120px;opacity:0;pointer-events:none;transition:.25s;z-index:20}
+.toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.bounce{animation:bounce .5s}
+@keyframes bounce{0%{transform:scale(1)}40%{transform:scale(1.15)}100%{transform:scale(1)}}
+.t7{background:linear-gradient(140deg,#FF6FB5,#E83E8C)}
+.t8{background:linear-gradient(140deg,#7ED957,#4CAF50)}
+.wopts{display:flex;flex-direction:column;gap:16px;align-items:center;margin-top:10px}
+.wbtn{min-width:min(560px,92%);border:5px solid #FFE6B8;background:#FFF9EE;border-radius:30px;font:inherit;font-size:clamp(56px,9vw,90px);line-height:1.1;padding:10px 24px 16px;cursor:pointer;color:var(--ink);box-shadow:0 7px 0 #F2D9A8;letter-spacing:3px}
+.wbtn.ok{background:#D5F7E4;border-color:var(--green);box-shadow:0 7px 0 var(--green)}
+.wbtn.no{opacity:.35}
+.vw{color:var(--vowel)} .cs{color:var(--cons)} .sg{color:var(--sign)}
+.hy{color:#C9B48A;padding:0 4px}
+.toggle{border:none;border-radius:999px;padding:10px 22px;font:inherit;font-size:26px;cursor:pointer;background:#F3F0FF;color:var(--violet)}
+.toggle.on{background:var(--violet);color:#fff}
+.readcard{text-align:center}
+.readword{font-size:clamp(80px,14vw,150px);line-height:1.1;letter-spacing:4px;margin:10px 0 6px}
+.reveal{font-size:clamp(120px,20vw,190px);line-height:1.1;min-height:1.1em;transition:transform .3s}
+.reveal.hid{filter:blur(28px) grayscale(1);opacity:.35;transform:scale(.8)}
+.dots{font-size:36px;margin:8px 0;letter-spacing:6px}
+.lpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.lpick .lt{font-size:64px}
+.t9{background:linear-gradient(140deg,#FF9A5A,#F05A28)}
+.mic{width:170px;height:170px;border-radius:50%;border:none;font-size:86px;cursor:pointer;background:var(--vowel);color:#fff;box-shadow:0 8px 0 #B92A3D}
+.mic.rec{animation:pulse 1s infinite;background:#FF2D55}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,45,85,.6)}100%{box-shadow:0 0 0 36px rgba(255,45,85,0)}}
+.heard{font-size:30px;text-align:center;min-height:40px;color:var(--muted);margin:10px 0}
+.heard b{color:var(--ink)}
+.credit{text-align:center;font-size:18px;color:#8C88A8;margin:6px 0 0;font-weight:700}
+.t10{background:linear-gradient(140deg,#5FD3A8,#14A37F)}
+.t11{background:linear-gradient(140deg,#FFB3D1,#E85A9B)}
+.t12{background:linear-gradient(140deg,#7FB2FF,#3D63D8)}
+.slots{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
+.slotL{width:clamp(70px,11vw,110px);height:clamp(90px,14vw,130px);border-radius:20px;border:5px dashed #E3D3B0;background:#FFFBF2;font-size:clamp(60px,9vw,90px);display:flex;align-items:center;justify-content:center}
+.slotL.f{border-style:solid;border-color:var(--green);background:#E7F8EE}
+.tiles{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.tileL{width:clamp(80px,12vw,120px);height:clamp(90px,14vw,130px);border:none;border-radius:22px;background:#fff;box-shadow:0 7px 0 #E2D6BD;font:inherit;font-size:clamp(60px,9vw,90px);cursor:pointer;border:4px solid #F0E4C9}
+.tileL.used{visibility:hidden}
+.claps{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.clap{border:none;border-radius:28px;background:#FFF2F8;box-shadow:0 7px 0 #F2C2D8;font:inherit;font-size:54px;padding:14px 22px;cursor:pointer;min-width:160px}
+.clap b{display:block;font-size:64px;color:#E85A9B}
+.cnt{display:grid;grid-template-columns:repeat(5,auto);justify-content:center;gap:10px 18px;margin:0 0 18px}
+.cnt span{font-size:clamp(56px,8vw,84px);line-height:1;cursor:pointer;position:relative}
+.cnt span i{position:absolute;top:-8px;right:-10px;background:#3D63D8;color:#fff;font-style:normal;font-size:24px;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center}
+canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:15}
+.note{font-size:18px;color:var(--muted);text-align:center;margin-top:16px;font-weight:400}
+@media (max-width:700px){.round{width:52px;height:52px;font-size:24px}.pill{font-size:22px;padding:6px 12px}.logo span{font-size:34px}.pics{grid-template-columns:1fr 1fr}.pic .w{font-size:30px}.pic .em{font-size:80px}.logo{font-size:26px}h2{font-size:34px}.say{font-size:28px}.word{font-size:48px}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id=&quot;conf&quot;&gt;&lt;/canvas&gt;
+&lt;div class=&quot;toast&quot; id=&quot;toast&quot;&gt;⭐&lt;/div&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+  &lt;header&gt;
+    &lt;div class=&quot;logo&quot; id=&quot;home&quot;&gt;&lt;span&gt;🦉&lt;/span&gt;Весёлая азбука&lt;/div&gt;
+    &lt;div class=&quot;hbtns&quot;&gt;&lt;span class=&quot;pill&quot;&gt;⭐ &lt;span id=&quot;stars&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;round&quot; id=&quot;snd&quot; title=&quot;Звук&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+  &lt;/header&gt;
+  &lt;main class=&quot;panel&quot; id=&quot;app&quot;&gt;&lt;/main&gt;
+  &lt;p class=&quot;note&quot; id=&quot;voiceNote&quot;&gt;&lt;/p&gt;
+  &lt;p class=&quot;credit&quot;&gt;Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+/* ===== Буквы в порядке букваря Н. С. Жуковой ===== */
+const L=[
+ [&quot;А&quot;,&quot;v&quot;,&quot;а&quot;,[[&quot;🍉&quot;,&quot;арбуз&quot;],[&quot;🚌&quot;,&quot;автобус&quot;],[&quot;🍊&quot;,&quot;апельсин&quot;]]],
+ [&quot;У&quot;,&quot;v&quot;,&quot;у&quot;,[[&quot;🦆&quot;,&quot;утка&quot;],[&quot;🐌&quot;,&quot;улитка&quot;],[&quot;👂&quot;,&quot;ухо&quot;]]],
+ [&quot;О&quot;,&quot;v&quot;,&quot;о&quot;,[[&quot;🥒&quot;,&quot;огурец&quot;],[&quot;👓&quot;,&quot;очки&quot;],[&quot;🦌&quot;,&quot;олень&quot;]]],
+ [&quot;М&quot;,&quot;c&quot;,&quot;мэ&quot;,[[&quot;🐭&quot;,&quot;мышка&quot;],[&quot;🍦&quot;,&quot;мороженое&quot;],[&quot;🐻&quot;,&quot;медведь&quot;]]],
+ [&quot;С&quot;,&quot;c&quot;,&quot;сэ&quot;,[[&quot;🐘&quot;,&quot;слон&quot;],[&quot;🐶&quot;,&quot;собака&quot;],[&quot;☀️&quot;,&quot;солнце&quot;]]],
+ [&quot;Х&quot;,&quot;c&quot;,&quot;хэ&quot;,[[&quot;🍞&quot;,&quot;хлеб&quot;],[&quot;🐹&quot;,&quot;хомяк&quot;],[&quot;🏒&quot;,&quot;хоккей&quot;]]],
+ [&quot;Р&quot;,&quot;c&quot;,&quot;рэ&quot;,[[&quot;🐟&quot;,&quot;рыба&quot;],[&quot;🚀&quot;,&quot;ракета&quot;],[&quot;🌹&quot;,&quot;роза&quot;]]],
+ [&quot;Ш&quot;,&quot;c&quot;,&quot;шэ&quot;,[[&quot;🎈&quot;,&quot;шарик&quot;],[&quot;🍫&quot;,&quot;шоколад&quot;],[&quot;🎩&quot;,&quot;шляпа&quot;]]],
+ [&quot;Ы&quot;,&quot;v&quot;,&quot;ы&quot;,[[&quot;🧀&quot;,&quot;сыр&quot;],[&quot;🧼&quot;,&quot;мыло&quot;],[&quot;🐭&quot;,&quot;мышь&quot;]],true],
+ [&quot;Л&quot;,&quot;c&quot;,&quot;лэ&quot;,[[&quot;🦁&quot;,&quot;лев&quot;],[&quot;🦊&quot;,&quot;лиса&quot;],[&quot;🍋&quot;,&quot;лимон&quot;]]],
+ [&quot;Н&quot;,&quot;c&quot;,&quot;нэ&quot;,[[&quot;🦏&quot;,&quot;носорог&quot;],[&quot;✂️&quot;,&quot;ножницы&quot;],[&quot;🧦&quot;,&quot;носки&quot;]]],
+ [&quot;К&quot;,&quot;c&quot;,&quot;кэ&quot;,[[&quot;🐱&quot;,&quot;кошка&quot;],[&quot;🐊&quot;,&quot;крокодил&quot;],[&quot;🦘&quot;,&quot;кенгуру&quot;]]],
+ [&quot;Т&quot;,&quot;c&quot;,&quot;тэ&quot;,[[&quot;🐯&quot;,&quot;тигр&quot;],[&quot;🍅&quot;,&quot;томат&quot;],[&quot;🚜&quot;,&quot;трактор&quot;]]],
+ [&quot;И&quot;,&quot;v&quot;,&quot;и&quot;,[[&quot;🦃&quot;,&quot;индюк&quot;],[&quot;🧸&quot;,&quot;игрушка&quot;],[&quot;🍬&quot;,&quot;ириска&quot;]]],
+ [&quot;П&quot;,&quot;c&quot;,&quot;пэ&quot;,[[&quot;🐧&quot;,&quot;пингвин&quot;],[&quot;🐝&quot;,&quot;пчела&quot;],[&quot;🍕&quot;,&quot;пицца&quot;]]],
+ [&quot;З&quot;,&quot;c&quot;,&quot;зэ&quot;,[[&quot;🐰&quot;,&quot;заяц&quot;],[&quot;☂️&quot;,&quot;зонт&quot;],[&quot;🦓&quot;,&quot;зебра&quot;]]],
+ [&quot;Й&quot;,&quot;c&quot;,&quot;и краткое&quot;,[[&quot;🥛&quot;,&quot;йогурт&quot;],[&quot;🧘&quot;,&quot;йога&quot;],[&quot;🪀&quot;,&quot;йо-йо&quot;]]],
+ [&quot;Г&quot;,&quot;c&quot;,&quot;гэ&quot;,[[&quot;🍄&quot;,&quot;гриб&quot;],[&quot;🦍&quot;,&quot;горилла&quot;],[&quot;🎸&quot;,&quot;гитара&quot;]]],
+ [&quot;В&quot;,&quot;c&quot;,&quot;вэ&quot;,[[&quot;🐺&quot;,&quot;волк&quot;],[&quot;🚲&quot;,&quot;велосипед&quot;],[&quot;🍇&quot;,&quot;виноград&quot;]]],
+ [&quot;Д&quot;,&quot;c&quot;,&quot;дэ&quot;,[[&quot;🏠&quot;,&quot;дом&quot;],[&quot;🐬&quot;,&quot;дельфин&quot;],[&quot;🌳&quot;,&quot;дерево&quot;]]],
+ [&quot;Б&quot;,&quot;c&quot;,&quot;бэ&quot;,[[&quot;🍌&quot;,&quot;банан&quot;],[&quot;🦋&quot;,&quot;бабочка&quot;],[&quot;🥁&quot;,&quot;барабан&quot;]]],
+ [&quot;Ж&quot;,&quot;c&quot;,&quot;жэ&quot;,[[&quot;🦒&quot;,&quot;жираф&quot;],[&quot;🐞&quot;,&quot;жук&quot;],[&quot;🐸&quot;,&quot;жаба&quot;]]],
+ [&quot;Е&quot;,&quot;v&quot;,&quot;е&quot;,[[&quot;🦝&quot;,&quot;енот&quot;],[&quot;🌲&quot;,&quot;ель&quot;],[&quot;🍽️&quot;,&quot;еда&quot;]]],
+ [&quot;Ь&quot;,&quot;s&quot;,&quot;мягкий знак&quot;,[[&quot;🧂&quot;,&quot;соль&quot;],[&quot;🐎&quot;,&quot;конь&quot;],[&quot;🦢&quot;,&quot;лебедь&quot;]],true],
+ [&quot;Я&quot;,&quot;v&quot;,&quot;я&quot;,[[&quot;🍎&quot;,&quot;яблоко&quot;],[&quot;🥚&quot;,&quot;яйцо&quot;],[&quot;⚓&quot;,&quot;якорь&quot;]]],
+ [&quot;Ю&quot;,&quot;v&quot;,&quot;ю&quot;,[[&quot;👗&quot;,&quot;юбка&quot;],[&quot;🛖&quot;,&quot;юрта&quot;],[&quot;🪐&quot;,&quot;Юпитер&quot;]]],
+ [&quot;Ё&quot;,&quot;v&quot;,&quot;ё&quot;,[[&quot;🦔&quot;,&quot;ёжик&quot;],[&quot;🎄&quot;,&quot;ёлка&quot;]]],
+ [&quot;Ч&quot;,&quot;c&quot;,&quot;чэ&quot;,[[&quot;⏰&quot;,&quot;часы&quot;],[&quot;🐢&quot;,&quot;черепаха&quot;],[&quot;☕&quot;,&quot;чашка&quot;]]],
+ [&quot;Э&quot;,&quot;v&quot;,&quot;э&quot;,[[&quot;🏗️&quot;,&quot;экскаватор&quot;],[&quot;🍦&quot;,&quot;эскимо&quot;],[&quot;📺&quot;,&quot;экран&quot;]]],
+ [&quot;Ц&quot;,&quot;c&quot;,&quot;цэ&quot;,[[&quot;🐥&quot;,&quot;цыплёнок&quot;],[&quot;🌸&quot;,&quot;цветок&quot;],[&quot;🎪&quot;,&quot;цирк&quot;]]],
+ [&quot;Ф&quot;,&quot;c&quot;,&quot;фэ&quot;,[[&quot;🔦&quot;,&quot;фонарик&quot;],[&quot;🦩&quot;,&quot;фламинго&quot;],[&quot;⚽&quot;,&quot;футбол&quot;]]],
+ [&quot;Щ&quot;,&quot;c&quot;,&quot;щэ&quot;,[[&quot;🐶&quot;,&quot;щенок&quot;],[&quot;🍲&quot;,&quot;щи&quot;],[&quot;🐟&quot;,&quot;щука&quot;]]],
+ [&quot;Ъ&quot;,&quot;s&quot;,&quot;твёрдый знак&quot;,[[&quot;🏢&quot;,&quot;подъезд&quot;],[&quot;🛷&quot;,&quot;съехал&quot;]],true],
+];
+const BY={};L.forEach(x=&gt;BY[x[0]]=x);
+const VOW=[&quot;А&quot;,&quot;О&quot;,&quot;У&quot;,&quot;Ы&quot;,&quot;И&quot;];
+const CONS=[&quot;М&quot;,&quot;С&quot;,&quot;Х&quot;,&quot;Р&quot;,&quot;Ш&quot;,&quot;Л&quot;,&quot;Н&quot;,&quot;К&quot;,&quot;Т&quot;,&quot;П&quot;,&quot;З&quot;,&quot;Г&quot;,&quot;В&quot;,&quot;Д&quot;,&quot;Б&quot;,&quot;Ж&quot;,&quot;Ф&quot;];
+const BAD_SYL={&quot;ШЫ&quot;:1,&quot;ЖЫ&quot;:1,&quot;КЫ&quot;:1,&quot;ГЫ&quot;:1,&quot;ХЫ&quot;:1};
+
+/* ===== Голос и звуки ===== */
+let soundOn=true, ruVoice=null, actx=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();ruVoice=vs.find(v=&gt;/^ru/i.test(v.lang)&amp;&amp;v.localService)||vs.find(v=&gt;/^ru/i.test(v.lang))||null;
+  document.getElementById(&#x27;voiceNote&#x27;).textContent=ruVoice?&quot;&quot;:&quot;Подсказка: чтобы игра говорила, на устройстве должен быть установлен русский голос (в Windows, Android и iPad он обычно уже есть).&quot;;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(t,rate=.8){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&quot;ru-RU&quot;;if(ruVoice)u.voice=ruVoice;u.rate=rate;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}}
+function tone(kind){if(!soundOn)return;try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+  const seq=kind===&quot;ok&quot;?[[660,0],[880,.1],[1320,.2]]:kind===&quot;win&quot;?[[523,0],[659,.12],[784,.24],[1046,.36],[1318,.5]]:kind===&quot;pop&quot;?[[900,0]]:[[300,0],[220,.14]];
+  seq.forEach(([f,t])=&gt;{const o=actx.createOscillator(),g=actx.createGain(),n=actx.currentTime+t;o.type=kind===&quot;bad&quot;?&quot;square&quot;:&quot;triangle&quot;;o.frequency.setValueAtTime(f,n);if(kind===&quot;pop&quot;)o.frequency.exponentialRampToValueAtTime(200,n+.12);
+    g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(kind===&quot;bad&quot;?.08:.25,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+.22);o.connect(g).connect(actx.destination);o.start(n);o.stop(n+.25);});}catch(e){}}
+document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&quot;🔊&quot;:&quot;🔇&quot;;if(!soundOn)try{speechSynthesis.cancel()}catch(e){}};
+
+/* ===== Конфетти, звёзды ===== */
+const cv=document.getElementById(&#x27;conf&#x27;),cx=cv.getContext(&#x27;2d&#x27;);let parts=[];
+function confetti(){cv.width=innerWidth;cv.height=innerHeight;const cols=[&quot;#F0435A&quot;,&quot;#FFC83D&quot;,&quot;#2FBF71&quot;,&quot;#2F6FE4&quot;,&quot;#8B5CF6&quot;,&quot;#FF8A3D&quot;];
+  for(let i=0;i&lt;160;i++)parts.push({x:innerWidth/2,y:innerHeight/2.5,vx:(Math.random()-.5)*18,vy:Math.random()*-15-4,s:8+Math.random()*8,c:cols[i%6],r:Math.random()*6,l:140});
+  if(parts.length===160)requestAnimationFrame(tick);}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=&gt;{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+  parts=parts.filter(p=&gt;p.l&gt;0&amp;&amp;p.y&lt;cv.height+30);if(parts.length)requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);}
+let stars=0,learned={};try{stars=+localStorage.getItem(&#x27;az_stars&#x27;)||0;learned=JSON.parse(localStorage.getItem(&#x27;az_learned&#x27;)||&#x27;{}&#x27;);}catch(e){}
+const starsEl=document.getElementById(&#x27;stars&#x27;);starsEl.textContent=stars;
+function save(){try{localStorage.setItem(&#x27;az_stars&#x27;,stars);localStorage.setItem(&#x27;az_learned&#x27;,JSON.stringify(learned));}catch(e){}}
+function star(){stars++;starsEl.textContent=stars;save();const t=document.getElementById(&#x27;toast&#x27;);t.textContent=[&quot;⭐&quot;,&quot;🌟&quot;,&quot;🎉&quot;,&quot;👏&quot;,&quot;🏆&quot;][Math.floor(Math.random()*5)];t.classList.add(&#x27;show&#x27;);setTimeout(()=&gt;t.classList.remove(&#x27;show&#x27;),700);}
+const PRAISE=[&quot;Молодец!&quot;,&quot;Умница!&quot;,&quot;Правильно!&quot;,&quot;Отлично!&quot;,&quot;Ура!&quot;,&quot;Здорово!&quot;];
+const praise=()=&gt;PRAISE[Math.floor(Math.random()*PRAISE.length)];
+const rnd=a=&gt;a[Math.floor(Math.random()*a.length)];
+const shuffle=a=&gt;{a=[...a];for(let i=a.length-1;i&gt;0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const cls=l=&gt;BY[l][1];
+const app=document.getElementById(&#x27;app&#x27;);
+let timers=[];const clearT=()=&gt;{timers.forEach(clearTimeout);timers.forEach(clearInterval);timers=[];};
+function back(){return `&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;🏠 Меню&lt;/button&gt;`;}
+
+/* ===== Меню ===== */
+function home(){clearT();
+  app.innerHTML=`&lt;h2&gt;Во что поиграем?&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;
+   &lt;button class=&quot;tile t1&quot; onclick=&quot;abc()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Азбука&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t2&quot; onclick=&quot;findLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔍&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди букву&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t3&quot; onclick=&quot;firstLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🐱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Первая буква&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t4&quot; onclick=&quot;mergeGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏃&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Бежит к букве&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t5&quot; onclick=&quot;balloons()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎈&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Лопни шарик&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t6&quot; onclick=&quot;vowelGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎵&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Поющие буквы&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t7&quot; onclick=&quot;picWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🖼️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди слово&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t8&quot; onclick=&quot;readMenu()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📖&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Читаем слова&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t9&quot; onclick=&quot;sayGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Скажи слово&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t10&quot; onclick=&quot;buildWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🧱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Собери слово&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t11&quot; onclick=&quot;sylGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;👏&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Сколько слогов?&lt;/span&gt;&lt;/button&gt;
+   &lt;button class=&quot;tile t12&quot; onclick=&quot;count10()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔟&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Считаем до 10&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;`;
+}
+document.getElementById(&#x27;home&#x27;).onclick=home;
+
+/* ===== 1. Азбука ===== */
+function abc(){clearT();
+  app.innerHTML=`&lt;h2&gt;Азбука&lt;/h2&gt;&lt;div class=&quot;legend&quot;&gt;&lt;span&gt;&lt;b style=&quot;background:var(--vowel)&quot;&gt;&lt;/b&gt;гласные — поют&lt;/span&gt;&lt;span&gt;&lt;b style=&quot;background:var(--cons)&quot;&gt;&lt;/b&gt;согласные&lt;/span&gt;&lt;span&gt;&lt;b style=&quot;background:var(--sign)&quot;&gt;&lt;/b&gt;знаки&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;grid&quot;&gt;${L.map((x,i)=&gt;`&lt;button class=&quot;lt ${x[1]}&quot; onclick=&quot;letter(${i})&quot;&gt;${x[0]}&lt;small&gt;${x[0].toLowerCase()}&lt;/small&gt;${learned[x[0]]?&#x27;&lt;span class=&quot;done&quot;&gt;⭐&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(&quot;Нажми на любую букву&quot;);
+}
+function letter(i){clearT();
+  const [ch,k,name,pics,inside]=L[i];
+  const hl=w=&gt;{const p=w.toLowerCase().indexOf(ch.toLowerCase());return p&lt;0?w:w.slice(0,p)+`&lt;i style=&quot;color:var(--${k===&#x27;v&#x27;?&#x27;vowel&#x27;:k===&#x27;c&#x27;?&#x27;cons&#x27;:&#x27;sign&#x27;})&quot;&gt;${w[p]}&lt;/i&gt;`+w.slice(p+1);};
+  app.innerHTML=`&lt;div class=&quot;letterpage&quot;&gt;
+     &lt;button class=&quot;huge ${k}&quot; id=&quot;bigL&quot;&gt;${ch}${ch.toLowerCase()}&lt;/button&gt;
+     &lt;div style=&quot;width:100%&quot;&gt;&lt;p class=&quot;say&quot;&gt;${inside?&#x27;Где прячется буква?&#x27;:&#x27;Нажми на картинку!&#x27;}&lt;/p&gt;
+       &lt;div class=&quot;pics&quot;&gt;${pics.map(([e,w])=&gt;`&lt;button class=&quot;pic&quot; data-w=&quot;${w}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;${hl(w)}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;navrow&quot;&gt;&lt;button class=&quot;big-btn&quot; ${i?`onclick=&quot;letter(${i-1})&quot;`:&#x27;disabled style=&quot;opacity:.3&quot;&#x27;}&gt;◀&lt;/button&gt;${back()}&lt;button class=&quot;big-btn&quot; ${i&lt;L.length-1?`onclick=&quot;letter(${i+1})&quot;`:&#x27;disabled style=&quot;opacity:.3&quot;&#x27;}&gt;▶&lt;/button&gt;&lt;/div&gt;`;
+  const sayL=()=&gt;speak(k===&#x27;s&#x27;?`Это ${name}`:`Буква ${name}`);
+  const big=document.getElementById(&#x27;bigL&#x27;);big.onclick=()=&gt;{big.classList.remove(&#x27;bounce&#x27;);void big.offsetWidth;big.classList.add(&#x27;bounce&#x27;);sayL();tone(&#x27;pop&#x27;);};
+  let seen=new Set();
+  app.querySelectorAll(&#x27;.pic&#x27;).forEach(b=&gt;b.onclick=()=&gt;{b.classList.remove(&#x27;bounce&#x27;);void b.offsetWidth;b.classList.add(&#x27;bounce&#x27;);speak(b.dataset.w);seen.add(b.dataset.w);
+    if(seen.size===pics.length&amp;&amp;!learned[ch]){learned[ch]=1;star();tone(&#x27;win&#x27;);confetti();save();}});
+  sayL();
+}
+
+/* ===== 2. Найди букву ===== */
+let fl={n:0,ok:0};
+function findLetter(){clearT();fl={n:0,ok:0};flQ();}
+function flQ(){
+  if(fl.n&gt;=8) return finish(fl.ok,8,findLetter);
+  const pool=L.map(x=&gt;x[0]);const t=rnd(pool);const opts=shuffle([t,...shuffle(pool.filter(x=&gt;x!==t)).slice(0,3)]);
+  app.innerHTML=`&lt;div class=&quot;row&quot;&gt;&lt;h2 style=&quot;margin:0&quot;&gt;Найди букву&lt;/h2&gt;&lt;button class=&quot;speaker&quot; id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${opts.map(o=&gt;`&lt;button class=&quot;ch ${cls(o)}&quot; data-l=&quot;${o}&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(fl.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  const ask=()=&gt;speak(BY[t][1]===&#x27;s&#x27;?`Найди ${BY[t][2]}`:`Найди букву ${BY[t][2]}`);
+  document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+  answerHandler(t,fl,flQ);
+}
+function answerHandler(t,st,nextQ){
+  let tries=0;
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{
+    if(b.dataset.l===t){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=null);if(tries===0){st.ok++;star();}tone(&#x27;ok&#x27;);speak(praise());st.n++;timers.push(setTimeout(nextQ,1300));}
+    else{tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(&quot;Попробуй ещё&quot;);}
+  });
+}
+
+/* ===== 3. Первая буква ===== */
+let fs={n:0,ok:0};
+function firstLetter(){clearT();fs={n:0,ok:0};fsQ();}
+function fsQ(){
+  if(fs.n&gt;=8) return finish(fs.ok,8,firstLetter);
+  const cand=L.filter(x=&gt;!x[4]);const li=rnd(cand);const [e,w]=rnd(li[3]);const t=li[0];
+  const opts=shuffle([t,...shuffle(cand.map(x=&gt;x[0]).filter(x=&gt;x!==t)).slice(0,2)]);
+  app.innerHTML=`&lt;h2&gt;С какой буквы начинается?&lt;/h2&gt;
+   &lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;picbig&quot; id=&quot;pic&quot;&gt;${e}&lt;/div&gt;&lt;button class=&quot;speaker&quot; id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;word&quot;&gt;&lt;span class=&quot;q&quot; id=&quot;q&quot;&gt;${w[0].toUpperCase()}&lt;/span&gt;${w.slice(1)}&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${opts.map(o=&gt;`&lt;button class=&quot;ch ${cls(o)}&quot; data-l=&quot;${o}&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(fs.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  const ask=()=&gt;speak(w);document.getElementById(&#x27;rep&#x27;).onclick=ask;document.getElementById(&#x27;pic&#x27;).onclick=ask;ask();
+  let tries=0;
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{
+    if(b.dataset.l===t){b.classList.add(&#x27;ok&#x27;);document.getElementById(&#x27;q&#x27;).classList.add(&#x27;show&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=null);if(!tries){fs.ok++;star();}tone(&#x27;ok&#x27;);speak(praise()+&quot; &quot;+w);fs.n++;timers.push(setTimeout(fsQ,1700));}
+    else{tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(&quot;Послушай ещё: &quot;+w);}
+  });
+}
+
+/* ===== 4. Бежит к букве (слияние, как в букваре) ===== */
+let mg={n:0};
+function mergeGame(){clearT();mg={n:0};mgQ();}
+function mgQ(){
+  let c,v;do{c=rnd(CONS);v=rnd(VOW);}while(BAD_SYL[c+v]);
+  const syl=(c+v).toLowerCase();
+  app.innerHTML=`&lt;h2&gt;Бежит, бежит — и к букве спешит!&lt;/h2&gt;
+   &lt;div class=&quot;merge&quot;&gt;&lt;div class=&quot;mletter c&quot;&gt;${c}&lt;/div&gt;&lt;div class=&quot;track&quot; id=&quot;tr&quot;&gt;&lt;div class=&quot;road&quot;&gt;&lt;/div&gt;&lt;div class=&quot;runner&quot;&gt;🏃&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;mletter v&quot;&gt;${v}&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;syl&quot; id=&quot;syl&quot;&gt;&lt;/div&gt;
+   &lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;go&quot;&gt;▶ Бежим!&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(mg.n)}&lt;/div&gt;
+   &lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn&quot; id=&quot;nx&quot;&gt;Дальше ▶&lt;/button&gt;&lt;/div&gt;`;
+  const tr=document.getElementById(&#x27;tr&#x27;);
+  document.getElementById(&#x27;go&#x27;).onclick=()=&gt;{
+    tr.classList.remove(&#x27;go&#x27;);void tr.offsetWidth;document.getElementById(&#x27;syl&#x27;).innerHTML=&#x27;&#x27;;
+    speak(syl.split(&#x27;&#x27;).join(&#x27;-&#x27;),.5);
+    tr.classList.add(&#x27;go&#x27;);
+    timers.push(setTimeout(()=&gt;{document.getElementById(&#x27;syl&#x27;).innerHTML=`&lt;span&gt;${c}&lt;/span&gt;&lt;em&gt;${v}&lt;/em&gt;`;speak(syl,.6);tone(&#x27;ok&#x27;);},1400));
+  };
+  document.getElementById(&#x27;nx&#x27;).onclick=()=&gt;{mg.n=Math.min(mg.n+1,10);if(mg.n%5===0){star();confetti();tone(&#x27;win&#x27;);}mgQ();};
+}
+
+/* ===== 5. Лопни шарик ===== */
+let bl={};
+function balloons(){clearT();
+  const target=rnd(L.filter(x=&gt;x[1]!==&#x27;s&#x27;))[0];
+  const others=shuffle(L.map(x=&gt;x[0]).filter(x=&gt;x!==target)).slice(0,5);
+  bl={target,need:5,got:0};
+  app.innerHTML=`&lt;div class=&quot;target&quot;&gt;Лопни шарики с буквой &lt;b class=&quot;${cls(target)}&quot;&gt;${target}&lt;/b&gt; &lt;button class=&quot;speaker&quot; id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;sky&quot; id=&quot;sky&quot;&gt;&lt;/div&gt;&lt;div class=&quot;stars&quot; id=&quot;bs&quot;&gt;&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn&quot; onclick=&quot;balloons()&quot;&gt;Новая буква ▶&lt;/button&gt;&lt;/div&gt;`;
+  const ask=()=&gt;speak(`Лопни шарики с буквой ${BY[target][2]}`);document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+  const sky=document.getElementById(&#x27;sky&#x27;);const colors=[&quot;#F0435A&quot;,&quot;#2F6FE4&quot;,&quot;#2FBF71&quot;,&quot;#FF8A3D&quot;,&quot;#8B5CF6&quot;,&quot;#18B5C7&quot;,&quot;#FFB000&quot;];
+  const spawn=()=&gt;{
+    if(bl.got&gt;=bl.need)return;
+    const isT=Math.random()&lt;.45;const ch=isT?target:rnd(others);
+    const b=document.createElement(&#x27;div&#x27;);b.className=&#x27;ball&#x27;;b.textContent=ch;b.style.background=rnd(colors);
+    b.style.left=(5+Math.random()*80)+&#x27;%&#x27;;const dur=7+Math.random()*3;b.style.animation=`up ${dur}s linear forwards`;
+    b.onclick=()=&gt;{if(b.dataset.done)return;b.dataset.done=1;
+      if(ch===target){b.classList.add(&#x27;pop&#x27;);b.style.animation=&#x27;pop .3s forwards&#x27;;tone(&#x27;pop&#x27;);bl.got++;star();document.getElementById(&#x27;bs&#x27;).textContent=&quot;🎈&quot;.repeat(bl.got);
+        if(bl.got&gt;=bl.need){timers.push(setTimeout(()=&gt;{tone(&#x27;win&#x27;);confetti();speak(&quot;Ура! Все шарики лопнули!&quot;);},300));}else speak(praise());}
+      else{delete b.dataset.done;b.classList.add(&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(`Это буква ${BY[ch][2]}`);}
+      timers.push(setTimeout(()=&gt;b.remove(),400));};
+    sky.appendChild(b);timers.push(setTimeout(()=&gt;b.remove(),dur*1000+200));
+  };
+  spawn();timers.push(setInterval(spawn,1300));
+}
+
+/* ===== 6. Поющие буквы (гласная или согласная) ===== */
+let vg={n:0,ok:0};
+function vowelGame(){clearT();vg={n:0,ok:0};vgQ();}
+function vgQ(){
+  if(vg.n&gt;=8) return finish(vg.ok,8,vowelGame);
+  const x=rnd(L.filter(l=&gt;l[1]!==&#x27;s&#x27;));const isV=x[1]===&#x27;v&#x27;;
+  app.innerHTML=`&lt;h2&gt;Эта буква поёт?&lt;/h2&gt;&lt;p class=&quot;say&quot;&gt;Гласные буквы можно пропеть: «а-а-а», «о-о-о»!&lt;/p&gt;
+   &lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;huge ${x[1]===&#x27;v&#x27;?&#x27;&#x27;:&#x27;c&#x27;}&quot; id=&quot;L&quot; style=&quot;width:auto;padding:10px 50px 24px;background:#F3F0FF;color:var(--ink)&quot;&gt;${x[0]}&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;big-btn&quot; id=&quot;yes&quot; style=&quot;background:var(--vowel);box-shadow:0 6px 0 #B92A3D;font-size:40px&quot;&gt;🎵 Поёт&lt;/button&gt;
+     &lt;button class=&quot;big-btn&quot; id=&quot;no&quot; style=&quot;background:var(--cons);box-shadow:0 6px 0 #1D4FB0;font-size:40px&quot;&gt;🤐 Не поёт&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(vg.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  const big=document.getElementById(&#x27;L&#x27;);big.onclick=()=&gt;speak(`Буква ${x[2]}`);speak(`Буква ${x[2]}`);
+  let tries=0;
+  const ans=v=&gt;{if(v===isV){big.style.background=isV?&#x27;var(--vowel-bg)&#x27;:&#x27;var(--cons-bg)&#x27;;big.style.color=isV?&#x27;var(--vowel)&#x27;:&#x27;var(--cons)&#x27;;
+      if(!tries){vg.ok++;star();}tone(&#x27;ok&#x27;);speak(isV?`Правильно! ${x[2]}-${x[2]}-${x[2]}. Гласная, поёт!`:&quot;Правильно! Согласная.&quot;);vg.n++;
+      document.getElementById(&#x27;yes&#x27;).onclick=document.getElementById(&#x27;no&#x27;).onclick=null;timers.push(setTimeout(vgQ,2200));}
+    else{tries++;tone(&#x27;bad&#x27;);big.classList.remove(&#x27;shake&#x27;);void big.offsetWidth;big.classList.add(&#x27;shake&#x27;);speak(&quot;Попробуй ещё&quot;);}};
+  document.getElementById(&#x27;yes&#x27;).onclick=()=&gt;ans(true);document.getElementById(&#x27;no&#x27;).onclick=()=&gt;ans(false);
+}
+
+
+/* ===== Слова для чтения (с делением на слоги) ===== */
+const SHORT=[[&quot;🐱&quot;,&quot;кот&quot;],[&quot;🐳&quot;,&quot;кит&quot;],[&quot;🏠&quot;,&quot;дом&quot;],[&quot;🧀&quot;,&quot;сыр&quot;],[&quot;🧃&quot;,&quot;сок&quot;],[&quot;🎈&quot;,&quot;шар&quot;],[&quot;🐞&quot;,&quot;жук&quot;],[&quot;🧅&quot;,&quot;лук&quot;],[&quot;👃&quot;,&quot;нос&quot;],[&quot;🦞&quot;,&quot;рак&quot;],
+ [&quot;🦁&quot;,&quot;лев&quot;],[&quot;🍯&quot;,&quot;мёд&quot;],[&quot;⚽&quot;,&quot;мяч&quot;],[&quot;☕&quot;,&quot;чай&quot;],[&quot;🦷&quot;,&quot;зуб&quot;],[&quot;🍄&quot;,&quot;гриб&quot;],[&quot;🎂&quot;,&quot;торт&quot;],[&quot;🐘&quot;,&quot;слон&quot;],[&quot;🐺&quot;,&quot;волк&quot;],[&quot;🐭&quot;,&quot;мышь&quot;],[&quot;☂️&quot;,&quot;зонт&quot;],[&quot;🦔&quot;,&quot;ёж&quot;],[&quot;🌲&quot;,&quot;ель&quot;],[&quot;🎀&quot;,&quot;бант&quot;],[&quot;💨&quot;,&quot;дым&quot;],[&quot;🚩&quot;,&quot;флаг&quot;],
+ [&quot;🐟&quot;,&quot;ры-ба&quot;],[&quot;🦆&quot;,&quot;ут-ка&quot;],[&quot;🌙&quot;,&quot;лу-на&quot;],[&quot;🦊&quot;,&quot;ли-са&quot;],[&quot;🌹&quot;,&quot;ро-за&quot;],[&quot;🦉&quot;,&quot;со-ва&quot;],[&quot;🐐&quot;,&quot;ко-за&quot;],[&quot;🦵&quot;,&quot;но-га&quot;],[&quot;✋&quot;,&quot;ру-ка&quot;],[&quot;👂&quot;,&quot;у-хо&quot;],[&quot;🐸&quot;,&quot;жа-ба&quot;],[&quot;🏺&quot;,&quot;ва-за&quot;],[&quot;⛰️&quot;,&quot;го-ра&quot;],[&quot;🍌&quot;,&quot;ба-нан&quot;],[&quot;💧&quot;,&quot;во-да&quot;],[&quot;🍈&quot;,&quot;ды-ня&quot;],[&quot;🎃&quot;,&quot;тык-ва&quot;],[&quot;🧢&quot;,&quot;шап-ка&quot;],[&quot;⏰&quot;,&quot;ча-сы&quot;],[&quot;👄&quot;,&quot;гу-бы&quot;],[&quot;🧼&quot;,&quot;мы-ло&quot;],[&quot;🦈&quot;,&quot;а-ку-ла&quot;],[&quot;🍉&quot;,&quot;ар-буз&quot;]];
+const RW={
+ &quot;А&quot;:[[&quot;🍉&quot;,&quot;ар-буз&quot;],[&quot;🍍&quot;,&quot;а-на-нас&quot;],[&quot;🦈&quot;,&quot;а-ку-ла&quot;]],
+ &quot;У&quot;:[[&quot;🦆&quot;,&quot;ут-ка&quot;],[&quot;👂&quot;,&quot;у-хо&quot;],[&quot;🐌&quot;,&quot;у-лит-ка&quot;]],
+ &quot;О&quot;:[[&quot;👓&quot;,&quot;оч-ки&quot;],[&quot;☁️&quot;,&quot;об-ла-ко&quot;],[&quot;🥒&quot;,&quot;о-гу-рец&quot;]],
+ &quot;М&quot;:[[&quot;👩&quot;,&quot;ма-ма&quot;],[&quot;⚽&quot;,&quot;мяч&quot;],[&quot;🍯&quot;,&quot;мёд&quot;]],
+ &quot;С&quot;:[[&quot;🧀&quot;,&quot;сыр&quot;],[&quot;🧃&quot;,&quot;сок&quot;],[&quot;🦉&quot;,&quot;со-ва&quot;]],
+ &quot;Х&quot;:[[&quot;🍞&quot;,&quot;хлеб&quot;],[&quot;🐹&quot;,&quot;хо-мяк&quot;],[&quot;🏒&quot;,&quot;хок-кей&quot;]],
+ &quot;Р&quot;:[[&quot;🦞&quot;,&quot;рак&quot;],[&quot;🐟&quot;,&quot;ры-ба&quot;],[&quot;🌹&quot;,&quot;ро-за&quot;]],
+ &quot;Ш&quot;:[[&quot;🎈&quot;,&quot;шар&quot;],[&quot;🧢&quot;,&quot;шап-ка&quot;],[&quot;🩳&quot;,&quot;шор-ты&quot;]],
+ &quot;Ы&quot;:[[&quot;🧀&quot;,&quot;сыр&quot;],[&quot;🧼&quot;,&quot;мы-ло&quot;],[&quot;🍈&quot;,&quot;ды-ня&quot;]],
+ &quot;Л&quot;:[[&quot;🧅&quot;,&quot;лук&quot;],[&quot;🦁&quot;,&quot;лев&quot;],[&quot;🌙&quot;,&quot;лу-на&quot;]],
+ &quot;Н&quot;:[[&quot;👃&quot;,&quot;нос&quot;],[&quot;🦵&quot;,&quot;но-га&quot;],[&quot;🔪&quot;,&quot;нож&quot;]],
+ &quot;К&quot;:[[&quot;🐱&quot;,&quot;кот&quot;],[&quot;🐳&quot;,&quot;кит&quot;],[&quot;🐐&quot;,&quot;ко-за&quot;]],
+ &quot;Т&quot;:[[&quot;🎂&quot;,&quot;торт&quot;],[&quot;🐯&quot;,&quot;тигр&quot;],[&quot;🎃&quot;,&quot;тык-ва&quot;]],
+ &quot;И&quot;:[[&quot;🦃&quot;,&quot;ин-дюк&quot;],[&quot;🌳&quot;,&quot;и-ва&quot;],[&quot;🍬&quot;,&quot;и-рис-ка&quot;]],
+ &quot;П&quot;:[[&quot;🕷️&quot;,&quot;па-ук&quot;],[&quot;🐝&quot;,&quot;пче-ла&quot;],[&quot;🍕&quot;,&quot;пиц-ца&quot;]],
+ &quot;З&quot;:[[&quot;☂️&quot;,&quot;зонт&quot;],[&quot;🦷&quot;,&quot;зуб&quot;],[&quot;🐰&quot;,&quot;за-яц&quot;]],
+ &quot;Й&quot;:[[&quot;☕&quot;,&quot;чай&quot;],[&quot;🎽&quot;,&quot;май-ка&quot;],[&quot;🧘&quot;,&quot;йо-га&quot;]],
+ &quot;Г&quot;:[[&quot;🍄&quot;,&quot;гриб&quot;],[&quot;⛰️&quot;,&quot;го-ра&quot;],[&quot;👄&quot;,&quot;гу-бы&quot;]],
+ &quot;В&quot;:[[&quot;💧&quot;,&quot;во-да&quot;],[&quot;🏺&quot;,&quot;ва-за&quot;],[&quot;🐺&quot;,&quot;волк&quot;]],
+ &quot;Д&quot;:[[&quot;🏠&quot;,&quot;дом&quot;],[&quot;💨&quot;,&quot;дым&quot;],[&quot;🍈&quot;,&quot;ды-ня&quot;]],
+ &quot;Б&quot;:[[&quot;🎀&quot;,&quot;бант&quot;],[&quot;🐂&quot;,&quot;бык&quot;],[&quot;🍌&quot;,&quot;ба-нан&quot;]],
+ &quot;Ж&quot;:[[&quot;🐞&quot;,&quot;жук&quot;],[&quot;🐸&quot;,&quot;жа-ба&quot;],[&quot;🦒&quot;,&quot;жи-раф&quot;]],
+ &quot;Е&quot;:[[&quot;🌲&quot;,&quot;ель&quot;],[&quot;🦝&quot;,&quot;е-нот&quot;],[&quot;🍽️&quot;,&quot;е-да&quot;]],
+ &quot;Ь&quot;:[[&quot;🐎&quot;,&quot;конь&quot;],[&quot;🧂&quot;,&quot;соль&quot;],[&quot;🐭&quot;,&quot;мышь&quot;]],
+ &quot;Я&quot;:[[&quot;🥚&quot;,&quot;яй-цо&quot;],[&quot;🍎&quot;,&quot;яб-ло-ко&quot;],[&quot;⚓&quot;,&quot;я-корь&quot;]],
+ &quot;Ю&quot;:[[&quot;👗&quot;,&quot;юб-ка&quot;],[&quot;🛖&quot;,&quot;юр-та&quot;]],
+ &quot;Ё&quot;:[[&quot;🦔&quot;,&quot;ёж&quot;],[&quot;🎄&quot;,&quot;ёл-ка&quot;]],
+ &quot;Ч&quot;:[[&quot;☕&quot;,&quot;чай&quot;],[&quot;⏰&quot;,&quot;ча-сы&quot;],[&quot;⚽&quot;,&quot;мяч&quot;]],
+ &quot;Э&quot;:[[&quot;📺&quot;,&quot;эк-ран&quot;],[&quot;🍦&quot;,&quot;эс-ки-мо&quot;]],
+ &quot;Ц&quot;:[[&quot;🎪&quot;,&quot;цирк&quot;],[&quot;💐&quot;,&quot;цве-ты&quot;],[&quot;🐥&quot;,&quot;цып-лё-нок&quot;]],
+ &quot;Ф&quot;:[[&quot;🚩&quot;,&quot;флаг&quot;],[&quot;📷&quot;,&quot;фо-то&quot;],[&quot;🧚&quot;,&quot;фе-я&quot;]],
+ &quot;Щ&quot;:[[&quot;🐟&quot;,&quot;щу-ка&quot;],[&quot;🍲&quot;,&quot;щи&quot;],[&quot;🐶&quot;,&quot;ще-нок&quot;]],
+ &quot;Ъ&quot;:[[&quot;🏢&quot;,&quot;подъ-езд&quot;],[&quot;😋&quot;,&quot;съел&quot;]],
+};
+let bySyl=true;try{bySyl=localStorage.getItem(&#x27;az_syl&#x27;)!==&#x27;0&#x27;;}catch(e){}
+const VOWS=&quot;аоуыэяёюие&quot;;
+const plain=w=&gt;w.replace(/-/g,&#x27;&#x27;);
+function colorWord(w,syl){ // гласные красные, согласные синие, знаки серые
+  return [...w].map(ch=&gt;ch===&#x27;-&#x27;?(syl?&#x27;&lt;span class=&quot;hy&quot;&gt;-&lt;/span&gt;&#x27;:&#x27;&#x27;):`&lt;span class=&quot;${VOWS.includes(ch.toLowerCase())?&#x27;vw&#x27;:/[ьъ]/i.test(ch)?&#x27;sg&#x27;:&#x27;cs&#x27;}&quot;&gt;${ch}&lt;/span&gt;`).join(&#x27;&#x27;);
+}
+function sylToggle(cb){return `&lt;button class=&quot;toggle ${bySyl?&#x27;on&#x27;:&#x27;&#x27;}&quot; id=&quot;syl&quot;&gt;${bySyl?&#x27;✔ По слогам&#x27;:&#x27;По слогам&#x27;}&lt;/button&gt;`;}
+function bindToggle(redraw){const b=document.getElementById(&#x27;syl&#x27;);if(b)b.onclick=()=&gt;{bySyl=!bySyl;try{localStorage.setItem(&#x27;az_syl&#x27;,bySyl?&#x27;1&#x27;:&#x27;0&#x27;)}catch(e){}redraw();};}
+const sayW=w=&gt;speak(plain(w),.75);
+const sayS=w=&gt;speak(w.split(&#x27;-&#x27;).join(&#x27;, &#x27;),.6);
+
+/* ===== 7. Найди слово по картинке ===== */
+let pw={n:0,ok:0,cur:null};
+function picWord(){clearT();pw={n:0,ok:0,cur:null};pwQ();}
+function pwQ(){
+  if(pw.n&gt;=8) return finish(pw.ok,8,picWord);
+  const t=rnd(SHORT);const len=plain(t[1]).length;
+  const near=shuffle(SHORT.filter(x=&gt;x!==t&amp;&amp;Math.abs(plain(x[1]).length-len)&lt;=1));
+  const opts=shuffle([t,...near.slice(0,2)]);
+  pw.cur={t,opts,tries:0,done:false};pwDraw();
+  speak(&quot;Найди, как называется картинка&quot;);
+}
+function pwDraw(){
+  const {t,opts}=pw.cur;
+  app.innerHTML=`&lt;div class=&quot;row&quot;&gt;&lt;h2 style=&quot;margin:0&quot;&gt;Прочитай и найди слово&lt;/h2&gt;${sylToggle()}&lt;/div&gt;
+   &lt;div class=&quot;picbig&quot; id=&quot;pic&quot;&gt;${t[0]}&lt;/div&gt;
+   &lt;div class=&quot;wopts&quot;&gt;${opts.map((o,i)=&gt;`&lt;button class=&quot;wbtn&quot; data-i=&quot;${i}&quot;&gt;${colorWord(o[1],bySyl)}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(pw.ok)}&lt;/div&gt;
+   &lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; id=&quot;hint&quot;&gt;💡 Подсказка&lt;/button&gt;&lt;/div&gt;`;
+  bindToggle(pwDraw);
+  document.getElementById(&#x27;hint&#x27;).onclick=()=&gt;{pw.cur.tries++;sayS(t[1]);};
+  app.querySelectorAll(&#x27;.wbtn&#x27;).forEach(b=&gt;b.onclick=()=&gt;{
+    if(pw.cur.done)return;const o=opts[+b.dataset.i];
+    if(o===t){pw.cur.done=true;b.classList.add(&#x27;ok&#x27;);if(!pw.cur.tries){pw.ok++;star();}tone(&#x27;ok&#x27;);speak(praise()+&quot; &quot;+plain(t[1]));pw.n++;timers.push(setTimeout(pwQ,1800));}
+    else{pw.cur.tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(&quot;Здесь написано: &quot;+plain(o[1])+&quot;. Ищи ещё!&quot;);}
+  });
+}
+
+/* ===== 8. Читаем слова на каждую букву ===== */
+function readMenu(){clearT();
+  app.innerHTML=`&lt;h2&gt;Читаем слова. Выбери букву!&lt;/h2&gt;
+   &lt;div class=&quot;lpick&quot;&gt;${L.map(x=&gt;`&lt;button class=&quot;lt ${x[1]}&quot; onclick=&quot;readLetter(&#x27;${x[0]}&#x27;,0)&quot;&gt;${x[0]}${learned[&#x27;r&#x27;+x[0]]?&#x27;&lt;span class=&quot;done&quot;&gt;⭐&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(&quot;Выбери букву, и будем читать слова&quot;);
+}
+function readLetter(ch,i){clearT();
+  const list=RW[ch];const [e,w]=list[i];const k=BY[ch][1];
+  let shown=false;
+  const draw=()=&gt;{
+    app.innerHTML=`&lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;huge ${k}&quot; style=&quot;font-size:90px;padding:4px 30px 12px&quot; id=&quot;bl&quot;&gt;${ch}${ch.toLowerCase()}&lt;/button&gt;${sylToggle()}&lt;/div&gt;
+     &lt;div class=&quot;readcard&quot;&gt;
+       &lt;div class=&quot;say&quot;&gt;${shown?&#x27;Правильно прочитал?&#x27;:&#x27;Прочитай слово!&#x27;}&lt;/div&gt;
+       &lt;div class=&quot;readword&quot;&gt;${colorWord(w,bySyl)}&lt;/div&gt;
+       &lt;div class=&quot;reveal ${shown?&#x27;&#x27;:&#x27;hid&#x27;}&quot; id=&quot;rv&quot;&gt;${e}&lt;/div&gt;
+       &lt;div class=&quot;dots&quot;&gt;${list.map((_,j)=&gt;j&lt;i?&#x27;🟢&#x27;:j===i?&#x27;🟡&#x27;:&#x27;⚪&#x27;).join(&#x27; &#x27;)}&lt;/div&gt;
+       &lt;div class=&quot;row&quot;&gt;${shown?`&lt;button class=&quot;big-btn&quot; id=&quot;again&quot;&gt;🔊 Ещё раз&lt;/button&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;nx&quot;&gt;${i&lt;list.length-1?&#x27;Следующее слово ▶&#x27;:&#x27;Готово ⭐&#x27;}&lt;/button&gt;`:`&lt;button class=&quot;big-btn g&quot; id=&quot;chk&quot; style=&quot;font-size:40px&quot;&gt;👀 Проверить&lt;/button&gt;`}&lt;/div&gt;
+     &lt;/div&gt;
+     &lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; onclick=&quot;readMenu()&quot;&gt;🔤 Буквы&lt;/button&gt;&lt;/div&gt;`;
+    bindToggle(draw);
+    document.getElementById(&#x27;bl&#x27;).onclick=()=&gt;speak(BY[ch][1]===&#x27;s&#x27;?BY[ch][2]:&#x27;Буква &#x27;+BY[ch][2]);
+    if(!shown){document.getElementById(&#x27;chk&#x27;).onclick=()=&gt;{shown=true;tone(&#x27;ok&#x27;);draw();sayS(w);timers.push(setTimeout(()=&gt;sayW(w),1600));};}
+    else{
+      document.getElementById(&#x27;again&#x27;).onclick=()=&gt;{sayS(w);timers.push(setTimeout(()=&gt;sayW(w),1600));};
+      document.getElementById(&#x27;nx&#x27;).onclick=()=&gt;{
+        if(i&lt;list.length-1) readLetter(ch,i+1);
+        else{if(!learned[&#x27;r&#x27;+ch]){learned[&#x27;r&#x27;+ch]=1;save();}star();tone(&#x27;win&#x27;);confetti();speak(&quot;Молодец! Все слова прочитаны!&quot;);
+          const idx=L.findIndex(x=&gt;x[0]===ch);
+          app.innerHTML=`&lt;div style=&quot;text-align:center&quot;&gt;&lt;div style=&quot;font-size:150px&quot;&gt;🏆&lt;/div&gt;&lt;h2&gt;Ты прочитал все слова на букву ${ch}!&lt;/h2&gt;
+            &lt;div class=&quot;row&quot;&gt;${idx&lt;L.length-1?`&lt;button class=&quot;big-btn g&quot; onclick=&quot;readLetter(&#x27;${L[idx+1][0]}&#x27;,0)&quot;&gt;Буква ${L[idx+1][0]} ▶&lt;/button&gt;`:&#x27;&#x27;}&lt;button class=&quot;big-btn y&quot; onclick=&quot;readMenu()&quot;&gt;🔤 Буквы&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;}
+      };
+    }
+  };
+  draw();
+}
+
+
+/* ===== 9. Скажи слово (микрофон) ===== */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let sg={n:0,ok:0,mode:SR?&#x27;rec&#x27;:&#x27;self&#x27;};
+const norm=t=&gt;t.toLowerCase().replace(/ё/g,&#x27;е&#x27;).replace(/[^а-я\s]/g,&#x27; &#x27;).replace(/\s+/g,&#x27; &#x27;).trim();
+function lev(a,b){const d=Array.from({length:a.length+1},(_,i)=&gt;[i]);for(let j=1;j&lt;=b.length;j++)d[0][j]=j;
+  for(let i=1;i&lt;=a.length;i++)for(let j=1;j&lt;=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length];}
+function matches(heard,target){const t=norm(target);
+  return heard.some(h=&gt;{const words=norm(h).split(&#x27; &#x27;);if(norm(h).replace(/ /g,&#x27;&#x27;)===t)return true;
+    return words.some(w=&gt;w===t||(t.length&gt;=4&amp;&amp;lev(w,t)&lt;=1)||(t.length&gt;=6&amp;&amp;lev(w,t)&lt;=2));});}
+function sayGame(){clearT();sg={n:0,ok:0,mode:SR?&#x27;rec&#x27;:&#x27;self&#x27;};sgQ();}
+function sgQ(){
+  if(sg.n&gt;=8) return finish(sg.ok,8,sayGame);
+  const t=rnd(SHORT);const w=t[1];let shown=false,busy=false,recog=null,mrec=null,chunks=[],audioURL=null;
+  const draw=(msg=&#x27;&#x27;)=&gt;{
+    app.innerHTML=`&lt;div class=&quot;row&quot;&gt;&lt;h2 style=&quot;margin:0&quot;&gt;Прочитай слово вслух!&lt;/h2&gt;${sylToggle()}&lt;/div&gt;
+     &lt;div class=&quot;readcard&quot;&gt;&lt;div class=&quot;readword&quot;&gt;${colorWord(w,bySyl)}&lt;/div&gt;
+      &lt;div class=&quot;reveal ${shown?&#x27;&#x27;:&#x27;hid&#x27;}&quot; style=&quot;font-size:clamp(90px,14vw,140px)&quot;&gt;${t[0]}&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;button class=&quot;mic&quot; id=&quot;mic&quot;&gt;🎤&lt;/button&gt;&lt;/div&gt;
+      &lt;div class=&quot;heard&quot; id=&quot;heard&quot;&gt;${msg||(sg.mode===&#x27;rec&#x27;?&#x27;Нажми на микрофон и скажи слово&#x27;:&#x27;Нажми 🎤, скажи слово, потом нажми ещё раз&#x27;)}&lt;/div&gt;
+      &lt;div class=&quot;row&quot; id=&quot;selfbtns&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+     &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(sg.ok)}&lt;/div&gt;
+     &lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; id=&quot;skip&quot;&gt;Другое слово ▶&lt;/button&gt;&lt;/div&gt;`;
+    bindToggle(()=&gt;draw(document.getElementById(&#x27;heard&#x27;).innerHTML));
+    document.getElementById(&#x27;skip&#x27;).onclick=()=&gt;{stopAll();sg.n++;sgQ();};
+    document.getElementById(&#x27;mic&#x27;).onclick=sg.mode===&#x27;rec&#x27;?listen:recordSelf;
+  };
+  const win=()=&gt;{shown=true;sg.ok++;sg.n++;star();tone(&#x27;win&#x27;);confetti();speak(praise()+&quot; &quot;+plain(w));draw(`✅ &lt;b&gt;${praise()}&lt;/b&gt;`);
+    document.getElementById(&#x27;mic&#x27;).onclick=null;timers.push(setTimeout(sgQ,2600));};
+  const stopAll=()=&gt;{try{recog&amp;&amp;recog.abort()}catch(e){}try{mrec&amp;&amp;mrec.state===&#x27;recording&#x27;&amp;&amp;mrec.stop()}catch(e){}};
+  function listen(){
+    if(busy)return;busy=true;try{speechSynthesis.cancel()}catch(e){}
+    recog=new SR();recog.lang=&#x27;ru-RU&#x27;;recog.interimResults=false;recog.maxAlternatives=5;
+    const mic=document.getElementById(&#x27;mic&#x27;);mic.classList.add(&#x27;rec&#x27;);document.getElementById(&#x27;heard&#x27;).textContent=&#x27;Слушаю… говори!&#x27;;
+    let got=false;
+    recog.onresult=e=&gt;{got=true;const alts=[];for(const r of e.results)for(let i=0;i&lt;r.length;i++)alts.push(r[i].transcript);
+      if(matches(alts,plain(w)))win();
+      else{tone(&#x27;bad&#x27;);document.getElementById(&#x27;heard&#x27;).innerHTML=`Я услышала: &lt;b&gt;${alts[0]||&#x27;…&#x27;}&lt;/b&gt;. Попробуй ещё раз!`;}};
+    recog.onerror=e=&gt;{busy=false;mic.classList.remove(&#x27;rec&#x27;);
+      if(e.error===&#x27;network&#x27;||e.error===&#x27;service-not-allowed&#x27;||e.error===&#x27;language-not-supported&#x27;){sg.mode=&#x27;self&#x27;;draw(&#x27;Без интернета я не могу распознать слово. Давай запишем голос и послушаем!&#x27;);}
+      else if(e.error===&#x27;not-allowed&#x27;){draw(&#x27;Разреши доступ к микрофону в браузере 🎤&#x27;);}
+      else document.getElementById(&#x27;heard&#x27;).textContent=&#x27;Не расслышала. Нажми и скажи погромче!&#x27;;};
+    recog.onend=()=&gt;{busy=false;const m=document.getElementById(&#x27;mic&#x27;);m&amp;&amp;m.classList.remove(&#x27;rec&#x27;);if(!got&amp;&amp;!shown){const h=document.getElementById(&#x27;heard&#x27;);if(h&amp;&amp;h.textContent===&#x27;Слушаю… говори!&#x27;)h.textContent=&#x27;Не расслышала. Нажми и скажи погромче!&#x27;;}};
+    try{recog.start();}catch(e){busy=false;sg.mode=&#x27;self&#x27;;draw();return;}
+    timers.push(setTimeout(()=&gt;{if(busy&amp;&amp;!got){try{recog.abort()}catch(e){}busy=false;const m=document.getElementById(&#x27;mic&#x27;);m&amp;&amp;m.classList.remove(&#x27;rec&#x27;);
+      const h=document.getElementById(&#x27;heard&#x27;);if(h)h.innerHTML=&#x27;Не получилось услышать. Нажми 🎤 ещё раз или запиши голос.&#x27;;
+      const sb=document.getElementById(&#x27;selfbtns&#x27;);if(sb&amp;&amp;!sb.innerHTML)sb.innerHTML=&#x27;&lt;button class=&quot;big-btn&quot; id=&quot;toself&quot;&gt;🎙️ Записать и послушать&lt;/button&gt;&#x27;;
+      const ts=document.getElementById(&#x27;toself&#x27;);if(ts)ts.onclick=()=&gt;{sg.mode=&#x27;self&#x27;;draw();};}},8000));
+  }
+  async function recordSelf(){
+    const mic=document.getElementById(&#x27;mic&#x27;);
+    if(mrec&amp;&amp;mrec.state===&#x27;recording&#x27;){mrec.stop();return;}
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      mrec=new MediaRecorder(stream);chunks=[];
+      mrec.ondataavailable=e=&gt;chunks.push(e.data);
+      mrec.onstop=()=&gt;{stream.getTracks().forEach(t=&gt;t.stop());mic.classList.remove(&#x27;rec&#x27;);
+        if(audioURL)URL.revokeObjectURL(audioURL);audioURL=URL.createObjectURL(new Blob(chunks,{type:mrec.mimeType||&#x27;audio/webm&#x27;}));
+        new Audio(audioURL).play().catch(()=&gt;{});
+        document.getElementById(&#x27;heard&#x27;).innerHTML=&#x27;Послушай себя! Правильно получилось?&#x27;;
+        document.getElementById(&#x27;selfbtns&#x27;).innerHTML=`&lt;button class=&quot;big-btn&quot; id=&quot;play&quot;&gt;🔁 Послушать&lt;/button&gt;&lt;button class=&quot;big-btn&quot; id=&quot;model&quot;&gt;🔊 Как надо&lt;/button&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;yes&quot;&gt;👍 Да!&lt;/button&gt;`;
+        document.getElementById(&#x27;play&#x27;).onclick=()=&gt;new Audio(audioURL).play().catch(()=&gt;{});
+        document.getElementById(&#x27;model&#x27;).onclick=()=&gt;sayW(w);
+        document.getElementById(&#x27;yes&#x27;).onclick=win;};
+      mrec.start();mic.classList.add(&#x27;rec&#x27;);document.getElementById(&#x27;heard&#x27;).textContent=&#x27;Говори! Потом нажми на микрофон ещё раз&#x27;;
+      timers.push(setTimeout(()=&gt;{if(mrec&amp;&amp;mrec.state===&#x27;recording&#x27;)mrec.stop();},5000));
+    }catch(e){document.getElementById(&#x27;heard&#x27;).textContent=&#x27;Микрофон недоступен. Разреши доступ к микрофону в браузере.&#x27;;}
+  }
+  draw();
+}
+
+
+/* ===== 10. Собери слово ===== */
+let bw={n:0,ok:0};
+function buildWord(){clearT();bw={n:0,ok:0};bwQ();}
+function bwQ(){
+  if(bw.n&gt;=8) return finish(bw.ok,8,buildWord);
+  const pool=SHORT.filter(x=&gt;plain(x[1]).length&lt;=5);const t=rnd(pool),w=plain(t[1]).toUpperCase();
+  let pos=0,mist=0;const tiles=shuffle([...w].map((c,i)=&gt;({c,i})));
+  app.innerHTML=`&lt;h2&gt;Собери слово&lt;/h2&gt;&lt;div class=&quot;picbig&quot; id=&quot;pic&quot; style=&quot;font-size:clamp(110px,18vw,170px)&quot;&gt;${t[0]}&lt;/div&gt;
+   &lt;div class=&quot;slots&quot;&gt;${[...w].map((_,i)=&gt;`&lt;div class=&quot;slotL&quot; data-i=&quot;${i}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;tiles&quot;&gt;${tiles.map((x,k)=&gt;`&lt;button class=&quot;tileL ${cls(x.c)===&#x27;v&#x27;?&#x27;v&#x27;:cls(x.c)===&#x27;s&#x27;?&#x27;s&#x27;:&#x27;c&#x27;}&quot; data-k=&quot;${k}&quot;&gt;${x.c}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(bw.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; id=&quot;hint&quot;&gt;💡 Подсказка&lt;/button&gt;&lt;/div&gt;`;
+  document.getElementById(&#x27;pic&#x27;).onclick=()=&gt;sayS(t[1]);
+  document.getElementById(&#x27;hint&#x27;).onclick=()=&gt;{mist++;sayS(t[1]);};
+  speak(&#x27;Собери слово из букв&#x27;);
+  app.querySelectorAll(&#x27;.tileL&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=tiles[+b.dataset.k];
+    if(x.c===w[pos]){const sl=app.querySelector(`.slotL[data-i=&quot;${pos}&quot;]`);sl.textContent=x.c;sl.classList.add(&#x27;f&#x27;);b.classList.add(&#x27;used&#x27;);pos++;tone(&#x27;pop&#x27;);
+      speak(BY[x.c]?(BY[x.c][1]===&#x27;v&#x27;?x.c.toLowerCase():BY[x.c][2]):x.c,0,.9);
+      if(pos===w.length){if(!mist){bw.ok++;star();}tone(&#x27;win&#x27;);confetti();bw.n++;timers.push(setTimeout(()=&gt;speak(praise()+&#x27; &#x27;+plain(t[1])),500));timers.push(setTimeout(bwQ,2600));}}
+    else{mist++;tone(&#x27;bad&#x27;);b.classList.remove(&#x27;shake&#x27;);void b.offsetWidth;b.classList.add(&#x27;shake&#x27;);}});
+}
+/* ===== 11. Сколько слогов? ===== */
+let sy={n:0,ok:0};
+function sylGame(){clearT();sy={n:0,ok:0};syQ();}
+function syQ(){
+  if(sy.n&gt;=8) return finish(sy.ok,8,sylGame);
+  const all=[...SHORT,...Object.values(RW).flat()];const t=rnd(all.filter(x=&gt;x[1].split(&#x27;-&#x27;).length&lt;=3&amp;&amp;!/ъ/.test(x[1])));const n=t[1].split(&#x27;-&#x27;).length;
+  let shown=false;
+  const draw=()=&gt;{app.innerHTML=`&lt;h2&gt;Сколько слогов? Похлопай!&lt;/h2&gt;
+   &lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;picbig&quot; id=&quot;pic&quot; style=&quot;font-size:clamp(110px,18vw,160px)&quot;&gt;${t[0]}&lt;/div&gt;&lt;button class=&quot;speaker&quot; id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;readword&quot; style=&quot;font-size:clamp(64px,11vw,110px);text-align:center&quot;&gt;${colorWord(t[1],shown)}&lt;/div&gt;
+   &lt;div class=&quot;claps&quot;&gt;${[1,2,3].map(k=&gt;`&lt;button class=&quot;clap&quot; data-n=&quot;${k}&quot;&gt;${&#x27;👏&#x27;.repeat(k)}&lt;b&gt;${k}&lt;/b&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(sy.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+   const say=()=&gt;speak(plain(t[1]),0,.7);document.getElementById(&#x27;rep&#x27;).onclick=say;document.getElementById(&#x27;pic&#x27;).onclick=say;
+   let tries=0;
+   app.querySelectorAll(&#x27;.clap&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(shown)return;
+     if(+b.dataset.n===n){shown=true;if(!tries){sy.ok++;star();}tone(&#x27;ok&#x27;);draw();sayS(t[1]);
+       app.querySelectorAll(&#x27;.clap&#x27;).forEach(x=&gt;{if(+x.dataset.n===n)x.style.background=&#x27;#D5F7E4&#x27;;});
+       timers.push(setTimeout(()=&gt;speak(`${praise()} ${n===1?&#x27;Один слог&#x27;:n===2?&#x27;Два слога&#x27;:&#x27;Три слога&#x27;}!`),1500));sy.n++;timers.push(setTimeout(syQ,3600));}
+     else{tries++;tone(&#x27;bad&#x27;);b.classList.remove(&#x27;shake&#x27;);void b.offsetWidth;b.classList.add(&#x27;shake&#x27;);sayS(t[1]);}});};
+  draw();speak(&#x27;Послушай слово и похлопай: &#x27;+plain(t[1]),0,.75);
+}
+/* ===== 12. Считаем до 10 ===== */
+let c10={n:0,ok:0};
+const N10=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;,&quot;восемь&quot;,&quot;девять&quot;,&quot;десять&quot;];
+function count10(){clearT();c10={n:0,ok:0};c10Q();}
+function c10Q(){
+  if(c10.n&gt;=8) return finish(c10.ok,8,count10);
+  const n=1+Math.floor(Math.random()*10),e=rnd([&quot;🍎&quot;,&quot;🐟&quot;,&quot;⭐&quot;,&quot;🎈&quot;,&quot;🐞&quot;,&quot;🍓&quot;,&quot;🚗&quot;,&quot;🌸&quot;,&quot;🐥&quot;,&quot;🍪&quot;]);let c=0,tries=0;
+  const opts=shuffle([n,...shuffle([1,2,3,4,5,6,7,8,9,10].filter(x=&gt;x!==n&amp;&amp;Math.abs(x-n)&lt;=3)).slice(0,2)]);
+  app.innerHTML=`&lt;h2&gt;Сколько здесь? Нажимай и считай!&lt;/h2&gt;&lt;div class=&quot;cnt&quot;&gt;${Array.from({length:n},()=&gt;`&lt;span&gt;${e}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;choices&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;ch c&quot; data-n=&quot;${x}&quot; style=&quot;color:#3D63D8&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(c10.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
+  speak(&#x27;Посчитай и выбери цифру!&#x27;);
+  app.querySelectorAll(&#x27;.cnt span&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);tone(&#x27;pop&#x27;);speak(N10[c],0,1);});
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{
+    if(+b.dataset.n===n){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=null);if(!tries){c10.ok++;star();}tone(&#x27;ok&#x27;);speak(`${praise()} ${N10[n]}!`);c10.n++;timers.push(setTimeout(c10Q,1800));}
+    else{tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(&#x27;Посчитай ещё раз!&#x27;);}});
+}
+
+/* ===== Итог ===== */
+function finish(ok,n,again){clearT();
+  app.innerHTML=`&lt;div style=&quot;text-align:center&quot;&gt;&lt;div style=&quot;font-size:150px;line-height:1.1&quot;&gt;${ok&gt;=n-1?&#x27;🏆&#x27;:ok&gt;=n/2?&#x27;🥳&#x27;:&#x27;🦉&#x27;}&lt;/div&gt;
+   &lt;h2&gt;${ok&gt;=n-1?&#x27;Ты супер!&#x27;:ok&gt;=n/2?&#x27;Молодец!&#x27;:&#x27;Хорошо! Сыграем ещё?&#x27;}&lt;/h2&gt;
+   &lt;div class=&quot;stars&quot; style=&quot;font-size:60px&quot;&gt;${&quot;⭐&quot;.repeat(ok)}&lt;/div&gt;
+   &lt;div class=&quot;row&quot; style=&quot;margin-top:20px&quot;&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;ag&quot;&gt;🔁 Ещё раз&lt;/button&gt;${back()}&lt;/div&gt;&lt;/div&gt;`;
+  document.getElementById(&#x27;ag&#x27;).onclick=again;tone(&#x27;win&#x27;);if(ok&gt;=n/2)confetti();speak(ok&gt;=n/2?&quot;Молодец! Ты собрал &quot;+ok+&quot; звёзд!&quot;:&quot;Хорошо! Давай сыграем ещё!&quot;);
+}
+home();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+<script>
+const T={"a02":"🧸 Малышкина страна · 0–2 года","a24":"🦊 Умняшки · 2–4 года","a56":"🦉 Весёлая азбука · 5–6 лет"};
+let cur=null;
+document.querySelectorAll('.age').forEach(b=>b.onclick=()=>{
+  const f=document.getElementById(b.dataset.id);
+  if(!f.srcdoc) f.srcdoc=f.dataset.src;
+  document.querySelectorAll('iframe').forEach(x=>x.style.display='none');
+  f.style.display='block';cur=f;document.getElementById('ttl').textContent=T[b.dataset.id];document.body.classList.add('inapp');
+  try{f.contentWindow.focus();}catch(e){}
+});
+document.getElementById('back').onclick=()=>{
+  if(cur){try{cur.contentWindow.speechSynthesis.cancel();}catch(e){}try{cur.contentWindow.reset&&cur.contentWindow.reset();}catch(e){}try{cur.contentWindow.clearT&&cur.contentWindow.clearT();}catch(e){}
+    cur.style.display='none';}
+  document.body.classList.remove('inapp');
+};
+</script>
+<script>
+if('serviceWorker' in navigator && location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+</script>
+</body></html>
