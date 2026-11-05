@@ -39,15 +39,21 @@ h3.gh{font-size:30px;margin:6px 4px 14px;color:var(--ink)}.ages+h3.gh{margin-top
 #bar .bsnd{background:#F3F0FF;box-shadow:0 4px 0 #D9CFF5;font-size:24px;padding:8px 12px}
 #bar{position:sticky;top:0;z-index:5}
 iframe{display:none;width:100%;height:calc(100% - 64px);height:calc(100dvh - 64px);border:0;background:var(--bg)}
+#rest{display:none;position:fixed;inset:0;background:rgba(40,30,80,.55);z-index:50;align-items:center;justify-content:center;padding:16px}
+.rbox{background:#fff;border-radius:30px;padding:20px;max-width:480px;width:100%;text-align:center;box-shadow:0 10px 0 rgba(0,0,0,.15)}
+.rowl{font-size:80px} .rbox h2{margin:4px 0;font-size:30px;color:#7B5CE6} .rbox p{font-size:19px;margin:6px 0 10px}
+.ract{background:#FFF8E1;border-radius:18px;padding:12px;font-size:17px;font-weight:400;line-height:1.45;text-align:left;margin-bottom:14px} .ract b{font-weight:700}
+.rbox button{display:block;width:100%;border:none;border-radius:18px;font:inherit;font-size:21px;padding:14px;margin-top:10px;cursor:pointer;background:#2FBF71;color:#fff;box-shadow:0 5px 0 #1E9454}
+.rbox button.sec2{background:#EEE;color:#555;box-shadow:0 5px 0 #CCC;font-size:17px}
 body.inapp #start{display:none} body.inapp #bar{display:flex}
-@media (max-width:600px){.ae{font-size:90px}.ay{font-size:38px}#bar span{font-size:16px}#bar button{font-size:18px;padding:8px 12px}.lang b{font-size:19px}}
+@media (max-width:600px){.ages{gap:12px}.age{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:14px;align-items:center;text-align:left;padding:14px 16px;border-radius:28px}.ae{grid-row:1/4;font-size:64px}.ay{font-size:30px;margin:0}.an{font-size:19px;margin:0}.ad{font-size:14px;margin-top:4px}h1{font-size:34px}.sub{margin-bottom:12px}h3.gh{font-size:22px;margin:4px 4px 10px}.ages+h3.gh{margin-top:18px}#bar span{font-size:16px}#bar button{font-size:18px;padding:8px 12px}.lang b{font-size:19px}}
 </style></head>
 <body>
 <div id="start">
  <div class="top"><button class="lang" id="lang" aria-label="Язык / Тіл"><b id="lr">Рус</b><span class="sw"><i></i></span><b id="lk">Қаз</b></button></div>
  <h1 data-ru="Учимся играя" data-kz="Ойнай отырып үйренеміз">Учимся играя</h1>
  <p class="sub" data-ru="Выбери раздел 👇" data-kz="Бөлімді таңда 👇">Выбери раздел 👇</p>
- <h3 class="gh" data-ru="👶 По возрасту" data-kz="👶 Жас бойынша">👶 По возрасту</h3><div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay" data-ru="до 2 лет" data-kz="2 жасқа дейін">до 2 лет</span><span class="an" data-ru="Малыши" data-kz="Бөбектер">Малыши</span><span class="ad" data-ru="15 игр: звуки и слова, я и моя семья, мир вокруг, музыка" data-kz="15 ойын: дыбыстар мен сөздер, отбасы, айналадағы әлем, музыка">15 игр: звуки и слова, я и моя семья, мир вокруг, музыка</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay" data-ru="3–4 года" data-kz="3–4 жас">3–4 года</span><span class="an" data-ru="Почемучки" data-kz="Білгіштер">Почемучки</span><span class="ad" data-ru="19 игр: цвета и формы, логика, счёт, мир вокруг, буквы" data-kz="19 ойын: түстер мен пішіндер, логика, санау, айналадағы әлем · әріптер орысша">19 игр: цвета и формы, логика, счёт, мир вокруг, буквы</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay" data-ru="5–6 лет" data-kz="5–6 жас">5–6 лет</span><span class="an" data-ru="Скоро в школу" data-kz="Мектепке дайындық">Скоро в школу</span><span class="ad" data-ru="70 игр: чтение, математика, животные, растения, дорога, космос, техника, логика" data-kz="57 ойын қазақша: математика, жануарлар, өсімдіктер, жол, ғарыш, техника, логика · оқу ойындары орысша">70 игр: чтение, математика, животные, растения, дорога, космос, техника, логика</span></button></div><h3 class="gh" data-ru="🌍 Языки" data-kz="🌍 Тілдер">🌍 Языки</h3><div class="ages langs"><button class="age" data-id="aen" style="background:linear-gradient(140deg,#3D63D8,#E8505B)"><span class="ae">🇬🇧</span><span class="ay" data-ru="English" data-kz="English">English</span><span class="an" data-ru="Английский язык" data-kz="Ағылшын тілі">Английский язык</span><span class="ad" data-ru="для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском" data-kz="кез келген жасқа · 13 ойын · ағылшынша және орысша дыбыстау">для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском</span></button><button class="age" data-id="akz" style="background:linear-gradient(140deg,#0A8FB0,#F5B700)"><span class="ae">🇰🇿</span><span class="ay" data-ru="Қазақ тілі" data-kz="Қазақ тілі">Қазақ тілі</span><span class="an" data-ru="Казахский язык" data-kz="Қазақ тілі">Казахский язык</span><span class="ad" data-ru="для любого возраста · 13 игр: слова, цвета, числа, тело, казахские буквы — озвучка на казахском и русском" data-kz="кез келген жасқа · 13 ойын · қазақша және орысша дыбыстау">для любого возраста · 13 игр: слова, цвета, числа, тело, казахские буквы — озвучка на казахском и русском</span></button></div>
+ <h3 class="gh" data-ru="👶 По возрасту" data-kz="👶 Жас бойынша">👶 По возрасту</h3><div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay" data-ru="до 2 лет" data-kz="2 жасқа дейін">до 2 лет</span><span class="an" data-ru="Малыши" data-kz="Бөбектер">Малыши</span><span class="ad" data-ru="15 игр: звуки и слова, я и моя семья, мир вокруг, музыка" data-kz="15 ойын: дыбыстар мен сөздер, отбасы, айналадағы әлем, музыка">15 игр: звуки и слова, я и моя семья, мир вокруг, музыка</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay" data-ru="3–4 года" data-kz="3–4 жас">3–4 года</span><span class="an" data-ru="Почемучки" data-kz="Білгіштер">Почемучки</span><span class="ad" data-ru="33 игры: формы, логика, память, счёт, речь, эмоции, мир, творчество" data-kz="33 ойын: пішіндер, логика, зейін, санау, сөйлеу, эмоция, әлем, шығармашылық">33 игры: формы, логика, память, счёт, речь, эмоции, мир, творчество</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay" data-ru="5–6 лет" data-kz="5–6 жас">5–6 лет</span><span class="an" data-ru="Скоро в школу" data-kz="Мектепке дайындық">Скоро в школу</span><span class="ad" data-ru="70 игр: чтение, математика, животные, растения, дорога, космос, техника, логика" data-kz="57 ойын қазақша: математика, жануарлар, өсімдіктер, жол, ғарыш, техника, логика · оқу ойындары орысша">70 игр: чтение, математика, животные, растения, дорога, космос, техника, логика</span></button></div><h3 class="gh" data-ru="🌍 Языки" data-kz="🌍 Тілдер">🌍 Языки</h3><div class="ages langs"><button class="age" data-id="aen" style="background:linear-gradient(140deg,#3D63D8,#E8505B)"><span class="ae">🇬🇧</span><span class="ay" data-ru="English" data-kz="English">English</span><span class="an" data-ru="Английский язык" data-kz="Ағылшын тілі">Английский язык</span><span class="ad" data-ru="для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском" data-kz="кез келген жасқа · 13 ойын · ағылшынша және орысша дыбыстау">для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском</span></button><button class="age" data-id="akz" style="background:linear-gradient(140deg,#0A8FB0,#F5B700)"><span class="ae">🇰🇿</span><span class="ay" data-ru="Қазақ тілі" data-kz="Қазақ тілі">Қазақ тілі</span><span class="an" data-ru="Казахский язык" data-kz="Қазақ тілі">Казахский язык</span><span class="ad" data-ru="для любого возраста · 13 игр: слова, цвета, числа, тело, казахские буквы — озвучка на казахском и русском" data-kz="кез келген жасқа · 13 ойын · қазақша және орысша дыбыстау">для любого возраста · 13 игр: слова, цвета, числа, тело, казахские буквы — озвучка на казахском и русском</span></button></div><h3 class="gh" data-ru="👨‍👩‍👧 Родителям" data-kz="👨‍👩‍👧 Ата-аналарға">👨‍👩‍👧 Родителям</h3><div class="ages langs"><button class="age" data-id="apar" style="background:linear-gradient(140deg,#7B5CE6,#F5A623)"><span class="ae">👨‍👩‍👧</span><span class="ay" data-ru="100 занятий" data-kz="100 сабақ">100 занятий</span><span class="an" data-ru="Родителям" data-kz="Ата-аналарға">Родителям</span><span class="ad" data-ru="занятия на сегодня, успехи ребёнка, время у экрана" data-kz="бүгінгі сабақтар, баланың жетістіктері, экран уақыты">занятия на сегодня, успехи ребёнка, время у экрана</span></button></div>
  <p class="knote" id="knote"></p>
  <p class="credit" data-ru="Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г." data-kz="Әзірлеушілер: Омельницкая Мария Алексеевна және Омельницкий Александр Сергеевич, 2026 ж.">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
 </div>
@@ -543,7 +549,7 @@ function moms(){reset();
 }
 home();
 
-
+window.NAV_CFG={id:&quot;a02&quot;};
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
 (function(){
@@ -583,7 +589,8 @@ window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp
  if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
  listScroll=0;showCats();};
-appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));
+  try{const P2=JSON.parse(localStorage.getItem(&#x27;nav_plays&#x27;)||&#x27;{}&#x27;);const k=(CFG.id||&#x27;&#x27;)+&#x27;:&#x27;+keyOf(t);const nmEl=t.querySelector(&#x27;.t&#x27;);P2[k]={n:((P2[k]&amp;&amp;P2[k].n)||0)+1,name:(t.querySelector(&#x27;.e&#x27;)?t.querySelector(&#x27;.e&#x27;).textContent+&#x27; &#x27;:&#x27;&#x27;)+(nmEl?nmEl.textContent:&#x27;&#x27;)};localStorage.setItem(&#x27;nav_plays&#x27;,JSON.stringify(P2));}catch(err){}}},true);
 // кнопки «назад» системы и верхней панели
 window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
@@ -668,6 +675,30 @@ h2{text-align:center;font-size:38px;margin:4px 0 14px}
 .die{width:clamp(170px,26vw,230px);aspect-ratio:1/1;background:#fff;border:8px solid #33304F;border-radius:36px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:18px;margin:0 auto 20px;box-shadow:0 8px 0 rgba(0,0,0,.12)}
 .die i{width:70%;height:70%;margin:auto;border-radius:50%;background:#E8505B}
 .row3{display:flex;justify-content:center;align-items:flex-end;gap:16px;min-height:200px;margin:10px 0 20px;flex-wrap:wrap}
+.kshow{text-align:center;font-size:clamp(70px,14vw,120px);line-height:1.15;margin:0 0 14px}
+.ke{font-size:clamp(70px,14vw,110px);line-height:1.1;display:block}.kt{font-size:20px;display:block}
+.kopt{flex-direction:column}
+.kgrp{font-size:clamp(30px,7vw,46px);line-height:1.25;max-width:200px;display:block;word-break:break-all}
+.kn{font-size:clamp(64px,14vw,100px);color:#3B7BFF}
+.krow{font-size:clamp(40px,10vw,64px);letter-spacing:4px;line-height:1.3}.kq{color:#FFC83D;font-weight:900}
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:420px;margin:0 auto}
+.kcell{aspect-ratio:1/1;border:none;border-radius:20px;background:#FFF6E3;box-shadow:0 5px 0 #EEDDB5;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.kcell svg{width:70%;height:70%}.kcell.ok{background:#D9F7E3;box-shadow:0 5px 0 #43C26B}
+.kcups{display:flex;justify-content:center;gap:16px;margin:30px 0}
+.kcup{position:relative;width:clamp(90px,26vw,140px);height:clamp(130px,36vw,190px);border:none;background:none;cursor:pointer}
+.kcup .toy{position:absolute;bottom:0;left:0;right:0;font-size:clamp(50px,12vw,80px);text-align:center}
+.kcup .cap{position:absolute;bottom:0;left:0;right:0;font-size:clamp(90px,24vw,140px);transform:translateY(-110%);transition:transform .45s;text-align:center;line-height:1}
+.kcup.down .cap{transform:translateY(0)}
+.kcup.swapL{transform:translateX(calc(100% + 16px));transition:transform .8s}.kcup.swapR{transform:translateX(calc(-100% - 16px));transition:transform .8s}
+.kpads{display:flex;justify-content:center;gap:14px;margin:20px 0}
+.kpad{width:clamp(96px,27vw,160px);height:clamp(96px,27vw,160px);border-radius:50%;border:none;font-size:clamp(50px,13vw,80px);cursor:pointer;box-shadow:0 8px 0 rgba(0,0,0,.18);transition:transform .1s,filter .1s}
+.kpad.on{transform:scale(1.12);filter:brightness(1.25)}
+.kpair{font-size:clamp(56px,13vw,90px);line-height:1;display:flex;flex-direction:column;align-items:center}.kpair small{font-size:.7em}
+.kmix{display:flex;flex-direction:column;align-items:center;margin:10px 0}
+.khalf{border:none;background:#FFF6E3;width:min(260px,70vw);height:min(130px,35vw);overflow:hidden;position:relative;cursor:pointer}
+.khalf span{position:absolute;left:0;right:0;font-size:min(250px,66vw);line-height:min(260px,70vw);text-align:center}
+.khalf.top{border-radius:30px 30px 0 0;border-bottom:3px dashed #E9DFC9}.khalf.top span{top:0}.khalf.bot{border-radius:0 0 30px 30px}.khalf.bot span{bottom:0}
+.say{font-size:22px}
 canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
 .label{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:50px;opacity:0;pointer-events:none;transition:.25s;z-index:55;white-space:nowrap}
 .label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
@@ -817,7 +848,7 @@ const NOTW=[&quot;🩴&quot;,&quot;🧣&quot;,&quot;☂️&quot;,&quot;🕶️&q
 const EMO=[[&quot;😀&quot;,&quot;весёлый&quot;],[&quot;😢&quot;,&quot;грустный&quot;],[&quot;😠&quot;,&quot;сердитый&quot;],[&quot;😮&quot;,&quot;удивлённый&quot;],[&quot;😴&quot;,&quot;сонный&quot;]];
 const LETTERS=[[&quot;А&quot;,&quot;v&quot;,&quot;а&quot;,&quot;🍉&quot;,&quot;арбуз&quot;],[&quot;О&quot;,&quot;v&quot;,&quot;о&quot;,&quot;☁️&quot;,&quot;облако&quot;],[&quot;У&quot;,&quot;v&quot;,&quot;у&quot;,&quot;🦆&quot;,&quot;утка&quot;],[&quot;И&quot;,&quot;v&quot;,&quot;и&quot;,&quot;🦃&quot;,&quot;индюк&quot;],[&quot;Ы&quot;,&quot;v&quot;,&quot;ы&quot;,&quot;🧀&quot;,&quot;сыр&quot;],[&quot;Э&quot;,&quot;v&quot;,&quot;э&quot;,&quot;🍦&quot;,&quot;эскимо&quot;],
  [&quot;М&quot;,&quot;c&quot;,&quot;мэ&quot;,&quot;🐭&quot;,&quot;мышка&quot;],[&quot;П&quot;,&quot;c&quot;,&quot;пэ&quot;,&quot;🐧&quot;,&quot;пингвин&quot;],[&quot;Б&quot;,&quot;c&quot;,&quot;бэ&quot;,&quot;🍌&quot;,&quot;банан&quot;],[&quot;Д&quot;,&quot;c&quot;,&quot;дэ&quot;,&quot;🏠&quot;,&quot;дом&quot;],[&quot;К&quot;,&quot;c&quot;,&quot;кэ&quot;,&quot;🐱&quot;,&quot;кошка&quot;],[&quot;Т&quot;,&quot;c&quot;,&quot;тэ&quot;,&quot;🐯&quot;,&quot;тигр&quot;]];
-const NUMS=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;];
+const NUMS=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;];
 
 const SHN=KZ?{круг:&quot;шеңбер&quot;,квадрат:&quot;шаршы&quot;,треугольник:&quot;үшбұрыш&quot;,звёздочка:&quot;жұлдызша&quot;,сердечко:&quot;жүрекше&quot;,овал:&quot;сопақ&quot;}:null;
 const shn=n=&gt;SHN?SHN[n]:n;
@@ -829,26 +860,144 @@ if(KZ){
  const WK=[[&quot;Қыс, суық. Не киеміз?&quot;,&quot;шарф&quot;],[&quot;Жаңбыр жауып тұр. Не аламыз?&quot;,&quot;қолшатыр&quot;],[&quot;Жаз, ыстық. Не киеміз?&quot;,&quot;күн көзілдірігі&quot;],[&quot;Шалшық! Аяққа не киеміз?&quot;,&quot;етік&quot;],[&quot;Қар! Қолға не киеміз?&quot;,&quot;қолғап&quot;],[&quot;Күн ыстық. Не киеміз?&quot;,&quot;панама&quot;]];
  WEATHER.forEach((w,i)=&gt;{w[1]=WK[i][0];w[3]=WK[i][1];});
  const EK=[&quot;көңілді&quot;,&quot;мұңды&quot;,&quot;ашулы&quot;,&quot;таңғалған&quot;,&quot;ұйқылы&quot;];EMO.forEach((e,i)=&gt;e[1]=EK[i]);
- NUMS.splice(0,NUMS.length,&quot;нөл&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;);
+ NUMS.splice(0,NUMS.length,&quot;нөл&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;,&quot;алты&quot;,&quot;жеті&quot;);
  PR.splice(0,PR.length,...PRAISE_KZ);
 }
+/* ---------- подстройка сложности ---------- */
+const LV=(()=&gt;{let d={};try{d=JSON.parse(localStorage.getItem(&#x27;k24_lv&#x27;)||&#x27;{}&#x27;)}catch(e){}
+ const sv=()=&gt;{try{localStorage.setItem(&#x27;k24_lv&#x27;,JSON.stringify(d))}catch(e){}};
+ return {get:k=&gt;(d[k]&amp;&amp;d[k].l)||1,
+  res:(k,first)=&gt;{const o=d[k]||{l:1,s:0,f:0};if(first){o.s++;o.f=0;if(o.s&gt;=3&amp;&amp;o.l&lt;3){o.l++;o.s=0;}}else{o.f++;o.s=0;if(o.f&gt;=2&amp;&amp;o.l&gt;1){o.l--;o.f=0;}}d[k]=o;sv();}};})();
+
+/* ================= НОВЫЕ ИГРЫ 3–4 ГОДА ================= */
+const KP=(()=&gt;{
+/* общий вопрос-выбор с подстройкой уровня */
+function kpick(key,gen,again){reset();const lv=LV.get(key);const r=gen(lv);let tr=0;
+ app.innerHTML=askBar(r.q)+(r.show?`&lt;div class=&quot;kshow&quot;&gt;${r.show}&lt;/div&gt;`:&#x27;&#x27;)+`&lt;div class=&quot;opts&quot;&gt;${r.opts.map((o,i)=&gt;`&lt;button class=&quot;opt kopt&quot; data-i=&quot;${i}&quot;&gt;${o.h}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ bindAsk(r.say||r.q);
+ app.querySelectorAll(&#x27;.kopt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const o=r.opts[+b.dataset.i];
+  if(o.ok){bump(b);b.classList.add(&#x27;ok&#x27;);good(null,r.why||praise());LV.res(key,!tr);confetti();app.querySelectorAll(&#x27;.kopt&#x27;).forEach(x=&gt;x.onclick=null);later(again,r.why?3000:2200);}
+  else{tr++;shake(b);sfx.bad();speak(o.say||L(&#x27;Подумай ещё!&#x27;,&#x27;Тағы ойлан!&#x27;));}});}
+const pe=(e,t)=&gt;`&lt;span class=&quot;ke&quot;&gt;${e}&lt;/span&gt;${t?`&lt;span class=&quot;kt&quot;&gt;${t}&lt;/span&gt;`:&#x27;&#x27;}`;
+const cap=s=&gt;s[0].toUpperCase()+s.slice(1);
+const G2={};
+/* 1. Найди все фигуры */
+G2.circles=()=&gt;{reset();const lv=LV.get(&#x27;circles&#x27;);const kinds=shuffle(Object.keys(SHAPES)).slice(0,lv+1);const target=lv&lt;3?(kinds.includes(&#x27;круг&#x27;)?&#x27;круг&#x27;:kinds[0]):rnd(kinds);
+ const cells=Array.from({length:9},(_,i)=&gt;i&lt;3?target:rnd(kinds));const sh=shuffle(cells);const need=sh.filter(x=&gt;x===target).length;let got=0,tr=0;
+ const nm=shn(target);const q=L(`Найди все фигуры: ${target}`,`Барлық ${nm} пішінін тап`);
+ app.innerHTML=askBar(q)+`&lt;div class=&quot;kgrid&quot;&gt;${sh.map((n,i)=&gt;`&lt;button class=&quot;kcell&quot; data-n=&quot;${n}&quot;&gt;${shapeSVG(n,rnd(SHCOL),80)}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
+ app.querySelectorAll(&#x27;.kcell&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.n===target){b.classList.add(&#x27;ok&#x27;);b.onclick=null;sfx.pop();got++;if(got===need){good(null,L(`Все нашёл! Их было ${need}.`,`Бәрін таптың! Олар ${need} еді.`));LV.res(&#x27;circles&#x27;,tr&lt;2);confetti();later(G2.circles,2600);}}
+  else{tr++;shake(b);sfx.bad();speak(L(`Это ${b.dataset.n}.`,`Бұл — ${shn(b.dataset.n)}.`));}});};
+/* 2. Где игрушка? (стаканчики) */
+G2.cups=()=&gt;{reset();const lv=LV.get(&#x27;cups&#x27;);const n=lv===1?2:3;const toy=rnd([&quot;🚗&quot;,&quot;🧸&quot;,&quot;⚽&quot;,&quot;🐥&quot;,&quot;🍎&quot;]);let pos=Math.floor(Math.random()*n),tr=0,ready=false;
+ app.innerHTML=askBar(L(&#x27;Запомни, где игрушка!&#x27;,&#x27;Ойыншық қайда екенін есте сақта!&#x27;))+`&lt;div class=&quot;kcups&quot; id=&quot;cu&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;button class=&quot;kcup&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;toy&quot;&gt;${i===pos?toy:&#x27;&#x27;}&lt;/span&gt;&lt;span class=&quot;cap&quot;&gt;🥤&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ bindAsk(L(&#x27;Запомни, где игрушка!&#x27;,&#x27;Ойыншық қайда екенін есте сақта!&#x27;));
+ later(()=&gt;{app.querySelectorAll(&#x27;.kcup&#x27;).forEach(c=&gt;c.classList.add(&#x27;down&#x27;));sfx.flip();
+  if(lv===3){later(()=&gt;{const a=pos,b=(pos+1)%n;const cs=[...app.querySelectorAll(&#x27;.kcup&#x27;)];cs[a].classList.add(&#x27;swapL&#x27;);cs[b].classList.add(&#x27;swapR&#x27;);sfx.flip();
+    later(()=&gt;{cs[a].classList.remove(&#x27;swapL&#x27;);cs[b].classList.remove(&#x27;swapR&#x27;);cs[a].querySelector(&#x27;.toy&#x27;).textContent=&#x27;&#x27;;cs[b].querySelector(&#x27;.toy&#x27;).textContent=toy;pos=b;ready=true;speak(L(&#x27;Где игрушка?&#x27;,&#x27;Ойыншық қайда?&#x27;));},900);},700);}
+  else{ready=true;speak(L(&#x27;Где игрушка?&#x27;,&#x27;Ойыншық қайда?&#x27;));}},2200);
+ app.querySelectorAll(&#x27;.kcup&#x27;).forEach(c=&gt;c.onclick=()=&gt;{if(!ready)return;const i=+c.dataset.i;c.classList.remove(&#x27;down&#x27;);
+  if(i===pos){ready=false;good(null,L(&#x27;Нашёл! Молодец!&#x27;,&#x27;Таптың! Жарайсың!&#x27;));LV.res(&#x27;cups&#x27;,!tr);confetti();later(G2.cups,2600);}else{tr++;sfx.bad();speak(L(&#x27;Здесь пусто. Попробуй ещё!&#x27;,&#x27;Мұнда бос. Тағы байқап көр!&#x27;));later(()=&gt;c.classList.add(&#x27;down&#x27;),900);}});};
+/* 3. Где больше? */
+G2.more=()=&gt;kpick(&#x27;more&#x27;,lv=&gt;{const e=rnd([&quot;🍎&quot;,&quot;🍓&quot;,&quot;⭐&quot;,&quot;🐟&quot;,&quot;🍪&quot;,&quot;🎈&quot;]);const d=[3,2,1][lv-1];const a=1+Math.floor(Math.random()*(6-d)),b=a+d;const big=Math.random()&lt;.5;
+ const L1=big?b:a,R1=big?a:b;return {q:L(&#x27;Где больше?&#x27;,&#x27;Қай жерде көп?&#x27;),opts:[{h:`&lt;span class=&quot;kgrp&quot;&gt;${e.repeat(L1)}&lt;/span&gt;`,ok:L1&gt;R1},{h:`&lt;span class=&quot;kgrp&quot;&gt;${e.repeat(R1)}&lt;/span&gt;`,ok:R1&gt;L1}],
+  why:L(`Здесь ${Math.max(a,b)}, а там ${Math.min(a,b)}. Больше здесь!`,`Мұнда ${NUMS[Math.max(a,b)]||Math.max(a,b)}, ал онда ${NUMS[Math.min(a,b)]||Math.min(a,b)}. Мұнда көп!`)};},G2.more);
+/* 4. Сколько не хватает? */
+G2.lack=()=&gt;kpick(&#x27;lack&#x27;,lv=&gt;{const P=rnd([[&quot;🐰&quot;,&quot;🥕&quot;,L(&#x27;зайчиков&#x27;,&#x27;қоян&#x27;),L(&#x27;морковок&#x27;,&#x27;сәбіз&#x27;)],[&quot;🐻&quot;,&quot;🍯&quot;,L(&#x27;мишек&#x27;,&#x27;аю&#x27;),L(&#x27;бочонков мёда&#x27;,&#x27;бал&#x27;)],[&quot;🐱&quot;,&quot;🥛&quot;,L(&#x27;котят&#x27;,&#x27;мысық&#x27;),L(&#x27;мисок молока&#x27;,&#x27;сүт&#x27;)]]);
+ const n=lv===1?2+Math.floor(Math.random()*2):3+Math.floor(Math.random()*2);const miss=lv===3?1+Math.floor(Math.random()*3):1+Math.floor(Math.random()*2);const have=n-miss;
+ return {q:L(`Каждому нужна еда! Сколько ещё нужно?`,`Әрқайсысына тамақ керек! Тағы нешеу керек?`),show:`&lt;div class=&quot;krow&quot;&gt;${P[0].repeat(n)}&lt;/div&gt;&lt;div class=&quot;krow&quot;&gt;${P[1].repeat(have)}${&#x27;&lt;span class=&quot;kq&quot;&gt;?&lt;/span&gt;&#x27;.repeat(miss)}&lt;/div&gt;`,
+  opts:shuffle([1,2,3]).map(v=&gt;({h:`&lt;span class=&quot;kn&quot;&gt;${v}&lt;/span&gt;`,ok:v===miss})),why:L(`Не хватает ${miss}!`,`${NUMS[miss]} жетпейді!`)};},G2.lack);
+/* 5. Угадай по описанию */
+const RID=[[&quot;🍎&quot;,[&quot;Круглое, красное, растёт на дереве. Что это?&quot;,&quot;Домалақ, қызыл, ағашта өседі. Бұл не?&quot;]],[&quot;🐰&quot;,[&quot;Длинные уши, любит морковку. Кто это?&quot;,&quot;Құлағы ұзын, сәбізді жақсы көреді. Бұл кім?&quot;]],
+ [&quot;☀️&quot;,[&quot;Жёлтое, тёплое, светит днём на небе. Что это?&quot;,&quot;Сары, жылы, күндіз аспанда жарқырайды. Бұл не?&quot;]],[&quot;🐟&quot;,[&quot;Живёт в воде и плавает. Кто это?&quot;,&quot;Суда тіршілік етеді, жүзеді. Бұл кім?&quot;]],
+ [&quot;🌙&quot;,[&quot;Светит ночью на небе. Что это?&quot;,&quot;Түнде аспанда жарқырайды. Бұл не?&quot;]],[&quot;🐘&quot;,[&quot;Большой, серый, с длинным хоботом. Кто это?&quot;,&quot;Үлкен, сұр, тұмсығы ұзын. Бұл кім?&quot;]],
+ [&quot;🍌&quot;,[&quot;Жёлтый, длинный, любят обезьяны. Что это?&quot;,&quot;Сары, ұзын, маймылдар жақсы көреді. Бұл не?&quot;]],[&quot;⚽&quot;,[&quot;Круглый, прыгает, его пинают ногой. Что это?&quot;,&quot;Домалақ, секіреді, аяқпен тебеді. Бұл не?&quot;]],
+ [&quot;❄️&quot;,[&quot;Белый, холодный, падает зимой. Что это?&quot;,&quot;Ақ, суық, қыста жауады. Бұл не?&quot;]],[&quot;🐶&quot;,[&quot;Лает «гав-гав» и охраняет дом. Кто это?&quot;,&quot;«Арс-арс» деп үреді, үйді күзетеді. Бұл кім?&quot;]]];
+G2.riddle=()=&gt;kpick(&#x27;riddle&#x27;,lv=&gt;{const t=rnd(RID);const o=shuffle([t,...shuffle(RID.filter(x=&gt;x!==t)).slice(0,lv+1)]);return {q:L(t[1][0],t[1][1]),opts:o.map(x=&gt;({h:pe(x[0]),ok:x===t}))};},G2.riddle);
+/* 6. Закончи фразу */
+const FIN=[[[&quot;Зимой идёт…&quot;,&quot;Қыста не жауады?&quot;],&quot;❄️&quot;,[&quot;снег&quot;,&quot;Қыста қар жауады!&quot;],[&quot;☀️&quot;,&quot;🍎&quot;]],[[&quot;Днём на небе светит…&quot;,&quot;Күндіз аспанда не жарқырайды?&quot;],&quot;☀️&quot;,[&quot;солнце&quot;,&quot;Күндіз күн жарқырайды!&quot;],[&quot;🌙&quot;,&quot;⛄&quot;]],
+ [[&quot;Ночью на небе светит…&quot;,&quot;Түнде аспанда не жарқырайды?&quot;],&quot;🌙&quot;,[&quot;луна&quot;,&quot;Түнде ай жарқырайды!&quot;],[&quot;☀️&quot;,&quot;🌈&quot;]],[[&quot;Корова даёт…&quot;,&quot;Сиыр не береді?&quot;],&quot;🥛&quot;,[&quot;молоко&quot;,&quot;Сиыр сүт береді!&quot;],[&quot;🍯&quot;,&quot;🥚&quot;]],
+ [[&quot;Курица несёт…&quot;,&quot;Тауық не салады?&quot;],&quot;🥚&quot;,[&quot;яйца&quot;,&quot;Тауық жұмыртқа салады!&quot;],[&quot;🥛&quot;,&quot;🧀&quot;]],[[&quot;Пчёлы делают…&quot;,&quot;Аралар не жасайды?&quot;],&quot;🍯&quot;,[&quot;мёд&quot;,&quot;Аралар бал жасайды!&quot;],[&quot;🥛&quot;,&quot;🍞&quot;]],
+ [[&quot;Когда идёт дождь, берём…&quot;,&quot;Жаңбыр жауғанда не аламыз?&quot;],&quot;☂️&quot;,[&quot;зонтик&quot;,&quot;Жаңбыр жауғанда қолшатыр аламыз!&quot;],[&quot;🕶️&quot;,&quot;⛸️&quot;]],[[&quot;Суп едят…&quot;,&quot;Сорпаны немен ішеміз?&quot;],&quot;🥄&quot;,[&quot;ложкой&quot;,&quot;Сорпаны қасықпен ішеміз!&quot;],[&quot;✂️&quot;,&quot;🖍️&quot;]]];
+G2.finish=()=&gt;kpick(&#x27;finish&#x27;,lv=&gt;{const t=rnd(FIN);return {q:L(t[0][0],t[0][1]),opts:shuffle([t[1],...t[3].slice(0,lv&gt;1?2:1)]).map(e=&gt;({h:pe(e),ok:e===t[1]})),why:L(`${t[0][0].replace(&#x27;…&#x27;,&#x27;&#x27;)} ${t[2][0]}!`,t[2][1])};},G2.finish);
+/* 7. Кто так говорит? */
+const SND=[[&quot;🐮&quot;,[&quot;му-у&quot;,&quot;мө-ө&quot;],[&quot;корова&quot;,&quot;сиыр&quot;]],[&quot;🐶&quot;,[&quot;гав-гав&quot;,&quot;арс-арс&quot;],[&quot;собака&quot;,&quot;ит&quot;]],[&quot;🐱&quot;,[&quot;мяу&quot;,&quot;мияу&quot;],[&quot;кошка&quot;,&quot;мысық&quot;]],[&quot;🦆&quot;,[&quot;кря-кря&quot;,&quot;кря-кря&quot;],[&quot;утка&quot;,&quot;үйрек&quot;]],
+ [&quot;🐓&quot;,[&quot;кукареку&quot;,&quot;кукареку&quot;],[&quot;петух&quot;,&quot;әтеш&quot;]],[&quot;🐑&quot;,[&quot;бе-е&quot;,&quot;мә-ә&quot;],[&quot;овечка&quot;,&quot;қой&quot;]],[&quot;🐷&quot;,[&quot;хрю-хрю&quot;,&quot;қор-қор&quot;],[&quot;свинья&quot;,&quot;шошқа&quot;]],[&quot;🐸&quot;,[&quot;ква-ква&quot;,&quot;бақ-бақ&quot;],[&quot;лягушка&quot;,&quot;бақа&quot;]],[&quot;🚗&quot;,[&quot;би-би&quot;,&quot;би-би&quot;],[&quot;машина&quot;,&quot;көлік&quot;]],[&quot;🚂&quot;,[&quot;ту-ту&quot;,&quot;ту-ту&quot;],[&quot;паровоз&quot;,&quot;пойыз&quot;]]];
+G2.sound=()=&gt;kpick(&#x27;sound&#x27;,lv=&gt;{const t=rnd(SND);const o=shuffle([t,...shuffle(SND.filter(x=&gt;x!==t&amp;&amp;x[1][KZ?1:0]!==t[1][KZ?1:0])).slice(0,lv+1)]);
+ return {q:L(`Кто говорит: «${t[1][0]}»?`,`Кім «${t[1][1]}» дейді?`),opts:o.map(x=&gt;({h:pe(x[0]),ok:x===t,say:L(`Это ${x[2][0]}, она говорит ${x[1][0]}.`,`Бұл — ${x[2][1]}, ол «${x[1][1]}» дейді.`)})),why:L(`Это ${t[2][0]}! ${cap(t[1][0])}!`,`Бұл — ${t[2][1]}! ${cap(t[1][1])}!`)};},G2.sound);
+/* 8. Повтори ритм */
+G2.rhythm=()=&gt;{reset();const lv=LV.get(&#x27;rhythm&#x27;);const len=lv+1;const P=[[&quot;🥁&quot;,&quot;#E8505B&quot;,196],[&quot;👏&quot;,&quot;#F5A623&quot;,330],[&quot;🔔&quot;,&quot;#3B7BFF&quot;,523]];const seq=Array.from({length:len},()=&gt;Math.floor(Math.random()*3));let k=0,busy=true,tr=0;
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${L(&#x27;Послушай и повтори!&#x27;,&#x27;Тыңда да қайтала!&#x27;)}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;kpads&quot;&gt;${P.map((p,i)=&gt;`&lt;button class=&quot;kpad&quot; data-i=&quot;${i}&quot; style=&quot;background:${p[1]}&quot;&gt;${p[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;stars&quot; id=&quot;kd&quot;&gt;&lt;/div&gt;`;
+ const hit=i=&gt;{const b=app.querySelectorAll(&#x27;.kpad&#x27;)[i];b.classList.add(&#x27;on&#x27;);osc(i===1?&#x27;square&#x27;:&#x27;triangle&#x27;,P[i][2],null,0,.3,.25);setTimeout(()=&gt;b.classList.remove(&#x27;on&#x27;),280);};
+ const playSeq=()=&gt;{busy=true;k=0;seq.forEach((s,j)=&gt;later(()=&gt;hit(s),700+j*650));later(()=&gt;{busy=false;},700+len*650);};
+ document.getElementById(&#x27;rep&#x27;).onclick=playSeq;speak(L(&#x27;Послушай и повтори!&#x27;,&#x27;Тыңда да қайтала!&#x27;));playSeq();
+ app.querySelectorAll(&#x27;.kpad&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(busy)return;const i=+b.dataset.i;hit(i);
+  if(i===seq[k]){k++;document.getElementById(&#x27;kd&#x27;).textContent=&#x27;🟢&#x27;.repeat(k);if(k===len){busy=true;good(null,L(&#x27;Ритм правильный!&#x27;,&#x27;Ырғақ дұрыс!&#x27;));LV.res(&#x27;rhythm&#x27;,!tr);confetti();later(G2.rhythm,2600);}}
+  else{tr++;sfx.bad();speak(L(&#x27;Послушай ещё раз!&#x27;,&#x27;Тағы тыңда!&#x27;));document.getElementById(&#x27;kd&#x27;).textContent=&#x27;&#x27;;later(playSeq,900);}});};
+/* 9. Найди рифму (только на русском) */
+const RH=[[&quot;🐈&quot;,&quot;кошка&quot;,&quot;🥄&quot;,&quot;ложка&quot;],[&quot;🐐&quot;,&quot;коза&quot;,&quot;🌹&quot;,&quot;роза&quot;],[&quot;🦞&quot;,&quot;рак&quot;,&quot;🌺&quot;,&quot;мак&quot;],[&quot;🧃&quot;,&quot;сок&quot;,&quot;🧦&quot;,&quot;носок&quot;],[&quot;🐞&quot;,&quot;жук&quot;,&quot;🧅&quot;,&quot;лук&quot;],[&quot;🐭&quot;,&quot;мышка&quot;,&quot;📕&quot;,&quot;книжка&quot;],[&quot;🏠&quot;,&quot;дом&quot;,&quot;🐟&quot;,&quot;сом&quot;],[&quot;🎂&quot;,&quot;торт&quot;,&quot;⛵&quot;,&quot;порт&quot;]];
+G2.rhyme=()=&gt;{const t=rnd(RH);const o=shuffle([t,...shuffle(RH.filter(x=&gt;x!==t)).slice(0,2)]);RUONLY=true;
+ kpick(&#x27;rhyme&#x27;,()=&gt;({q:`${cap(t[1])} — что звучит похоже?`,show:pe(t[0],t[1]),opts:o.map(x=&gt;({h:pe(x[2],x[3]),ok:x===t,say:`${x[3]}… ${t[1]}… Не похоже. Послушай ещё!`})),why:`${cap(t[1])} — ${t[3]}! Звучит похоже!`}),G2.rhyme);};
+/* 10. Что он чувствует? */
+const SIT=[[&quot;🎁&quot;,[&quot;Мальчику подарили подарок.&quot;,&quot;Балаға сыйлық берді.&quot;],0],[&quot;🍦&quot;,[&quot;Девочка уронила мороженое.&quot;,&quot;Қыз балмұздақты түсіріп алды.&quot;],1],[&quot;🧱&quot;,[&quot;Кто-то сломал башню из кубиков.&quot;,&quot;Біреу текшеден жасалған мұнараны құлатты.&quot;],2],
+ [&quot;🎩&quot;,[&quot;Фокусник достал кролика из шляпы!&quot;,&quot;Сиқыршы қалпақтан қоян шығарды!&quot;],3],[&quot;🌙&quot;,[&quot;Уже поздно, хочется спать.&quot;,&quot;Кеш болды, ұйқы келеді.&quot;],4],[&quot;🐶&quot;,[&quot;Пришёл любимый щенок.&quot;,&quot;Сүйікті күшік келді.&quot;],0],[&quot;🎈&quot;,[&quot;Улетел воздушный шарик.&quot;,&quot;Әуе шары ұшып кетті.&quot;],1]];
+const FACES=[[&quot;😀&quot;,[&quot;радуется&quot;,&quot;қуанады&quot;]],[&quot;😢&quot;,[&quot;грустит&quot;,&quot;мұңаяды&quot;]],[&quot;😠&quot;,[&quot;сердится&quot;,&quot;ашуланады&quot;]],[&quot;😮&quot;,[&quot;удивляется&quot;,&quot;таңғалады&quot;]],[&quot;😴&quot;,[&quot;хочет спать&quot;,&quot;ұйқысы келеді&quot;]]];
+G2.emo2=()=&gt;kpick(&#x27;emo2&#x27;,lv=&gt;{const s=rnd(SIT);const o=shuffle([s[2],...shuffle([0,1,2,3,4].filter(x=&gt;x!==s[2])).slice(0,lv&gt;1?2:1)]);
+ return {q:L(`${s[1][0]} Как он себя чувствует?`,`${s[1][1]} Ол өзін қалай сезінеді?`),show:pe(s[0]),opts:o.map(i=&gt;({h:pe(FACES[i][0]),ok:i===s[2]})),why:L(`Да, он ${FACES[s[2]][1][0]}.`,`Иә, ол ${FACES[s[2]][1][1]}.`)};},G2.emo2);
+/* 11. Что будет, если…? */
+const CAUSE=[[[&quot;🧊&quot;,&quot;☀️&quot;],&quot;💧&quot;,[&quot;Лёд на солнышке растает!&quot;,&quot;Мұз күн астында ериді!&quot;],[&quot;🔥&quot;,&quot;❄️&quot;]],[[&quot;🎈&quot;,&quot;📌&quot;],&quot;💥&quot;,[&quot;Шарик лопнет!&quot;,&quot;Шар жарылады!&quot;],[&quot;🎈&quot;,&quot;🌈&quot;]],
+ [[&quot;🌱&quot;,&quot;💧&quot;],&quot;🌻&quot;,[&quot;Цветок вырастет!&quot;,&quot;Гүл өседі!&quot;],[&quot;🍂&quot;,&quot;🧊&quot;]],[[&quot;🥚&quot;,&quot;🐔&quot;],&quot;🐣&quot;,[&quot;Вылупится цыплёнок!&quot;,&quot;Балапан шығады!&quot;],[&quot;🍳&quot;,&quot;🐟&quot;]],[[&quot;☁️&quot;,&quot;🌧️&quot;],&quot;🌈&quot;,[&quot;После дождя бывает радуга!&quot;,&quot;Жаңбырдан кейін кемпірқосақ шығады!&quot;],[&quot;⭐&quot;,&quot;🔥&quot;]],
+ [[&quot;🍦&quot;,&quot;☀️&quot;],&quot;💧&quot;,[&quot;Мороженое растает!&quot;,&quot;Балмұздақ ериді!&quot;],[&quot;🧊&quot;,&quot;🍦&quot;]],[[&quot;⛄&quot;,&quot;☀️&quot;],&quot;💧&quot;,[&quot;Снеговик растает!&quot;,&quot;Аққала ериді!&quot;],[&quot;⛄&quot;,&quot;🧣&quot;]],[[&quot;🌑&quot;,&quot;🔦&quot;],&quot;💡&quot;,[&quot;Станет светло!&quot;,&quot;Жарық болады!&quot;],[&quot;🌙&quot;,&quot;🌑&quot;]]];
+G2.cause=()=&gt;kpick(&#x27;cause&#x27;,lv=&gt;{const c=rnd(CAUSE);return {q:L(&#x27;Что будет, если…?&#x27;,&#x27;Не болады, егер…?&#x27;),show:`${c[0][0]} ➕ ${c[0][1]} = &lt;span class=&quot;kq&quot;&gt;?&lt;/span&gt;`,opts:shuffle([c[1],...c[3].slice(0,lv&gt;1?2:1)]).map(e=&gt;({h:pe(e),ok:e===c[1]})),why:L(c[2][0],c[2][1])};},G2.cause);
+/* 12. Найди ошибку */
+const ERR=[[[&quot;🐟&quot;,&quot;🌳&quot;],[&quot;Рыба на дереве?&quot;,&quot;Балық ағашта ма?&quot;],[[&quot;🐦&quot;,&quot;🌳&quot;],[&quot;🐟&quot;,&quot;🌊&quot;]]],[[&quot;🐄&quot;,&quot;☁️&quot;],[&quot;Корова в облаках?&quot;,&quot;Сиыр бұлтта ма?&quot;],[[&quot;🐄&quot;,&quot;🌾&quot;],[&quot;✈️&quot;,&quot;☁️&quot;]]],
+ [[&quot;🐧&quot;,&quot;🏜️&quot;],[&quot;Пингвин в пустыне?&quot;,&quot;Пингвин шөлде ме?&quot;],[[&quot;🐧&quot;,&quot;🧊&quot;],[&quot;🐫&quot;,&quot;🏜️&quot;]]],[[&quot;⛄&quot;,&quot;☀️🏖️&quot;],[&quot;Снеговик на пляже?&quot;,&quot;Аққала жағажайда ма?&quot;],[[&quot;⛄&quot;,&quot;❄️&quot;],[&quot;🦀&quot;,&quot;🏖️&quot;]]],
+ [[&quot;🚗&quot;,&quot;🌊&quot;],[&quot;Машина плывёт в море?&quot;,&quot;Көлік теңізде жүзе ме?&quot;],[[&quot;⛵&quot;,&quot;🌊&quot;],[&quot;🚗&quot;,&quot;🛣️&quot;]]],[[&quot;🐘&quot;,&quot;🪺&quot;],[&quot;Слон в гнезде?&quot;,&quot;Піл ұяда ма?&quot;],[[&quot;🐦&quot;,&quot;🪺&quot;],[&quot;🐘&quot;,&quot;🌴&quot;]]]];
+G2.err=()=&gt;kpick(&#x27;err&#x27;,lv=&gt;{const e=rnd(ERR);const o=shuffle([[e[0],1],...e[2].map(x=&gt;[x,0])]).slice(0,lv&gt;1?3:2);if(!o.some(x=&gt;x[1]))o[0]=[e[0],1];
+ return {q:L(&#x27;Где ошибка? Так не бывает!&#x27;,&#x27;Қате қайда? Олай болмайды!&#x27;),opts:shuffle(o).map(([p,ok])=&gt;({h:`&lt;span class=&quot;kpair&quot;&gt;${p[0]}&lt;small&gt;${p[1]}&lt;/small&gt;&lt;/span&gt;`,ok:!!ok})),why:L(`${e[1][0]} Так не бывает!`,`${e[1][1]} Олай болмайды!`)};},G2.err);
+/* 13. Кто что делает? */
+const DO=[[[&quot;Кто летает?&quot;,&quot;Кім ұшады?&quot;],[&quot;🐦&quot;,&quot;🦋&quot;,&quot;✈️&quot;,&quot;🐝&quot;]],[[&quot;Кто плавает?&quot;,&quot;Кім жүзеді?&quot;],[&quot;🐟&quot;,&quot;🐬&quot;,&quot;🦆&quot;,&quot;⛵&quot;]],[[&quot;Кто ползает?&quot;,&quot;Кім жорғалайды?&quot;],[&quot;🐌&quot;,&quot;🐛&quot;,&quot;🐍&quot;,&quot;🐢&quot;]],[[&quot;Кто прыгает?&quot;,&quot;Кім секіреді?&quot;],[&quot;🐸&quot;,&quot;🦘&quot;,&quot;🐰&quot;,&quot;🦗&quot;]]];
+G2.does=()=&gt;kpick(&#x27;does&#x27;,lv=&gt;{const i=Math.floor(Math.random()*DO.length),t=rnd(DO[i][1]);const others=shuffle(DO.filter((_,j)=&gt;j!==i).map(x=&gt;rnd(x[1]))).slice(0,lv&gt;1?2:1);
+ return {q:L(DO[i][0][0],DO[i][0][1]),opts:shuffle([t,...others]).map(e=&gt;({h:pe(e),ok:e===t}))};},G2.does);
+/* 14. Придумай зверя (творчество) */
+G2.mix=()=&gt;{reset();const A=[&quot;🐶&quot;,&quot;🐱&quot;,&quot;🐰&quot;,&quot;🦁&quot;,&quot;🐸&quot;,&quot;🐻&quot;,&quot;🐷&quot;,&quot;🦊&quot;,&quot;🐯&quot;,&quot;🐵&quot;,&quot;🐮&quot;,&quot;🐼&quot;];let top=0,bot=5,made=0;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Придумай нового зверя!&#x27;,&#x27;Жаңа аң ойлап тап!&#x27;)}&lt;/h2&gt;&lt;p class=&quot;say&quot; style=&quot;text-align:center&quot;&gt;${L(&#x27;Нажимай на голову и на туловище — они меняются!&#x27;,&#x27;Басы мен денесін бас — олар ауысады!&#x27;)}&lt;/p&gt;
+  &lt;div class=&quot;kmix&quot;&gt;&lt;button class=&quot;khalf top&quot; id=&quot;mt&quot;&gt;&lt;span&gt;${A[top]}&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;khalf bot&quot; id=&quot;mb&quot;&gt;&lt;span&gt;${A[bot]}&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;&lt;button class=&quot;opt&quot; id=&quot;mr&quot; style=&quot;font-size:60px;min-width:150px;min-height:110px&quot;&gt;🎲&lt;/button&gt;&lt;/div&gt;`;
+ const upd=()=&gt;{document.querySelector(&#x27;#mt span&#x27;).textContent=A[top];document.querySelector(&#x27;#mb span&#x27;).textContent=A[bot];sfx.pop();made++;if(made%4===0)star();};
+ document.getElementById(&#x27;mt&#x27;).onclick=()=&gt;{top=(top+1)%A.length;upd();};document.getElementById(&#x27;mb&#x27;).onclick=()=&gt;{bot=(bot+1)%A.length;upd();};
+ document.getElementById(&#x27;mr&#x27;).onclick=()=&gt;{top=Math.floor(Math.random()*A.length);bot=Math.floor(Math.random()*A.length);upd();speak(L(&#x27;Какой смешной зверь! Как его зовут?&#x27;,&#x27;Қандай күлкілі аң! Оның аты кім?&#x27;));};
+ speak(L(&#x27;Придумай нового зверя! Как его зовут?&#x27;,&#x27;Жаңа аң ойлап тап! Оның аты кім?&#x27;));};
+return G2;})();
+
 /* ---------- меню ---------- */
 const G={color:[&quot;🎨&quot;,L(&quot;Найди цвет&quot;,&quot;Түсті тап&quot;),&quot;#FF6B6B&quot;,gColor],sort:[&quot;🧺&quot;,L(&quot;Разложи по цветам&quot;,&quot;Түсіне қарай сал&quot;),&quot;#FF9A4D&quot;,gSort],shape:[&quot;🔺&quot;,L(&quot;Фигуры&quot;,&quot;Пішіндер&quot;),&quot;#4F8BFF&quot;,gShape],sorter:[&quot;🧩&quot;,L(&quot;Вставь фигурку&quot;,&quot;Пішінді орнына қой&quot;),&quot;#22B8C8&quot;,gSorter],
  size:[&quot;🐘&quot;,L(&quot;Большой и маленький&quot;,&quot;Үлкен және кішкентай&quot;),&quot;#9C7BFF&quot;,gSize],nest:[&quot;📏&quot;,L(&quot;Поставь по росту&quot;,&quot;Бойына қарай қой&quot;),&quot;#D9822B&quot;,gNest],shadow:[&quot;👤&quot;,L(&quot;Найди тень&quot;,&quot;Көлеңкесін тап&quot;),&quot;#6C6A8A&quot;,gShadow],mem:[&quot;🃏&quot;,L(&quot;Найди пару&quot;,&quot;Жұбын тап&quot;),&quot;#B15CE6&quot;,gMem],
  odd:[&quot;🤔&quot;,L(&quot;Что лишнее?&quot;,&quot;Артығы қайсы?&quot;),&quot;#2FA37E&quot;,gOdd],opp:[&quot;🔥&quot;,L(&quot;Наоборот&quot;,&quot;Керісінше&quot;),&quot;#E8505B&quot;,gOpp],next:[&quot;🐣&quot;,L(&quot;Что потом?&quot;,&quot;Сосын не болады?&quot;),&quot;#F0A500&quot;,gNext],puzzle:[&quot;🖼️&quot;,L(&quot;Собери картинку&quot;,&quot;Суретті құрастыр&quot;),&quot;#F07FB0&quot;,gPuzzle],
  count:[&quot;🔢&quot;,L(&quot;Считаем до 5&quot;,&quot;5-ке дейін санау&quot;),&quot;#43C26B&quot;,gCount],dice:[&quot;🎲&quot;,L(&quot;Кубик&quot;,&quot;Текше&quot;),&quot;#3A9BDC&quot;,gDice],
  feed:[&quot;🥕&quot;,L(&quot;Покорми зверюшку&quot;,&quot;Жануарды тамақтандыр&quot;),&quot;#E8A33B&quot;,gFeed],weather:[&quot;☂️&quot;,L(&quot;Одень по погоде&quot;,&quot;Ауа райына қарай киін&quot;),&quot;#3A9BDC&quot;,gWeather],emo:[&quot;😀&quot;,L(&quot;Настроение&quot;,&quot;Көңіл-күй&quot;),&quot;#F5B700&quot;,gEmo],
+ circles:[&quot;🔷&quot;,L(&quot;Найди фигуры&quot;,&quot;Пішіндерді тап&quot;),&quot;#3B7BFF&quot;,KP.circles],cups:[&quot;🥤&quot;,L(&quot;Где игрушка?&quot;,&quot;Ойыншық қайда?&quot;),&quot;#22B8C8&quot;,KP.cups],more:[&quot;⚖️&quot;,L(&quot;Где больше?&quot;,&quot;Қайда көп?&quot;),&quot;#43C26B&quot;,KP.more],lack:[&quot;🥕&quot;,L(&quot;Сколько не хватает?&quot;,&quot;Нешеуі жетпейді?&quot;),&quot;#E8A33B&quot;,KP.lack],
+ riddle:[&quot;🔎&quot;,L(&quot;Угадай по описанию&quot;,&quot;Сипаттамасынан тап&quot;),&quot;#9C7BFF&quot;,KP.riddle],finish:[&quot;💬&quot;,L(&quot;Закончи фразу&quot;,&quot;Сөйлемді аяқта&quot;),&quot;#FF8A5B&quot;,KP.finish],sound:[&quot;🐮&quot;,L(&quot;Кто так говорит?&quot;,&quot;Кім осылай дейді?&quot;),&quot;#F5A623&quot;,KP.sound],rhythm:[&quot;🥁&quot;,L(&quot;Повтори ритм&quot;,&quot;Ырғақты қайтала&quot;),&quot;#E8505B&quot;,KP.rhythm],rhyme:[&quot;🎵&quot;,L(&quot;Найди рифму&quot;,&quot;Ұйқас (орысша)&quot;),&quot;#B15CE6&quot;,KP.rhyme],
+ emo2:[&quot;💛&quot;,L(&quot;Что он чувствует?&quot;,&quot;Ол не сезінеді?&quot;),&quot;#F5B700&quot;,KP.emo2],cause:[&quot;🧊&quot;,L(&quot;Что будет, если…?&quot;,&quot;Не болады, егер…?&quot;),&quot;#22B8C8&quot;,KP.cause],err:[&quot;🐟&quot;,L(&quot;Найди ошибку&quot;,&quot;Қатені тап&quot;),&quot;#2FA37E&quot;,KP.err],does:[&quot;🦋&quot;,L(&quot;Кто что делает?&quot;,&quot;Кім не істейді?&quot;),&quot;#3A9BDC&quot;,KP.does],mix:[&quot;🦄&quot;,L(&quot;Придумай зверя&quot;,&quot;Аң ойлап тап&quot;),&quot;#F07FB0&quot;,KP.mix],
  letters:[&quot;🅰️&quot;,L(&quot;Первые буквы&quot;,&quot;Алғашқы әріптер (орысша)&quot;),&quot;#F0435A&quot;,gLetters],findl:[&quot;🔍&quot;,L(&quot;Найди букву&quot;,&quot;Әріпті тап (орысша)&quot;),&quot;#2F6FE4&quot;,gFindL]};
-const SECTIONS=[[L(&quot;🎨 Цвета и формы&quot;,&quot;🎨 Түстер мен пішіндер&quot;),[&quot;color&quot;,&quot;sort&quot;,&quot;shape&quot;,&quot;sorter&quot;]],[L(&quot;🧠 Логика и внимание&quot;,&quot;🧠 Логика және зейін&quot;),[&quot;size&quot;,&quot;nest&quot;,&quot;shadow&quot;,&quot;mem&quot;,&quot;odd&quot;,&quot;opp&quot;,&quot;next&quot;,&quot;puzzle&quot;]],[L(&quot;🔢 Счёт&quot;,&quot;🔢 Санау&quot;),[&quot;count&quot;,&quot;dice&quot;]],[L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;feed&quot;,&quot;weather&quot;,&quot;emo&quot;]],[L(&quot;🔤 Буквы&quot;,&quot;🔤 Әріптер (орысша)&quot;),[&quot;letters&quot;,&quot;findl&quot;]]];
+const SECTIONS=[[L(&quot;🎨 Цвета и формы&quot;,&quot;🎨 Түстер мен пішіндер&quot;),[&quot;color&quot;,&quot;sort&quot;,&quot;shape&quot;,&quot;sorter&quot;,&quot;circles&quot;]],
+ [L(&quot;🧠 Логика&quot;,&quot;🧠 Логика&quot;),[&quot;size&quot;,&quot;nest&quot;,&quot;odd&quot;,&quot;opp&quot;,&quot;next&quot;,&quot;err&quot;,&quot;puzzle&quot;]],
+ [L(&quot;🔍 Память и внимание&quot;,&quot;🔍 Зейін және есте сақтау&quot;),[&quot;mem&quot;,&quot;shadow&quot;,&quot;cups&quot;,&quot;rhythm&quot;]],
+ [L(&quot;🔢 Счёт&quot;,&quot;🔢 Санау&quot;),[&quot;count&quot;,&quot;dice&quot;,&quot;more&quot;,&quot;lack&quot;]],
+ [L(&quot;🗣️ Речь и слух&quot;,&quot;🗣️ Сөйлеу және есту&quot;),[&quot;riddle&quot;,&quot;finish&quot;,&quot;sound&quot;,&quot;does&quot;,&quot;rhyme&quot;]],
+ [L(&quot;💛 Эмоции&quot;,&quot;💛 Эмоциялар&quot;),[&quot;emo&quot;,&quot;emo2&quot;]],
+ [L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;feed&quot;,&quot;weather&quot;,&quot;cause&quot;]],
+ [L(&quot;✨ Творчество&quot;,&quot;✨ Шығармашылық&quot;),[&quot;mix&quot;]],
+ [L(&quot;🔤 Буквы&quot;,&quot;🔤 Әріптер (орысша)&quot;),[&quot;letters&quot;,&quot;findl&quot;]]];
 function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&quot;sec&quot;&gt;${t}&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;${ks.map(k=&gt;{const g=G[k];return `&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`}).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;);
- app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();RUONLY=[&#x27;letters&#x27;,&#x27;findl&#x27;].includes(b.dataset.k);});RUONLY=false;}
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();RUONLY=[&#x27;letters&#x27;,&#x27;findl&#x27;,&#x27;rhyme&#x27;].includes(b.dataset.k);});RUONLY=false;}
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
 
 /* 1. Найди цвет */
-function gColor(){reset();const keys=shuffle(Object.keys(COL)).slice(0,3),t=rnd(keys),q=L(`Где ${COL[t][1]}?`,`${COL[t][1][0].toUpperCase()+COL[t][1].slice(1)} қайда?`);
+function gColor(){reset();let tr=0;const keys=shuffle(Object.keys(COL)).slice(0,LV.get(&#x27;color&#x27;)+1),t=rnd(keys),q=L(`Где ${COL[t][1]}?`,`${COL[t][1][0].toUpperCase()+COL[t][1].slice(1)} қайда?`);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${keys.map(k=&gt;`&lt;button class=&quot;dot&quot; data-k=&quot;${k}&quot; style=&quot;background:${COL[k][0]}&quot;&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
- app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.k===t){bump(b);good(null,L(`Да! Это ${COL[t][1]}!`,`Иә! Бұл — ${COL[t][1]}!`));confetti();app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(gColor,2000);}
-  else{shake(b);sfx.bad();speak(L(`Это ${COL[b.dataset.k][1]}. А где ${COL[t][1]}?`,`Бұл — ${COL[b.dataset.k][1]}. Ал ${COL[t][1]} қайда?`));}});}
+ app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.k===t){bump(b);good(null,L(`Да! Это ${COL[t][1]}!`,`Иә! Бұл — ${COL[t][1]}!`));LV.res(&#x27;color&#x27;,!tr);confetti();app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(gColor,2000);}
+  else{tr++;shake(b);sfx.bad();speak(L(`Это ${COL[b.dataset.k][1]}. А где ${COL[t][1]}?`,`Бұл — ${COL[b.dataset.k][1]}. Ал ${COL[t][1]} қайда?`));}});}
 /* 2. Разложи по цветам */
 function gSort(){reset();const keys=shuffle([&quot;red&quot;,&quot;yellow&quot;,&quot;green&quot;,&quot;blue&quot;]).slice(0,3);const items=shuffle(keys.flatMap(k=&gt;shuffle(COL[k][2]).slice(0,2).map(e=&gt;[e,k])));let left=items.length;
  app.innerHTML=`&lt;h2&gt;${L(&#x27;Разложи по цветным тарелкам&#x27;,&#x27;Түсті тәрелкелерге сал&#x27;)}&lt;/h2&gt;&lt;div class=&quot;tray&quot;&gt;${items.map((it,i)=&gt;`&lt;div class=&quot;item&quot; data-i=&quot;${i}&quot;&gt;${it[0]}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
@@ -874,12 +1023,12 @@ function gSize(){reset();const o=rnd(OBJ),big=Math.random()&lt;.5,q=L(`Где ${
  app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(+btn.dataset.b===(big?1:0)){bump(btn);good(btn,L(big?&#x27;Да! Большой!&#x27;:&#x27;Да! Маленький!&#x27;,big?&#x27;Иә! Үлкені!&#x27;:&#x27;Иә! Кішкентайы!&#x27;));later(gSize,1900);app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);}
   else{shake(btn);sfx.bad();speak(L(big?&#x27;Это маленький. А где большой?&#x27;:&#x27;Это большой. А где маленький?&#x27;,big?&#x27;Бұл — кішкентайы. Ал үлкені қайсы?&#x27;:&#x27;Бұл — үлкені. Ал кішкентайы қайсы?&#x27;));}});}
 /* 6. Считаем до 5 */
-function gCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c=0;const opts=shuffle([n,...shuffle([1,2,3,4,5].filter(x=&gt;x!==n)).slice(0,2)]);
+function gCount(){reset();const MX=[3,5,7][LV.get(&#x27;count&#x27;)-1];const n=1+Math.floor(Math.random()*MX),o=rnd(OBJ);let c=0,tr=0;const opts=shuffle([n,...shuffle([...Array(MX).keys()].map(x=&gt;x+1).filter(x=&gt;x!==n)).slice(0,2)]);
  app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${L(&quot;Посчитай! Нажимай на каждого&quot;,&quot;Санап көр! Әрқайсысын бас&quot;)}&lt;/div&gt;&lt;div class=&quot;count&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;span class=&quot;c&quot;&gt;${o[0]}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
   &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Посчитаем? Нажимай на каждого!&#x27;,&#x27;Санайық па? Әрқайсысын бас!&#x27;));
  app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();speak(NUMS[c]);if(c===n)speak(L(`Всего ${NUMS[n]}! Найди цифру ${n}`,`Барлығы ${NUMS[n]}! ${NUMS[n]} цифрын тап`),900);});
- app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,L(`Правильно! ${NUMS[n]}!`,`Дұрыс! ${NUMS[n]}!`));confetti();later(gCount,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
-  else{shake(b);sfx.bad();speak(L(&#x27;Давай посчитаем ещё раз!&#x27;,&#x27;Қайта санайық!&#x27;));}});}
+ app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,L(`Правильно! ${NUMS[n]}!`,`Дұрыс! ${NUMS[n]}!`));LV.res(&#x27;count&#x27;,!tr);confetti();later(gCount,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{tr++;shake(b);sfx.bad();speak(L(&#x27;Давай посчитаем ещё раз!&#x27;,&#x27;Қайта санайық!&#x27;));}});}
 /* 7. Покорми зверюшку */
 function gFeed(){reset();const f=rnd(FEED),others=shuffle(FEED.filter(x=&gt;x!==f)).slice(0,2),opts=shuffle([f,...others]),q=L(`Что любит ${f[1]}?`,`${f[1][0].toUpperCase()+f[1].slice(1)} не жақсы көреді?`);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; id=&quot;an&quot; style=&quot;font-size:150px;background:#E7F7EC;box-shadow:none&quot;&gt;${f[0]}&lt;/div&gt;&lt;/div&gt;
@@ -887,18 +1036,18 @@ function gFeed(){reset();const f=rnd(FEED),others=shuffle(FEED.filter(x=&gt;x!==
  app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];if(x===f){bump(b);bump(document.getElementById(&#x27;an&#x27;));good(b,L(`Ам-ам! ${f[1][0].toUpperCase()+f[1].slice(1)} любит ${f[3]}!`,`Ам-ам! ${f[1][0].toUpperCase()+f[1].slice(1)} ${f[3]} жақсы көреді!`));later(gFeed,2600);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
   else{shake(b);sfx.bad();speak(L(`Нет, ${f[1]} не хочет. Попробуй другое!`,`Жоқ, ${f[1]} мұны қаламайды. Басқасын байқап көр!`));}});}
 /* 8. Найди тень */
-function gShadow(){reset();const pool=[&quot;🐘&quot;,&quot;🦒&quot;,&quot;🐰&quot;,&quot;🚗&quot;,&quot;✈️&quot;,&quot;🍎&quot;,&quot;🐢&quot;,&quot;🦋&quot;,&quot;🐟&quot;,&quot;🌲&quot;,&quot;🐓&quot;,&quot;🎸&quot;,&quot;🐌&quot;,&quot;☂️&quot;];const t=rnd(pool),opts=shuffle([t,...shuffle(pool.filter(x=&gt;x!==t)).slice(0,2)]);
+function gShadow(){reset();const pool=[&quot;🐘&quot;,&quot;🦒&quot;,&quot;🐰&quot;,&quot;🚗&quot;,&quot;✈️&quot;,&quot;🍎&quot;,&quot;🐢&quot;,&quot;🦋&quot;,&quot;🐟&quot;,&quot;🌲&quot;,&quot;🐓&quot;,&quot;🎸&quot;,&quot;🐌&quot;,&quot;☂️&quot;];let tr=0;const t=rnd(pool),opts=shuffle([t,...shuffle(pool.filter(x=&gt;x!==t)).slice(0,LV.get(&#x27;shadow&#x27;))]);
  app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${L(&quot;Где тень?&quot;,&quot;Көлеңкесі қайсы?&quot;)}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;background:#EAF6FF;box-shadow:none&quot;&gt;${t}&lt;/div&gt;&lt;/div&gt;
   &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot;&gt;&lt;span class=&quot;shadow&quot;&gt;${x}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(L(&#x27;Найди тень!&#x27;,&#x27;Көлеңкесін тап!&#x27;));
- app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===t){b.querySelector(&#x27;span&#x27;).classList.remove(&#x27;shadow&#x27;);bump(b);good(b);confetti();later(gShadow,2000);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(b);sfx.bad();speak(L(&#x27;Не похоже. Посмотри ещё!&#x27;,&#x27;Ұқсамайды. Тағы қара!&#x27;));}});}
+ app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===t){b.querySelector(&#x27;span&#x27;).classList.remove(&#x27;shadow&#x27;);bump(b);good(b);LV.res(&#x27;shadow&#x27;,!tr);confetti();later(gShadow,2000);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{tr++;shake(b);sfx.bad();speak(L(&#x27;Не похоже. Посмотри ещё!&#x27;,&#x27;Ұқсамайды. Тағы қара!&#x27;));}});}
 /* 9. Найди пару */
-function gMem(){reset();const set=shuffle([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🐰&quot;,&quot;🦊&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦁&quot;,&quot;🐷&quot;]).slice(0,4);const cards=shuffle([...set,...set]);let open=[],done=0,lock=false;
+function gMem(){reset();const NP=[3,4,6][LV.get(&#x27;mem&#x27;)-1];const set=shuffle([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🐰&quot;,&quot;🦊&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦁&quot;,&quot;🐷&quot;]).slice(0,NP);const cards=shuffle([...set,...set]);let open=[],done=0,lock=false,miss=0;
  app.innerHTML=`&lt;h2&gt;${L(&#x27;Найди пару&#x27;,&#x27;Жұбын тап&#x27;)}&lt;/h2&gt;&lt;div class=&quot;mem&quot;&gt;${cards.map((e,i)=&gt;`&lt;button class=&quot;mc&quot; data-i=&quot;${i}&quot;&gt;&lt;span&gt;${e}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Открывай карточки и ищи одинаковые!&#x27;,&#x27;Карточкаларды аш та, бірдейін тап!&#x27;));
  app.querySelectorAll(&#x27;.mc&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(lock||b.classList.contains(&#x27;open&#x27;)||b.classList.contains(&#x27;done&#x27;))return;b.classList.add(&#x27;open&#x27;);sfx.flip();open.push(b);
   if(open.length===2){lock=true;const [a,c]=open;if(cards[a.dataset.i]===cards[c.dataset.i]){later(()=&gt;{a.classList.add(&#x27;done&#x27;);c.classList.add(&#x27;done&#x27;);sfx.ok();star();open=[];lock=false;done++;
-     if(done===4){sfx.win();confetti();speak(L(&#x27;Все пары нашли! Ура!&#x27;,&#x27;Барлық жұбын таптың! Ура!&#x27;));later(gMem,3000);}else speak(praise());},500);}
-   else later(()=&gt;{a.classList.remove(&#x27;open&#x27;);c.classList.remove(&#x27;open&#x27;);open=[];lock=false;},1000);}});}
+     if(done===NP){sfx.win();confetti();LV.res(&#x27;mem&#x27;,miss&lt;=NP);speak(L(&#x27;Все пары нашли! Ура!&#x27;,&#x27;Барлық жұбын таптың! Ура!&#x27;));later(gMem,3000);}else speak(praise());},500);}
+   else{miss++;later(()=&gt;{a.classList.remove(&#x27;open&#x27;);c.classList.remove(&#x27;open&#x27;);open=[];lock=false;},1000);}}});}
 /* 10. Собери картинку */
 function gPuzzle(){reset();const e=rnd([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🦁&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦄&quot;,&quot;🐵&quot;,&quot;🐷&quot;,&quot;🐯&quot;,&quot;🦊&quot;]);let left=4;
  const piece=(i)=&gt;`&lt;span style=&quot;left:${i%2?&#x27;calc(var(--ps)*-1)&#x27;:&#x27;0&#x27;};top:${i&gt;1?&#x27;calc(var(--ps)*-1)&#x27;:&#x27;0&#x27;}&quot;&gt;${e}&lt;/span&gt;`;
@@ -999,7 +1148,7 @@ function eCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c
 if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Білгіштер&#x27;;document.title=&#x27;Білгіштер&#x27;;}
 home();
 
-
+window.NAV_CFG={id:&quot;a24&quot;};
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
 (function(){
@@ -1039,7 +1188,8 @@ window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp
  if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
  listScroll=0;showCats();};
-appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));
+  try{const P2=JSON.parse(localStorage.getItem(&#x27;nav_plays&#x27;)||&#x27;{}&#x27;);const k=(CFG.id||&#x27;&#x27;)+&#x27;:&#x27;+keyOf(t);const nmEl=t.querySelector(&#x27;.t&#x27;);P2[k]={n:((P2[k]&amp;&amp;P2[k].n)||0)+1,name:(t.querySelector(&#x27;.e&#x27;)?t.querySelector(&#x27;.e&#x27;).textContent+&#x27; &#x27;:&#x27;&#x27;)+(nmEl?nmEl.textContent:&#x27;&#x27;)};localStorage.setItem(&#x27;nav_plays&#x27;,JSON.stringify(P2));}catch(err){}}},true);
 // кнопки «назад» системы и верхней панели
 window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
@@ -2609,7 +2759,7 @@ const _homeWorld=home;home=function(){_homeWorld();let ci=0;
 if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Мектепке дайындық&#x27;;document.title=&#x27;Мектепке дайындық&#x27;;}
 home();
 
-window.NAV_CFG={backLabel:1,merge:[[[&quot;Ещё математика&quot;,&quot;Тағы математика&quot;],[&quot;🔢 Математика&quot;]]],
+window.NAV_CFG={id:&#x27;a56&#x27;,backLabel:1,merge:[[[&quot;Ещё математика&quot;,&quot;Тағы математика&quot;],[&quot;🔢 Математика&quot;]]],
  catOrder:[&quot;🔤&quot;,&quot;📖&quot;,&quot;🔢&quot;,&quot;🧠&quot;,&quot;🐾&quot;,&quot;🌱&quot;,&quot;🚦&quot;,&quot;🚀&quot;,&quot;💡&quot;],catOrderKZ:[&quot;🔢&quot;,&quot;🧠&quot;,&quot;🐾&quot;,&quot;🌱&quot;,&quot;🚦&quot;,&quot;🚀&quot;,&quot;💡&quot;,&quot;🔤&quot;,&quot;📖&quot;],
  tileOrder:[[&quot;count10&quot;,&quot;missing&quot;,&quot;nbGame&quot;,&quot;cmpGame&quot;,&quot;patGame&quot;,&quot;corners&quot;,&quot;house&quot;,&quot;addSub&quot;,&quot;frog&quot;,&quot;tasks&quot;,&quot;shop&quot;,&quot;clock&quot;,&quot;week&quot;],
   [&quot;abc&quot;,&quot;vowelGame&quot;,&quot;findLetter&quot;,&quot;firstLetter&quot;,&quot;balloons&quot;,&quot;wherePos&quot;],[&quot;mergeGame&quot;,&quot;sylGame&quot;,&quot;picWord&quot;,&quot;readMenu&quot;,&quot;buildWord&quot;,&quot;rebus&quot;,&quot;sayGame&quot;]]};
@@ -2652,7 +2802,8 @@ window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp
  if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
  listScroll=0;showCats();};
-appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));
+  try{const P2=JSON.parse(localStorage.getItem(&#x27;nav_plays&#x27;)||&#x27;{}&#x27;);const k=(CFG.id||&#x27;&#x27;)+&#x27;:&#x27;+keyOf(t);const nmEl=t.querySelector(&#x27;.t&#x27;);P2[k]={n:((P2[k]&amp;&amp;P2[k].n)||0)+1,name:(t.querySelector(&#x27;.e&#x27;)?t.querySelector(&#x27;.e&#x27;).textContent+&#x27; &#x27;:&#x27;&#x27;)+(nmEl?nmEl.textContent:&#x27;&#x27;)};localStorage.setItem(&#x27;nav_plays&#x27;,JSON.stringify(P2));}catch(err){}}},true);
 // кнопки «назад» системы и верхней панели
 window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
@@ -2985,7 +3136,7 @@ function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
 home();
 
-
+window.NAV_CFG={id:&quot;en&quot;};
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
 (function(){
@@ -3025,7 +3176,8 @@ window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp
  if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
  listScroll=0;showCats();};
-appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));
+  try{const P2=JSON.parse(localStorage.getItem(&#x27;nav_plays&#x27;)||&#x27;{}&#x27;);const k=(CFG.id||&#x27;&#x27;)+&#x27;:&#x27;+keyOf(t);const nmEl=t.querySelector(&#x27;.t&#x27;);P2[k]={n:((P2[k]&amp;&amp;P2[k].n)||0)+1,name:(t.querySelector(&#x27;.e&#x27;)?t.querySelector(&#x27;.e&#x27;).textContent+&#x27; &#x27;:&#x27;&#x27;)+(nmEl?nmEl.textContent:&#x27;&#x27;)};localStorage.setItem(&#x27;nav_plays&#x27;,JSON.stringify(P2));}catch(err){}}},true);
 // кнопки «назад» системы и верхней панели
 window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
@@ -3419,7 +3571,7 @@ function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
 home();
 
-
+window.NAV_CFG={id:&quot;kz&quot;};
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
 (function(){
@@ -3459,7 +3611,353 @@ window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp
  if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
  listScroll=0;showCats();};
-appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));
+  try{const P2=JSON.parse(localStorage.getItem(&#x27;nav_plays&#x27;)||&#x27;{}&#x27;);const k=(CFG.id||&#x27;&#x27;)+&#x27;:&#x27;+keyOf(t);const nmEl=t.querySelector(&#x27;.t&#x27;);P2[k]={n:((P2[k]&amp;&amp;P2[k].n)||0)+1,name:(t.querySelector(&#x27;.e&#x27;)?t.querySelector(&#x27;.e&#x27;).textContent+&#x27; &#x27;:&#x27;&#x27;)+(nmEl?nmEl.textContent:&#x27;&#x27;)};localStorage.setItem(&#x27;nav_plays&#x27;,JSON.stringify(P2));}catch(err){}}},true);
+// кнопки «назад» системы и верхней панели
+window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
+ reset(){state=&#x27;cats&#x27;;lastCat=null;catScroll=listScroll=0;showCats();}};
+[&#x27;homeB&#x27;,&#x27;home&#x27;].forEach(id=&gt;{const b=document.getElementById(id);if(b)b.onclick=()=&gt;window.home();});
+if(typeof back===&#x27;function&#x27;&amp;&amp;CFG.backLabel){window.back=()=&gt;`&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;⬅ ${T(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)}&lt;/button&gt;`;}
+showCats();
+})();
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe><iframe id="apar" title="Родителям" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+&lt;title&gt;Родителям&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#F6F3FF;--ink:#33304F;--muted:#8A86A3;--violet:#7B5CE6;--green:#2FBF71;--sun:#FFC83D}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:&quot;Trebuchet MS&quot;,&quot;Segoe UI&quot;,system-ui,Arial,sans-serif;font-weight:700}
+.wrap{max-width:900px;margin:0 auto;padding:12px 14px 24px}
+header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.logo{font-size:28px;color:var(--violet)}
+main{background:#fff;border-radius:28px;padding:16px;box-shadow:0 6px 0 rgba(0,0,0,.05)}
+.sec{font-size:24px;margin:4px 4px 12px}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.tile{border:none;border-radius:26px;padding:14px 8px;cursor:pointer;color:#fff;font:inherit;box-shadow:0 7px 0 rgba(0,0,0,.14)}
+.tile .e{font-size:58px;display:block;line-height:1.1}.tile .t{font-size:19px;display:block;margin-top:4px}
+h2{font-size:26px;margin:4px 0 12px;text-align:center}
+p,li{font-weight:400;line-height:1.5;font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 14px}
+.chip{border:none;border-radius:999px;padding:9px 14px;font:inherit;font-size:16px;background:#EFEAFF;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--violet);color:#fff}
+.act{border:3px solid #EEE8FF;border-radius:22px;padding:12px 14px;margin:0 0 12px;background:#FCFBFF}
+.act.done{border-color:#BDEBD0;background:#F2FCF6}
+.act h3{margin:0 0 4px;font-size:20px;display:flex;gap:8px;align-items:center}
+.act .meta{font-size:14px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.act p{margin:4px 0;font-size:16px}.act b{font-weight:700}
+.act .warn{background:#FFF3D6;border-radius:12px;padding:6px 10px;font-size:15px}
+.act details summary{cursor:pointer;color:var(--violet);font-size:16px;margin-top:6px}
+.btn{border:none;border-radius:18px;padding:12px 18px;font:inherit;font-size:18px;cursor:pointer;background:var(--green);color:#fff;box-shadow:0 5px 0 #1E9454;margin-top:8px}
+.btn.gray{background:#E9E5F5;color:var(--ink);box-shadow:0 5px 0 #CFC8E6}
+.note{background:#FFF8E1;border-radius:18px;padding:12px 14px;font-size:15px;font-weight:400;line-height:1.5}
+.bar{height:16px;border-radius:999px;background:#EFEAFF;overflow:hidden;margin:4px 0 10px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#9C7BFF,#2FBF71)}
+table{width:100%;border-collapse:collapse;font-size:16px}td{padding:6px 4px;border-bottom:1px solid #EEE;font-weight:400}td:last-child{text-align:right;font-weight:700}
+.big{font-size:44px;text-align:center;margin:6px 0}
+.ru{font-size:14px;color:var(--muted);font-weight:400;text-align:center;margin:-4px 0 12px}
+
+/* ===== навигация и телефон ===== */
+.ncats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.ncat{border:none;border-radius:28px;color:#fff;font:inherit;cursor:pointer;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 7px 0 rgba(0,0,0,.15);min-height:170px;justify-content:center}
+.ncat:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.ncat .ne{font-size:64px;line-height:1.1}.ncat .nn{font-size:22px;margin-top:6px;line-height:1.2}.ncat .nc{font-size:15px;opacity:.9;margin-top:6px;font-weight:400;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px}
+h2.nh{text-align:center;font-size:28px;margin:4px 0 14px}
+html.emb header{display:none!important}
+html.emb .credit,html.emb p.voice[style*=&quot;font-weight:700&quot;]{display:none!important}
+html.emb .wrap{padding-top:10px}
+html.emb main,html.emb .panel{min-height:auto}
+@media (max-width:640px){
+ .wrap{padding:8px 8px 14px!important}
+ main,.panel{padding:12px!important;border-radius:24px!important}
+ .menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .tile{padding:12px 6px 10px!important;border-radius:22px!important}
+ .tile .e{font-size:52px!important}.tile .t{font-size:17px!important;line-height:1.2}
+ .ncats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ncat{min-height:150px}.ncat .ne{font-size:54px}.ncat .nn{font-size:18px}
+ h2{font-size:24px!important;line-height:1.2}
+ .navrow .big-btn,.big-btn{font-size:22px!important;padding:12px 18px!important}
+ .say{font-size:20px!important}
+}
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:640px){
+ .key{min-width:0!important;font-size:30px!important;padding-bottom:10px!important}
+ .xylo{gap:5px!important}
+ .cnt{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px 6px!important}
+ .cnt span{font-size:clamp(36px,11vw,84px)!important}
+ .wseq{gap:6px!important}.wseq span{min-width:0!important;flex:1;font-size:clamp(34px,10vw,72px)!important;padding:4px 2px!important;text-align:center}
+ .card .en{font-size:clamp(18px,5.4vw,30px)!important;overflow-wrap:anywhere}
+ .card .em{font-size:clamp(64px,18vw,92px)!important}
+ .choices{gap:10px!important}.ch{width:clamp(96px,28vw,200px)!important;height:clamp(110px,32vw,230px)!important;font-size:clamp(64px,18vw,160px)!important}
+ .wo{min-width:calc(50% - 12px)!important}
+ .wops.nums .wo,.wops .wo:has(.wn){min-width:calc(33% - 12px)!important}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}.lt{font-size:46px!important}
+ .huge{font-size:clamp(120px,40vw,200px)!important;padding:6px 26px 16px!important}
+ .readword,.enw{font-size:clamp(48px,14vw,110px)!important}
+ .wbtn{font-size:clamp(40px,12vw,90px)!important;min-width:86%!important}
+ .mletter{font-size:clamp(90px,26vw,220px)!important;padding:6px 14px 16px!important}
+ .roof{border-left-width:min(160px,38vw)!important;border-right-width:min(160px,38vw)!important}
+}
+html.emb .note,html.emb p.voice{font-size:12px!important;margin:6px 0 0!important}
+@media (max-width:640px){
+ .wbin{min-width:calc(50% - 8px)!important;min-height:140px!important;padding:6px!important}
+ .wbin b{font-size:17px!important;overflow-wrap:anywhere;line-height:1.2}
+ .wit{font-size:48px!important;padding:4px 6px 2px!important}
+ .wdone{font-size:34px!important}
+ .wq{font-size:21px!important}
+}
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+ &lt;header&gt;&lt;div class=&quot;logo&quot;&gt;👨‍👩‍👧 &lt;span id=&quot;lgT&quot;&gt;Родителям&lt;/span&gt;&lt;/div&gt;&lt;/header&gt;
+ &lt;main id=&quot;app&quot;&gt;&lt;/main&gt;
+&lt;/div&gt;
+&lt;script&gt;
+/* Занятия без экрана для родителей. a:[от, до] в месяцах; d: направление; g: цель; m: материалы; s: как играть; h: как усложнить; ok: признак, что подходит; w: осторожно */
+const ADIR={mem:[&quot;🧠&quot;,&quot;Память и внимание&quot;,&quot;Зейін және есте сақтау&quot;],log:[&quot;🧩&quot;,&quot;Логика и первая математика&quot;,&quot;Логика және алғашқы математика&quot;],speech:[&quot;🗣️&quot;,&quot;Речь и слух&quot;,&quot;Сөйлеу және есту&quot;],
+ motor:[&quot;✋&quot;,&quot;Моторика и сенсорика&quot;,&quot;Моторика және сезіну&quot;],world:[&quot;🌍&quot;,&quot;Познание мира&quot;,&quot;Әлемді тану&quot;],emo:[&quot;💛&quot;,&quot;Эмоции и общение&quot;,&quot;Эмоция және қарым-қатынас&quot;],art:[&quot;🎨&quot;,&quot;Творчество и воображение&quot;,&quot;Шығармашылық және қиял&quot;],space:[&quot;📐&quot;,&quot;Пространство и счёт&quot;,&quot;Кеңістік және санау&quot;]};
+const ACTS=[
+/* ---------- 0–2: память, внимание, восприятие ---------- */
+{t:&quot;Куда исчезла игрушка?&quot;,a:[6,18],d:&quot;mem&quot;,g:&quot;Понимание, что предмет существует, даже когда его не видно.&quot;,m:&quot;Яркая игрушка, платок.&quot;,s:&quot;Покажите игрушку, медленно накройте платком у ребёнка на глазах. Спросите: «Где мишка?» Помогите приподнять платок и обрадуйтесь вместе.&quot;,h:&quot;Прячьте под одной из двух салфеток; позже — перекладывайте игрушку на глазах у малыша.&quot;,ok:&quot;Малыш тянется к платку, ищет взглядом, улыбается при находке.&quot;},
+{t:&quot;Найди маму&quot;,a:[2,9],d:&quot;speech&quot;,g:&quot;Учимся определять, откуда звучит голос.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Встаньте сбоку или сзади и ласково позовите ребёнка по имени. Когда он повернётся — улыбнитесь и похвалите.&quot;,h:&quot;Зовите тише, меняйте сторону, зовите из соседней комнаты (дверь открыта).&quot;,ok:&quot;Ребёнок поворачивает голову и ищет вас.&quot;},
+{t:&quot;Повтори звук&quot;,a:[3,15],d:&quot;speech&quot;,g:&quot;Подражание звукам — основа будущей речи.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Сядьте лицом к лицу. Произносите простые звуки: «а-а», «у-у», «ба-ба». Сделайте паузу и подождите, пока малыш «ответит».&quot;,h:&quot;Добавляйте слоги: «ма-ма», «па-па», звуки животных.&quot;,ok:&quot;Малыш смотрит на губы, гулит или лепечет в ответ.&quot;},
+{t:&quot;Следи за предметом&quot;,a:[1,6],d:&quot;mem&quot;,g:&quot;Развиваем зрительное сосредоточение.&quot;,m:&quot;Яркая или контрастная игрушка.&quot;,s:&quot;Держите игрушку на расстоянии 25–30 см и медленно ведите её вправо-влево, вверх-вниз.&quot;,h:&quot;Ведите по кругу, чуть быстрее, используйте игрушку поменьше.&quot;,ok:&quot;Глаза и голова следуют за игрушкой.&quot;},
+{t:&quot;Где звенит?&quot;,a:[3,12],d:&quot;speech&quot;,g:&quot;Слуховое внимание: найти источник звука.&quot;,m:&quot;Погремушка или колокольчик.&quot;,s:&quot;Позвените сбоку от малыша, чтобы он не видел. Когда повернётся — покажите погремушку.&quot;,h:&quot;Звените тише, дальше, сверху и снизу.&quot;,ok:&quot;Ребёнок поворачивается к звуку.&quot;},
+{t:&quot;Узнай знакомую вещь&quot;,a:[6,18],d:&quot;speech&quot;,g:&quot;Связываем слово и предмет.&quot;,m:&quot;Чашка, ложка, мяч, мишка.&quot;,s:&quot;Показывайте по одному предмету и чётко называйте: «Это чашка». Дайте потрогать.&quot;,h:&quot;Положите два предмета и попросите: «Дай чашку».&quot;,ok:&quot;Малыш смотрит на названный предмет, тянется к нему.&quot;},
+{t:&quot;Что изменилось?&quot;,a:[15,24],d:&quot;mem&quot;,g:&quot;Тренируем внимание и память.&quot;,m:&quot;Две-три знакомые игрушки.&quot;,s:&quot;Поставьте игрушки в ряд. Пусть малыш посмотрит. Поменяйте две местами и спросите: «Что поменялось?»&quot;,h:&quot;Уберите одну игрушку или добавьте новую.&quot;,ok:&quot;Ребёнок указывает на изменённое место.&quot;},
+{t:&quot;Знакомые лица&quot;,a:[4,24],d:&quot;emo&quot;,g:&quot;Узнавание близких, привязанность.&quot;,m:&quot;Семейные фотографии.&quot;,s:&quot;Рассматривайте фото вместе: «Это бабушка! Где бабушка?» Изображайте радость.&quot;,h:&quot;Спрашивайте: «Где папа?» — пусть покажет сам.&quot;,ok:&quot;Малыш улыбается, показывает, произносит звуки.&quot;},
+{t:&quot;Ку-ку!&quot;,a:[4,15],d:&quot;emo&quot;,g:&quot;Радость общения, понимание исчезновения и появления.&quot;,m:&quot;Ладони или платок.&quot;,s:&quot;Закройте лицо ладонями: «Где мама?» — откройте: «Ку-ку!» Повторяйте, меняя паузу.&quot;,h:&quot;Прячьте лицо малыша под платком и предложите ему открыться самому.&quot;,ok:&quot;Смех, ожидание, ребёнок сам стягивает платок.&quot;},
+{t:&quot;Запомни последовательность&quot;,a:[18,24],d:&quot;mem&quot;,g:&quot;Первая работа с порядком действий.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Покажите два действия подряд: хлопок и улыбка. Предложите повторить.&quot;,h:&quot;Три действия: хлопок, топ ногой, ручки вверх.&quot;,ok:&quot;Ребёнок пытается повторить хотя бы одно движение.&quot;},
+/* ---------- 0–2: логика ---------- */
+{t:&quot;Большой и маленький&quot;,a:[15,24],d:&quot;log&quot;,g:&quot;Понятие размера.&quot;,m:&quot;Большой и маленький мяч (или две чашки).&quot;,s:&quot;Покажите: «Это большой мяч, а это маленький». Попросите дать большой.&quot;,h:&quot;Три предмета: большой, поменьше, маленький.&quot;,ok:&quot;Ребёнок выбирает правильно хотя бы иногда.&quot;},
+{t:&quot;Одинаковые&quot;,a:[15,24],d:&quot;log&quot;,g:&quot;Учимся находить пару.&quot;,m:&quot;Две одинаковые игрушки и одна другая.&quot;,s:&quot;Положите три предмета. Покажите один и спросите: «Где такой же?»&quot;,h:&quot;Увеличьте число предметов до четырёх-пяти.&quot;,ok:&quot;Малыш берёт такой же предмет.&quot;},
+{t:&quot;Сортировка по цветам&quot;,a:[18,30],d:&quot;log&quot;,g:&quot;Различаем цвета.&quot;,m:&quot;Крупные кубики двух цветов, две миски.&quot;,s:&quot;Положите в каждую миску по кубику-образцу. Предложите разложить остальные: «Красный — сюда».&quot;,h:&quot;Добавьте третий цвет.&quot;,ok:&quot;Ребёнок раскладывает, даже если с ошибками.&quot;},
+{t:&quot;Кубик в коробку&quot;,a:[8,18],d:&quot;motor&quot;,g:&quot;Координация «глаз — рука», понятие «внутри».&quot;,m:&quot;Коробка, крупные кубики.&quot;,s:&quot;Покажите, как кубик падает в коробку: «Бух!» Дайте малышу.&quot;,h:&quot;Коробка с отверстием в крышке.&quot;,ok:&quot;Малыш сам опускает и достаёт кубики.&quot;},
+{t:&quot;Полный и пустой&quot;,a:[15,24],d:&quot;log&quot;,g:&quot;Первые понятия о количестве.&quot;,m:&quot;Две ёмкости, крупные игрушки.&quot;,s:&quot;Наполняйте одну ёмкость игрушками, другая — пустая. Называйте: «полная», «пустая».&quot;,h:&quot;Предложите сделать пустую полной.&quot;,ok:&quot;Малыш перекладывает и повторяет слова.&quot;},
+{t:&quot;Вкладыши&quot;,a:[10,24],d:&quot;log&quot;,g:&quot;Сравнение размеров через действие.&quot;,m:&quot;Пластиковые стаканчики разного размера.&quot;,s:&quot;Вкладывайте стаканчики один в другой, потом вынимайте.&quot;,h:&quot;Стройте из них башню.&quot;,ok:&quot;Ребёнок пробует, подбирает подходящий стаканчик.&quot;},
+{t:&quot;Найди крышку&quot;,a:[15,24],d:&quot;log&quot;,g:&quot;Соотнесение формы и размера.&quot;,m:&quot;Два-три контейнера с крышками.&quot;,s:&quot;Снимите крышки, перемешайте. Предложите закрыть каждый контейнер.&quot;,h:&quot;Добавьте ещё один контейнер.&quot;,ok:&quot;Малыш примеряет и находит подходящую крышку.&quot;},
+{t:&quot;Башня&quot;,a:[12,24],d:&quot;motor&quot;,g:&quot;Точность движений, равновесие.&quot;,m:&quot;Мягкие или крупные кубики.&quot;,s:&quot;Поставьте два кубика друг на друга, предложите поставить третий. Когда башня падает — весело: «Бух!»&quot;,h:&quot;Строим башню из 4–6 кубиков.&quot;,ok:&quot;Ребёнок ставит кубик и радуется результату.&quot;},
+{t:&quot;Один и много&quot;,a:[18,30],d:&quot;log&quot;,g:&quot;Первое понятие о количестве.&quot;,m:&quot;Один мяч и несколько мячей (или ложек).&quot;,s:&quot;Покажите: «Здесь одна ложка, а здесь много». Попросите дать одну.&quot;,h:&quot;Сравнивайте «много» и «мало».&quot;,ok:&quot;Ребёнок понимает «одну» и даёт один предмет.&quot;},
+{t:&quot;Верх и низ&quot;,a:[18,30],d:&quot;space&quot;,g:&quot;Пространственные понятия.&quot;,m:&quot;Игрушка, стол.&quot;,s:&quot;Кладите игрушку на стол и под стол: «Мишка наверху», «мишка внизу».&quot;,h:&quot;Просите: «Положи мишку под стул».&quot;,ok:&quot;Ребёнок выполняет простую просьбу.&quot;},
+/* ---------- 0–2: речь ---------- */
+{t:&quot;Назови животное&quot;,a:[10,24],d:&quot;speech&quot;,g:&quot;Пополняем словарь.&quot;,m:&quot;Книжка или карточки с животными.&quot;,s:&quot;Показывайте картинки и называйте: «Это кошка». Спрашивайте: «Где кошка?»&quot;,h:&quot;Просите назвать самому или изобразить звук.&quot;,ok:&quot;Малыш показывает пальчиком или говорит «мяу».&quot;},
+{t:&quot;Звуки животных&quot;,a:[9,24],d:&quot;speech&quot;,g:&quot;Звукоподражание — первые «слова».&quot;,m:&quot;Игрушки-зверюшки.&quot;,s:&quot;«Корова говорит му-у». Делайте паузу перед звуком, чтобы ребёнок договорил сам.&quot;,h:&quot;Спрашивайте: «Кто говорит гав?»&quot;,ok:&quot;Ребёнок повторяет звуки.&quot;},
+{t:&quot;Пальчиковые потешки&quot;,a:[6,24],d:&quot;speech&quot;,g:&quot;Ритм речи и мелкая моторика.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;«Сорока-белобока», «Ладушки». Проговаривайте, загибая пальчики малыша.&quot;,h:&quot;Пусть малыш показывает движения сам.&quot;,ok:&quot;Ребёнок ждёт любимого момента, просит повторить.&quot;},
+{t:&quot;Где носик?&quot;,a:[12,24],d:&quot;speech&quot;,g:&quot;Части тела и понимание речи.&quot;,m:&quot;Ничего не нужно (можно куклу).&quot;,s:&quot;Показывайте нос, глаза, ушки у себя, у малыша и у куклы.&quot;,h:&quot;Добавьте локоть, коленку, пятку.&quot;,ok:&quot;Малыш показывает части тела по просьбе.&quot;},
+{t:&quot;Повтори слог&quot;,a:[9,20],d:&quot;speech&quot;,g:&quot;Подготовка к словам.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Чётко произносите «ма-ма», «па-па», «ба-ба», «дай», подчёркивая губы.&quot;,h:&quot;Используйте слоги в игре: «Дай мяч! На!»&quot;,ok:&quot;Ребёнок повторяет хотя бы один слог.&quot;},
+{t:&quot;Чтение картинок&quot;,a:[10,24],d:&quot;speech&quot;,g:&quot;Внимание и словарь.&quot;,m:&quot;Книга с крупными картинками.&quot;,s:&quot;Не читайте текст — рассматривайте и называйте предметы, показывайте пальцем.&quot;,h:&quot;Задавайте вопросы: «Где солнышко? Что делает мальчик?»&quot;,ok:&quot;Малыш сам листает и показывает.&quot;},
+{t:&quot;Угадай звук дома&quot;,a:[12,24],d:&quot;speech&quot;,g:&quot;Слуховое восприятие.&quot;,m:&quot;Вода, хлопки, шаги, ключи.&quot;,s:&quot;Покажите источник звука: «Это вода журчит». Потом издайте звук за спиной и спросите, что это.&quot;,h:&quot;Звуки без показа, на выбор из двух предметов.&quot;,ok:&quot;Ребёнок показывает на источник.&quot;},
+{t:&quot;Продолжи песенку&quot;,a:[12,24],d:&quot;speech&quot;,g:&quot;Ритм, память и речь.&quot;,m:&quot;Знакомая песенка.&quot;,s:&quot;Пойте любимую песню и останавливайтесь перед последним словом. Ждите, что ребёнок «допоёт».&quot;,h:&quot;Останавливайтесь посередине строки.&quot;,ok:&quot;Малыш договаривает слово или звук.&quot;},
+{t:&quot;Кто это?&quot;,a:[9,24],d:&quot;emo&quot;,g:&quot;Узнавание близких, первые имена.&quot;,m:&quot;Фото родных.&quot;,s:&quot;«Кто это? Это дедушка!» Повторяйте каждый день.&quot;,h:&quot;Спрашивайте имена: «Как зовут бабушку?»&quot;,ok:&quot;Ребёнок узнаёт и называет.&quot;},
+{t:&quot;Разговор с игрушкой&quot;,a:[12,24],d:&quot;emo&quot;,g:&quot;Диалог и подражание.&quot;,m:&quot;Мягкая игрушка.&quot;,s:&quot;Озвучьте игрушку: «Привет! Как тебя зовут?» Ждите любую реакцию ребёнка и отвечайте.&quot;,h:&quot;Игрушка «просит» что-то: «Дай мне мячик».&quot;,ok:&quot;Малыш отвечает игрушке звуками или действиями.&quot;},
+/* ---------- 0–2: моторика ---------- */
+{t:&quot;Перекладывание&quot;,a:[9,24],d:&quot;motor&quot;,g:&quot;Хватание и координация.&quot;,m:&quot;Две корзинки, крупные игрушки.&quot;,s:&quot;Перекладывайте игрушки из одной корзинки в другую, считая вслух.&quot;,h:&quot;Используйте большую ложку.&quot;,ok:&quot;Ребёнок перекладывает сам.&quot;},
+{t:&quot;Мягкое и твёрдое&quot;,a:[4,18],d:&quot;motor&quot;,g:&quot;Тактильное восприятие.&quot;,m:&quot;Ткань, губка, деревянная ложка, мех.&quot;,s:&quot;Давайте трогать по очереди, называя: «мягкое», «твёрдое», «пушистое».&quot;,h:&quot;Сделайте «сенсорную коробку» с крупными безопасными предметами.&quot;,ok:&quot;Малыш исследует руками, выбирает любимое.&quot;},
+{t:&quot;Дотянись до игрушки&quot;,a:[4,10],d:&quot;motor&quot;,g:&quot;Стимул к ползанию.&quot;,m:&quot;Яркая игрушка, коврик.&quot;,s:&quot;Положите игрушку чуть дальше вытянутой руки малыша, подбадривайте.&quot;,h:&quot;Отодвигайте дальше, кладите на подушку.&quot;,ok:&quot;Малыш тянется, переворачивается, ползёт.&quot;},
+{t:&quot;Ладушки&quot;,a:[7,18],d:&quot;motor&quot;,g:&quot;Подражание движениям.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Хлопайте в ладоши под потешку, помогая малышу.&quot;,h:&quot;Хлопки в разном темпе: тихо — громко, медленно — быстро.&quot;,ok:&quot;Ребёнок хлопает сам.&quot;},
+{t:&quot;Барабан&quot;,a:[8,24],d:&quot;motor&quot;,g:&quot;Чувство ритма.&quot;,m:&quot;Кастрюля и деревянная ложка.&quot;,s:&quot;Стучите медленно и быстро, громко и тихо. Пусть малыш повторяет.&quot;,h:&quot;Простукивайте ритм «та-та-та».&quot;,ok:&quot;Малыш стучит и радуется звуку.&quot;},
+{t:&quot;Дорожка&quot;,a:[12,24],d:&quot;motor&quot;,g:&quot;Равновесие и ходьба.&quot;,m:&quot;Подушки, одеяло, коврики.&quot;,s:&quot;Сделайте мягкую дорожку разной высоты и пройдите её, держа малыша за руку.&quot;,h:&quot;Перешагивать через свёрнутое полотенце.&quot;,ok:&quot;Ребёнок хочет пройти ещё раз.&quot;},
+{t:&quot;Мяч туда-обратно&quot;,a:[9,24],d:&quot;motor&quot;,g:&quot;Координация, игра по очереди.&quot;,m:&quot;Большой мягкий мяч.&quot;,s:&quot;Сядьте напротив, раздвинув ноги, катайте мяч друг другу.&quot;,h:&quot;Катите мяч в «ворота» из двух подушек.&quot;,ok:&quot;Малыш отталкивает мяч в вашу сторону.&quot;},
+{t:&quot;Открой и закрой&quot;,a:[10,24],d:&quot;motor&quot;,g:&quot;Мелкая моторика.&quot;,m:&quot;Коробки и контейнеры с крышками.&quot;,s:&quot;Спрячьте внутрь игрушку, помогите открыть.&quot;,h:&quot;Контейнер с откручивающейся крышкой.&quot;,ok:&quot;Ребёнок пытается открыть сам.&quot;},
+{t:&quot;Водичка&quot;,a:[12,24],d:&quot;motor&quot;,g:&quot;Сенсорика, переливание.&quot;,m:&quot;Таз с небольшим количеством воды, чашки.&quot;,s:&quot;Переливайте воду из чашки в чашку, называя «полная», «пустая».&quot;,h:&quot;Воронка, ситечко, губка.&quot;,ok:&quot;Малыш увлечённо переливает.&quot;,w:&quot;Только под постоянным присмотром взрослого, вода — на донышке.&quot;},
+{t:&quot;Танцуем вместе&quot;,a:[6,24],d:&quot;motor&quot;,g:&quot;Крупная моторика и ритм.&quot;,m:&quot;Весёлая музыка.&quot;,s:&quot;Танцуйте с малышом на руках или держась за руки, покачивайтесь, кружитесь.&quot;,h:&quot;«Замри!» — когда музыка останавливается.&quot;,ok:&quot;Ребёнок пританцовывает, просит ещё.&quot;},
+/* ---------- 0–2: мир ---------- */
+{t:&quot;Что за окном?&quot;,a:[6,24],d:&quot;world&quot;,g:&quot;Наблюдательность, новые слова.&quot;,m:&quot;Окно.&quot;,s:&quot;Смотрите в окно и называйте: солнышко, дерево, машина, птичка.&quot;,h:&quot;Спрашивайте: «Где машина?»&quot;,ok:&quot;Малыш показывает и повторяет.&quot;},
+{t:&quot;Домашние предметы&quot;,a:[9,24],d:&quot;world&quot;,g:&quot;Назначение вещей.&quot;,m:&quot;Ложка, чашка, расчёска.&quot;,s:&quot;Покажите, что делают с предметом: ложкой едят, расчёской причёсываются.&quot;,h:&quot;Попросите показать действие с куклой.&quot;,ok:&quot;Ребёнок повторяет действие.&quot;},
+{t:&quot;Кто живёт дома?&quot;,a:[10,24],d:&quot;emo&quot;,g:&quot;Семья и имена.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;«Где папа? Где мама? Где котик?» — ищите вместе по квартире.&quot;,h:&quot;«Принеси папе тапочки».&quot;,ok:&quot;Малыш находит и показывает.&quot;},
+{t:&quot;Погладь мишку&quot;,a:[10,24],d:&quot;emo&quot;,g:&quot;Бережность и сочувствие.&quot;,m:&quot;Мягкая игрушка.&quot;,s:&quot;«Мишка плачет. Пожалеем?» Покажите, как погладить, обнять.&quot;,h:&quot;Мишку можно укрыть, покормить.&quot;,ok:&quot;Ребёнок гладит, обнимает игрушку.&quot;},
+{t:&quot;Тонет — плавает&quot;,a:[15,24],d:&quot;world&quot;,g:&quot;Первые наблюдения.&quot;,m:&quot;Таз с водой, мячик, ложка, кубик.&quot;,s:&quot;Опускайте предметы в воду: «Мячик плавает! Ложка утонула!»&quot;,h:&quot;Спрашивайте перед тем, как опустить: «Поплывёт?»&quot;,ok:&quot;Малыш наблюдает, тянется повторить.&quot;,w:&quot;Только под постоянным присмотром.&quot;},
+{t:&quot;Свет: включили — выключили&quot;,a:[9,20],d:&quot;world&quot;,g:&quot;Причина и следствие.&quot;,m:&quot;Выключатель (взрослый нажимает).&quot;,s:&quot;«Щёлк — светло! Щёлк — темно!» Держите малыша на руках.&quot;,h:&quot;Ребёнок нажимает выключатель с вашей помощью.&quot;,ok:&quot;Ждёт результата, смеётся.&quot;},
+{t:&quot;Посади куклу&quot;,a:[15,24],d:&quot;world&quot;,g:&quot;Бытовые действия в игре.&quot;,m:&quot;Кукла, маленький стульчик.&quot;,s:&quot;Покажите: посадим куклу, дадим чашку, уложим спать.&quot;,h:&quot;Ребёнок сам повторяет цепочку.&quot;,ok:&quot;Малыш играет с куклой по образцу.&quot;},
+{t:&quot;Откуда голос?&quot;,a:[8,20],d:&quot;speech&quot;,g:&quot;Слуховое внимание.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Спрячьтесь за дверью и позовите. Когда найдёт — радуйтесь!&quot;,h:&quot;Говорите шёпотом.&quot;,ok:&quot;Ребёнок ищет, улыбается при находке.&quot;},
+{t:&quot;Нажми — и будет!&quot;,a:[6,18],d:&quot;world&quot;,g:&quot;Причина и следствие.&quot;,m:&quot;Игрушка с кнопкой или звуком.&quot;,s:&quot;Покажите: нажали — звук. Подождите, чтобы малыш повторил.&quot;,h:&quot;Две кнопки с разным результатом.&quot;,ok:&quot;Ребёнок нажимает целенаправленно.&quot;},
+{t:&quot;Повторяй за мной&quot;,a:[12,24],d:&quot;emo&quot;,g:&quot;Подражание и забота.&quot;,m:&quot;Кукла, ложка, одеяло.&quot;,s:&quot;Покормите куклу, уложите спать, помашите «пока». Пусть малыш повторит.&quot;,h:&quot;Цепочка из двух-трёх действий.&quot;,ok:&quot;Ребёнок копирует ваши действия.&quot;},
+/* ---------- 2–4: логика ---------- */
+{t:&quot;Найди лишнее&quot;,a:[30,48],d:&quot;log&quot;,g:&quot;Обобщение и классификация.&quot;,m:&quot;Три игрушки-животных и яблоко.&quot;,s:&quot;Положите четыре предмета: «Что здесь лишнее? Почему?»&quot;,h:&quot;Признак сложнее: три красных и один синий.&quot;,ok:&quot;Ребёнок выбирает и пытается объяснить.&quot;},
+{t:&quot;Продолжи ряд&quot;,a:[30,48],d:&quot;log&quot;,g:&quot;Закономерности.&quot;,m:&quot;Кубики двух цветов.&quot;,s:&quot;Выложите: красный, синий, красный, синий. «Что дальше?»&quot;,h:&quot;Ряд из трёх цветов или «два красных — один синий».&quot;,ok:&quot;Ребёнок продолжает ряд.&quot;},
+{t:&quot;Что пропало?&quot;,a:[26,48],d:&quot;mem&quot;,g:&quot;Зрительная память.&quot;,m:&quot;3–5 игрушек, платок.&quot;,s:&quot;Покажите игрушки, накройте платком, уберите одну. «Кого не стало?»&quot;,h:&quot;Больше игрушек; меняйте местами вместо того, чтобы убирать.&quot;,ok:&quot;Ребёнок вспоминает пропавшую игрушку.&quot;},
+{t:&quot;Найди пару&quot;,a:[24,48],d:&quot;mem&quot;,g:&quot;Сравнение и память.&quot;,m:&quot;Носки, варежки, парные карточки.&quot;,s:&quot;Перемешайте пары носков и разберите вместе.&quot;,h:&quot;Карточки рубашкой вверх — игра «мемори».&quot;,ok:&quot;Ребёнок сам находит пары.&quot;},
+{t:&quot;Разложи по группам&quot;,a:[30,48],d:&quot;log&quot;,g:&quot;Классификация.&quot;,m:&quot;Игрушки: звери, машинки, посуда.&quot;,s:&quot;Три коробки: «Сюда — зверей, сюда — машины».&quot;,h:&quot;Ребёнок сам придумывает, по какому признаку разложить.&quot;,ok:&quot;Раскладывает и называет группы.&quot;},
+{t:&quot;Что сначала?&quot;,a:[30,48],d:&quot;log&quot;,g:&quot;Последовательность событий.&quot;,m:&quot;Нарисованные картинки или фото дня.&quot;,s:&quot;Разложите: проснулся, умылся, позавтракал. «Что сначала, что потом?»&quot;,h:&quot;Четыре картинки; истории из сказок.&quot;,ok:&quot;Ребёнок раскладывает по порядку.&quot;},
+{t:&quot;Найди ошибку&quot;,a:[34,48],d:&quot;log&quot;,g:&quot;Критическое мышление, юмор.&quot;,m:&quot;Рисунок взрослого.&quot;,s:&quot;Нарисуйте рыбу на дереве или кошку в аквариуме: «Так бывает?»&quot;,h:&quot;Несколько ошибок на одной картинке.&quot;,ok:&quot;Ребёнок смеётся и объясняет, как правильно.&quot;},
+{t:&quot;Кто где живёт?&quot;,a:[30,48],d:&quot;world&quot;,g:&quot;Знания о природе.&quot;,m:&quot;Картинки животных и домиков.&quot;,s:&quot;«Где живёт рыбка? А птичка?» Соединяйте пальчиком.&quot;,h:&quot;Добавьте диких животных: берлога, нора, дупло.&quot;,ok:&quot;Ребёнок правильно соединяет.&quot;},
+{t:&quot;Что будет, если…?&quot;,a:[34,48],d:&quot;world&quot;,g:&quot;Причинно-следственные связи.&quot;,m:&quot;Лёд, вода, растение.&quot;,s:&quot;Положите кубик льда на блюдце у окна: «Что с ним будет?» Проверьте через час.&quot;,h:&quot;«Что будет, если не поливать цветок?»&quot;,ok:&quot;Ребёнок высказывает догадки.&quot;},
+{t:&quot;Угадай, что внутри&quot;,a:[30,48],d:&quot;log&quot;,g:&quot;Логика и речь.&quot;,m:&quot;Мешочек, знакомые предметы.&quot;,s:&quot;Опишите предмет: «Круглый, прыгает…» — ребёнок угадывает.&quot;,h:&quot;Ребёнок сам загадывает вам.&quot;,ok:&quot;Ребёнок угадывает по 2–3 признакам.&quot;},
+/* ---------- 2–4: математика и пространство ---------- */
+{t:&quot;Посчитаем&quot;,a:[24,48],d:&quot;space&quot;,g:&quot;Счёт предметов.&quot;,m:&quot;Пуговицы крупные, ложки, яблоки.&quot;,s:&quot;Считайте всё вокруг, касаясь каждого предмета: «Одна, две, три ложки».&quot;,h:&quot;До пяти, потом до десяти; «принеси три ложки».&quot;,ok:&quot;Ребёнок называет числа по порядку.&quot;},
+{t:&quot;Где больше?&quot;,a:[30,48],d:&quot;space&quot;,g:&quot;Сравнение количеств.&quot;,m:&quot;Две тарелки, печенье.&quot;,s:&quot;Положите на тарелки разное количество: «Где больше?»&quot;,h:&quot;Разница всего в один предмет.&quot;,ok:&quot;Ребёнок сравнивает, иногда пересчитывает.&quot;},
+{t:&quot;Геометрический детектив&quot;,a:[30,48],d:&quot;space&quot;,g:&quot;Формы вокруг нас.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Ищите круги дома: тарелка, часы, колесо.&quot;,h:&quot;Квадраты, треугольники; кто больше найдёт.&quot;,ok:&quot;Ребёнок находит формы сам.&quot;},
+{t:&quot;Собери квадрат&quot;,a:[36,48],d:&quot;space&quot;,g:&quot;Пространственное мышление.&quot;,m:&quot;Бумажный квадрат, разрезанный на 2 треугольника.&quot;,s:&quot;Покажите, как два треугольника складываются в квадрат.&quot;,h:&quot;Квадрат из 4 частей.&quot;,ok:&quot;Ребёнок пробует повернуть детали.&quot;},
+{t:&quot;Большой — средний — маленький&quot;,a:[26,40],d:&quot;space&quot;,g:&quot;Сериация.&quot;,m:&quot;Три мишки или три чашки.&quot;,s:&quot;Расставьте по росту, рассказывая сказку «Три медведя».&quot;,h:&quot;Пять предметов по размеру.&quot;,ok:&quot;Ребёнок расставляет правильно.&quot;},
+{t:&quot;Найди цифру&quot;,a:[36,48],d:&quot;space&quot;,g:&quot;Знакомство с цифрами.&quot;,m:&quot;Карточки с цифрами 1–5.&quot;,s:&quot;«Где цифра два?» Ищите цифры на часах, лифте, машинах.&quot;,h:&quot;Положить столько предметов, какая цифра.&quot;,ok:&quot;Ребёнок узнаёт 2–3 цифры.&quot;},
+{t:&quot;Справа и слева&quot;,a:[40,48],d:&quot;space&quot;,g:&quot;Ориентация в пространстве.&quot;,m:&quot;Игрушки.&quot;,s:&quot;«Положи мишку справа от зайки». Помогайте подсказкой «рука, которой ешь».&quot;,h:&quot;Впереди — сзади, между.&quot;,ok:&quot;Ребёнок выполняет с подсказкой.&quot;},
+{t:&quot;Сколько не хватает?&quot;,a:[40,48],d:&quot;space&quot;,g:&quot;Подготовка к сложению.&quot;,m:&quot;Тарелки и ложки.&quot;,s:&quot;Три тарелки, две ложки: «Хватит ли ложек? Сколько принести?»&quot;,h:&quot;Пять зайчиков и три морковки.&quot;,ok:&quot;Ребёнок замечает нехватку.&quot;},
+{t:&quot;Построй как у меня&quot;,a:[30,48],d:&quot;space&quot;,g:&quot;Работа по образцу.&quot;,m:&quot;Кубики.&quot;,s:&quot;Постройте из 3 кубиков фигуру и попросите повторить.&quot;,h:&quot;Образец из 5–6 кубиков или по картинке.&quot;,ok:&quot;Ребёнок повторяет постройку.&quot;},
+{t:&quot;Лабиринт на полу&quot;,a:[30,48],d:&quot;space&quot;,g:&quot;Планирование пути.&quot;,m:&quot;Малярный скотч или верёвка.&quot;,s:&quot;Сделайте на полу дорожку от «домика» к игрушке.&quot;,h:&quot;Развилки и тупики.&quot;,ok:&quot;Ребёнок проходит и находит путь.&quot;},
+/* ---------- 2–4: память и внимание ---------- */
+{t:&quot;Запомни картинки&quot;,a:[34,48],d:&quot;mem&quot;,g:&quot;Зрительная память.&quot;,m:&quot;5 карточек или игрушек.&quot;,s:&quot;Покажите 3 картинки, потом смешайте с другими: «Какие были?»&quot;,h:&quot;5 картинок.&quot;,ok:&quot;Ребёнок вспоминает большую часть.&quot;},
+{t:&quot;Повтори ритм&quot;,a:[26,48],d:&quot;mem&quot;,g:&quot;Слуховая память и ритм.&quot;,m:&quot;Ладони и ноги.&quot;,s:&quot;Хлопок, топ, хлопок — повтори!&quot;,h:&quot;Длиннее ритм, разные темпы.&quot;,ok:&quot;Ребёнок повторяет ритм.&quot;},
+{t:&quot;Найди отличия&quot;,a:[36,48],d:&quot;mem&quot;,g:&quot;Внимание к деталям.&quot;,m:&quot;Две одинаковые раскладки игрушек.&quot;,s:&quot;Сделайте два одинаковых ряда игрушек, в одном поменяйте одну.&quot;,h:&quot;Две картинки из книги «найди отличия».&quot;,ok:&quot;Ребёнок находит отличие.&quot;},
+{t:&quot;Где машинка?&quot;,a:[24,40],d:&quot;mem&quot;,g:&quot;Память на расположение.&quot;,m:&quot;Три чашки, маленькая игрушка.&quot;,s:&quot;Спрячьте игрушку под чашкой на глазах у ребёнка. «Где машинка?»&quot;,h:&quot;Медленно поменяйте чашки местами.&quot;,ok:&quot;Ребёнок следит и находит.&quot;},
+{t:&quot;Слушай внимательно&quot;,a:[30,48],d:&quot;speech&quot;,g:&quot;Понимание инструкции.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;Дайте задание из двух шагов: «Возьми мяч и положи на диван».&quot;,h:&quot;Три шага.&quot;,ok:&quot;Ребёнок выполняет оба действия.&quot;},
+{t:&quot;Что звучало?&quot;,a:[26,48],d:&quot;speech&quot;,g:&quot;Слуховое внимание.&quot;,m:&quot;Голос, игрушки.&quot;,s:&quot;Изобразите звук животного или машины — ребёнок угадывает.&quot;,h:&quot;Ребёнок с закрытыми глазами угадывает предмет по звуку.&quot;,ok:&quot;Ребёнок узнаёт звуки.&quot;},
+{t:&quot;Найди по подсказке&quot;,a:[30,48],d:&quot;mem&quot;,g:&quot;Внимание и речь.&quot;,m:&quot;Спрятанная игрушка.&quot;,s:&quot;Спрячьте игрушку и подсказывайте: «Горячо — холодно».&quot;,h:&quot;Подсказки словами: «под чем-то мягким».&quot;,ok:&quot;Ребёнок ищет, слушая подсказки.&quot;},
+{t:&quot;Быстрый поиск&quot;,a:[26,48],d:&quot;mem&quot;,g:&quot;Концентрация.&quot;,m:&quot;Комната.&quot;,s:&quot;«Найди всё красное!» — за минуту.&quot;,h:&quot;Найди всё круглое и мягкое одновременно.&quot;,ok:&quot;Ребёнок увлечён поиском.&quot;},
+{t:&quot;Выложи узор&quot;,a:[34,48],d:&quot;mem&quot;,g:&quot;Память и внимание.&quot;,m:&quot;Фигурки или крышечки.&quot;,s:&quot;Выложите узор из 3 фигур, закройте — ребёнок повторяет.&quot;,h:&quot;4–5 фигур.&quot;,ok:&quot;Ребёнок выкладывает похоже.&quot;},
+{t:&quot;Что изменилось в комнате?&quot;,a:[36,48],d:&quot;mem&quot;,g:&quot;Наблюдательность.&quot;,m:&quot;Комната.&quot;,s:&quot;Пока ребёнок отвернулся, переставьте вещь: «Что поменялось?»&quot;,h:&quot;Изменение поменьше.&quot;,ok:&quot;Ребёнок замечает изменение.&quot;},
+/* ---------- 2–4: речь ---------- */
+{t:&quot;Закончи предложение&quot;,a:[30,48],d:&quot;speech&quot;,g:&quot;Речь и логика.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;«Зимой идёт… (снег). Летом светит… (солнце)».&quot;,h:&quot;«Если пойдёт дождь, то…»&quot;,ok:&quot;Ребёнок договаривает.&quot;},
+{t:&quot;Опиши предмет&quot;,a:[34,48],d:&quot;speech&quot;,g:&quot;Словарь признаков.&quot;,m:&quot;Яблоко, мяч, игрушка.&quot;,s:&quot;«Какое яблоко? Красное, круглое, сладкое».&quot;,h:&quot;Опиши, не называя — пусть мама угадает.&quot;,ok:&quot;Ребёнок называет 2–3 признака.&quot;},
+{t:&quot;Угадай по описанию&quot;,a:[34,48],d:&quot;speech&quot;,g:&quot;Логика и словарь.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;«Круглое, красное, растёт на дереве».&quot;,h:&quot;Загадки посложнее.&quot;,ok:&quot;Ребёнок угадывает.&quot;},
+{t:&quot;Сочини историю&quot;,a:[38,48],d:&quot;speech&quot;,g:&quot;Связная речь.&quot;,m:&quot;Три картинки.&quot;,s:&quot;Разложите картинки и придумайте вместе: «Жил-был…»&quot;,h:&quot;Ребёнок рассказывает сам.&quot;,ok:&quot;Ребёнок добавляет события.&quot;},
+{t:&quot;Придумай название&quot;,a:[36,48],d:&quot;art&quot;,g:&quot;Воображение и речь.&quot;,m:&quot;Рисунок ребёнка.&quot;,s:&quot;«Как назовём твой рисунок?»&quot;,h:&quot;Придумать название для облака.&quot;,ok:&quot;Ребёнок предлагает варианты.&quot;},
+{t:&quot;Кто что делает?&quot;,a:[26,48],d:&quot;speech&quot;,g:&quot;Глаголы.&quot;,m:&quot;Картинки или игрушки.&quot;,s:&quot;«Птица — летает. Рыба — плавает. Собака — …»&quot;,h:&quot;«Кто ещё летает?»&quot;,ok:&quot;Ребёнок называет действие.&quot;},
+{t:&quot;Скажи наоборот&quot;,a:[32,48],d:&quot;speech&quot;,g:&quot;Антонимы.&quot;,m:&quot;Мяч (можно бросать).&quot;,s:&quot;Бросаете мяч со словом «большой» — ребёнок возвращает с «маленький».&quot;,h:&quot;«Утро — …», «смелый — …»&quot;,ok:&quot;Ребёнок называет противоположность.&quot;},
+{t:&quot;Найди рифму&quot;,a:[38,48],d:&quot;speech&quot;,g:&quot;Фонематический слух.&quot;,m:&quot;Ничего не нужно.&quot;,s:&quot;«Кот — рот, дом — сом. А мишка — …?»&quot;,h:&quot;Придумываем двустишия.&quot;,ok:&quot;Ребёнок слышит похожие окончания.&quot;},
+{t:&quot;Почемучка&quot;,a:[30,48],d:&quot;speech&quot;,g:&quot;Любознательность.&quot;,m:&quot;Любая картинка.&quot;,s:&quot;Предложите ребёнку задать вопрос о картинке, отвечайте серьёзно.&quot;,h:&quot;Вы задаёте «почему» — ребёнок придумывает ответ.&quot;,ok:&quot;Ребёнок задаёт вопросы.&quot;},
+{t:&quot;Угадай настроение&quot;,a:[26,48],d:&quot;emo&quot;,g:&quot;Эмоциональный интеллект.&quot;,m:&quot;Ваше лицо или картинки.&quot;,s:&quot;Показывайте радость, грусть, удивление — ребёнок угадывает и повторяет.&quot;,h:&quot;«Когда ты грустишь? Что помогает?»&quot;,ok:&quot;Ребёнок называет эмоцию.&quot;},
+/* ---------- 2–4: творчество и исследование ---------- */
+{t:&quot;Дорисуй&quot;,a:[30,48],d:&quot;art&quot;,g:&quot;Воображение.&quot;,m:&quot;Бумага, мелки.&quot;,s:&quot;Нарисуйте круг: «Что это может быть?» Ребёнок дорисовывает.&quot;,h:&quot;Начинайте с загогулины.&quot;,ok:&quot;Ребёнок придумывает образ.&quot;},
+{t:&quot;Придумай зверя&quot;,a:[38,48],d:&quot;art&quot;,g:&quot;Фантазия.&quot;,m:&quot;Бумага, мелки.&quot;,s:&quot;«Если у слона будут крылья — как его назовём?»&quot;,h:&quot;Соединить три животных.&quot;,ok:&quot;Ребёнок смеётся и придумывает.&quot;},
+{t:&quot;Необычный дом&quot;,a:[30,48],d:&quot;art&quot;,g:&quot;Конструирование.&quot;,m:&quot;Кубики, подушки, коробки.&quot;,s:&quot;Постройте дом для игрушки.&quot;,h:&quot;Дом с окном и дверью.&quot;,ok:&quot;Ребёнок строит и обыгрывает.&quot;},
+{t:&quot;Что сделать из коробки?&quot;,a:[30,48],d:&quot;art&quot;,g:&quot;Творческое мышление.&quot;,m:&quot;Картонная коробка.&quot;,s:&quot;«Это машина? Корабль? Домик?» Превратите коробку во что-то.&quot;,h:&quot;Придумать 5 вариантов.&quot;,ok:&quot;Ребёнок предлагает идеи.&quot;},
+{t:&quot;Театр игрушек&quot;,a:[30,48],d:&quot;emo&quot;,g:&quot;Речь и эмоции.&quot;,m:&quot;2–3 игрушки.&quot;,s:&quot;Разыграйте сценку: зайчик заблудился, мишка помог.&quot;,h:&quot;Ребёнок ведёт сценку.&quot;,ok:&quot;Ребёнок говорит за героев.&quot;},
+{t:&quot;Угадай на ощупь&quot;,a:[30,48],d:&quot;motor&quot;,g:&quot;Тактильное восприятие.&quot;,m:&quot;Мешочек, крупные предметы.&quot;,s:&quot;Ребёнок опускает руку в мешочек и угадывает, что там.&quot;,h:&quot;Найти в мешке «что-то мягкое».&quot;,ok:&quot;Ребёнок узнаёт предметы.&quot;,w:&quot;Только крупные предметы — ничего, что можно проглотить.&quot;},
+{t:&quot;Тонет или плавает?&quot;,a:[30,48],d:&quot;world&quot;,g:&quot;Опыты и наблюдение.&quot;,m:&quot;Таз воды, разные предметы.&quot;,s:&quot;Сначала угадываем, потом проверяем.&quot;,h:&quot;Как сделать, чтобы пластилин поплыл? (лодочкой)&quot;,ok:&quot;Ребёнок делает предположения.&quot;,w:&quot;Под присмотром взрослого.&quot;},
+{t:&quot;Переправа&quot;,a:[36,48],d:&quot;art&quot;,g:&quot;Решение задач.&quot;,m:&quot;Подушки, игрушки.&quot;,s:&quot;«Это река. Как перевезти игрушки?» — мост из подушек, лодка-коробка.&quot;,h:&quot;Ограничения: «Только 3 подушки».&quot;,ok:&quot;Ребёнок предлагает решение.&quot;},
+{t:&quot;Превращение круга&quot;,a:[30,48],d:&quot;art&quot;,g:&quot;Воображение.&quot;,m:&quot;Бумага с кругами.&quot;,s:&quot;Превратите круги в солнце, колесо, лицо.&quot;,h:&quot;Квадраты и треугольники.&quot;,ok:&quot;Ребёнок придумывает разное.&quot;},
+{t:&quot;Звучащий дом&quot;,a:[30,48],d:&quot;world&quot;,g:&quot;Исследование звуков.&quot;,m:&quot;Безопасные предметы.&quot;,s:&quot;Найдите 5 предметов с разными звуками: шуршит, звенит, стучит.&quot;,h:&quot;Сыграть «оркестром».&quot;,ok:&quot;Ребёнок экспериментирует.&quot;},
+];
+
+const LANG=(()=&gt;{try{if(window.parent&amp;&amp;window.parent!==window&amp;&amp;window.parent.APP_LANG)return window.parent.APP_LANG;return localStorage.getItem(&#x27;app_lang&#x27;)||&#x27;ru&#x27;;}catch(e){return &#x27;ru&#x27;;}})();
+const KZ=LANG===&#x27;kz&#x27;;const L=(r,k)=&gt;KZ?k:r;
+const app=document.getElementById(&#x27;app&#x27;);
+const ls={get:(k,d)=&gt;{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set:(k,v)=&gt;{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const AGES=[[0,6,L(&#x27;0–6 мес&#x27;,&#x27;0–6 ай&#x27;)],[6,12,L(&#x27;6–12 мес&#x27;,&#x27;6–12 ай&#x27;)],[12,18,L(&#x27;1–1,5 года&#x27;,&#x27;1–1,5 жас&#x27;)],[18,24,L(&#x27;1,5–2 года&#x27;,&#x27;1,5–2 жас&#x27;)],[24,30,L(&#x27;2–2,5 года&#x27;,&#x27;2–2,5 жас&#x27;)],[30,36,L(&#x27;2,5–3 года&#x27;,&#x27;2,5–3 жас&#x27;)],[36,42,L(&#x27;3–3,5 года&#x27;,&#x27;3–3,5 жас&#x27;)],[42,48,L(&#x27;3,5–4 года&#x27;,&#x27;3,5–4 жас&#x27;)]];
+const fits=(x,ag)=&gt;x.a[0]&lt;ag[1]&amp;&amp;x.a[1]&gt;ag[0];
+const ageIdx=()=&gt;ls.get(&#x27;p_age&#x27;,3);
+const RUNOTE=KZ?&#x27;&lt;p class=&quot;ru&quot;&gt;Сабақтардың сипаттамасы әзірге орыс тілінде.&lt;/p&gt;&#x27;:&#x27;&#x27;;
+const today=()=&gt;new Date().toISOString().slice(0,10);
+function rng(seed){let s=0;for(const c of seed)s=(s*31+c.charCodeAt(0))&gt;&gt;&gt;0;return ()=&gt;{s=(s*1103515245+12345)&gt;&gt;&gt;0;return s/4294967296;};}
+function card(x,i,withDone){const D=ADIR[x.d];const done=ls.get(&#x27;p_done&#x27;,{});const key=today()+&#x27;|&#x27;+x.t;const isDone=!!done[key];
+ return `&lt;div class=&quot;act ${isDone?&#x27;done&#x27;:&#x27;&#x27;}&quot;&gt;&lt;h3&gt;${D[0]} ${x.t}&lt;/h3&gt;
+  &lt;div class=&quot;meta&quot;&gt;${KZ?D[2]:D[1]} · ${fmtAge(x.a)}&lt;/div&gt;
+  &lt;p&gt;&lt;b&gt;${L(&#x27;Цель&#x27;,&#x27;Мақсаты&#x27;)}:&lt;/b&gt; ${x.g}&lt;/p&gt;&lt;p&gt;&lt;b&gt;${L(&#x27;Понадобится&#x27;,&#x27;Керек&#x27;)}:&lt;/b&gt; ${x.m}&lt;/p&gt;&lt;p&gt;&lt;b&gt;${L(&#x27;Как играть&#x27;,&#x27;Қалай ойнау&#x27;)}:&lt;/b&gt; ${x.s}&lt;/p&gt;
+  ${x.w?`&lt;p class=&quot;warn&quot;&gt;⚠️ ${x.w}&lt;/p&gt;`:&#x27;&#x27;}
+  &lt;details&gt;&lt;summary&gt;${L(&#x27;Как усложнить и как понять, что подходит&#x27;,&#x27;Қалай қиындату және сәйкестігін қалай білу&#x27;)}&lt;/summary&gt;&lt;p&gt;&lt;b&gt;${L(&#x27;Усложнить&#x27;,&#x27;Қиындату&#x27;)}:&lt;/b&gt; ${x.h}&lt;/p&gt;&lt;p&gt;&lt;b&gt;${L(&#x27;Подходит, если&#x27;,&#x27;Сәйкес, егер&#x27;)}:&lt;/b&gt; ${x.ok}&lt;/p&gt;&lt;/details&gt;
+  ${withDone?`&lt;button class=&quot;btn ${isDone?&#x27;gray&#x27;:&#x27;&#x27;}&quot; data-done=&quot;${encodeURIComponent(x.t)}&quot;&gt;${isDone?L(&#x27;✓ Сделали сегодня&#x27;,&#x27;✓ Бүгін жасадық&#x27;):L(&#x27;Сделали ✓&#x27;,&#x27;Жасадық ✓&#x27;)}&lt;/button&gt;`:&#x27;&#x27;}&lt;/div&gt;`;}
+function fmtAge(a){const f=m=&gt;m&lt;24?`${m} ${L(&#x27;мес&#x27;,&#x27;ай&#x27;)}`:`${(m/12).toString().replace(&#x27;.&#x27;,&#x27;,&#x27;)} ${L(&#x27;г.&#x27;,&#x27;ж.&#x27;)}`;return `${f(a[0])} – ${f(a[1])}`;}
+function ageChips(onPick){return `&lt;div class=&quot;chips&quot;&gt;${AGES.map((g,i)=&gt;`&lt;button class=&quot;chip ${i===ageIdx()?&#x27;on&#x27;:&#x27;&#x27;}&quot; data-a=&quot;${i}&quot;&gt;${g[2]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;}
+function bindAge(redraw){app.querySelectorAll(&#x27;[data-a]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ls.set(&#x27;p_age&#x27;,+b.dataset.a);redraw();});}
+function bindDone(redraw){app.querySelectorAll(&#x27;[data-done]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const t=decodeURIComponent(b.dataset.done),d=ls.get(&#x27;p_done&#x27;,{}),k=today()+&#x27;|&#x27;+t;if(d[k])delete d[k];else d[k]=1;ls.set(&#x27;p_done&#x27;,d);redraw();});}
+/* ---- Занятия дня ---- */
+function daily(){const ag=AGES[ageIdx()];const pool=ACTS.filter(x=&gt;fits(x,ag));const r=rng(today()+ag[0]);const dirs=[...new Set(pool.map(x=&gt;x.d))].sort(()=&gt;r()-.5);
+ const pick=[];for(const d of dirs){const c=pool.filter(x=&gt;x.d===d&amp;&amp;!pick.includes(x));if(c.length)pick.push(c[Math.floor(r()*c.length)]);if(pick.length===3)break;}
+ const d=ls.get(&#x27;p_done&#x27;,{});const week=Object.keys(d).filter(k=&gt;{const dt=new Date(k.split(&#x27;|&#x27;)[0]);return (Date.now()-dt)/864e5&lt;7;}).length;
+ app.innerHTML=`&lt;h2&gt;☀️ ${L(&#x27;Занятия на сегодня&#x27;,&#x27;Бүгінгі сабақтар&#x27;)}&lt;/h2&gt;${ageChips()}${RUNOTE}
+  &lt;div class=&quot;note&quot;&gt;${L(&#x27;Три коротких занятия вместе с ребёнком — по 2–10 минут, без экрана. Каждый день — новые.&#x27;,&#x27;Баламен бірге үш қысқа сабақ — 2–10 минуттан, экрансыз. Күн сайын жаңалары.&#x27;)}&lt;/div&gt;&lt;br&gt;
+  ${pick.map((x,i)=&gt;card(x,i,true)).join(&#x27;&#x27;)}
+  &lt;p style=&quot;text-align:center&quot;&gt;${L(&#x27;За 7 дней сделано занятий:&#x27;,&#x27;7 күнде жасалған сабақтар:&#x27;)} &lt;b&gt;${week}&lt;/b&gt;&lt;/p&gt;`;
+ bindAge(daily);bindDone(daily);}
+/* ---- Все занятия ---- */
+let fDir=&#x27;all&#x27;;
+function all(){const ag=AGES[ageIdx()];const list=ACTS.filter(x=&gt;fits(x,ag)&amp;&amp;(fDir===&#x27;all&#x27;||x.d===fDir));
+ app.innerHTML=`&lt;h2&gt;📚 ${L(&#x27;Все занятия&#x27;,&#x27;Барлық сабақтар&#x27;)}&lt;/h2&gt;${ageChips()}
+  &lt;div class=&quot;chips&quot;&gt;&lt;button class=&quot;chip ${fDir===&#x27;all&#x27;?&#x27;on&#x27;:&#x27;&#x27;}&quot; data-d=&quot;all&quot;&gt;${L(&#x27;Все&#x27;,&#x27;Барлығы&#x27;)}&lt;/button&gt;${Object.entries(ADIR).map(([k,v])=&gt;`&lt;button class=&quot;chip ${fDir===k?&#x27;on&#x27;:&#x27;&#x27;}&quot; data-d=&quot;${k}&quot;&gt;${v[0]} ${KZ?v[2]:v[1]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;${RUNOTE}
+  &lt;p style=&quot;text-align:center&quot;&gt;${L(&#x27;Найдено&#x27;,&#x27;Табылды&#x27;)}: ${list.length}&lt;/p&gt;${list.map((x,i)=&gt;card(x,i,false)).join(&#x27;&#x27;)}`;
+ bindAge(all);app.querySelectorAll(&#x27;[data-d]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{fDir=b.dataset.d;all();});}
+/* ---- Успехи ---- */
+function progress(){const plays=ls.get(&#x27;nav_plays&#x27;,{});const lv=ls.get(&#x27;k24_lv&#x27;,{});
+ const stars=[[&#x27;🧸&#x27;,L(&#x27;Малыши&#x27;,&#x27;Бөбектер&#x27;),null],[&#x27;🦊&#x27;,L(&#x27;Почемучки&#x27;,&#x27;Білгіштер&#x27;),&#x27;k24_stars&#x27;],[&#x27;🦉&#x27;,L(&#x27;Скоро в школу&#x27;,&#x27;Мектепке дайындық&#x27;),&#x27;az_stars&#x27;],[&#x27;🇬🇧&#x27;,&#x27;English&#x27;,&#x27;en_stars&#x27;],[&#x27;🇰🇿&#x27;,&#x27;Қазақ тілі&#x27;,&#x27;kz_stars&#x27;]];
+ const top=Object.entries(plays).sort((a,b)=&gt;b[1].n-a[1].n).slice(0,10);
+ const LVN={color:L(&#x27;Найди цвет&#x27;,&#x27;Түсті тап&#x27;),shadow:L(&#x27;Найди тень&#x27;,&#x27;Көлеңкесін тап&#x27;),count:L(&#x27;Считаем&#x27;,&#x27;Санау&#x27;),mem:L(&#x27;Найди пару&#x27;,&#x27;Жұбын тап&#x27;),cups:L(&#x27;Где игрушка?&#x27;,&#x27;Ойыншық қайда?&#x27;),rhythm:L(&#x27;Повтори ритм&#x27;,&#x27;Ырғақты қайтала&#x27;),more:L(&#x27;Где больше?&#x27;,&#x27;Қайда көп?&#x27;),circles:L(&#x27;Найди фигуры&#x27;,&#x27;Пішіндерді тап&#x27;)};
+ const d=ls.get(&#x27;p_done&#x27;,{});const days=new Set(Object.keys(d).map(k=&gt;k.split(&#x27;|&#x27;)[0])).size;
+ app.innerHTML=`&lt;h2&gt;🌱 ${L(&#x27;Успехи ребёнка&#x27;,&#x27;Баланың жетістіктері&#x27;)}&lt;/h2&gt;
+  &lt;div class=&quot;note&quot;&gt;${L(&#x27;Это не оценка способностей и не диагноз. Просто подсказка, что ребёнку нравится и что уже получается. Каждый ребёнок развивается в своём темпе.&#x27;,&#x27;Бұл қабілетті бағалау немесе диагноз емес. Балаға не ұнайтынын және не шығып жатқанын көрсетеді. Әр бала өз қарқынымен дамиды.&#x27;)}&lt;/div&gt;
+  &lt;h3&gt;⭐ ${L(&#x27;Звёзды по разделам&#x27;,&#x27;Бөлімдер бойынша жұлдыздар&#x27;)}&lt;/h3&gt;&lt;table&gt;${stars.filter(s=&gt;s[2]).map(s=&gt;`&lt;tr&gt;&lt;td&gt;${s[0]} ${s[1]}&lt;/td&gt;&lt;td&gt;${ls.get(s[2],0)}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)}&lt;/table&gt;
+  &lt;h3&gt;📈 ${L(&#x27;Сложность подстраивается сама (3–4 года)&#x27;,&#x27;Қиындық өзі бейімделеді (3–4 жас)&#x27;)}&lt;/h3&gt;
+  ${Object.keys(LVN).map(k=&gt;{const l=(lv[k]&amp;&amp;lv[k].l)||1;return `&lt;div&gt;${LVN[k]} — ${L(&#x27;уровень&#x27;,&#x27;деңгей&#x27;)} ${l} / 3&lt;/div&gt;&lt;div class=&quot;bar&quot;&gt;&lt;i style=&quot;width:${l/3*100}%&quot;&gt;&lt;/i&gt;&lt;/div&gt;`;}).join(&#x27;&#x27;)}
+  &lt;h3&gt;🎮 ${L(&#x27;Любимые игры&#x27;,&#x27;Сүйікті ойындар&#x27;)}&lt;/h3&gt;${top.length?`&lt;table&gt;${top.map(([k,v])=&gt;`&lt;tr&gt;&lt;td&gt;${v.name}&lt;/td&gt;&lt;td&gt;${v.n}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)}&lt;/table&gt;`:`&lt;p&gt;${L(&#x27;Пока нет данных — поиграйте!&#x27;,&#x27;Әзірге дерек жоқ — ойнаңыз!&#x27;)}&lt;/p&gt;`}
+  &lt;h3&gt;👨‍👩‍👧 ${L(&#x27;Занятия вместе&#x27;,&#x27;Бірге сабақтар&#x27;)}&lt;/h3&gt;&lt;p&gt;${L(&#x27;Дней с занятиями без экрана:&#x27;,&#x27;Экрансыз сабақ болған күндер:&#x27;)} &lt;b&gt;${days}&lt;/b&gt;&lt;/p&gt;
+  &lt;button class=&quot;btn gray&quot; id=&quot;rst&quot;&gt;${L(&#x27;Сбросить статистику&#x27;,&#x27;Статистиканы тазалау&#x27;)}&lt;/button&gt;`;
+ document.getElementById(&#x27;rst&#x27;).onclick=()=&gt;{if(confirmReset()){[&#x27;nav_plays&#x27;,&#x27;k24_lv&#x27;,&#x27;p_done&#x27;].forEach(k=&gt;{try{localStorage.removeItem(k)}catch(e){}});progress();}};}
+let rstArm=0;function confirmReset(){if(Date.now()-rstArm&lt;4000)return true;rstArm=Date.now();const b=document.getElementById(&#x27;rst&#x27;);b.textContent=L(&#x27;Нажмите ещё раз, чтобы подтвердить&#x27;,&#x27;Растау үшін тағы басыңыз&#x27;);return false;}
+/* ---- Настройки ---- */
+function settings(){const s=ls.get(&#x27;scr&#x27;,{a02:10,a24:20});const opt=(k,v)=&gt;`&lt;button class=&quot;chip ${s[k]===v?&#x27;on&#x27;:&#x27;&#x27;}&quot; data-k=&quot;${k}&quot; data-v=&quot;${v}&quot;&gt;${v?v+&#x27; &#x27;+L(&#x27;мин&#x27;,&#x27;мин&#x27;):L(&#x27;выкл&#x27;,&#x27;өшірулі&#x27;)}&lt;/button&gt;`;
+ app.innerHTML=`&lt;h2&gt;⚙️ ${L(&#x27;Время у экрана&#x27;,&#x27;Экран алдындағы уақыт&#x27;)}&lt;/h2&gt;
+  &lt;div class=&quot;note&quot;&gt;${L(&#x27;Специалисты советуют: детям до 2 лет экран — только изредка и вместе со взрослым; детям 2–4 лет — не больше часа в день. Через выбранное время приложение мягко предложит отдохнуть и поиграть вместе.&#x27;,&#x27;Мамандар кеңесі: 2 жасқа дейінгі балаларға экран — тек сирек және ересекпен бірге; 2–4 жастағыларға — күніне бір сағаттан аспау. Таңдалған уақыттан кейін қосымша демалып, бірге ойнауды ұсынады.&#x27;)}&lt;/div&gt;
+  &lt;h3&gt;🧸 ${L(&#x27;Малыши (до 2 лет)&#x27;,&#x27;Бөбектер (2 жасқа дейін)&#x27;)}&lt;/h3&gt;&lt;div class=&quot;chips&quot;&gt;${[0,5,10,15].map(v=&gt;opt(&#x27;a02&#x27;,v)).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;h3&gt;🦊 ${L(&#x27;Почемучки (3–4 года)&#x27;,&#x27;Білгіштер (3–4 жас)&#x27;)}&lt;/h3&gt;&lt;div class=&quot;chips&quot;&gt;${[0,15,20,30].map(v=&gt;opt(&#x27;a24&#x27;,v)).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;[data-k]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{s[b.dataset.k]=+b.dataset.v;ls.set(&#x27;scr&#x27;,s);settings();});}
+/* ---- О подходе ---- */
+function about(){app.innerHTML=`&lt;h2&gt;💡 ${L(&#x27;Как мы играем&#x27;,&#x27;Біз қалай ойнаймыз&#x27;)}&lt;/h2&gt;${RUNOTE}
+ &lt;ul&gt;&lt;li&gt;&lt;b&gt;${L(&#x27;До 2 лет&#x27;,&#x27;2 жасқа дейін&#x27;)}&lt;/b&gt; — ${L(&#x27;главное: живое общение, движение, игрушки в руках, музыка. Экранные игры — лишь короткое дополнение, лучше вместе со взрослым.&#x27;,&#x27;басты нәрсе: тірі қарым-қатынас, қозғалыс, қолдағы ойыншықтар, музыка. Экрандағы ойындар — тек қысқа қосымша, ересекпен бірге жақсы.&#x27;)}&lt;/li&gt;
+ &lt;li&gt;&lt;b&gt;${L(&#x27;2–4 года&#x27;,&#x27;2–4 жас&#x27;)}&lt;/b&gt; — ${L(&#x27;важнее любопытство, речь, внимание, умение решать новые задачи, чем раннее чтение и счёт.&#x27;,&#x27;ерте оқу мен санаудан гөрі қызығушылық, сөйлеу, зейін, жаңа есептерді шешу маңыздырақ.&#x27;)}&lt;/li&gt;
+ &lt;li&gt;${L(&#x27;Не требуйте правильного ответа — хвалите за попытку и рассуждение.&#x27;,&#x27;Дұрыс жауапты талап етпеңіз — талпынысы мен ойлағаны үшін мақтаңыз.&#x27;)}&lt;/li&gt;
+ &lt;li&gt;${L(&#x27;Если трудно — вернитесь к простому. Если легко — дайте следующий уровень. Игры 3–4 лет подстраиваются сами.&#x27;,&#x27;Қиын болса — оңайына оралыңыз. Оңай болса — келесі деңгейге өтіңіз. 3–4 жастағы ойындар өздері бейімделеді.&#x27;)}&lt;/li&gt;
+ &lt;li&gt;${L(&#x27;Не сравнивайте детей между собой. Результаты игр — не оценка интеллекта.&#x27;,&#x27;Балаларды бір-бірімен салыстырмаңыз. Ойын нәтижесі — ақылды бағалау емес.&#x27;)}&lt;/li&gt;
+ &lt;li&gt;${L(&#x27;Мелкие предметы, магниты, батарейки и вода — только под присмотром взрослого.&#x27;,&#x27;Ұсақ заттар, магниттер, батарейкалар және су — тек ересектің қарауымен.&#x27;)}&lt;/li&gt;&lt;/ul&gt;`;}
+function home(){app.innerHTML=`&lt;div class=&quot;sec&quot;&gt;👨‍👩‍👧 ${L(&#x27;Родителям&#x27;,&#x27;Ата-аналарға&#x27;)}&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;
+ &lt;button class=&quot;tile&quot; style=&quot;background:#F5A623&quot; data-k=&quot;daily&quot;&gt;&lt;span class=&quot;e&quot;&gt;☀️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${L(&#x27;Занятия на сегодня&#x27;,&#x27;Бүгінгі сабақтар&#x27;)}&lt;/span&gt;&lt;/button&gt;
+ &lt;button class=&quot;tile&quot; style=&quot;background:#7B5CE6&quot; data-k=&quot;all&quot;&gt;&lt;span class=&quot;e&quot;&gt;📚&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${L(&#x27;100 занятий без экрана&#x27;,&#x27;Экрансыз 100 сабақ&#x27;)}&lt;/span&gt;&lt;/button&gt;
+ &lt;button class=&quot;tile&quot; style=&quot;background:#2FBF71&quot; data-k=&quot;progress&quot;&gt;&lt;span class=&quot;e&quot;&gt;🌱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${L(&#x27;Успехи ребёнка&#x27;,&#x27;Баланың жетістіктері&#x27;)}&lt;/span&gt;&lt;/button&gt;
+ &lt;button class=&quot;tile&quot; style=&quot;background:#3B7BFF&quot; data-k=&quot;settings&quot;&gt;&lt;span class=&quot;e&quot;&gt;⏱️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${L(&#x27;Время у экрана&#x27;,&#x27;Экран уақыты&#x27;)}&lt;/span&gt;&lt;/button&gt;
+ &lt;button class=&quot;tile&quot; style=&quot;background:#E8505B&quot; data-k=&quot;about&quot;&gt;&lt;span class=&quot;e&quot;&gt;💡&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${L(&#x27;Как мы играем&#x27;,&#x27;Біз қалай ойнаймыз&#x27;)}&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;({daily,all,progress,settings,about})[b.dataset.k]());}
+if(KZ){document.getElementById(&#x27;lgT&#x27;).textContent=&#x27;Ата-аналарға&#x27;;document.title=&#x27;Ата-аналарға&#x27;;}
+home();
+
+window.NAV_CFG={id:&quot;par&quot;};
+
+/* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
+(function(){
+const EMB=window.parent&amp;&amp;window.parent!==window;
+const isKZ=()=&gt;typeof KZ!==&#x27;undefined&#x27;&amp;&amp;KZ;
+const T=(r,k)=&gt;isKZ()?k:r;
+const CFG=window.NAV_CFG||{};
+const P=window.parent;
+const appEl=document.getElementById(&#x27;app&#x27;);
+let state=&#x27;cats&#x27;,lastCat=null,catScroll=0,listScroll=0,cats=[];
+const COLORS=[&quot;#FF8A5B&quot;,&quot;#4F8BFF&quot;,&quot;#43C26B&quot;,&quot;#9C7BFF&quot;,&quot;#F5A623&quot;,&quot;#E8505B&quot;,&quot;#22B8C8&quot;,&quot;#B15CE6&quot;,&quot;#2FA37E&quot;,&quot;#D9822B&quot;];
+const keyOf=t=&gt;t.dataset.w||t.dataset.k||(t.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;)||t.textContent.trim();
+const push=()=&gt;{if(EMB&amp;&amp;P.NAVPUSH)P.NAVPUSH();};
+const up=()=&gt;{if(EMB&amp;&amp;P.NAVUP)P.NAVUP();};
+const title=t=&gt;{if(EMB&amp;&amp;P.NAVTITLE)P.NAVTITLE(t);};
+if(EMB)document.documentElement.classList.add(&#x27;emb&#x27;);
+const origHome=window.home;
+function collect(){
+ origHome();
+ const secs=[...appEl.querySelectorAll(&#x27;.sec&#x27;)];const out=[];
+ secs.forEach(s=&gt;{const m=s.nextElementSibling;if(!m||!m.classList.contains(&#x27;menu&#x27;))return;out.push({t:s.textContent.trim(),tiles:[...m.querySelectorAll(&#x27;.tile&#x27;)]});});
+ (CFG.merge||[]).forEach(([from,into])=&gt;{const a=out.find(c=&gt;from.some(f=&gt;c.t.includes(f))),b=out.find(c=&gt;into.some(f=&gt;c.t.includes(f)));if(a&amp;&amp;b&amp;&amp;a!==b){b.tiles.push(...a.tiles);out.splice(out.indexOf(a),1);}});
+ (CFG.tileOrder||[]).forEach(list=&gt;{out.forEach(c=&gt;{if(c.tiles.some(t=&gt;list.includes(keyOf(t))))c.tiles.sort((x,y)=&gt;{const i=list.indexOf(keyOf(x)),j=list.indexOf(keyOf(y));return (i&lt;0?99:i)-(j&lt;0?99:j);});});});
+ if(CFG.catOrder){const ord=isKZ()&amp;&amp;CFG.catOrderKZ?CFG.catOrderKZ:CFG.catOrder;out.sort((a,b)=&gt;{const ia=ord.findIndex(e=&gt;a.t.startsWith(e)),ib=ord.findIndex(e=&gt;b.t.startsWith(e));return (ia&lt;0?99:ia)-(ib&lt;0?99:ib);});}
+ if(isKZ())out.sort((a,b)=&gt;(a.t.includes(&#x27;орысша&#x27;)?1:0)-(b.t.includes(&#x27;орысша&#x27;)?1:0));
+ return out;}
+function split(t){const m=t.match(/^(\S+)\s+(.*)$/);return m?[m[1],m[2]]:[&#x27;⭐&#x27;,t];}
+function showCats(){state=&#x27;cats&#x27;;cats=collect();
+ if(cats.length&lt;=1){showGames(0,true);return;}
+ appEl.innerHTML=`&lt;div class=&quot;ncats&quot;&gt;${cats.map((c,i)=&gt;{const [e,n]=split(c.t);return `&lt;button class=&quot;ncat&quot; data-i=&quot;${i}&quot; style=&quot;background:${COLORS[i%COLORS.length]}&quot;&gt;&lt;span class=&quot;ne&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;${n}&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;${c.tiles.length} ${T(&#x27;игр&#x27;,&#x27;ойын&#x27;)}&lt;/span&gt;&lt;/button&gt;`;}).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ appEl.querySelectorAll(&#x27;.ncat&#x27;).forEach(b=&gt;b.onclick=()=&gt;{catScroll=scrollY;try{tone&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}try{play&amp;&amp;play(&#x27;pop&#x27;)}catch(e){}try{sfx&amp;&amp;sfx.pop()}catch(e){}push();showGames(+b.dataset.i);});
+ title(&#x27;&#x27;);requestAnimationFrame(()=&gt;scrollTo(0,catScroll));}
+function showGames(i,only){state=&#x27;games&#x27;;lastCat=i;const c=cats[i];const [e,n]=split(c.t);
+ appEl.innerHTML=`&lt;h2 class=&quot;nh&quot;&gt;${e} ${n}&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;&lt;/div&gt;`;const m=appEl.querySelector(&#x27;.menu&#x27;);c.tiles.forEach(t=&gt;m.appendChild(t));
+ if(!only)title(`${e} ${n}`);requestAnimationFrame(()=&gt;scrollTo(0,listScroll));}
+window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}
+ if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
+ listScroll=0;showCats();};
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));
+  try{const P2=JSON.parse(localStorage.getItem(&#x27;nav_plays&#x27;)||&#x27;{}&#x27;);const k=(CFG.id||&#x27;&#x27;)+&#x27;:&#x27;+keyOf(t);const nmEl=t.querySelector(&#x27;.t&#x27;);P2[k]={n:((P2[k]&amp;&amp;P2[k].n)||0)+1,name:(t.querySelector(&#x27;.e&#x27;)?t.querySelector(&#x27;.e&#x27;).textContent+&#x27; &#x27;:&#x27;&#x27;)+(nmEl?nmEl.textContent:&#x27;&#x27;)};localStorage.setItem(&#x27;nav_plays&#x27;,JSON.stringify(P2));}catch(err){}}},true);
 // кнопки «назад» системы и верхней панели
 window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
  if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
@@ -3473,8 +3971,9 @@ showCats();
 &lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
+<div id="rest"><div class="rbox"><div class="rowl">🦉💤</div><h2 id="rT"></h2><p id="rS"></p><div class="ract" id="rA"></div><button id="rGo"></button><button id="rMore" class="sec2"></button></div></div>
 <script>
-const T={"a02":["🧸 Малыши","🧸 Бөбектер"],"a24":["🦊 Почемучки","🦊 Білгіштер"],"a56":["🦉 Скоро в школу","🦉 Мектепке дайындық"],"aen":["🇬🇧 Английский язык","🇬🇧 Ағылшын тілі"],"akz":["🇰🇿 Казахский язык","🇰🇿 Қазақ тілі"]};
+const T={"a02":["🧸 Малыши","🧸 Бөбектер"],"a24":["🦊 Почемучки","🦊 Білгіштер"],"a56":["🦉 Скоро в школу","🦉 Мектепке дайындық"],"aen":["🇬🇧 Английский язык","🇬🇧 Ағылшын тілі"],"akz":["🇰🇿 Казахский язык","🇰🇿 Қазақ тілі"],"apar":["👨‍👩‍👧 Родителям","👨‍👩‍👧 Ата-аналарға"]};
 let cur=null;
 window.APP_LANG=(()=>{try{return localStorage.getItem('app_lang')||'ru'}catch(e){return 'ru'}})();
 function applyLang(){const kz=window.APP_LANG==='kz';document.documentElement.lang=kz?'kk':'ru';
@@ -3508,6 +4007,135 @@ document.getElementById('bsnd').onclick=()=>{if(!cur)return;try{const b=cur.cont
 function sync(){if(!cur)return;try{const d=cur.contentWindow.document;const st=d.getElementById('stars'),sn=d.getElementById('snd');
   document.getElementById('bst').textContent=st?'⭐ '+st.textContent:'';if(sn)document.getElementById('bsnd').textContent=sn.textContent;}catch(e){}}
 setInterval(sync,700);
+/* Занятия без экрана для родителей. a:[от, до] в месяцах; d: направление; g: цель; m: материалы; s: как играть; h: как усложнить; ok: признак, что подходит; w: осторожно */
+const ADIR={mem:["🧠","Память и внимание","Зейін және есте сақтау"],log:["🧩","Логика и первая математика","Логика және алғашқы математика"],speech:["🗣️","Речь и слух","Сөйлеу және есту"],
+ motor:["✋","Моторика и сенсорика","Моторика және сезіну"],world:["🌍","Познание мира","Әлемді тану"],emo:["💛","Эмоции и общение","Эмоция және қарым-қатынас"],art:["🎨","Творчество и воображение","Шығармашылық және қиял"],space:["📐","Пространство и счёт","Кеңістік және санау"]};
+const ACTS=[
+/* ---------- 0–2: память, внимание, восприятие ---------- */
+{t:"Куда исчезла игрушка?",a:[6,18],d:"mem",g:"Понимание, что предмет существует, даже когда его не видно.",m:"Яркая игрушка, платок.",s:"Покажите игрушку, медленно накройте платком у ребёнка на глазах. Спросите: «Где мишка?» Помогите приподнять платок и обрадуйтесь вместе.",h:"Прячьте под одной из двух салфеток; позже — перекладывайте игрушку на глазах у малыша.",ok:"Малыш тянется к платку, ищет взглядом, улыбается при находке."},
+{t:"Найди маму",a:[2,9],d:"speech",g:"Учимся определять, откуда звучит голос.",m:"Ничего не нужно.",s:"Встаньте сбоку или сзади и ласково позовите ребёнка по имени. Когда он повернётся — улыбнитесь и похвалите.",h:"Зовите тише, меняйте сторону, зовите из соседней комнаты (дверь открыта).",ok:"Ребёнок поворачивает голову и ищет вас."},
+{t:"Повтори звук",a:[3,15],d:"speech",g:"Подражание звукам — основа будущей речи.",m:"Ничего не нужно.",s:"Сядьте лицом к лицу. Произносите простые звуки: «а-а», «у-у», «ба-ба». Сделайте паузу и подождите, пока малыш «ответит».",h:"Добавляйте слоги: «ма-ма», «па-па», звуки животных.",ok:"Малыш смотрит на губы, гулит или лепечет в ответ."},
+{t:"Следи за предметом",a:[1,6],d:"mem",g:"Развиваем зрительное сосредоточение.",m:"Яркая или контрастная игрушка.",s:"Держите игрушку на расстоянии 25–30 см и медленно ведите её вправо-влево, вверх-вниз.",h:"Ведите по кругу, чуть быстрее, используйте игрушку поменьше.",ok:"Глаза и голова следуют за игрушкой."},
+{t:"Где звенит?",a:[3,12],d:"speech",g:"Слуховое внимание: найти источник звука.",m:"Погремушка или колокольчик.",s:"Позвените сбоку от малыша, чтобы он не видел. Когда повернётся — покажите погремушку.",h:"Звените тише, дальше, сверху и снизу.",ok:"Ребёнок поворачивается к звуку."},
+{t:"Узнай знакомую вещь",a:[6,18],d:"speech",g:"Связываем слово и предмет.",m:"Чашка, ложка, мяч, мишка.",s:"Показывайте по одному предмету и чётко называйте: «Это чашка». Дайте потрогать.",h:"Положите два предмета и попросите: «Дай чашку».",ok:"Малыш смотрит на названный предмет, тянется к нему."},
+{t:"Что изменилось?",a:[15,24],d:"mem",g:"Тренируем внимание и память.",m:"Две-три знакомые игрушки.",s:"Поставьте игрушки в ряд. Пусть малыш посмотрит. Поменяйте две местами и спросите: «Что поменялось?»",h:"Уберите одну игрушку или добавьте новую.",ok:"Ребёнок указывает на изменённое место."},
+{t:"Знакомые лица",a:[4,24],d:"emo",g:"Узнавание близких, привязанность.",m:"Семейные фотографии.",s:"Рассматривайте фото вместе: «Это бабушка! Где бабушка?» Изображайте радость.",h:"Спрашивайте: «Где папа?» — пусть покажет сам.",ok:"Малыш улыбается, показывает, произносит звуки."},
+{t:"Ку-ку!",a:[4,15],d:"emo",g:"Радость общения, понимание исчезновения и появления.",m:"Ладони или платок.",s:"Закройте лицо ладонями: «Где мама?» — откройте: «Ку-ку!» Повторяйте, меняя паузу.",h:"Прячьте лицо малыша под платком и предложите ему открыться самому.",ok:"Смех, ожидание, ребёнок сам стягивает платок."},
+{t:"Запомни последовательность",a:[18,24],d:"mem",g:"Первая работа с порядком действий.",m:"Ничего не нужно.",s:"Покажите два действия подряд: хлопок и улыбка. Предложите повторить.",h:"Три действия: хлопок, топ ногой, ручки вверх.",ok:"Ребёнок пытается повторить хотя бы одно движение."},
+/* ---------- 0–2: логика ---------- */
+{t:"Большой и маленький",a:[15,24],d:"log",g:"Понятие размера.",m:"Большой и маленький мяч (или две чашки).",s:"Покажите: «Это большой мяч, а это маленький». Попросите дать большой.",h:"Три предмета: большой, поменьше, маленький.",ok:"Ребёнок выбирает правильно хотя бы иногда."},
+{t:"Одинаковые",a:[15,24],d:"log",g:"Учимся находить пару.",m:"Две одинаковые игрушки и одна другая.",s:"Положите три предмета. Покажите один и спросите: «Где такой же?»",h:"Увеличьте число предметов до четырёх-пяти.",ok:"Малыш берёт такой же предмет."},
+{t:"Сортировка по цветам",a:[18,30],d:"log",g:"Различаем цвета.",m:"Крупные кубики двух цветов, две миски.",s:"Положите в каждую миску по кубику-образцу. Предложите разложить остальные: «Красный — сюда».",h:"Добавьте третий цвет.",ok:"Ребёнок раскладывает, даже если с ошибками."},
+{t:"Кубик в коробку",a:[8,18],d:"motor",g:"Координация «глаз — рука», понятие «внутри».",m:"Коробка, крупные кубики.",s:"Покажите, как кубик падает в коробку: «Бух!» Дайте малышу.",h:"Коробка с отверстием в крышке.",ok:"Малыш сам опускает и достаёт кубики."},
+{t:"Полный и пустой",a:[15,24],d:"log",g:"Первые понятия о количестве.",m:"Две ёмкости, крупные игрушки.",s:"Наполняйте одну ёмкость игрушками, другая — пустая. Называйте: «полная», «пустая».",h:"Предложите сделать пустую полной.",ok:"Малыш перекладывает и повторяет слова."},
+{t:"Вкладыши",a:[10,24],d:"log",g:"Сравнение размеров через действие.",m:"Пластиковые стаканчики разного размера.",s:"Вкладывайте стаканчики один в другой, потом вынимайте.",h:"Стройте из них башню.",ok:"Ребёнок пробует, подбирает подходящий стаканчик."},
+{t:"Найди крышку",a:[15,24],d:"log",g:"Соотнесение формы и размера.",m:"Два-три контейнера с крышками.",s:"Снимите крышки, перемешайте. Предложите закрыть каждый контейнер.",h:"Добавьте ещё один контейнер.",ok:"Малыш примеряет и находит подходящую крышку."},
+{t:"Башня",a:[12,24],d:"motor",g:"Точность движений, равновесие.",m:"Мягкие или крупные кубики.",s:"Поставьте два кубика друг на друга, предложите поставить третий. Когда башня падает — весело: «Бух!»",h:"Строим башню из 4–6 кубиков.",ok:"Ребёнок ставит кубик и радуется результату."},
+{t:"Один и много",a:[18,30],d:"log",g:"Первое понятие о количестве.",m:"Один мяч и несколько мячей (или ложек).",s:"Покажите: «Здесь одна ложка, а здесь много». Попросите дать одну.",h:"Сравнивайте «много» и «мало».",ok:"Ребёнок понимает «одну» и даёт один предмет."},
+{t:"Верх и низ",a:[18,30],d:"space",g:"Пространственные понятия.",m:"Игрушка, стол.",s:"Кладите игрушку на стол и под стол: «Мишка наверху», «мишка внизу».",h:"Просите: «Положи мишку под стул».",ok:"Ребёнок выполняет простую просьбу."},
+/* ---------- 0–2: речь ---------- */
+{t:"Назови животное",a:[10,24],d:"speech",g:"Пополняем словарь.",m:"Книжка или карточки с животными.",s:"Показывайте картинки и называйте: «Это кошка». Спрашивайте: «Где кошка?»",h:"Просите назвать самому или изобразить звук.",ok:"Малыш показывает пальчиком или говорит «мяу»."},
+{t:"Звуки животных",a:[9,24],d:"speech",g:"Звукоподражание — первые «слова».",m:"Игрушки-зверюшки.",s:"«Корова говорит му-у». Делайте паузу перед звуком, чтобы ребёнок договорил сам.",h:"Спрашивайте: «Кто говорит гав?»",ok:"Ребёнок повторяет звуки."},
+{t:"Пальчиковые потешки",a:[6,24],d:"speech",g:"Ритм речи и мелкая моторика.",m:"Ничего не нужно.",s:"«Сорока-белобока», «Ладушки». Проговаривайте, загибая пальчики малыша.",h:"Пусть малыш показывает движения сам.",ok:"Ребёнок ждёт любимого момента, просит повторить."},
+{t:"Где носик?",a:[12,24],d:"speech",g:"Части тела и понимание речи.",m:"Ничего не нужно (можно куклу).",s:"Показывайте нос, глаза, ушки у себя, у малыша и у куклы.",h:"Добавьте локоть, коленку, пятку.",ok:"Малыш показывает части тела по просьбе."},
+{t:"Повтори слог",a:[9,20],d:"speech",g:"Подготовка к словам.",m:"Ничего не нужно.",s:"Чётко произносите «ма-ма», «па-па», «ба-ба», «дай», подчёркивая губы.",h:"Используйте слоги в игре: «Дай мяч! На!»",ok:"Ребёнок повторяет хотя бы один слог."},
+{t:"Чтение картинок",a:[10,24],d:"speech",g:"Внимание и словарь.",m:"Книга с крупными картинками.",s:"Не читайте текст — рассматривайте и называйте предметы, показывайте пальцем.",h:"Задавайте вопросы: «Где солнышко? Что делает мальчик?»",ok:"Малыш сам листает и показывает."},
+{t:"Угадай звук дома",a:[12,24],d:"speech",g:"Слуховое восприятие.",m:"Вода, хлопки, шаги, ключи.",s:"Покажите источник звука: «Это вода журчит». Потом издайте звук за спиной и спросите, что это.",h:"Звуки без показа, на выбор из двух предметов.",ok:"Ребёнок показывает на источник."},
+{t:"Продолжи песенку",a:[12,24],d:"speech",g:"Ритм, память и речь.",m:"Знакомая песенка.",s:"Пойте любимую песню и останавливайтесь перед последним словом. Ждите, что ребёнок «допоёт».",h:"Останавливайтесь посередине строки.",ok:"Малыш договаривает слово или звук."},
+{t:"Кто это?",a:[9,24],d:"emo",g:"Узнавание близких, первые имена.",m:"Фото родных.",s:"«Кто это? Это дедушка!» Повторяйте каждый день.",h:"Спрашивайте имена: «Как зовут бабушку?»",ok:"Ребёнок узнаёт и называет."},
+{t:"Разговор с игрушкой",a:[12,24],d:"emo",g:"Диалог и подражание.",m:"Мягкая игрушка.",s:"Озвучьте игрушку: «Привет! Как тебя зовут?» Ждите любую реакцию ребёнка и отвечайте.",h:"Игрушка «просит» что-то: «Дай мне мячик».",ok:"Малыш отвечает игрушке звуками или действиями."},
+/* ---------- 0–2: моторика ---------- */
+{t:"Перекладывание",a:[9,24],d:"motor",g:"Хватание и координация.",m:"Две корзинки, крупные игрушки.",s:"Перекладывайте игрушки из одной корзинки в другую, считая вслух.",h:"Используйте большую ложку.",ok:"Ребёнок перекладывает сам."},
+{t:"Мягкое и твёрдое",a:[4,18],d:"motor",g:"Тактильное восприятие.",m:"Ткань, губка, деревянная ложка, мех.",s:"Давайте трогать по очереди, называя: «мягкое», «твёрдое», «пушистое».",h:"Сделайте «сенсорную коробку» с крупными безопасными предметами.",ok:"Малыш исследует руками, выбирает любимое."},
+{t:"Дотянись до игрушки",a:[4,10],d:"motor",g:"Стимул к ползанию.",m:"Яркая игрушка, коврик.",s:"Положите игрушку чуть дальше вытянутой руки малыша, подбадривайте.",h:"Отодвигайте дальше, кладите на подушку.",ok:"Малыш тянется, переворачивается, ползёт."},
+{t:"Ладушки",a:[7,18],d:"motor",g:"Подражание движениям.",m:"Ничего не нужно.",s:"Хлопайте в ладоши под потешку, помогая малышу.",h:"Хлопки в разном темпе: тихо — громко, медленно — быстро.",ok:"Ребёнок хлопает сам."},
+{t:"Барабан",a:[8,24],d:"motor",g:"Чувство ритма.",m:"Кастрюля и деревянная ложка.",s:"Стучите медленно и быстро, громко и тихо. Пусть малыш повторяет.",h:"Простукивайте ритм «та-та-та».",ok:"Малыш стучит и радуется звуку."},
+{t:"Дорожка",a:[12,24],d:"motor",g:"Равновесие и ходьба.",m:"Подушки, одеяло, коврики.",s:"Сделайте мягкую дорожку разной высоты и пройдите её, держа малыша за руку.",h:"Перешагивать через свёрнутое полотенце.",ok:"Ребёнок хочет пройти ещё раз."},
+{t:"Мяч туда-обратно",a:[9,24],d:"motor",g:"Координация, игра по очереди.",m:"Большой мягкий мяч.",s:"Сядьте напротив, раздвинув ноги, катайте мяч друг другу.",h:"Катите мяч в «ворота» из двух подушек.",ok:"Малыш отталкивает мяч в вашу сторону."},
+{t:"Открой и закрой",a:[10,24],d:"motor",g:"Мелкая моторика.",m:"Коробки и контейнеры с крышками.",s:"Спрячьте внутрь игрушку, помогите открыть.",h:"Контейнер с откручивающейся крышкой.",ok:"Ребёнок пытается открыть сам."},
+{t:"Водичка",a:[12,24],d:"motor",g:"Сенсорика, переливание.",m:"Таз с небольшим количеством воды, чашки.",s:"Переливайте воду из чашки в чашку, называя «полная», «пустая».",h:"Воронка, ситечко, губка.",ok:"Малыш увлечённо переливает.",w:"Только под постоянным присмотром взрослого, вода — на донышке."},
+{t:"Танцуем вместе",a:[6,24],d:"motor",g:"Крупная моторика и ритм.",m:"Весёлая музыка.",s:"Танцуйте с малышом на руках или держась за руки, покачивайтесь, кружитесь.",h:"«Замри!» — когда музыка останавливается.",ok:"Ребёнок пританцовывает, просит ещё."},
+/* ---------- 0–2: мир ---------- */
+{t:"Что за окном?",a:[6,24],d:"world",g:"Наблюдательность, новые слова.",m:"Окно.",s:"Смотрите в окно и называйте: солнышко, дерево, машина, птичка.",h:"Спрашивайте: «Где машина?»",ok:"Малыш показывает и повторяет."},
+{t:"Домашние предметы",a:[9,24],d:"world",g:"Назначение вещей.",m:"Ложка, чашка, расчёска.",s:"Покажите, что делают с предметом: ложкой едят, расчёской причёсываются.",h:"Попросите показать действие с куклой.",ok:"Ребёнок повторяет действие."},
+{t:"Кто живёт дома?",a:[10,24],d:"emo",g:"Семья и имена.",m:"Ничего не нужно.",s:"«Где папа? Где мама? Где котик?» — ищите вместе по квартире.",h:"«Принеси папе тапочки».",ok:"Малыш находит и показывает."},
+{t:"Погладь мишку",a:[10,24],d:"emo",g:"Бережность и сочувствие.",m:"Мягкая игрушка.",s:"«Мишка плачет. Пожалеем?» Покажите, как погладить, обнять.",h:"Мишку можно укрыть, покормить.",ok:"Ребёнок гладит, обнимает игрушку."},
+{t:"Тонет — плавает",a:[15,24],d:"world",g:"Первые наблюдения.",m:"Таз с водой, мячик, ложка, кубик.",s:"Опускайте предметы в воду: «Мячик плавает! Ложка утонула!»",h:"Спрашивайте перед тем, как опустить: «Поплывёт?»",ok:"Малыш наблюдает, тянется повторить.",w:"Только под постоянным присмотром."},
+{t:"Свет: включили — выключили",a:[9,20],d:"world",g:"Причина и следствие.",m:"Выключатель (взрослый нажимает).",s:"«Щёлк — светло! Щёлк — темно!» Держите малыша на руках.",h:"Ребёнок нажимает выключатель с вашей помощью.",ok:"Ждёт результата, смеётся."},
+{t:"Посади куклу",a:[15,24],d:"world",g:"Бытовые действия в игре.",m:"Кукла, маленький стульчик.",s:"Покажите: посадим куклу, дадим чашку, уложим спать.",h:"Ребёнок сам повторяет цепочку.",ok:"Малыш играет с куклой по образцу."},
+{t:"Откуда голос?",a:[8,20],d:"speech",g:"Слуховое внимание.",m:"Ничего не нужно.",s:"Спрячьтесь за дверью и позовите. Когда найдёт — радуйтесь!",h:"Говорите шёпотом.",ok:"Ребёнок ищет, улыбается при находке."},
+{t:"Нажми — и будет!",a:[6,18],d:"world",g:"Причина и следствие.",m:"Игрушка с кнопкой или звуком.",s:"Покажите: нажали — звук. Подождите, чтобы малыш повторил.",h:"Две кнопки с разным результатом.",ok:"Ребёнок нажимает целенаправленно."},
+{t:"Повторяй за мной",a:[12,24],d:"emo",g:"Подражание и забота.",m:"Кукла, ложка, одеяло.",s:"Покормите куклу, уложите спать, помашите «пока». Пусть малыш повторит.",h:"Цепочка из двух-трёх действий.",ok:"Ребёнок копирует ваши действия."},
+/* ---------- 2–4: логика ---------- */
+{t:"Найди лишнее",a:[30,48],d:"log",g:"Обобщение и классификация.",m:"Три игрушки-животных и яблоко.",s:"Положите четыре предмета: «Что здесь лишнее? Почему?»",h:"Признак сложнее: три красных и один синий.",ok:"Ребёнок выбирает и пытается объяснить."},
+{t:"Продолжи ряд",a:[30,48],d:"log",g:"Закономерности.",m:"Кубики двух цветов.",s:"Выложите: красный, синий, красный, синий. «Что дальше?»",h:"Ряд из трёх цветов или «два красных — один синий».",ok:"Ребёнок продолжает ряд."},
+{t:"Что пропало?",a:[26,48],d:"mem",g:"Зрительная память.",m:"3–5 игрушек, платок.",s:"Покажите игрушки, накройте платком, уберите одну. «Кого не стало?»",h:"Больше игрушек; меняйте местами вместо того, чтобы убирать.",ok:"Ребёнок вспоминает пропавшую игрушку."},
+{t:"Найди пару",a:[24,48],d:"mem",g:"Сравнение и память.",m:"Носки, варежки, парные карточки.",s:"Перемешайте пары носков и разберите вместе.",h:"Карточки рубашкой вверх — игра «мемори».",ok:"Ребёнок сам находит пары."},
+{t:"Разложи по группам",a:[30,48],d:"log",g:"Классификация.",m:"Игрушки: звери, машинки, посуда.",s:"Три коробки: «Сюда — зверей, сюда — машины».",h:"Ребёнок сам придумывает, по какому признаку разложить.",ok:"Раскладывает и называет группы."},
+{t:"Что сначала?",a:[30,48],d:"log",g:"Последовательность событий.",m:"Нарисованные картинки или фото дня.",s:"Разложите: проснулся, умылся, позавтракал. «Что сначала, что потом?»",h:"Четыре картинки; истории из сказок.",ok:"Ребёнок раскладывает по порядку."},
+{t:"Найди ошибку",a:[34,48],d:"log",g:"Критическое мышление, юмор.",m:"Рисунок взрослого.",s:"Нарисуйте рыбу на дереве или кошку в аквариуме: «Так бывает?»",h:"Несколько ошибок на одной картинке.",ok:"Ребёнок смеётся и объясняет, как правильно."},
+{t:"Кто где живёт?",a:[30,48],d:"world",g:"Знания о природе.",m:"Картинки животных и домиков.",s:"«Где живёт рыбка? А птичка?» Соединяйте пальчиком.",h:"Добавьте диких животных: берлога, нора, дупло.",ok:"Ребёнок правильно соединяет."},
+{t:"Что будет, если…?",a:[34,48],d:"world",g:"Причинно-следственные связи.",m:"Лёд, вода, растение.",s:"Положите кубик льда на блюдце у окна: «Что с ним будет?» Проверьте через час.",h:"«Что будет, если не поливать цветок?»",ok:"Ребёнок высказывает догадки."},
+{t:"Угадай, что внутри",a:[30,48],d:"log",g:"Логика и речь.",m:"Мешочек, знакомые предметы.",s:"Опишите предмет: «Круглый, прыгает…» — ребёнок угадывает.",h:"Ребёнок сам загадывает вам.",ok:"Ребёнок угадывает по 2–3 признакам."},
+/* ---------- 2–4: математика и пространство ---------- */
+{t:"Посчитаем",a:[24,48],d:"space",g:"Счёт предметов.",m:"Пуговицы крупные, ложки, яблоки.",s:"Считайте всё вокруг, касаясь каждого предмета: «Одна, две, три ложки».",h:"До пяти, потом до десяти; «принеси три ложки».",ok:"Ребёнок называет числа по порядку."},
+{t:"Где больше?",a:[30,48],d:"space",g:"Сравнение количеств.",m:"Две тарелки, печенье.",s:"Положите на тарелки разное количество: «Где больше?»",h:"Разница всего в один предмет.",ok:"Ребёнок сравнивает, иногда пересчитывает."},
+{t:"Геометрический детектив",a:[30,48],d:"space",g:"Формы вокруг нас.",m:"Ничего не нужно.",s:"Ищите круги дома: тарелка, часы, колесо.",h:"Квадраты, треугольники; кто больше найдёт.",ok:"Ребёнок находит формы сам."},
+{t:"Собери квадрат",a:[36,48],d:"space",g:"Пространственное мышление.",m:"Бумажный квадрат, разрезанный на 2 треугольника.",s:"Покажите, как два треугольника складываются в квадрат.",h:"Квадрат из 4 частей.",ok:"Ребёнок пробует повернуть детали."},
+{t:"Большой — средний — маленький",a:[26,40],d:"space",g:"Сериация.",m:"Три мишки или три чашки.",s:"Расставьте по росту, рассказывая сказку «Три медведя».",h:"Пять предметов по размеру.",ok:"Ребёнок расставляет правильно."},
+{t:"Найди цифру",a:[36,48],d:"space",g:"Знакомство с цифрами.",m:"Карточки с цифрами 1–5.",s:"«Где цифра два?» Ищите цифры на часах, лифте, машинах.",h:"Положить столько предметов, какая цифра.",ok:"Ребёнок узнаёт 2–3 цифры."},
+{t:"Справа и слева",a:[40,48],d:"space",g:"Ориентация в пространстве.",m:"Игрушки.",s:"«Положи мишку справа от зайки». Помогайте подсказкой «рука, которой ешь».",h:"Впереди — сзади, между.",ok:"Ребёнок выполняет с подсказкой."},
+{t:"Сколько не хватает?",a:[40,48],d:"space",g:"Подготовка к сложению.",m:"Тарелки и ложки.",s:"Три тарелки, две ложки: «Хватит ли ложек? Сколько принести?»",h:"Пять зайчиков и три морковки.",ok:"Ребёнок замечает нехватку."},
+{t:"Построй как у меня",a:[30,48],d:"space",g:"Работа по образцу.",m:"Кубики.",s:"Постройте из 3 кубиков фигуру и попросите повторить.",h:"Образец из 5–6 кубиков или по картинке.",ok:"Ребёнок повторяет постройку."},
+{t:"Лабиринт на полу",a:[30,48],d:"space",g:"Планирование пути.",m:"Малярный скотч или верёвка.",s:"Сделайте на полу дорожку от «домика» к игрушке.",h:"Развилки и тупики.",ok:"Ребёнок проходит и находит путь."},
+/* ---------- 2–4: память и внимание ---------- */
+{t:"Запомни картинки",a:[34,48],d:"mem",g:"Зрительная память.",m:"5 карточек или игрушек.",s:"Покажите 3 картинки, потом смешайте с другими: «Какие были?»",h:"5 картинок.",ok:"Ребёнок вспоминает большую часть."},
+{t:"Повтори ритм",a:[26,48],d:"mem",g:"Слуховая память и ритм.",m:"Ладони и ноги.",s:"Хлопок, топ, хлопок — повтори!",h:"Длиннее ритм, разные темпы.",ok:"Ребёнок повторяет ритм."},
+{t:"Найди отличия",a:[36,48],d:"mem",g:"Внимание к деталям.",m:"Две одинаковые раскладки игрушек.",s:"Сделайте два одинаковых ряда игрушек, в одном поменяйте одну.",h:"Две картинки из книги «найди отличия».",ok:"Ребёнок находит отличие."},
+{t:"Где машинка?",a:[24,40],d:"mem",g:"Память на расположение.",m:"Три чашки, маленькая игрушка.",s:"Спрячьте игрушку под чашкой на глазах у ребёнка. «Где машинка?»",h:"Медленно поменяйте чашки местами.",ok:"Ребёнок следит и находит."},
+{t:"Слушай внимательно",a:[30,48],d:"speech",g:"Понимание инструкции.",m:"Ничего не нужно.",s:"Дайте задание из двух шагов: «Возьми мяч и положи на диван».",h:"Три шага.",ok:"Ребёнок выполняет оба действия."},
+{t:"Что звучало?",a:[26,48],d:"speech",g:"Слуховое внимание.",m:"Голос, игрушки.",s:"Изобразите звук животного или машины — ребёнок угадывает.",h:"Ребёнок с закрытыми глазами угадывает предмет по звуку.",ok:"Ребёнок узнаёт звуки."},
+{t:"Найди по подсказке",a:[30,48],d:"mem",g:"Внимание и речь.",m:"Спрятанная игрушка.",s:"Спрячьте игрушку и подсказывайте: «Горячо — холодно».",h:"Подсказки словами: «под чем-то мягким».",ok:"Ребёнок ищет, слушая подсказки."},
+{t:"Быстрый поиск",a:[26,48],d:"mem",g:"Концентрация.",m:"Комната.",s:"«Найди всё красное!» — за минуту.",h:"Найди всё круглое и мягкое одновременно.",ok:"Ребёнок увлечён поиском."},
+{t:"Выложи узор",a:[34,48],d:"mem",g:"Память и внимание.",m:"Фигурки или крышечки.",s:"Выложите узор из 3 фигур, закройте — ребёнок повторяет.",h:"4–5 фигур.",ok:"Ребёнок выкладывает похоже."},
+{t:"Что изменилось в комнате?",a:[36,48],d:"mem",g:"Наблюдательность.",m:"Комната.",s:"Пока ребёнок отвернулся, переставьте вещь: «Что поменялось?»",h:"Изменение поменьше.",ok:"Ребёнок замечает изменение."},
+/* ---------- 2–4: речь ---------- */
+{t:"Закончи предложение",a:[30,48],d:"speech",g:"Речь и логика.",m:"Ничего не нужно.",s:"«Зимой идёт… (снег). Летом светит… (солнце)».",h:"«Если пойдёт дождь, то…»",ok:"Ребёнок договаривает."},
+{t:"Опиши предмет",a:[34,48],d:"speech",g:"Словарь признаков.",m:"Яблоко, мяч, игрушка.",s:"«Какое яблоко? Красное, круглое, сладкое».",h:"Опиши, не называя — пусть мама угадает.",ok:"Ребёнок называет 2–3 признака."},
+{t:"Угадай по описанию",a:[34,48],d:"speech",g:"Логика и словарь.",m:"Ничего не нужно.",s:"«Круглое, красное, растёт на дереве».",h:"Загадки посложнее.",ok:"Ребёнок угадывает."},
+{t:"Сочини историю",a:[38,48],d:"speech",g:"Связная речь.",m:"Три картинки.",s:"Разложите картинки и придумайте вместе: «Жил-был…»",h:"Ребёнок рассказывает сам.",ok:"Ребёнок добавляет события."},
+{t:"Придумай название",a:[36,48],d:"art",g:"Воображение и речь.",m:"Рисунок ребёнка.",s:"«Как назовём твой рисунок?»",h:"Придумать название для облака.",ok:"Ребёнок предлагает варианты."},
+{t:"Кто что делает?",a:[26,48],d:"speech",g:"Глаголы.",m:"Картинки или игрушки.",s:"«Птица — летает. Рыба — плавает. Собака — …»",h:"«Кто ещё летает?»",ok:"Ребёнок называет действие."},
+{t:"Скажи наоборот",a:[32,48],d:"speech",g:"Антонимы.",m:"Мяч (можно бросать).",s:"Бросаете мяч со словом «большой» — ребёнок возвращает с «маленький».",h:"«Утро — …», «смелый — …»",ok:"Ребёнок называет противоположность."},
+{t:"Найди рифму",a:[38,48],d:"speech",g:"Фонематический слух.",m:"Ничего не нужно.",s:"«Кот — рот, дом — сом. А мишка — …?»",h:"Придумываем двустишия.",ok:"Ребёнок слышит похожие окончания."},
+{t:"Почемучка",a:[30,48],d:"speech",g:"Любознательность.",m:"Любая картинка.",s:"Предложите ребёнку задать вопрос о картинке, отвечайте серьёзно.",h:"Вы задаёте «почему» — ребёнок придумывает ответ.",ok:"Ребёнок задаёт вопросы."},
+{t:"Угадай настроение",a:[26,48],d:"emo",g:"Эмоциональный интеллект.",m:"Ваше лицо или картинки.",s:"Показывайте радость, грусть, удивление — ребёнок угадывает и повторяет.",h:"«Когда ты грустишь? Что помогает?»",ok:"Ребёнок называет эмоцию."},
+/* ---------- 2–4: творчество и исследование ---------- */
+{t:"Дорисуй",a:[30,48],d:"art",g:"Воображение.",m:"Бумага, мелки.",s:"Нарисуйте круг: «Что это может быть?» Ребёнок дорисовывает.",h:"Начинайте с загогулины.",ok:"Ребёнок придумывает образ."},
+{t:"Придумай зверя",a:[38,48],d:"art",g:"Фантазия.",m:"Бумага, мелки.",s:"«Если у слона будут крылья — как его назовём?»",h:"Соединить три животных.",ok:"Ребёнок смеётся и придумывает."},
+{t:"Необычный дом",a:[30,48],d:"art",g:"Конструирование.",m:"Кубики, подушки, коробки.",s:"Постройте дом для игрушки.",h:"Дом с окном и дверью.",ok:"Ребёнок строит и обыгрывает."},
+{t:"Что сделать из коробки?",a:[30,48],d:"art",g:"Творческое мышление.",m:"Картонная коробка.",s:"«Это машина? Корабль? Домик?» Превратите коробку во что-то.",h:"Придумать 5 вариантов.",ok:"Ребёнок предлагает идеи."},
+{t:"Театр игрушек",a:[30,48],d:"emo",g:"Речь и эмоции.",m:"2–3 игрушки.",s:"Разыграйте сценку: зайчик заблудился, мишка помог.",h:"Ребёнок ведёт сценку.",ok:"Ребёнок говорит за героев."},
+{t:"Угадай на ощупь",a:[30,48],d:"motor",g:"Тактильное восприятие.",m:"Мешочек, крупные предметы.",s:"Ребёнок опускает руку в мешочек и угадывает, что там.",h:"Найти в мешке «что-то мягкое».",ok:"Ребёнок узнаёт предметы.",w:"Только крупные предметы — ничего, что можно проглотить."},
+{t:"Тонет или плавает?",a:[30,48],d:"world",g:"Опыты и наблюдение.",m:"Таз воды, разные предметы.",s:"Сначала угадываем, потом проверяем.",h:"Как сделать, чтобы пластилин поплыл? (лодочкой)",ok:"Ребёнок делает предположения.",w:"Под присмотром взрослого."},
+{t:"Переправа",a:[36,48],d:"art",g:"Решение задач.",m:"Подушки, игрушки.",s:"«Это река. Как перевезти игрушки?» — мост из подушек, лодка-коробка.",h:"Ограничения: «Только 3 подушки».",ok:"Ребёнок предлагает решение."},
+{t:"Превращение круга",a:[30,48],d:"art",g:"Воображение.",m:"Бумага с кругами.",s:"Превратите круги в солнце, колесо, лицо.",h:"Квадраты и треугольники.",ok:"Ребёнок придумывает разное."},
+{t:"Звучащий дом",a:[30,48],d:"world",g:"Исследование звуков.",m:"Безопасные предметы.",s:"Найдите 5 предметов с разными звуками: шуршит, звенит, стучит.",h:"Сыграть «оркестром».",ok:"Ребёнок экспериментирует."},
+];
+
+let secTime=0,extra=0;
+function curLimit(){let c={a02:10,a24:20};try{c=Object.assign(c,JSON.parse(localStorage.getItem('scr')||'{}'))}catch(e){}return c[curId]||0;}
+setInterval(()=>{if(!cur||document.hidden||!['a02','a24'].includes(curId)||document.getElementById('rest').style.display==='flex')return;secTime++;const lim=curLimit();if(lim&&secTime>=lim*60+extra)showRest();},1000);
+function showRest(){const kz=window.APP_LANG==='kz';const young=curId==='a02';const pool=ACTS.filter(x=>young?x.a[0]<24:x.a[1]>24);const x=pool[Math.floor(Math.random()*pool.length)];
+  try{cur.contentWindow.speechSynthesis.cancel();cur.contentWindow.reset&&cur.contentWindow.reset();}catch(e){}
+  document.getElementById('rT').textContent=kz?'Демалайық!':'Пора отдохнуть!';
+  document.getElementById('rS').textContent=kz?'Енді экрансыз бірге ойнайық:':'Теперь поиграем вместе без экрана:';
+  document.getElementById('rA').innerHTML=`<b>${ADIR[x.d][0]} ${x.t}</b><br>${x.s}${x.w?'<br>⚠️ '+x.w:''}`;
+  document.getElementById('rGo').textContent=kz?'Жарайды, ойнаймыз!':'Хорошо, играем вместе!';document.getElementById('rMore').textContent=kz?'Тағы 5 минут':'Ещё 5 минут';
+  document.getElementById('rest').style.display='flex';}
+document.getElementById('rGo').onclick=()=>{document.getElementById('rest').style.display='none';secTime=0;extra=0;closeSec();};
+document.getElementById('rMore').onclick=()=>{document.getElementById('rest').style.display='none';extra+=300;};
+const _open=openSec;openSec=id=>{secTime=0;extra=0;_open(id);};
 </script>
 <script>
 if('serviceWorker' in navigator && location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
