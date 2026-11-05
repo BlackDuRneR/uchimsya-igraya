@@ -34,8 +34,11 @@ h3.gh{font-size:30px;margin:6px 4px 14px;color:var(--ink)}.ages+h3.gh{margin-top
 .knote{text-align:center;color:var(--muted);font-size:15px;font-weight:400;margin:10px 0 0}
 #bar{display:none;align-items:center;gap:12px;height:64px;padding:8px 12px;background:#fff;box-shadow:0 3px 0 rgba(0,0,0,.06)}
 #bar button{white-space:nowrap;flex:none;border:none;border-radius:18px;background:#FFC83D;font:inherit;font-size:22px;padding:10px 18px;cursor:pointer;box-shadow:0 4px 0 #D29B00;color:#3a2a00}
-#bar span{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-iframe{display:none;width:100%;height:calc(100% - 64px);border:0;background:var(--bg)}
+#bar span#ttl{font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.bs{font-size:20px;background:#FFF6E3;border-radius:999px;padding:6px 12px;white-space:nowrap}.bs:empty{display:none}
+#bar .bsnd{background:#F3F0FF;box-shadow:0 4px 0 #D9CFF5;font-size:24px;padding:8px 12px}
+#bar{position:sticky;top:0;z-index:5}
+iframe{display:none;width:100%;height:calc(100% - 64px);height:calc(100dvh - 64px);border:0;background:var(--bg)}
 body.inapp #start{display:none} body.inapp #bar{display:flex}
 @media (max-width:600px){.ae{font-size:90px}.ay{font-size:38px}#bar span{font-size:16px}#bar button{font-size:18px;padding:8px 12px}.lang b{font-size:19px}}
 </style></head>
@@ -48,7 +51,7 @@ body.inapp #start{display:none} body.inapp #bar{display:flex}
  <p class="knote" id="knote"></p>
  <p class="credit" data-ru="Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г." data-kz="Әзірлеушілер: Омельницкая Мария Алексеевна және Омельницкий Александр Сергеевич, 2026 ж.">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
 </div>
-<div id="bar"><button id="back" data-ru="⬅ Назад" data-kz="⬅ Артқа">⬅ Назад</button><span id="ttl"></span></div>
+<div id="bar"><button id="back" data-ru="⬅ Назад" data-kz="⬅ Артқа">⬅ Назад</button><span id="ttl"></span><span class="bs" id="bst"></span><button class="bsnd" id="bsnd">🔊</button></div>
 <iframe id="a02" title="Малыши" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
 &lt;html lang=&quot;ru&quot;&gt;
 &lt;head&gt;
@@ -137,6 +140,57 @@ canvas#paint{flex:1;width:100%;border-radius:24px;background:#fff;border:5px das
 .hint{text-align:center;color:var(--muted);font-size:18px;margin:12px 0 0;font-weight:400}
 canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:30}
 @media (max-width:640px){.rb{width:52px;height:52px;font-size:26px}.logo span{font-size:32px}.tile .e{font-size:76px}.tile .t{font-size:22px}.menu{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr 1fr}.card .em{font-size:90px}.label{font-size:40px}.hide{grid-template-columns:1fr 1fr}.logo{font-size:22px}}
+
+/* ===== навигация и телефон ===== */
+.ncats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.ncat{border:none;border-radius:28px;color:#fff;font:inherit;cursor:pointer;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 7px 0 rgba(0,0,0,.15);min-height:170px;justify-content:center}
+.ncat:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.ncat .ne{font-size:64px;line-height:1.1}.ncat .nn{font-size:22px;margin-top:6px;line-height:1.2}.ncat .nc{font-size:15px;opacity:.9;margin-top:6px;font-weight:400;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px}
+h2.nh{text-align:center;font-size:28px;margin:4px 0 14px}
+html.emb header{display:none!important}
+html.emb .credit,html.emb p.voice[style*=&quot;font-weight:700&quot;]{display:none!important}
+html.emb .wrap{padding-top:10px}
+html.emb main,html.emb .panel{min-height:auto}
+@media (max-width:640px){
+ .wrap{padding:8px 8px 14px!important}
+ main,.panel{padding:12px!important;border-radius:24px!important}
+ .menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .tile{padding:12px 6px 10px!important;border-radius:22px!important}
+ .tile .e{font-size:52px!important}.tile .t{font-size:17px!important;line-height:1.2}
+ .ncats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ncat{min-height:150px}.ncat .ne{font-size:54px}.ncat .nn{font-size:18px}
+ h2{font-size:24px!important;line-height:1.2}
+ .navrow .big-btn,.big-btn{font-size:22px!important;padding:12px 18px!important}
+ .say{font-size:20px!important}
+}
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:640px){
+ .key{min-width:0!important;font-size:30px!important;padding-bottom:10px!important}
+ .xylo{gap:5px!important}
+ .cnt{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px 6px!important}
+ .cnt span{font-size:clamp(36px,11vw,84px)!important}
+ .wseq{gap:6px!important}.wseq span{min-width:0!important;flex:1;font-size:clamp(34px,10vw,72px)!important;padding:4px 2px!important;text-align:center}
+ .card .en{font-size:clamp(18px,5.4vw,30px)!important;overflow-wrap:anywhere}
+ .card .em{font-size:clamp(64px,18vw,92px)!important}
+ .choices{gap:10px!important}.ch{width:clamp(96px,28vw,200px)!important;height:clamp(110px,32vw,230px)!important;font-size:clamp(64px,18vw,160px)!important}
+ .wo{min-width:calc(50% - 12px)!important}
+ .wops.nums .wo,.wops .wo:has(.wn){min-width:calc(33% - 12px)!important}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}.lt{font-size:46px!important}
+ .huge{font-size:clamp(120px,40vw,200px)!important;padding:6px 26px 16px!important}
+ .readword,.enw{font-size:clamp(48px,14vw,110px)!important}
+ .wbtn{font-size:clamp(40px,12vw,90px)!important;min-width:86%!important}
+ .mletter{font-size:clamp(90px,26vw,220px)!important;padding:6px 14px 16px!important}
+ .roof{border-left-width:min(160px,38vw)!important;border-right-width:min(160px,38vw)!important}
+}
+html.emb .note,html.emb p.voice{font-size:12px!important;margin:6px 0 0!important}
+@media (max-width:640px){
+ .wbin{min-width:calc(50% - 8px)!important;min-height:140px!important;padding:6px!important}
+ .wbin b{font-size:17px!important;overflow-wrap:anywhere;line-height:1.2}
+ .wit{font-size:48px!important;padding:4px 6px 2px!important}
+ .wdone{font-size:34px!important}
+ .wq{font-size:21px!important}
+}
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -268,7 +322,7 @@ if(KZ){
 /* ================== МЕНЮ ================== */
 const GAMES={animals:[&quot;🐮&quot;,L(&quot;Кто как говорит&quot;,&quot;Кім қалай дыбыстайды?&quot;),&quot;#FF9A4D&quot;,animals],transport:[&quot;🚗&quot;,L(&quot;Транспорт&quot;,&quot;Көлік&quot;),&quot;#2FB5C9&quot;,transport],who:[&quot;🚪&quot;,L(&quot;Тук-тук, кто там?&quot;,&quot;Тық-тық, кім бар?&quot;),&quot;#C27C4E&quot;,whoThere],peek:[&quot;🙈&quot;,L(&quot;Ку-ку!&quot;,&quot;Кім жасырынды?&quot;),&quot;#E9A23B&quot;,peek],
  face:[&quot;👶&quot;,L(&quot;Лицо&quot;,&quot;Бет&quot;),&quot;#FF6FA0&quot;,face],body:[&quot;🧍&quot;,L(&quot;Тело&quot;,&quot;Дене&quot;),&quot;#9C7BFF&quot;,body],family:[&quot;👨‍👩‍👧&quot;,L(&quot;Моя семья&quot;,&quot;Менің отбасым&quot;),&quot;#FF7B7B&quot;,family],
- day:[&quot;🌞&quot;,L(&quot;День и ночь&quot;,&quot;Күн мен түн&quot;),&quot;#4F8BFF&quot;,daynight],food:[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],show:[&quot;👉&quot;,L(&quot;Покажи, где&quot;,&quot;Көрсет&quot;),&quot;#7A6CF0&quot;,showme],sleep:[&quot;😴&quot;,L(&quot;Баю-бай&quot;,&quot;Әлди-әлди&quot;),&quot;#6C63C7&quot;,sleepy],moms:[&quot;🐮&quot;,L(&quot;Мамы и малыши&quot;,&quot;Аналар мен балалары&quot;),&quot;#E59A3C&quot;,moms],
+ day:[&quot;🌞&quot;,L(&quot;День и ночь&quot;,&quot;Күн мен түн&quot;),&quot;#4F8BFF&quot;,daynight],food:[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],show:[&quot;👉&quot;,L(&quot;Покажи, где&quot;,&quot;Көрсет&quot;),&quot;#7A6CF0&quot;,showme],sleep:[&quot;😴&quot;,L(&quot;Баю-бай&quot;,&quot;Әлди-әлди&quot;),&quot;#6C63C7&quot;,sleepy],moms:[&quot;🐣&quot;,L(&quot;Мамы и малыши&quot;,&quot;Аналар мен балалары&quot;),&quot;#E59A3C&quot;,moms],
  bub:[&quot;🫧&quot;,L(&quot;Пузыри и цвета&quot;,&quot;Көпіршік пен түс&quot;),&quot;#5AB8FF&quot;,bubbles],xylo:[&quot;🎹&quot;,&quot;Ксилофон&quot;,&quot;#4CC46F&quot;,xylo],paint:[&quot;🖍️&quot;,L(&quot;Рисуем&quot;,&quot;Сурет саламыз&quot;),&quot;#F08BD8&quot;,paint]};
 const SECTIONS=[[L(&quot;🔊 Звуки и слова&quot;,&quot;🔊 Дыбыстар мен сөздер&quot;),[&quot;animals&quot;,&quot;moms&quot;,&quot;transport&quot;,&quot;who&quot;,&quot;peek&quot;]],[L(&quot;👶 Я и моя семья&quot;,&quot;👶 Мен және отбасым&quot;),[&quot;face&quot;,&quot;body&quot;,&quot;family&quot;]],[L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;day&quot;,&quot;food&quot;,&quot;show&quot;,&quot;sleep&quot;]],[L(&quot;🎨 Музыка и творчество&quot;,&quot;🎨 Музыка және шығармашылық&quot;),[&quot;bub&quot;,&quot;xylo&quot;,&quot;paint&quot;]]];
 function home(){reset();
@@ -488,6 +542,57 @@ function moms(){reset();
  speak(L(&#x27;Нажми на маму, а потом на её малыша!&#x27;,&#x27;Анасын бас, сосын оның баласын бас!&#x27;));
 }
 home();
+
+
+
+/* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
+(function(){
+const EMB=window.parent&amp;&amp;window.parent!==window;
+const isKZ=()=&gt;typeof KZ!==&#x27;undefined&#x27;&amp;&amp;KZ;
+const T=(r,k)=&gt;isKZ()?k:r;
+const CFG=window.NAV_CFG||{};
+const P=window.parent;
+const appEl=document.getElementById(&#x27;app&#x27;);
+let state=&#x27;cats&#x27;,lastCat=null,catScroll=0,listScroll=0,cats=[];
+const COLORS=[&quot;#FF8A5B&quot;,&quot;#4F8BFF&quot;,&quot;#43C26B&quot;,&quot;#9C7BFF&quot;,&quot;#F5A623&quot;,&quot;#E8505B&quot;,&quot;#22B8C8&quot;,&quot;#B15CE6&quot;,&quot;#2FA37E&quot;,&quot;#D9822B&quot;];
+const keyOf=t=&gt;t.dataset.w||t.dataset.k||(t.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;)||t.textContent.trim();
+const push=()=&gt;{if(EMB&amp;&amp;P.NAVPUSH)P.NAVPUSH();};
+const up=()=&gt;{if(EMB&amp;&amp;P.NAVUP)P.NAVUP();};
+const title=t=&gt;{if(EMB&amp;&amp;P.NAVTITLE)P.NAVTITLE(t);};
+if(EMB)document.documentElement.classList.add(&#x27;emb&#x27;);
+const origHome=window.home;
+function collect(){
+ origHome();
+ const secs=[...appEl.querySelectorAll(&#x27;.sec&#x27;)];const out=[];
+ secs.forEach(s=&gt;{const m=s.nextElementSibling;if(!m||!m.classList.contains(&#x27;menu&#x27;))return;out.push({t:s.textContent.trim(),tiles:[...m.querySelectorAll(&#x27;.tile&#x27;)]});});
+ (CFG.merge||[]).forEach(([from,into])=&gt;{const a=out.find(c=&gt;from.some(f=&gt;c.t.includes(f))),b=out.find(c=&gt;into.some(f=&gt;c.t.includes(f)));if(a&amp;&amp;b&amp;&amp;a!==b){b.tiles.push(...a.tiles);out.splice(out.indexOf(a),1);}});
+ (CFG.tileOrder||[]).forEach(list=&gt;{out.forEach(c=&gt;{if(c.tiles.some(t=&gt;list.includes(keyOf(t))))c.tiles.sort((x,y)=&gt;{const i=list.indexOf(keyOf(x)),j=list.indexOf(keyOf(y));return (i&lt;0?99:i)-(j&lt;0?99:j);});});});
+ if(CFG.catOrder){const ord=isKZ()&amp;&amp;CFG.catOrderKZ?CFG.catOrderKZ:CFG.catOrder;out.sort((a,b)=&gt;{const ia=ord.findIndex(e=&gt;a.t.startsWith(e)),ib=ord.findIndex(e=&gt;b.t.startsWith(e));return (ia&lt;0?99:ia)-(ib&lt;0?99:ib);});}
+ if(isKZ())out.sort((a,b)=&gt;(a.t.includes(&#x27;орысша&#x27;)?1:0)-(b.t.includes(&#x27;орысша&#x27;)?1:0));
+ return out;}
+function split(t){const m=t.match(/^(\S+)\s+(.*)$/);return m?[m[1],m[2]]:[&#x27;⭐&#x27;,t];}
+function showCats(){state=&#x27;cats&#x27;;cats=collect();
+ if(cats.length&lt;=1){showGames(0,true);return;}
+ appEl.innerHTML=`&lt;div class=&quot;ncats&quot;&gt;${cats.map((c,i)=&gt;{const [e,n]=split(c.t);return `&lt;button class=&quot;ncat&quot; data-i=&quot;${i}&quot; style=&quot;background:${COLORS[i%COLORS.length]}&quot;&gt;&lt;span class=&quot;ne&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;${n}&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;${c.tiles.length} ${T(&#x27;игр&#x27;,&#x27;ойын&#x27;)}&lt;/span&gt;&lt;/button&gt;`;}).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ appEl.querySelectorAll(&#x27;.ncat&#x27;).forEach(b=&gt;b.onclick=()=&gt;{catScroll=scrollY;try{tone&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}try{play&amp;&amp;play(&#x27;pop&#x27;)}catch(e){}try{sfx&amp;&amp;sfx.pop()}catch(e){}push();showGames(+b.dataset.i);});
+ title(&#x27;&#x27;);requestAnimationFrame(()=&gt;scrollTo(0,catScroll));}
+function showGames(i,only){state=&#x27;games&#x27;;lastCat=i;const c=cats[i];const [e,n]=split(c.t);
+ appEl.innerHTML=`&lt;h2 class=&quot;nh&quot;&gt;${e} ${n}&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;&lt;/div&gt;`;const m=appEl.querySelector(&#x27;.menu&#x27;);c.tiles.forEach(t=&gt;m.appendChild(t));
+ if(!only)title(`${e} ${n}`);requestAnimationFrame(()=&gt;scrollTo(0,listScroll));}
+window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}
+ if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
+ listScroll=0;showCats();};
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+// кнопки «назад» системы и верхней панели
+window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
+ reset(){state=&#x27;cats&#x27;;lastCat=null;catScroll=listScroll=0;showCats();}};
+[&#x27;homeB&#x27;,&#x27;home&#x27;].forEach(id=&gt;{const b=document.getElementById(id);if(b)b.onclick=()=&gt;window.home();});
+if(typeof back===&#x27;function&#x27;&amp;&amp;CFG.backLabel){window.back=()=&gt;`&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;⬅ ${T(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)}&lt;/button&gt;`;}
+showCats();
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -567,6 +672,57 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
 .label{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:50px;opacity:0;pointer-events:none;transition:.25s;z-index:55;white-space:nowrap}
 .label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 @media (max-width:640px){.logo{font-size:22px}.logo span{font-size:32px}.rb{width:50px;height:50px;font-size:24px}.pill{font-size:20px;padding:6px 10px}.hb{gap:6px}.menu{grid-template-columns:1fr 1fr}.tile .e{font-size:64px}.tile .t{font-size:20px}h2,.ask{font-size:30px}.mem{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== навигация и телефон ===== */
+.ncats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.ncat{border:none;border-radius:28px;color:#fff;font:inherit;cursor:pointer;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 7px 0 rgba(0,0,0,.15);min-height:170px;justify-content:center}
+.ncat:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.ncat .ne{font-size:64px;line-height:1.1}.ncat .nn{font-size:22px;margin-top:6px;line-height:1.2}.ncat .nc{font-size:15px;opacity:.9;margin-top:6px;font-weight:400;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px}
+h2.nh{text-align:center;font-size:28px;margin:4px 0 14px}
+html.emb header{display:none!important}
+html.emb .credit,html.emb p.voice[style*=&quot;font-weight:700&quot;]{display:none!important}
+html.emb .wrap{padding-top:10px}
+html.emb main,html.emb .panel{min-height:auto}
+@media (max-width:640px){
+ .wrap{padding:8px 8px 14px!important}
+ main,.panel{padding:12px!important;border-radius:24px!important}
+ .menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .tile{padding:12px 6px 10px!important;border-radius:22px!important}
+ .tile .e{font-size:52px!important}.tile .t{font-size:17px!important;line-height:1.2}
+ .ncats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ncat{min-height:150px}.ncat .ne{font-size:54px}.ncat .nn{font-size:18px}
+ h2{font-size:24px!important;line-height:1.2}
+ .navrow .big-btn,.big-btn{font-size:22px!important;padding:12px 18px!important}
+ .say{font-size:20px!important}
+}
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:640px){
+ .key{min-width:0!important;font-size:30px!important;padding-bottom:10px!important}
+ .xylo{gap:5px!important}
+ .cnt{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px 6px!important}
+ .cnt span{font-size:clamp(36px,11vw,84px)!important}
+ .wseq{gap:6px!important}.wseq span{min-width:0!important;flex:1;font-size:clamp(34px,10vw,72px)!important;padding:4px 2px!important;text-align:center}
+ .card .en{font-size:clamp(18px,5.4vw,30px)!important;overflow-wrap:anywhere}
+ .card .em{font-size:clamp(64px,18vw,92px)!important}
+ .choices{gap:10px!important}.ch{width:clamp(96px,28vw,200px)!important;height:clamp(110px,32vw,230px)!important;font-size:clamp(64px,18vw,160px)!important}
+ .wo{min-width:calc(50% - 12px)!important}
+ .wops.nums .wo,.wops .wo:has(.wn){min-width:calc(33% - 12px)!important}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}.lt{font-size:46px!important}
+ .huge{font-size:clamp(120px,40vw,200px)!important;padding:6px 26px 16px!important}
+ .readword,.enw{font-size:clamp(48px,14vw,110px)!important}
+ .wbtn{font-size:clamp(40px,12vw,90px)!important;min-width:86%!important}
+ .mletter{font-size:clamp(90px,26vw,220px)!important;padding:6px 14px 16px!important}
+ .roof{border-left-width:min(160px,38vw)!important;border-right-width:min(160px,38vw)!important}
+}
+html.emb .note,html.emb p.voice{font-size:12px!important;margin:6px 0 0!important}
+@media (max-width:640px){
+ .wbin{min-width:calc(50% - 8px)!important;min-height:140px!important;padding:6px!important}
+ .wbin b{font-size:17px!important;overflow-wrap:anywhere;line-height:1.2}
+ .wit{font-size:48px!important;padding:4px 6px 2px!important}
+ .wdone{font-size:34px!important}
+ .wq{font-size:21px!important}
+}
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -842,6 +998,57 @@ function eCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c
   else{shake(b);sfx.bad();speakEn(EN_N[+b.dataset.n]+&#x27;. Try again!&#x27;);}});}
 if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Білгіштер&#x27;;document.title=&#x27;Білгіштер&#x27;;}
 home();
+
+
+
+/* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
+(function(){
+const EMB=window.parent&amp;&amp;window.parent!==window;
+const isKZ=()=&gt;typeof KZ!==&#x27;undefined&#x27;&amp;&amp;KZ;
+const T=(r,k)=&gt;isKZ()?k:r;
+const CFG=window.NAV_CFG||{};
+const P=window.parent;
+const appEl=document.getElementById(&#x27;app&#x27;);
+let state=&#x27;cats&#x27;,lastCat=null,catScroll=0,listScroll=0,cats=[];
+const COLORS=[&quot;#FF8A5B&quot;,&quot;#4F8BFF&quot;,&quot;#43C26B&quot;,&quot;#9C7BFF&quot;,&quot;#F5A623&quot;,&quot;#E8505B&quot;,&quot;#22B8C8&quot;,&quot;#B15CE6&quot;,&quot;#2FA37E&quot;,&quot;#D9822B&quot;];
+const keyOf=t=&gt;t.dataset.w||t.dataset.k||(t.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;)||t.textContent.trim();
+const push=()=&gt;{if(EMB&amp;&amp;P.NAVPUSH)P.NAVPUSH();};
+const up=()=&gt;{if(EMB&amp;&amp;P.NAVUP)P.NAVUP();};
+const title=t=&gt;{if(EMB&amp;&amp;P.NAVTITLE)P.NAVTITLE(t);};
+if(EMB)document.documentElement.classList.add(&#x27;emb&#x27;);
+const origHome=window.home;
+function collect(){
+ origHome();
+ const secs=[...appEl.querySelectorAll(&#x27;.sec&#x27;)];const out=[];
+ secs.forEach(s=&gt;{const m=s.nextElementSibling;if(!m||!m.classList.contains(&#x27;menu&#x27;))return;out.push({t:s.textContent.trim(),tiles:[...m.querySelectorAll(&#x27;.tile&#x27;)]});});
+ (CFG.merge||[]).forEach(([from,into])=&gt;{const a=out.find(c=&gt;from.some(f=&gt;c.t.includes(f))),b=out.find(c=&gt;into.some(f=&gt;c.t.includes(f)));if(a&amp;&amp;b&amp;&amp;a!==b){b.tiles.push(...a.tiles);out.splice(out.indexOf(a),1);}});
+ (CFG.tileOrder||[]).forEach(list=&gt;{out.forEach(c=&gt;{if(c.tiles.some(t=&gt;list.includes(keyOf(t))))c.tiles.sort((x,y)=&gt;{const i=list.indexOf(keyOf(x)),j=list.indexOf(keyOf(y));return (i&lt;0?99:i)-(j&lt;0?99:j);});});});
+ if(CFG.catOrder){const ord=isKZ()&amp;&amp;CFG.catOrderKZ?CFG.catOrderKZ:CFG.catOrder;out.sort((a,b)=&gt;{const ia=ord.findIndex(e=&gt;a.t.startsWith(e)),ib=ord.findIndex(e=&gt;b.t.startsWith(e));return (ia&lt;0?99:ia)-(ib&lt;0?99:ib);});}
+ if(isKZ())out.sort((a,b)=&gt;(a.t.includes(&#x27;орысша&#x27;)?1:0)-(b.t.includes(&#x27;орысша&#x27;)?1:0));
+ return out;}
+function split(t){const m=t.match(/^(\S+)\s+(.*)$/);return m?[m[1],m[2]]:[&#x27;⭐&#x27;,t];}
+function showCats(){state=&#x27;cats&#x27;;cats=collect();
+ if(cats.length&lt;=1){showGames(0,true);return;}
+ appEl.innerHTML=`&lt;div class=&quot;ncats&quot;&gt;${cats.map((c,i)=&gt;{const [e,n]=split(c.t);return `&lt;button class=&quot;ncat&quot; data-i=&quot;${i}&quot; style=&quot;background:${COLORS[i%COLORS.length]}&quot;&gt;&lt;span class=&quot;ne&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;${n}&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;${c.tiles.length} ${T(&#x27;игр&#x27;,&#x27;ойын&#x27;)}&lt;/span&gt;&lt;/button&gt;`;}).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ appEl.querySelectorAll(&#x27;.ncat&#x27;).forEach(b=&gt;b.onclick=()=&gt;{catScroll=scrollY;try{tone&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}try{play&amp;&amp;play(&#x27;pop&#x27;)}catch(e){}try{sfx&amp;&amp;sfx.pop()}catch(e){}push();showGames(+b.dataset.i);});
+ title(&#x27;&#x27;);requestAnimationFrame(()=&gt;scrollTo(0,catScroll));}
+function showGames(i,only){state=&#x27;games&#x27;;lastCat=i;const c=cats[i];const [e,n]=split(c.t);
+ appEl.innerHTML=`&lt;h2 class=&quot;nh&quot;&gt;${e} ${n}&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;&lt;/div&gt;`;const m=appEl.querySelector(&#x27;.menu&#x27;);c.tiles.forEach(t=&gt;m.appendChild(t));
+ if(!only)title(`${e} ${n}`);requestAnimationFrame(()=&gt;scrollTo(0,listScroll));}
+window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}
+ if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
+ listScroll=0;showCats();};
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+// кнопки «назад» системы и верхней панели
+window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
+ reset(){state=&#x27;cats&#x27;;lastCat=null;catScroll=listScroll=0;showCats();}};
+[&#x27;homeB&#x27;,&#x27;home&#x27;].forEach(id=&gt;{const b=document.getElementById(id);if(b)b.onclick=()=&gt;window.home();});
+if(typeof back===&#x27;function&#x27;&amp;&amp;CFG.backLabel){window.back=()=&gt;`&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;⬅ ${T(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)}&lt;/button&gt;`;}
+showCats();
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -1103,6 +1310,57 @@ h2{font-size:44px;text-align:center;margin:4px 0 18px;color:var(--ink)}
 canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:15}
 .note{font-size:18px;color:var(--muted);text-align:center;margin-top:16px;font-weight:400}
 @media (max-width:700px){.round{width:52px;height:52px;font-size:24px}.pill{font-size:22px;padding:6px 12px}.logo span{font-size:34px}.pics{grid-template-columns:1fr 1fr}.pic .w{font-size:30px}.pic .em{font-size:80px}.logo{font-size:26px}h2{font-size:34px}.say{font-size:28px}.word{font-size:48px}}
+
+/* ===== навигация и телефон ===== */
+.ncats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.ncat{border:none;border-radius:28px;color:#fff;font:inherit;cursor:pointer;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 7px 0 rgba(0,0,0,.15);min-height:170px;justify-content:center}
+.ncat:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.ncat .ne{font-size:64px;line-height:1.1}.ncat .nn{font-size:22px;margin-top:6px;line-height:1.2}.ncat .nc{font-size:15px;opacity:.9;margin-top:6px;font-weight:400;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px}
+h2.nh{text-align:center;font-size:28px;margin:4px 0 14px}
+html.emb header{display:none!important}
+html.emb .credit,html.emb p.voice[style*=&quot;font-weight:700&quot;]{display:none!important}
+html.emb .wrap{padding-top:10px}
+html.emb main,html.emb .panel{min-height:auto}
+@media (max-width:640px){
+ .wrap{padding:8px 8px 14px!important}
+ main,.panel{padding:12px!important;border-radius:24px!important}
+ .menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .tile{padding:12px 6px 10px!important;border-radius:22px!important}
+ .tile .e{font-size:52px!important}.tile .t{font-size:17px!important;line-height:1.2}
+ .ncats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ncat{min-height:150px}.ncat .ne{font-size:54px}.ncat .nn{font-size:18px}
+ h2{font-size:24px!important;line-height:1.2}
+ .navrow .big-btn,.big-btn{font-size:22px!important;padding:12px 18px!important}
+ .say{font-size:20px!important}
+}
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:640px){
+ .key{min-width:0!important;font-size:30px!important;padding-bottom:10px!important}
+ .xylo{gap:5px!important}
+ .cnt{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px 6px!important}
+ .cnt span{font-size:clamp(36px,11vw,84px)!important}
+ .wseq{gap:6px!important}.wseq span{min-width:0!important;flex:1;font-size:clamp(34px,10vw,72px)!important;padding:4px 2px!important;text-align:center}
+ .card .en{font-size:clamp(18px,5.4vw,30px)!important;overflow-wrap:anywhere}
+ .card .em{font-size:clamp(64px,18vw,92px)!important}
+ .choices{gap:10px!important}.ch{width:clamp(96px,28vw,200px)!important;height:clamp(110px,32vw,230px)!important;font-size:clamp(64px,18vw,160px)!important}
+ .wo{min-width:calc(50% - 12px)!important}
+ .wops.nums .wo,.wops .wo:has(.wn){min-width:calc(33% - 12px)!important}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}.lt{font-size:46px!important}
+ .huge{font-size:clamp(120px,40vw,200px)!important;padding:6px 26px 16px!important}
+ .readword,.enw{font-size:clamp(48px,14vw,110px)!important}
+ .wbtn{font-size:clamp(40px,12vw,90px)!important;min-width:86%!important}
+ .mletter{font-size:clamp(90px,26vw,220px)!important;padding:6px 14px 16px!important}
+ .roof{border-left-width:min(160px,38vw)!important;border-right-width:min(160px,38vw)!important}
+}
+html.emb .note,html.emb p.voice{font-size:12px!important;margin:6px 0 0!important}
+@media (max-width:640px){
+ .wbin{min-width:calc(50% - 8px)!important;min-height:140px!important;padding:6px!important}
+ .wbin b{font-size:17px!important;overflow-wrap:anywhere;line-height:1.2}
+ .wit{font-size:48px!important;padding:4px 6px 2px!important}
+ .wdone{font-size:34px!important}
+ .wq{font-size:21px!important}
+}
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -2350,6 +2608,60 @@ const _homeWorld=home;home=function(){_homeWorld();let ci=0;
 
 if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Мектепке дайындық&#x27;;document.title=&#x27;Мектепке дайындық&#x27;;}
 home();
+
+window.NAV_CFG={backLabel:1,merge:[[[&quot;Ещё математика&quot;,&quot;Тағы математика&quot;],[&quot;🔢 Математика&quot;]]],
+ catOrder:[&quot;🔤&quot;,&quot;📖&quot;,&quot;🔢&quot;,&quot;🧠&quot;,&quot;🐾&quot;,&quot;🌱&quot;,&quot;🚦&quot;,&quot;🚀&quot;,&quot;💡&quot;],catOrderKZ:[&quot;🔢&quot;,&quot;🧠&quot;,&quot;🐾&quot;,&quot;🌱&quot;,&quot;🚦&quot;,&quot;🚀&quot;,&quot;💡&quot;,&quot;🔤&quot;,&quot;📖&quot;],
+ tileOrder:[[&quot;count10&quot;,&quot;missing&quot;,&quot;nbGame&quot;,&quot;cmpGame&quot;,&quot;patGame&quot;,&quot;corners&quot;,&quot;house&quot;,&quot;addSub&quot;,&quot;frog&quot;,&quot;tasks&quot;,&quot;shop&quot;,&quot;clock&quot;,&quot;week&quot;],
+  [&quot;abc&quot;,&quot;vowelGame&quot;,&quot;findLetter&quot;,&quot;firstLetter&quot;,&quot;balloons&quot;,&quot;wherePos&quot;],[&quot;mergeGame&quot;,&quot;sylGame&quot;,&quot;picWord&quot;,&quot;readMenu&quot;,&quot;buildWord&quot;,&quot;rebus&quot;,&quot;sayGame&quot;]]};
+
+/* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
+(function(){
+const EMB=window.parent&amp;&amp;window.parent!==window;
+const isKZ=()=&gt;typeof KZ!==&#x27;undefined&#x27;&amp;&amp;KZ;
+const T=(r,k)=&gt;isKZ()?k:r;
+const CFG=window.NAV_CFG||{};
+const P=window.parent;
+const appEl=document.getElementById(&#x27;app&#x27;);
+let state=&#x27;cats&#x27;,lastCat=null,catScroll=0,listScroll=0,cats=[];
+const COLORS=[&quot;#FF8A5B&quot;,&quot;#4F8BFF&quot;,&quot;#43C26B&quot;,&quot;#9C7BFF&quot;,&quot;#F5A623&quot;,&quot;#E8505B&quot;,&quot;#22B8C8&quot;,&quot;#B15CE6&quot;,&quot;#2FA37E&quot;,&quot;#D9822B&quot;];
+const keyOf=t=&gt;t.dataset.w||t.dataset.k||(t.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;)||t.textContent.trim();
+const push=()=&gt;{if(EMB&amp;&amp;P.NAVPUSH)P.NAVPUSH();};
+const up=()=&gt;{if(EMB&amp;&amp;P.NAVUP)P.NAVUP();};
+const title=t=&gt;{if(EMB&amp;&amp;P.NAVTITLE)P.NAVTITLE(t);};
+if(EMB)document.documentElement.classList.add(&#x27;emb&#x27;);
+const origHome=window.home;
+function collect(){
+ origHome();
+ const secs=[...appEl.querySelectorAll(&#x27;.sec&#x27;)];const out=[];
+ secs.forEach(s=&gt;{const m=s.nextElementSibling;if(!m||!m.classList.contains(&#x27;menu&#x27;))return;out.push({t:s.textContent.trim(),tiles:[...m.querySelectorAll(&#x27;.tile&#x27;)]});});
+ (CFG.merge||[]).forEach(([from,into])=&gt;{const a=out.find(c=&gt;from.some(f=&gt;c.t.includes(f))),b=out.find(c=&gt;into.some(f=&gt;c.t.includes(f)));if(a&amp;&amp;b&amp;&amp;a!==b){b.tiles.push(...a.tiles);out.splice(out.indexOf(a),1);}});
+ (CFG.tileOrder||[]).forEach(list=&gt;{out.forEach(c=&gt;{if(c.tiles.some(t=&gt;list.includes(keyOf(t))))c.tiles.sort((x,y)=&gt;{const i=list.indexOf(keyOf(x)),j=list.indexOf(keyOf(y));return (i&lt;0?99:i)-(j&lt;0?99:j);});});});
+ if(CFG.catOrder){const ord=isKZ()&amp;&amp;CFG.catOrderKZ?CFG.catOrderKZ:CFG.catOrder;out.sort((a,b)=&gt;{const ia=ord.findIndex(e=&gt;a.t.startsWith(e)),ib=ord.findIndex(e=&gt;b.t.startsWith(e));return (ia&lt;0?99:ia)-(ib&lt;0?99:ib);});}
+ if(isKZ())out.sort((a,b)=&gt;(a.t.includes(&#x27;орысша&#x27;)?1:0)-(b.t.includes(&#x27;орысша&#x27;)?1:0));
+ return out;}
+function split(t){const m=t.match(/^(\S+)\s+(.*)$/);return m?[m[1],m[2]]:[&#x27;⭐&#x27;,t];}
+function showCats(){state=&#x27;cats&#x27;;cats=collect();
+ if(cats.length&lt;=1){showGames(0,true);return;}
+ appEl.innerHTML=`&lt;div class=&quot;ncats&quot;&gt;${cats.map((c,i)=&gt;{const [e,n]=split(c.t);return `&lt;button class=&quot;ncat&quot; data-i=&quot;${i}&quot; style=&quot;background:${COLORS[i%COLORS.length]}&quot;&gt;&lt;span class=&quot;ne&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;${n}&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;${c.tiles.length} ${T(&#x27;игр&#x27;,&#x27;ойын&#x27;)}&lt;/span&gt;&lt;/button&gt;`;}).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ appEl.querySelectorAll(&#x27;.ncat&#x27;).forEach(b=&gt;b.onclick=()=&gt;{catScroll=scrollY;try{tone&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}try{play&amp;&amp;play(&#x27;pop&#x27;)}catch(e){}try{sfx&amp;&amp;sfx.pop()}catch(e){}push();showGames(+b.dataset.i);});
+ title(&#x27;&#x27;);requestAnimationFrame(()=&gt;scrollTo(0,catScroll));}
+function showGames(i,only){state=&#x27;games&#x27;;lastCat=i;const c=cats[i];const [e,n]=split(c.t);
+ appEl.innerHTML=`&lt;h2 class=&quot;nh&quot;&gt;${e} ${n}&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;&lt;/div&gt;`;const m=appEl.querySelector(&#x27;.menu&#x27;);c.tiles.forEach(t=&gt;m.appendChild(t));
+ if(!only)title(`${e} ${n}`);requestAnimationFrame(()=&gt;scrollTo(0,listScroll));}
+window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}
+ if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
+ listScroll=0;showCats();};
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+// кнопки «назад» системы и верхней панели
+window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
+ reset(){state=&#x27;cats&#x27;;lastCat=null;catScroll=listScroll=0;showCats();}};
+[&#x27;homeB&#x27;,&#x27;home&#x27;].forEach(id=&gt;{const b=document.getElementById(id);if(b)b.onclick=()=&gt;window.home();});
+if(typeof back===&#x27;function&#x27;&amp;&amp;CFG.backLabel){window.back=()=&gt;`&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;⬅ ${T(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)}&lt;/button&gt;`;}
+showCats();
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -2439,6 +2751,57 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
 .label{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:50px;opacity:0;pointer-events:none;transition:.25s;z-index:55;white-space:nowrap}
 .label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 @media (max-width:640px){.cards{grid-template-columns:1fr 1fr}.card .em{font-size:76px}.logo{font-size:22px}.logo span{font-size:32px}.rb{width:50px;height:50px;font-size:24px}.pill{font-size:20px;padding:6px 10px}.hb{gap:6px}.menu{grid-template-columns:1fr 1fr}.tile .e{font-size:64px}.tile .t{font-size:20px}h2,.ask{font-size:30px}.mem{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== навигация и телефон ===== */
+.ncats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.ncat{border:none;border-radius:28px;color:#fff;font:inherit;cursor:pointer;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 7px 0 rgba(0,0,0,.15);min-height:170px;justify-content:center}
+.ncat:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.ncat .ne{font-size:64px;line-height:1.1}.ncat .nn{font-size:22px;margin-top:6px;line-height:1.2}.ncat .nc{font-size:15px;opacity:.9;margin-top:6px;font-weight:400;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px}
+h2.nh{text-align:center;font-size:28px;margin:4px 0 14px}
+html.emb header{display:none!important}
+html.emb .credit,html.emb p.voice[style*=&quot;font-weight:700&quot;]{display:none!important}
+html.emb .wrap{padding-top:10px}
+html.emb main,html.emb .panel{min-height:auto}
+@media (max-width:640px){
+ .wrap{padding:8px 8px 14px!important}
+ main,.panel{padding:12px!important;border-radius:24px!important}
+ .menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .tile{padding:12px 6px 10px!important;border-radius:22px!important}
+ .tile .e{font-size:52px!important}.tile .t{font-size:17px!important;line-height:1.2}
+ .ncats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ncat{min-height:150px}.ncat .ne{font-size:54px}.ncat .nn{font-size:18px}
+ h2{font-size:24px!important;line-height:1.2}
+ .navrow .big-btn,.big-btn{font-size:22px!important;padding:12px 18px!important}
+ .say{font-size:20px!important}
+}
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:640px){
+ .key{min-width:0!important;font-size:30px!important;padding-bottom:10px!important}
+ .xylo{gap:5px!important}
+ .cnt{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px 6px!important}
+ .cnt span{font-size:clamp(36px,11vw,84px)!important}
+ .wseq{gap:6px!important}.wseq span{min-width:0!important;flex:1;font-size:clamp(34px,10vw,72px)!important;padding:4px 2px!important;text-align:center}
+ .card .en{font-size:clamp(18px,5.4vw,30px)!important;overflow-wrap:anywhere}
+ .card .em{font-size:clamp(64px,18vw,92px)!important}
+ .choices{gap:10px!important}.ch{width:clamp(96px,28vw,200px)!important;height:clamp(110px,32vw,230px)!important;font-size:clamp(64px,18vw,160px)!important}
+ .wo{min-width:calc(50% - 12px)!important}
+ .wops.nums .wo,.wops .wo:has(.wn){min-width:calc(33% - 12px)!important}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}.lt{font-size:46px!important}
+ .huge{font-size:clamp(120px,40vw,200px)!important;padding:6px 26px 16px!important}
+ .readword,.enw{font-size:clamp(48px,14vw,110px)!important}
+ .wbtn{font-size:clamp(40px,12vw,90px)!important;min-width:86%!important}
+ .mletter{font-size:clamp(90px,26vw,220px)!important;padding:6px 14px 16px!important}
+ .roof{border-left-width:min(160px,38vw)!important;border-right-width:min(160px,38vw)!important}
+}
+html.emb .note,html.emb p.voice{font-size:12px!important;margin:6px 0 0!important}
+@media (max-width:640px){
+ .wbin{min-width:calc(50% - 8px)!important;min-height:140px!important;padding:6px!important}
+ .wbin b{font-size:17px!important;overflow-wrap:anywhere;line-height:1.2}
+ .wit{font-size:48px!important;padding:4px 6px 2px!important}
+ .wdone{font-size:34px!important}
+ .wq{font-size:21px!important}
+}
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -2621,6 +2984,57 @@ function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&
  app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();});}
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
 home();
+
+
+
+/* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
+(function(){
+const EMB=window.parent&amp;&amp;window.parent!==window;
+const isKZ=()=&gt;typeof KZ!==&#x27;undefined&#x27;&amp;&amp;KZ;
+const T=(r,k)=&gt;isKZ()?k:r;
+const CFG=window.NAV_CFG||{};
+const P=window.parent;
+const appEl=document.getElementById(&#x27;app&#x27;);
+let state=&#x27;cats&#x27;,lastCat=null,catScroll=0,listScroll=0,cats=[];
+const COLORS=[&quot;#FF8A5B&quot;,&quot;#4F8BFF&quot;,&quot;#43C26B&quot;,&quot;#9C7BFF&quot;,&quot;#F5A623&quot;,&quot;#E8505B&quot;,&quot;#22B8C8&quot;,&quot;#B15CE6&quot;,&quot;#2FA37E&quot;,&quot;#D9822B&quot;];
+const keyOf=t=&gt;t.dataset.w||t.dataset.k||(t.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;)||t.textContent.trim();
+const push=()=&gt;{if(EMB&amp;&amp;P.NAVPUSH)P.NAVPUSH();};
+const up=()=&gt;{if(EMB&amp;&amp;P.NAVUP)P.NAVUP();};
+const title=t=&gt;{if(EMB&amp;&amp;P.NAVTITLE)P.NAVTITLE(t);};
+if(EMB)document.documentElement.classList.add(&#x27;emb&#x27;);
+const origHome=window.home;
+function collect(){
+ origHome();
+ const secs=[...appEl.querySelectorAll(&#x27;.sec&#x27;)];const out=[];
+ secs.forEach(s=&gt;{const m=s.nextElementSibling;if(!m||!m.classList.contains(&#x27;menu&#x27;))return;out.push({t:s.textContent.trim(),tiles:[...m.querySelectorAll(&#x27;.tile&#x27;)]});});
+ (CFG.merge||[]).forEach(([from,into])=&gt;{const a=out.find(c=&gt;from.some(f=&gt;c.t.includes(f))),b=out.find(c=&gt;into.some(f=&gt;c.t.includes(f)));if(a&amp;&amp;b&amp;&amp;a!==b){b.tiles.push(...a.tiles);out.splice(out.indexOf(a),1);}});
+ (CFG.tileOrder||[]).forEach(list=&gt;{out.forEach(c=&gt;{if(c.tiles.some(t=&gt;list.includes(keyOf(t))))c.tiles.sort((x,y)=&gt;{const i=list.indexOf(keyOf(x)),j=list.indexOf(keyOf(y));return (i&lt;0?99:i)-(j&lt;0?99:j);});});});
+ if(CFG.catOrder){const ord=isKZ()&amp;&amp;CFG.catOrderKZ?CFG.catOrderKZ:CFG.catOrder;out.sort((a,b)=&gt;{const ia=ord.findIndex(e=&gt;a.t.startsWith(e)),ib=ord.findIndex(e=&gt;b.t.startsWith(e));return (ia&lt;0?99:ia)-(ib&lt;0?99:ib);});}
+ if(isKZ())out.sort((a,b)=&gt;(a.t.includes(&#x27;орысша&#x27;)?1:0)-(b.t.includes(&#x27;орысша&#x27;)?1:0));
+ return out;}
+function split(t){const m=t.match(/^(\S+)\s+(.*)$/);return m?[m[1],m[2]]:[&#x27;⭐&#x27;,t];}
+function showCats(){state=&#x27;cats&#x27;;cats=collect();
+ if(cats.length&lt;=1){showGames(0,true);return;}
+ appEl.innerHTML=`&lt;div class=&quot;ncats&quot;&gt;${cats.map((c,i)=&gt;{const [e,n]=split(c.t);return `&lt;button class=&quot;ncat&quot; data-i=&quot;${i}&quot; style=&quot;background:${COLORS[i%COLORS.length]}&quot;&gt;&lt;span class=&quot;ne&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;${n}&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;${c.tiles.length} ${T(&#x27;игр&#x27;,&#x27;ойын&#x27;)}&lt;/span&gt;&lt;/button&gt;`;}).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ appEl.querySelectorAll(&#x27;.ncat&#x27;).forEach(b=&gt;b.onclick=()=&gt;{catScroll=scrollY;try{tone&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}try{play&amp;&amp;play(&#x27;pop&#x27;)}catch(e){}try{sfx&amp;&amp;sfx.pop()}catch(e){}push();showGames(+b.dataset.i);});
+ title(&#x27;&#x27;);requestAnimationFrame(()=&gt;scrollTo(0,catScroll));}
+function showGames(i,only){state=&#x27;games&#x27;;lastCat=i;const c=cats[i];const [e,n]=split(c.t);
+ appEl.innerHTML=`&lt;h2 class=&quot;nh&quot;&gt;${e} ${n}&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;&lt;/div&gt;`;const m=appEl.querySelector(&#x27;.menu&#x27;);c.tiles.forEach(t=&gt;m.appendChild(t));
+ if(!only)title(`${e} ${n}`);requestAnimationFrame(()=&gt;scrollTo(0,listScroll));}
+window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}
+ if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
+ listScroll=0;showCats();};
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+// кнопки «назад» системы и верхней панели
+window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
+ reset(){state=&#x27;cats&#x27;;lastCat=null;catScroll=listScroll=0;showCats();}};
+[&#x27;homeB&#x27;,&#x27;home&#x27;].forEach(id=&gt;{const b=document.getElementById(id);if(b)b.onclick=()=&gt;window.home();});
+if(typeof back===&#x27;function&#x27;&amp;&amp;CFG.backLabel){window.back=()=&gt;`&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;⬅ ${T(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)}&lt;/button&gt;`;}
+showCats();
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -2762,6 +3176,57 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
 .label{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:50px;opacity:0;pointer-events:none;transition:.25s;z-index:55;white-space:nowrap}
 .label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 @media (max-width:640px){.cards{grid-template-columns:1fr 1fr}.card .em{font-size:76px}.logo{font-size:22px}.logo span{font-size:32px}.rb{width:50px;height:50px;font-size:24px}.pill{font-size:20px;padding:6px 10px}.hb{gap:6px}.menu{grid-template-columns:1fr 1fr}.tile .e{font-size:64px}.tile .t{font-size:20px}h2,.ask{font-size:30px}.mem{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== навигация и телефон ===== */
+.ncats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.ncat{border:none;border-radius:28px;color:#fff;font:inherit;cursor:pointer;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 7px 0 rgba(0,0,0,.15);min-height:170px;justify-content:center}
+.ncat:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.ncat .ne{font-size:64px;line-height:1.1}.ncat .nn{font-size:22px;margin-top:6px;line-height:1.2}.ncat .nc{font-size:15px;opacity:.9;margin-top:6px;font-weight:400;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px}
+h2.nh{text-align:center;font-size:28px;margin:4px 0 14px}
+html.emb header{display:none!important}
+html.emb .credit,html.emb p.voice[style*=&quot;font-weight:700&quot;]{display:none!important}
+html.emb .wrap{padding-top:10px}
+html.emb main,html.emb .panel{min-height:auto}
+@media (max-width:640px){
+ .wrap{padding:8px 8px 14px!important}
+ main,.panel{padding:12px!important;border-radius:24px!important}
+ .menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .tile{padding:12px 6px 10px!important;border-radius:22px!important}
+ .tile .e{font-size:52px!important}.tile .t{font-size:17px!important;line-height:1.2}
+ .ncats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ncat{min-height:150px}.ncat .ne{font-size:54px}.ncat .nn{font-size:18px}
+ h2{font-size:24px!important;line-height:1.2}
+ .navrow .big-btn,.big-btn{font-size:22px!important;padding:12px 18px!important}
+ .say{font-size:20px!important}
+}
+html,body{overflow-x:hidden;max-width:100%}
+@media (max-width:640px){
+ .key{min-width:0!important;font-size:30px!important;padding-bottom:10px!important}
+ .xylo{gap:5px!important}
+ .cnt{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px 6px!important}
+ .cnt span{font-size:clamp(36px,11vw,84px)!important}
+ .wseq{gap:6px!important}.wseq span{min-width:0!important;flex:1;font-size:clamp(34px,10vw,72px)!important;padding:4px 2px!important;text-align:center}
+ .card .en{font-size:clamp(18px,5.4vw,30px)!important;overflow-wrap:anywhere}
+ .card .em{font-size:clamp(64px,18vw,92px)!important}
+ .choices{gap:10px!important}.ch{width:clamp(96px,28vw,200px)!important;height:clamp(110px,32vw,230px)!important;font-size:clamp(64px,18vw,160px)!important}
+ .wo{min-width:calc(50% - 12px)!important}
+ .wops.nums .wo,.wops .wo:has(.wn){min-width:calc(33% - 12px)!important}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))!important}.lt{font-size:46px!important}
+ .huge{font-size:clamp(120px,40vw,200px)!important;padding:6px 26px 16px!important}
+ .readword,.enw{font-size:clamp(48px,14vw,110px)!important}
+ .wbtn{font-size:clamp(40px,12vw,90px)!important;min-width:86%!important}
+ .mletter{font-size:clamp(90px,26vw,220px)!important;padding:6px 14px 16px!important}
+ .roof{border-left-width:min(160px,38vw)!important;border-right-width:min(160px,38vw)!important}
+}
+html.emb .note,html.emb p.voice{font-size:12px!important;margin:6px 0 0!important}
+@media (max-width:640px){
+ .wbin{min-width:calc(50% - 8px)!important;min-height:140px!important;padding:6px!important}
+ .wbin b{font-size:17px!important;overflow-wrap:anywhere;line-height:1.2}
+ .wit{font-size:48px!important;padding:4px 6px 2px!important}
+ .wdone{font-size:34px!important}
+ .wq{font-size:21px!important}
+}
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -2953,12 +3418,63 @@ function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&
  app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();});}
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
 home();
+
+
+
+/* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
+(function(){
+const EMB=window.parent&amp;&amp;window.parent!==window;
+const isKZ=()=&gt;typeof KZ!==&#x27;undefined&#x27;&amp;&amp;KZ;
+const T=(r,k)=&gt;isKZ()?k:r;
+const CFG=window.NAV_CFG||{};
+const P=window.parent;
+const appEl=document.getElementById(&#x27;app&#x27;);
+let state=&#x27;cats&#x27;,lastCat=null,catScroll=0,listScroll=0,cats=[];
+const COLORS=[&quot;#FF8A5B&quot;,&quot;#4F8BFF&quot;,&quot;#43C26B&quot;,&quot;#9C7BFF&quot;,&quot;#F5A623&quot;,&quot;#E8505B&quot;,&quot;#22B8C8&quot;,&quot;#B15CE6&quot;,&quot;#2FA37E&quot;,&quot;#D9822B&quot;];
+const keyOf=t=&gt;t.dataset.w||t.dataset.k||(t.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;)||t.textContent.trim();
+const push=()=&gt;{if(EMB&amp;&amp;P.NAVPUSH)P.NAVPUSH();};
+const up=()=&gt;{if(EMB&amp;&amp;P.NAVUP)P.NAVUP();};
+const title=t=&gt;{if(EMB&amp;&amp;P.NAVTITLE)P.NAVTITLE(t);};
+if(EMB)document.documentElement.classList.add(&#x27;emb&#x27;);
+const origHome=window.home;
+function collect(){
+ origHome();
+ const secs=[...appEl.querySelectorAll(&#x27;.sec&#x27;)];const out=[];
+ secs.forEach(s=&gt;{const m=s.nextElementSibling;if(!m||!m.classList.contains(&#x27;menu&#x27;))return;out.push({t:s.textContent.trim(),tiles:[...m.querySelectorAll(&#x27;.tile&#x27;)]});});
+ (CFG.merge||[]).forEach(([from,into])=&gt;{const a=out.find(c=&gt;from.some(f=&gt;c.t.includes(f))),b=out.find(c=&gt;into.some(f=&gt;c.t.includes(f)));if(a&amp;&amp;b&amp;&amp;a!==b){b.tiles.push(...a.tiles);out.splice(out.indexOf(a),1);}});
+ (CFG.tileOrder||[]).forEach(list=&gt;{out.forEach(c=&gt;{if(c.tiles.some(t=&gt;list.includes(keyOf(t))))c.tiles.sort((x,y)=&gt;{const i=list.indexOf(keyOf(x)),j=list.indexOf(keyOf(y));return (i&lt;0?99:i)-(j&lt;0?99:j);});});});
+ if(CFG.catOrder){const ord=isKZ()&amp;&amp;CFG.catOrderKZ?CFG.catOrderKZ:CFG.catOrder;out.sort((a,b)=&gt;{const ia=ord.findIndex(e=&gt;a.t.startsWith(e)),ib=ord.findIndex(e=&gt;b.t.startsWith(e));return (ia&lt;0?99:ia)-(ib&lt;0?99:ib);});}
+ if(isKZ())out.sort((a,b)=&gt;(a.t.includes(&#x27;орысша&#x27;)?1:0)-(b.t.includes(&#x27;орысша&#x27;)?1:0));
+ return out;}
+function split(t){const m=t.match(/^(\S+)\s+(.*)$/);return m?[m[1],m[2]]:[&#x27;⭐&#x27;,t];}
+function showCats(){state=&#x27;cats&#x27;;cats=collect();
+ if(cats.length&lt;=1){showGames(0,true);return;}
+ appEl.innerHTML=`&lt;div class=&quot;ncats&quot;&gt;${cats.map((c,i)=&gt;{const [e,n]=split(c.t);return `&lt;button class=&quot;ncat&quot; data-i=&quot;${i}&quot; style=&quot;background:${COLORS[i%COLORS.length]}&quot;&gt;&lt;span class=&quot;ne&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;${n}&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;${c.tiles.length} ${T(&#x27;игр&#x27;,&#x27;ойын&#x27;)}&lt;/span&gt;&lt;/button&gt;`;}).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ appEl.querySelectorAll(&#x27;.ncat&#x27;).forEach(b=&gt;b.onclick=()=&gt;{catScroll=scrollY;try{tone&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}try{play&amp;&amp;play(&#x27;pop&#x27;)}catch(e){}try{sfx&amp;&amp;sfx.pop()}catch(e){}push();showGames(+b.dataset.i);});
+ title(&#x27;&#x27;);requestAnimationFrame(()=&gt;scrollTo(0,catScroll));}
+function showGames(i,only){state=&#x27;games&#x27;;lastCat=i;const c=cats[i];const [e,n]=split(c.t);
+ appEl.innerHTML=`&lt;h2 class=&quot;nh&quot;&gt;${e} ${n}&lt;/h2&gt;&lt;div class=&quot;menu&quot;&gt;&lt;/div&gt;`;const m=appEl.querySelector(&#x27;.menu&#x27;);c.tiles.forEach(t=&gt;m.appendChild(t));
+ if(!only)title(`${e} ${n}`);requestAnimationFrame(()=&gt;scrollTo(0,listScroll));}
+window.home=function(){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}
+ if(state===&#x27;game&#x27;&amp;&amp;lastCat!==null){up();cats=collect();showGames(lastCat);return;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){up();showCats();return;}
+ listScroll=0;showCats();};
+appEl.addEventListener(&#x27;click&#x27;,e=&gt;{const t=e.target.closest(&#x27;.tile&#x27;);if(t&amp;&amp;state===&#x27;games&#x27;){listScroll=scrollY;state=&#x27;game&#x27;;push();requestAnimationFrame(()=&gt;scrollTo(0,0));}},true);
+// кнопки «назад» системы и верхней панели
+window.NAV={back(){if(state===&#x27;game&#x27;){try{clearT&amp;&amp;clearT()}catch(e){}try{reset&amp;&amp;reset()}catch(e){}try{speechSynthesis.cancel()}catch(e){}cats=collect();showGames(lastCat);return true;}
+ if(state===&#x27;games&#x27;&amp;&amp;cats.length&gt;1){showCats();return true;}return false;},
+ reset(){state=&#x27;cats&#x27;;lastCat=null;catScroll=listScroll=0;showCats();}};
+[&#x27;homeB&#x27;,&#x27;home&#x27;].forEach(id=&gt;{const b=document.getElementById(id);if(b)b.onclick=()=&gt;window.home();});
+if(typeof back===&#x27;function&#x27;&amp;&amp;CFG.backLabel){window.back=()=&gt;`&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;⬅ ${T(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)}&lt;/button&gt;`;}
+showCats();
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
 <script>
-const T={"a02":["🧸 Малыши · до 2 лет","🧸 Бөбектер · 2 жасқа дейін"],"a24":["🦊 Почемучки · 3–4 года","🦊 Білгіштер · 3–4 жас"],"a56":["🦉 Скоро в школу · 5–6 лет","🦉 Мектепке дайындық · 5–6 жас"],"aen":["🇬🇧 Английский язык · English","🇬🇧 Ағылшын тілі · English"],"akz":["🇰🇿 Казахский язык · Қазақ тілі","🇰🇿 Қазақ тілі · Қазақ тілі"]};
+const T={"a02":["🧸 Малыши","🧸 Бөбектер"],"a24":["🦊 Почемучки","🦊 Білгіштер"],"a56":["🦉 Скоро в школу","🦉 Мектепке дайындық"],"aen":["🇬🇧 Английский язык","🇬🇧 Ағылшын тілі"],"akz":["🇰🇿 Казахский язык","🇰🇿 Қазақ тілі"]};
 let cur=null;
 window.APP_LANG=(()=>{try{return localStorage.getItem('app_lang')||'ru'}catch(e){return 'ru'}})();
 function applyLang(){const kz=window.APP_LANG==='kz';document.documentElement.lang=kz?'kk':'ru';
@@ -2971,18 +3487,27 @@ document.getElementById('lang').onclick=()=>{window.APP_LANG=window.APP_LANG==='
   document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});applyLang();};
 try{speechSynthesis.onvoiceschanged=applyLang;}catch(e){}
 applyLang();
-document.querySelectorAll('.age').forEach(b=>b.onclick=()=>{
-  const f=document.getElementById(b.dataset.id);
+let curId=null,ignorePop=0,secT='';
+history.replaceState({d:0},'');
+window.NAVPUSH=()=>history.pushState({d:1},'');
+window.NAVUP=()=>{ignorePop++;history.back();};
+window.NAVTITLE=t=>{document.getElementById('ttl').textContent=t||secT;};
+function openSec(id){const f=document.getElementById(id);
   if(!f.hasAttribute('srcdoc')) f.srcdoc=f.dataset.src;
   document.querySelectorAll('iframe').forEach(x=>x.style.display='none');
-  f.style.display='block';cur=f;document.getElementById('ttl').textContent=T[b.dataset.id][window.APP_LANG==='kz'?1:0];document.body.classList.add('inapp');
-  try{f.contentWindow.focus();}catch(e){}
-});
-document.getElementById('back').onclick=()=>{
-  if(cur){try{cur.contentWindow.speechSynthesis.cancel();}catch(e){}try{cur.contentWindow.reset&&cur.contentWindow.reset();}catch(e){}try{cur.contentWindow.clearT&&cur.contentWindow.clearT();}catch(e){}
-    cur.style.display='none';}
-  document.body.classList.remove('inapp');
-};
+  f.style.display='block';cur=f;curId=id;secT=T[id][window.APP_LANG==='kz'?1:0];document.getElementById('ttl').textContent=secT;document.body.classList.add('inapp');
+  try{f.contentWindow.focus();}catch(e){}}
+function closeSec(){if(cur){try{cur.contentWindow.speechSynthesis.cancel();}catch(e){}try{cur.contentWindow.reset&&cur.contentWindow.reset();}catch(e){}try{cur.contentWindow.clearT&&cur.contentWindow.clearT();}catch(e){}
+  try{cur.contentWindow.NAV&&cur.contentWindow.NAV.reset();}catch(e){}cur.style.display='none';}cur=null;curId=null;document.body.classList.remove('inapp');}
+document.querySelectorAll('.age').forEach(b=>b.onclick=()=>{history.pushState({d:1},'');openSec(b.dataset.id);});
+window.addEventListener('popstate',()=>{if(ignorePop){ignorePop--;return;}
+  if(!cur)return;let handled=false;try{handled=cur.contentWindow.NAV&&cur.contentWindow.NAV.back();}catch(e){}
+  if(!handled)closeSec();});
+document.getElementById('back').onclick=()=>history.back();
+document.getElementById('bsnd').onclick=()=>{if(!cur)return;try{const b=cur.contentWindow.document.getElementById('snd');if(b)b.click();}catch(e){}sync();};
+function sync(){if(!cur)return;try{const d=cur.contentWindow.document;const st=d.getElementById('stars'),sn=d.getElementById('snd');
+  document.getElementById('bst').textContent=st?'⭐ '+st.textContent:'';if(sn)document.getElementById('bsnd').textContent=sn.textContent;}catch(e){}}
+setInterval(sync,700);
 </script>
 <script>
 if('serviceWorker' in navigator && location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
