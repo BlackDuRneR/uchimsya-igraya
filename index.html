@@ -16,29 +16,39 @@
 html,body{margin:0;height:100%}
 body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Arial Rounded MT Bold","Segoe UI",system-ui,Arial,sans-serif;font-weight:700;
  background-image:radial-gradient(circle at 6% 10%,#FFE1A8 0 90px,transparent 91px),radial-gradient(circle at 95% 18%,#D6F2FF 0 80px,transparent 81px),radial-gradient(circle at 88% 94%,#FFDCE8 0 130px,transparent 131px);background-attachment:fixed}
-#start{max-width:1150px;margin:0 auto;padding:22px 16px;min-height:100%;display:flex;flex-direction:column}
-h1{text-align:center;font-size:clamp(40px,7vw,64px);margin:6px 0 4px;color:#E8505B;letter-spacing:1px}
-.sub{text-align:center;font-size:clamp(22px,3.4vw,30px);color:var(--muted);margin:0 0 26px}
-.ages{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;flex:1;align-content:start}
+#start{max-width:1150px;margin:0 auto;padding:18px 16px 22px;min-height:100%;display:flex;flex-direction:column}
+.top{display:flex;justify-content:flex-end}
+.lang{display:flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:6px 8px 6px 16px;box-shadow:0 5px 0 rgba(0,0,0,.08);cursor:pointer;border:none;font:inherit;color:var(--ink)}
+.lang b{font-size:22px;opacity:.45;transition:opacity .2s} .lang b.on{opacity:1}
+.sw{width:78px;height:42px;border-radius:999px;background:#3B7BFF;position:relative;transition:background .25s;flex:none}
+.sw i{position:absolute;top:4px;left:4px;width:34px;height:34px;border-radius:50%;background:#fff;transition:left .25s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.lang.kz .sw{background:#0A8FB0} .lang.kz .sw i{left:40px}
+h1{text-align:center;font-size:clamp(38px,7vw,64px);margin:4px 0 4px;color:#E8505B;letter-spacing:1px}
+.sub{text-align:center;font-size:clamp(22px,3.4vw,30px);color:var(--muted);margin:0 0 20px}
+.ages{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;align-content:start}
 .age{border:none;border-radius:40px;padding:26px 20px 28px;color:#fff;font:inherit;cursor:pointer;box-shadow:0 10px 0 rgba(0,0,0,.15);display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .12s}
 .age:active{transform:scale(.97)}
 .ae{font-size:120px;line-height:1.1} .ay{font-size:46px;margin-top:4px} .an{font-size:30px;opacity:.95;margin-top:2px} .ad{font-size:19px;opacity:.9;margin-top:10px;font-weight:400}
+h3.gh{font-size:30px;margin:6px 4px 14px;color:var(--ink)}.ages+h3.gh{margin-top:28px}
 .credit{text-align:center;color:var(--muted);font-size:17px;margin:26px 0 4px}
+.knote{text-align:center;color:var(--muted);font-size:15px;font-weight:400;margin:10px 0 0}
 #bar{display:none;align-items:center;gap:12px;height:64px;padding:8px 12px;background:#fff;box-shadow:0 3px 0 rgba(0,0,0,.06)}
 #bar button{white-space:nowrap;flex:none;border:none;border-radius:18px;background:#FFC83D;font:inherit;font-size:22px;padding:10px 18px;cursor:pointer;box-shadow:0 4px 0 #D29B00;color:#3a2a00}
 #bar span{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 iframe{display:none;width:100%;height:calc(100% - 64px);border:0;background:var(--bg)}
 body.inapp #start{display:none} body.inapp #bar{display:flex}
-@media (max-width:600px){.ae{font-size:90px}.ay{font-size:40px}#bar span{font-size:16px}#bar button{font-size:18px;padding:8px 12px}}
+@media (max-width:600px){.ae{font-size:90px}.ay{font-size:38px}#bar span{font-size:16px}#bar button{font-size:18px;padding:8px 12px}.lang b{font-size:19px}}
 </style></head>
 <body>
 <div id="start">
- <h1>Учимся играя</h1>
- <p class="sub">Выбери возраст 👇</p>
- <div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay">до 2 лет</span><span class="an">Малыши</span><span class="ad">14 игр: звуки и слова, я и моя семья, мир вокруг, музыка</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay">3–4 года</span><span class="an">Почемучки</span><span class="ad">19 игр: цвета и формы, логика, счёт, мир вокруг, буквы</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay">5–6 лет</span><span class="an">Скоро в школу</span><span class="ad">20 игр: буквы и звуки, слоги и чтение, математика</span></button><button class="age" data-id="aen" style="background:linear-gradient(140deg,#3D63D8,#E8505B)"><span class="ae">🇬🇧</span><span class="ay">English</span><span class="an">Английский язык</span><span class="ad">для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском</span></button></div>
- <p class="credit">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
+ <div class="top"><button class="lang" id="lang" aria-label="Язык / Тіл"><b id="lr">Рус</b><span class="sw"><i></i></span><b id="lk">Қаз</b></button></div>
+ <h1 data-ru="Учимся играя" data-kz="Ойнай отырып үйренеміз">Учимся играя</h1>
+ <p class="sub" data-ru="Выбери раздел 👇" data-kz="Бөлімді таңда 👇">Выбери раздел 👇</p>
+ <h3 class="gh" data-ru="👶 По возрасту" data-kz="👶 Жас бойынша">👶 По возрасту</h3><div class="ages"><button class="age" data-id="a02" style="background:linear-gradient(140deg,#FF6FA0,#FFB86B)"><span class="ae">🧸</span><span class="ay" data-ru="до 2 лет" data-kz="2 жасқа дейін">до 2 лет</span><span class="an" data-ru="Малыши" data-kz="Бөбектер">Малыши</span><span class="ad" data-ru="14 игр: звуки и слова, я и моя семья, мир вокруг, музыка" data-kz="14 ойын: дыбыстар мен сөздер, отбасы, айналадағы әлем, музыка">14 игр: звуки и слова, я и моя семья, мир вокруг, музыка</span></button><button class="age" data-id="a24" style="background:linear-gradient(140deg,#43C26B,#22B8C8)"><span class="ae">🦊</span><span class="ay" data-ru="3–4 года" data-kz="3–4 жас">3–4 года</span><span class="an" data-ru="Почемучки" data-kz="Білгіштер">Почемучки</span><span class="ad" data-ru="19 игр: цвета и формы, логика, счёт, мир вокруг, буквы" data-kz="19 ойын: түстер мен пішіндер, логика, санау, айналадағы әлем · әріптер орысша">19 игр: цвета и формы, логика, счёт, мир вокруг, буквы</span></button><button class="age" data-id="a56" style="background:linear-gradient(140deg,#8B5CF6,#4F8BFF)"><span class="ae">🦉</span><span class="ay" data-ru="5–6 лет" data-kz="5–6 жас">5–6 лет</span><span class="an" data-ru="Скоро в школу" data-kz="Мектепке дайындық">Скоро в школу</span><span class="ad" data-ru="20 игр: буквы и звуки, слоги и чтение, математика" data-kz="7 математика ойыны қазақша · оқу ойындары әзірге орысша">20 игр: буквы и звуки, слоги и чтение, математика</span></button></div><h3 class="gh" data-ru="🌍 Языки" data-kz="🌍 Тілдер">🌍 Языки</h3><div class="ages langs"><button class="age" data-id="aen" style="background:linear-gradient(140deg,#3D63D8,#E8505B)"><span class="ae">🇬🇧</span><span class="ay" data-ru="English" data-kz="English">English</span><span class="an" data-ru="Английский язык" data-kz="Ағылшын тілі">Английский язык</span><span class="ad" data-ru="для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском" data-kz="кез келген жасқа · 13 ойын · ағылшынша және орысша дыбыстау">для любого возраста · 13 игр: слова, цвета, числа, тело, алфавит — озвучка на английском и русском</span></button><button class="age" data-id="akz" style="background:linear-gradient(140deg,#0A8FB0,#F5B700)"><span class="ae">🇰🇿</span><span class="ay" data-ru="Қазақ тілі" data-kz="Қазақ тілі">Қазақ тілі</span><span class="an" data-ru="Казахский язык" data-kz="Қазақ тілі">Казахский язык</span><span class="ad" data-ru="для любого возраста · 13 игр: слова, цвета, числа, тело, казахские буквы — озвучка на казахском и русском" data-kz="кез келген жасқа · 13 ойын · қазақша және орысша дыбыстау">для любого возраста · 13 игр: слова, цвета, числа, тело, казахские буквы — озвучка на казахском и русском</span></button></div>
+ <p class="knote" id="knote"></p>
+ <p class="credit" data-ru="Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г." data-kz="Әзірлеушілер: Омельницкая Мария Алексеевна және Омельницкий Александр Сергеевич, 2026 ж.">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
 </div>
-<div id="bar"><button id="back">⬅ Возраст</button><span id="ttl"></span></div>
+<div id="bar"><button id="back" data-ru="⬅ Назад" data-kz="⬅ Артқа">⬅ Назад</button><span id="ttl"></span></div>
 <iframe id="a02" title="Малыши" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
 &lt;html lang=&quot;ru&quot;&gt;
 &lt;head&gt;
@@ -133,7 +143,7 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:30}
 &lt;canvas id=&quot;conf&quot;&gt;&lt;/canvas&gt;
 &lt;div class=&quot;wrap&quot;&gt;
   &lt;header&gt;
-    &lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🧸&lt;/span&gt;Малыши&lt;/div&gt;
+    &lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🧸&lt;/span&gt;&lt;span id=&quot;lgT&quot; style=&quot;font-size:inherit&quot;&gt;Малыши&lt;/span&gt;&lt;/div&gt;
     &lt;div class=&quot;hb&quot;&gt;&lt;button class=&quot;rb&quot; id=&quot;homeB&quot; title=&quot;Меню&quot;&gt;🏠&lt;/button&gt;&lt;button class=&quot;rb&quot; id=&quot;snd&quot; title=&quot;Звук&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
   &lt;/header&gt;
   &lt;main id=&quot;app&quot;&gt;&lt;/main&gt;
@@ -148,6 +158,18 @@ function pickV(){try{const v=speechSynthesis.getVoices();ru=v.find(x=&gt;/^ru/i.
  document.getElementById(&#x27;vnote&#x27;).textContent=ru?&#x27;&#x27;:&#x27;Чтобы малыш слышал слова, на устройстве нужен русский голос (обычно уже есть в Windows, Android, iPad).&#x27;;}catch(e){}}
 if(&#x27;speechSynthesis&#x27; in window){pickV();speechSynthesis.onvoiceschanged=pickV;}
 function speak(t,delay=0,rate=.85){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;ru-RU&#x27;;if(ru)u.voice=ru;u.rate=rate;u.pitch=1.25;speechSynthesis.speak(u);}catch(e){}},delay);}
+/* ===== Язык: русский / қазақша ===== */
+const LANG=(()=&gt;{try{if(window.parent&amp;&amp;window.parent!==window&amp;&amp;window.parent.APP_LANG)return window.parent.APP_LANG;return localStorage.getItem(&#x27;app_lang&#x27;)||&#x27;ru&#x27;;}catch(e){return &#x27;ru&#x27;;}})();
+const KZ=LANG===&#x27;kz&#x27;;const L=(r,k)=&gt;KZ?k:r;
+let kzV=null;function pickKzV(){try{kzV=speechSynthesis.getVoices().find(x=&gt;/^kk/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickKzV();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickKzV);}
+const KZMAP={&#x27;ә&#x27;:&#x27;э&#x27;,&#x27;Ә&#x27;:&#x27;Э&#x27;,&#x27;ғ&#x27;:&#x27;г&#x27;,&#x27;Ғ&#x27;:&#x27;Г&#x27;,&#x27;қ&#x27;:&#x27;к&#x27;,&#x27;Қ&#x27;:&#x27;К&#x27;,&#x27;ң&#x27;:&#x27;нг&#x27;,&#x27;Ң&#x27;:&#x27;Нг&#x27;,&#x27;ө&#x27;:&#x27;о&#x27;,&#x27;Ө&#x27;:&#x27;О&#x27;,&#x27;ұ&#x27;:&#x27;у&#x27;,&#x27;Ұ&#x27;:&#x27;У&#x27;,&#x27;ү&#x27;:&#x27;у&#x27;,&#x27;Ү&#x27;:&#x27;У&#x27;,&#x27;һ&#x27;:&#x27;х&#x27;,&#x27;Һ&#x27;:&#x27;Х&#x27;,&#x27;і&#x27;:&#x27;ы&#x27;,&#x27;І&#x27;:&#x27;Ы&#x27;};
+const kzFix=t=&gt;String(t).replace(/[әғқңөұүһіӘҒҚҢӨҰҮҺІ]/g,c=&gt;KZMAP[c]);
+let RUONLY=false;
+function kzUtter(t,ruVoice,rate,pitch){const u=new SpeechSynthesisUtterance(kzV?t:kzFix(t));u.lang=kzV?&#x27;kk-KZ&#x27;:&#x27;ru-RU&#x27;;u.voice=kzV||ruVoice||null;u.rate=rate;u.pitch=pitch;return u;}
+const PRAISE_KZ=[&quot;Жарайсың!&quot;,&quot;Дұрыс!&quot;,&quot;Керемет!&quot;,&quot;Тамаша!&quot;,&quot;Ура!&quot;,&quot;Бәрекелді!&quot;];
+
+const _spRU=speak;speak=function(t,delay=0,rate=.85){if(!KZ||RUONLY)return _spRU(t,delay,rate);if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();speechSynthesis.speak(kzUtter(t,ru,rate,1.25));}catch(e){}},delay);};
 function ac(){if(!A)A=new (window.AudioContext||window.webkitAudioContext)();if(A.state===&#x27;suspended&#x27;)A.resume();return A;}
 function osc(type,f0,f1,t0,dur,vol=.25,filt=null){const a=ac(),o=a.createOscillator(),g=a.createGain(),n=a.currentTime+t0;o.type=type;o.frequency.setValueAtTime(f0,n);
  if(f1)o.frequency.exponentialRampToValueAtTime(f1,n+dur);g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol,n+Math.min(.05,dur/4));g.gain.setValueAtTime(vol,n+dur*.7);g.gain.exponentialRampToValueAtTime(.0001,n+dur);
@@ -232,12 +254,23 @@ const FOOD=[[&quot;🍎&quot;,&quot;Яблоко&quot;],[&quot;🍌&quot;,&quot;
 const FAMILY=[[&quot;👩&quot;,&quot;Мама&quot;],[&quot;👨&quot;,&quot;Папа&quot;],[&quot;👵&quot;,&quot;Бабушка&quot;],[&quot;👴&quot;,&quot;Дедушка&quot;],[&quot;👦&quot;,&quot;Брат&quot;],[&quot;👧&quot;,&quot;Сестра&quot;],[&quot;🧔&quot;,&quot;Дядя&quot;],[&quot;👱‍♀️&quot;,&quot;Тётя&quot;],[&quot;👶&quot;,&quot;Малыш&quot;]];
 const COLORS=[[&quot;#FF4D4D&quot;,&quot;Красный&quot;],[&quot;#FFD21F&quot;,&quot;Жёлтый&quot;],[&quot;#3CC75A&quot;,&quot;Зелёный&quot;],[&quot;#3B7BFF&quot;,&quot;Синий&quot;],[&quot;#FF8C1A&quot;,&quot;Оранжевый&quot;],[&quot;#9B5CFF&quot;,&quot;Фиолетовый&quot;],[&quot;#FF7BC0&quot;,&quot;Розовый&quot;]];
 
+if(KZ){
+ const AK={cat:[&quot;Мысық&quot;,&quot;мияу-мияу&quot;],dog:[&quot;Ит&quot;,&quot;арс-арс&quot;],cow:[&quot;Сиыр&quot;,&quot;мө-ө&quot;],duck:[&quot;Үйрек&quot;,&quot;кря-кря&quot;],bird:[&quot;Құс&quot;,&quot;шиқ-шиқ&quot;],frog:[&quot;Бақа&quot;,&quot;бақ-бақ&quot;],sheep:[&quot;Қозы&quot;,&quot;мә-ә&quot;],pig:[&quot;Шошқа&quot;,&quot;қор-қор&quot;],
+  horse:[&quot;Жылқы&quot;,&quot;иго-го&quot;],rooster:[&quot;Әтеш&quot;,&quot;кукареку&quot;],lion:[&quot;Арыстан&quot;,&quot;р-р-р&quot;],bee:[&quot;Ара&quot;,&quot;ж-ж-ж&quot;],mouse:[&quot;Тышқан&quot;,&quot;шиқ-шиқ&quot;],owl:[&quot;Үкі&quot;,&quot;у-у&quot;],goat:[&quot;Ешкі&quot;,&quot;мә-ә&quot;]};
+ ANIMALS.forEach(a=&gt;{a[1]=AK[a[3]][0];a[2]=AK[a[3]][1];});
+ const TK={car:&quot;Көлік&quot;,train:&quot;Пойыз&quot;,plane:&quot;Ұшақ&quot;,bus:&quot;Автобус&quot;,fire:&quot;Өрт сөндіру көлігі&quot;,amb:&quot;Жедел жәрдем&quot;,heli:&quot;Тікұшақ&quot;,ship:&quot;Кеме&quot;,bike:&quot;Велосипед&quot;,tractor:&quot;Трактор&quot;};
+ TRANSPORT.forEach(a=&gt;a[1]=TK[a[3]]);
+ const FK=[&quot;Алма&quot;,&quot;Банан&quot;,&quot;Алмұрт&quot;,&quot;Құлпынай&quot;,&quot;Апельсин&quot;,&quot;Қарбыз&quot;,&quot;Сәбіз&quot;,&quot;Қияр&quot;,&quot;Қызанақ&quot;,&quot;Жүзім&quot;,&quot;Печенье&quot;,&quot;Сүт&quot;];FOOD.forEach((f,i)=&gt;f[1]=FK[i]);
+ const MK=[&quot;Ана&quot;,&quot;Әке&quot;,&quot;Әже&quot;,&quot;Ата&quot;,&quot;Аға&quot;,&quot;Әпке&quot;,&quot;Көке&quot;,&quot;Тәте&quot;,&quot;Сәби&quot;];FAMILY.forEach((f,i)=&gt;{f[2]=f[1];f[1]=MK[i];});
+ const CK=[&quot;Қызыл&quot;,&quot;Сары&quot;,&quot;Жасыл&quot;,&quot;Көк&quot;,&quot;Қызғылт сары&quot;,&quot;Күлгін&quot;,&quot;Қызғылт&quot;];COLORS.forEach((c,i)=&gt;c[1]=CK[i]);
+ document.title=&#x27;Бөбектер&#x27;;
+}
 /* ================== МЕНЮ ================== */
-const GAMES={animals:[&quot;🐮&quot;,&quot;Кто как говорит&quot;,&quot;#FF9A4D&quot;,animals],transport:[&quot;🚗&quot;,&quot;Транспорт&quot;,&quot;#2FB5C9&quot;,transport],who:[&quot;🚪&quot;,&quot;Тук-тук, кто там?&quot;,&quot;#C27C4E&quot;,whoThere],peek:[&quot;🙈&quot;,&quot;Ку-ку!&quot;,&quot;#E9A23B&quot;,peek],
- face:[&quot;👶&quot;,&quot;Лицо&quot;,&quot;#FF6FA0&quot;,face],body:[&quot;🧍&quot;,&quot;Тело&quot;,&quot;#9C7BFF&quot;,body],family:[&quot;👨‍👩‍👧&quot;,&quot;Моя семья&quot;,&quot;#FF7B7B&quot;,family],
- day:[&quot;🌞&quot;,&quot;День и ночь&quot;,&quot;#4F8BFF&quot;,daynight],food:[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],show:[&quot;👉&quot;,&quot;Покажи, где&quot;,&quot;#7A6CF0&quot;,showme],sleep:[&quot;😴&quot;,&quot;Баю-бай&quot;,&quot;#6C63C7&quot;,sleepy],
- bub:[&quot;🫧&quot;,&quot;Пузыри и цвета&quot;,&quot;#5AB8FF&quot;,bubbles],xylo:[&quot;🎹&quot;,&quot;Ксилофон&quot;,&quot;#4CC46F&quot;,xylo],paint:[&quot;🖍️&quot;,&quot;Рисуем&quot;,&quot;#F08BD8&quot;,paint]};
-const SECTIONS=[[&quot;🔊 Звуки и слова&quot;,[&quot;animals&quot;,&quot;transport&quot;,&quot;who&quot;,&quot;peek&quot;]],[&quot;👶 Я и моя семья&quot;,[&quot;face&quot;,&quot;body&quot;,&quot;family&quot;]],[&quot;🌍 Мир вокруг&quot;,[&quot;day&quot;,&quot;food&quot;,&quot;show&quot;,&quot;sleep&quot;]],[&quot;🎨 Музыка и творчество&quot;,[&quot;bub&quot;,&quot;xylo&quot;,&quot;paint&quot;]]];
+const GAMES={animals:[&quot;🐮&quot;,L(&quot;Кто как говорит&quot;,&quot;Кім қалай дыбыстайды?&quot;),&quot;#FF9A4D&quot;,animals],transport:[&quot;🚗&quot;,L(&quot;Транспорт&quot;,&quot;Көлік&quot;),&quot;#2FB5C9&quot;,transport],who:[&quot;🚪&quot;,L(&quot;Тук-тук, кто там?&quot;,&quot;Тық-тық, кім бар?&quot;),&quot;#C27C4E&quot;,whoThere],peek:[&quot;🙈&quot;,L(&quot;Ку-ку!&quot;,&quot;Кім жасырынды?&quot;),&quot;#E9A23B&quot;,peek],
+ face:[&quot;👶&quot;,L(&quot;Лицо&quot;,&quot;Бет&quot;),&quot;#FF6FA0&quot;,face],body:[&quot;🧍&quot;,L(&quot;Тело&quot;,&quot;Дене&quot;),&quot;#9C7BFF&quot;,body],family:[&quot;👨‍👩‍👧&quot;,L(&quot;Моя семья&quot;,&quot;Менің отбасым&quot;),&quot;#FF7B7B&quot;,family],
+ day:[&quot;🌞&quot;,L(&quot;День и ночь&quot;,&quot;Күн мен түн&quot;),&quot;#4F8BFF&quot;,daynight],food:[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],show:[&quot;👉&quot;,L(&quot;Покажи, где&quot;,&quot;Көрсет&quot;),&quot;#7A6CF0&quot;,showme],sleep:[&quot;😴&quot;,L(&quot;Баю-бай&quot;,&quot;Әлди-әлди&quot;),&quot;#6C63C7&quot;,sleepy],
+ bub:[&quot;🫧&quot;,L(&quot;Пузыри и цвета&quot;,&quot;Көпіршік пен түс&quot;),&quot;#5AB8FF&quot;,bubbles],xylo:[&quot;🎹&quot;,&quot;Ксилофон&quot;,&quot;#4CC46F&quot;,xylo],paint:[&quot;🖍️&quot;,L(&quot;Рисуем&quot;,&quot;Сурет саламыз&quot;),&quot;#F08BD8&quot;,paint]};
+const SECTIONS=[[L(&quot;🔊 Звуки и слова&quot;,&quot;🔊 Дыбыстар мен сөздер&quot;),[&quot;animals&quot;,&quot;transport&quot;,&quot;who&quot;,&quot;peek&quot;]],[L(&quot;👶 Я и моя семья&quot;,&quot;👶 Мен және отбасым&quot;),[&quot;face&quot;,&quot;body&quot;,&quot;family&quot;]],[L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;day&quot;,&quot;food&quot;,&quot;show&quot;,&quot;sleep&quot;]],[L(&quot;🎨 Музыка и творчество&quot;,&quot;🎨 Музыка және шығармашылық&quot;),[&quot;bub&quot;,&quot;xylo&quot;,&quot;paint&quot;]]];
 function home(){reset();
  app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&quot;sec&quot;&gt;${t}&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;${ks.map(k=&gt;{const g=GAMES[k];return `&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`}).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;);
  app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();play(&#x27;pop&#x27;);GAMES[b.dataset.k][3]();});
@@ -247,26 +280,26 @@ document.getElementById(&#x27;homeB&#x27;).onclick=home;
 /* 1. Кто как говорит */
 function animals(){reset();
  app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${ANIMALS.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
- app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=ANIMALS[+b.dataset.i];bump(b);play(a[3]);label(a[2]);speak(`${a[1]} говорит: ${a[2]}!`,900);});
- speak(&#x27;Нажми на зверюшку!&#x27;);
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=ANIMALS[+b.dataset.i];bump(b);play(a[3]);label(a[2]);speak(L(`${a[1]} говорит: ${a[2]}!`,`${a[1]}: ${a[2]}!`),900);});
+ speak(L(&#x27;Нажми на зверюшку!&#x27;,&#x27;Жануарды бас!&#x27;));
 }
 /* 2. Лицо */
 function face(){reset();
- app.innerHTML=`&lt;h2&gt;Где глазки? Где носик?&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;svg viewBox=&quot;0 0 400 430&quot;&gt;
-  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это ушко&quot; cx=&quot;58&quot; cy=&quot;245&quot; rx=&quot;34&quot; ry=&quot;50&quot; fill=&quot;#F7C29A&quot;/&gt;
-  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это ушко&quot; cx=&quot;342&quot; cy=&quot;245&quot; rx=&quot;34&quot; ry=&quot;50&quot; fill=&quot;#F7C29A&quot;/&gt;
-  &lt;ellipse class=&quot;part&quot; data-n=&quot;Это лицо&quot; cx=&quot;200&quot; cy=&quot;240&quot; rx=&quot;150&quot; ry=&quot;165&quot; fill=&quot;#FFD9B8&quot;/&gt;
-  &lt;path class=&quot;part&quot; data-n=&quot;Это волосы&quot; d=&quot;M52 200 C50 90 140 55 200 55 C270 55 352 90 348 200 C330 150 290 120 250 130 C230 100 170 100 150 130 C110 120 70 150 52 200Z&quot; fill=&quot;#8B5A2B&quot;/&gt;
-  &lt;path class=&quot;part&quot; data-n=&quot;Это бровки&quot; d=&quot;M110 175 Q145 155 180 172&quot; stroke=&quot;#6B4220&quot; stroke-width=&quot;12&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
-  &lt;path class=&quot;part&quot; data-n=&quot;Это бровки&quot; d=&quot;M220 172 Q255 155 290 175&quot; stroke=&quot;#6B4220&quot; stroke-width=&quot;12&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
-  &lt;g class=&quot;part&quot; data-n=&quot;Это глазик&quot;&gt;&lt;ellipse cx=&quot;145&quot; cy=&quot;215&quot; rx=&quot;30&quot; ry=&quot;34&quot; fill=&quot;#fff&quot; stroke=&quot;#3A3355&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;149&quot; cy=&quot;220&quot; r=&quot;15&quot; fill=&quot;#3A6BD8&quot;/&gt;&lt;circle cx=&quot;150&quot; cy=&quot;221&quot; r=&quot;8&quot; fill=&quot;#111&quot;/&gt;&lt;circle cx=&quot;154&quot; cy=&quot;214&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
-  &lt;g class=&quot;part&quot; data-n=&quot;Это глазик&quot;&gt;&lt;ellipse cx=&quot;255&quot; cy=&quot;215&quot; rx=&quot;30&quot; ry=&quot;34&quot; fill=&quot;#fff&quot; stroke=&quot;#3A3355&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;251&quot; cy=&quot;220&quot; r=&quot;15&quot; fill=&quot;#3A6BD8&quot;/&gt;&lt;circle cx=&quot;250&quot; cy=&quot;221&quot; r=&quot;8&quot; fill=&quot;#111&quot;/&gt;&lt;circle cx=&quot;254&quot; cy=&quot;214&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
-  &lt;circle class=&quot;part&quot; data-n=&quot;Это щёчки&quot; cx=&quot;118&quot; cy=&quot;290&quot; r=&quot;26&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.75&quot;/&gt;
-  &lt;circle class=&quot;part&quot; data-n=&quot;Это щёчки&quot; cx=&quot;282&quot; cy=&quot;290&quot; r=&quot;26&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.75&quot;/&gt;
-  &lt;path class=&quot;part&quot; data-n=&quot;Это носик&quot; d=&quot;M200 235 C185 270 175 285 200 290 C225 285 215 270 200 235Z&quot; fill=&quot;#F4B48A&quot;/&gt;
-  &lt;path class=&quot;part&quot; data-n=&quot;Это ротик&quot; d=&quot;M145 325 Q200 380 255 325 Q200 345 145 325Z&quot; fill=&quot;#E8505B&quot; stroke=&quot;#B83242&quot; stroke-width=&quot;4&quot;/&gt;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Где глазки? Где носик?&#x27;,&#x27;Көз қайда? Мұрын қайда?&#x27;)}&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;svg viewBox=&quot;0 0 400 430&quot;&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;${L(&#x27;Это ушко&#x27;,&#x27;Бұл — құлақ&#x27;)}&quot; cx=&quot;58&quot; cy=&quot;245&quot; rx=&quot;34&quot; ry=&quot;50&quot; fill=&quot;#F7C29A&quot;/&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;${L(&#x27;Это ушко&#x27;,&#x27;Бұл — құлақ&#x27;)}&quot; cx=&quot;342&quot; cy=&quot;245&quot; rx=&quot;34&quot; ry=&quot;50&quot; fill=&quot;#F7C29A&quot;/&gt;
+  &lt;ellipse class=&quot;part&quot; data-n=&quot;${L(&#x27;Это лицо&#x27;,&#x27;Бұл — бет&#x27;)}&quot; cx=&quot;200&quot; cy=&quot;240&quot; rx=&quot;150&quot; ry=&quot;165&quot; fill=&quot;#FFD9B8&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;${L(&#x27;Это волосы&#x27;,&#x27;Бұл — шаш&#x27;)}&quot; d=&quot;M52 200 C50 90 140 55 200 55 C270 55 352 90 348 200 C330 150 290 120 250 130 C230 100 170 100 150 130 C110 120 70 150 52 200Z&quot; fill=&quot;#8B5A2B&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;${L(&#x27;Это бровки&#x27;,&#x27;Бұл — қас&#x27;)}&quot; d=&quot;M110 175 Q145 155 180 172&quot; stroke=&quot;#6B4220&quot; stroke-width=&quot;12&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;${L(&#x27;Это бровки&#x27;,&#x27;Бұл — қас&#x27;)}&quot; d=&quot;M220 172 Q255 155 290 175&quot; stroke=&quot;#6B4220&quot; stroke-width=&quot;12&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;
+  &lt;g class=&quot;part&quot; data-n=&quot;${L(&#x27;Это глазик&#x27;,&#x27;Бұл — көз&#x27;)}&quot;&gt;&lt;ellipse cx=&quot;145&quot; cy=&quot;215&quot; rx=&quot;30&quot; ry=&quot;34&quot; fill=&quot;#fff&quot; stroke=&quot;#3A3355&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;149&quot; cy=&quot;220&quot; r=&quot;15&quot; fill=&quot;#3A6BD8&quot;/&gt;&lt;circle cx=&quot;150&quot; cy=&quot;221&quot; r=&quot;8&quot; fill=&quot;#111&quot;/&gt;&lt;circle cx=&quot;154&quot; cy=&quot;214&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
+  &lt;g class=&quot;part&quot; data-n=&quot;${L(&#x27;Это глазик&#x27;,&#x27;Бұл — көз&#x27;)}&quot;&gt;&lt;ellipse cx=&quot;255&quot; cy=&quot;215&quot; rx=&quot;30&quot; ry=&quot;34&quot; fill=&quot;#fff&quot; stroke=&quot;#3A3355&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;251&quot; cy=&quot;220&quot; r=&quot;15&quot; fill=&quot;#3A6BD8&quot;/&gt;&lt;circle cx=&quot;250&quot; cy=&quot;221&quot; r=&quot;8&quot; fill=&quot;#111&quot;/&gt;&lt;circle cx=&quot;254&quot; cy=&quot;214&quot; r=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;${L(&#x27;Это щёчки&#x27;,&#x27;Бұл — ұрт&#x27;)}&quot; cx=&quot;118&quot; cy=&quot;290&quot; r=&quot;26&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.75&quot;/&gt;
+  &lt;circle class=&quot;part&quot; data-n=&quot;${L(&#x27;Это щёчки&#x27;,&#x27;Бұл — ұрт&#x27;)}&quot; cx=&quot;282&quot; cy=&quot;290&quot; r=&quot;26&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.75&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;${L(&#x27;Это носик&#x27;,&#x27;Бұл — мұрын&#x27;)}&quot; d=&quot;M200 235 C185 270 175 285 200 290 C225 285 215 270 200 235Z&quot; fill=&quot;#F4B48A&quot;/&gt;
+  &lt;path class=&quot;part&quot; data-n=&quot;${L(&#x27;Это ротик&#x27;,&#x27;Бұл — ауыз&#x27;)}&quot; d=&quot;M145 325 Q200 380 255 325 Q200 345 145 325Z&quot; fill=&quot;#E8505B&quot; stroke=&quot;#B83242&quot; stroke-width=&quot;4&quot;/&gt;
  &lt;/svg&gt;&lt;/div&gt;`;
- bindParts();speak(&#x27;Нажми: где глазки, где носик?&#x27;);
+ bindParts();speak(L(&#x27;Нажми: где глазки, где носик?&#x27;,&#x27;Бас: көз қайда, мұрын қайда?&#x27;));
 }
 /* Человечек (общий для «Тело» и English) */
 function bodySVG(names){const S=&quot;#FFD9B8&quot;,K=&quot;#F2B48C&quot;,SH=&quot;#FFB627&quot;,n=k=&gt;names[k];
@@ -292,22 +325,23 @@ function bodySVG(names){const S=&quot;#FFD9B8&quot;,K=&quot;#F2B48C&quot;,SH=&qu
    &lt;path d=&quot;M140 120 Q160 138 180 120&quot; stroke=&quot;#E8505B&quot; stroke-width=&quot;6&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
  &lt;/svg&gt;`;}
 /* 3. Тело */
+const BODY_KZ={head:&quot;Бұл — бас&quot;,neck:&quot;Бұл — мойын&quot;,body:&quot;Бұл — іш&quot;,arm:&quot;Бұл — қол&quot;,hand:&quot;Бұл — алақан&quot;,leg:&quot;Бұл — аяқ&quot;,knee:&quot;Бұл — тізе&quot;,foot:&quot;Бұл — табан&quot;,shorts:&quot;Бұл — шорт&quot;};
 const BODY_RU={head:&quot;Это голова&quot;,neck:&quot;Это шея&quot;,body:&quot;Это туловище, тут животик&quot;,arm:&quot;Это ручка&quot;,hand:&quot;Это ладошка&quot;,leg:&quot;Это ножка&quot;,knee:&quot;Это коленка&quot;,foot:&quot;Это стопа&quot;,shorts:&quot;Это шортики&quot;};
 function body(){reset();
- app.innerHTML=`&lt;h2&gt;Ручки, ножки, голова&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;${bodySVG(BODY_RU)}&lt;/div&gt;`;
- bindParts();speak(&#x27;Где ручки? Где ножки? Нажимай!&#x27;);
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Ручки, ножки, голова&#x27;,&#x27;Қол, аяқ, бас&#x27;)}&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;${bodySVG(KZ?BODY_KZ:BODY_RU)}&lt;/div&gt;`;
+ bindParts();speak(L(&#x27;Где ручки? Где ножки? Нажимай!&#x27;,&#x27;Қол қайда? Аяқ қайда? Бас!&#x27;));
 }
 function bindParts(){app.querySelectorAll(&#x27;.part&#x27;).forEach(p=&gt;p.addEventListener(&#x27;pointerdown&#x27;,e=&gt;{e.stopPropagation();const n=p.dataset.n;
   app.querySelectorAll(&#x27;.part.lit&#x27;).forEach(x=&gt;x.classList.remove(&#x27;lit&#x27;));
   app.querySelectorAll(`.part[data-n=&quot;${n}&quot;]`).forEach(x=&gt;x.classList.add(&#x27;lit&#x27;));timers.push(setTimeout(()=&gt;app.querySelectorAll(&#x27;.part.lit&#x27;).forEach(x=&gt;x.classList.remove(&#x27;lit&#x27;)),1300));
-  play(&#x27;pop&#x27;);label(n.replace(&#x27;Это &#x27;,&#x27;&#x27;).split(&#x27;,&#x27;)[0]);speak(n+&#x27;!&#x27;,150);}));}
+  play(&#x27;pop&#x27;);label(n.replace(&#x27;Это &#x27;,&#x27;&#x27;).replace(&#x27;Бұл — &#x27;,&#x27;&#x27;).split(&#x27;,&#x27;)[0]);speak(n+&#x27;!&#x27;,150);}));}
 /* 4. День и ночь */
 function daynight(){reset();
  const PH=[
-  {k:&quot;Утро&quot;,ic:&quot;🌅&quot;,sky:&quot;linear-gradient(#FFB88C,#FFE3B3)&quot;,gr:&quot;#7FCB6A&quot;,sun:[12,48],moon:[80,110],who:&quot;🐓&quot;,stars:0,say:&quot;Утро! Петушок кричит: ку-ка-ре-ку! Доброе утро!&quot;,sfx:&quot;rooster&quot;},
-  {k:&quot;День&quot;,ic:&quot;☀️&quot;,sky:&quot;linear-gradient(#5FC3FF,#BFEAFF)&quot;,gr:&quot;#5DC24E&quot;,sun:[42,6],moon:[80,110],who:&quot;🧒&quot;,stars:0,say:&quot;День! Солнышко светит. Гуляем!&quot;,sfx:&quot;morning&quot;},
-  {k:&quot;Вечер&quot;,ic:&quot;🌇&quot;,sky:&quot;linear-gradient(#FF8A65,#9C6ADE)&quot;,gr:&quot;#4E9A47&quot;,sun:[75,52],moon:[80,110],who:&quot;🛁&quot;,stars:.3,say:&quot;Вечер. Солнышко садится. Пора купаться.&quot;,sfx:&quot;twinkle&quot;},
-  {k:&quot;Ночь&quot;,ic:&quot;🌙&quot;,sky:&quot;linear-gradient(#0E1A4A,#2C2F7A)&quot;,gr:&quot;#244A2A&quot;,sun:[80,110],moon:[62,8],who:&quot;😴&quot;,stars:1,say:&quot;Ночь. Луна и звёздочки. Все спят. Баю-бай!&quot;,sfx:&quot;lull&quot;}];
+  {k:L(&quot;Утро&quot;,&quot;Таң&quot;),ic:&quot;🌅&quot;,sky:&quot;linear-gradient(#FFB88C,#FFE3B3)&quot;,gr:&quot;#7FCB6A&quot;,sun:[12,48],moon:[80,110],who:&quot;🐓&quot;,stars:0,say:L(&quot;Утро! Петушок кричит: ку-ка-ре-ку! Доброе утро!&quot;,&quot;Таң атты! Әтеш шақырады: кукареку! Қайырлы таң!&quot;),sfx:&quot;rooster&quot;},
+  {k:L(&quot;День&quot;,&quot;Күндіз&quot;),ic:&quot;☀️&quot;,sky:&quot;linear-gradient(#5FC3FF,#BFEAFF)&quot;,gr:&quot;#5DC24E&quot;,sun:[42,6],moon:[80,110],who:&quot;🧒&quot;,stars:0,say:L(&quot;День! Солнышко светит. Гуляем!&quot;,&quot;Күндіз! Күн жарқырап тұр. Серуендейміз!&quot;),sfx:&quot;morning&quot;},
+  {k:L(&quot;Вечер&quot;,&quot;Кеш&quot;),ic:&quot;🌇&quot;,sky:&quot;linear-gradient(#FF8A65,#9C6ADE)&quot;,gr:&quot;#4E9A47&quot;,sun:[75,52],moon:[80,110],who:&quot;🛁&quot;,stars:.3,say:L(&quot;Вечер. Солнышко садится. Пора купаться.&quot;,&quot;Кеш. Күн батып барады. Шомылатын уақыт.&quot;),sfx:&quot;twinkle&quot;},
+  {k:L(&quot;Ночь&quot;,&quot;Түн&quot;),ic:&quot;🌙&quot;,sky:&quot;linear-gradient(#0E1A4A,#2C2F7A)&quot;,gr:&quot;#244A2A&quot;,sun:[80,110],moon:[62,8],who:&quot;😴&quot;,stars:1,say:L(&quot;Ночь. Луна и звёздочки. Все спят. Баю-бай!&quot;,&quot;Түн. Ай мен жұлдыздар. Бәрі ұйықтап жатыр. Әлди-әлди!&quot;),sfx:&quot;lull&quot;}];
  let i=0;
  app.innerHTML=`&lt;div class=&quot;scene&quot; id=&quot;sc&quot;&gt;&lt;div class=&quot;sun&quot; id=&quot;sun&quot;&gt;☀️&lt;/div&gt;&lt;div class=&quot;moon&quot; id=&quot;moon&quot;&gt;🌙&lt;/div&gt;
    ${Array.from({length:14},(_,j)=&gt;`&lt;div class=&quot;star&quot; style=&quot;left:${(j*37)%92+3}%;top:${(j*23)%40+4}%&quot;&gt;⭐&lt;/div&gt;`).join(&#x27;&#x27;)}
@@ -319,19 +353,19 @@ function daynight(){reset();
   sc.querySelectorAll(&#x27;.star&#x27;).forEach(x=&gt;x.style.opacity=p.stars);const w=document.getElementById(&#x27;who&#x27;);w.textContent=p.who;bump(w);
   document.getElementById(&#x27;cap&#x27;).textContent=p.k;app.querySelectorAll(&#x27;.phases button&#x27;).forEach((b,k)=&gt;b.classList.toggle(&#x27;on&#x27;,k===j));
   if(talk){play(p.sfx);speak(p.say,p.sfx===&#x27;rooster&#x27;?1100:500);}};
- sc.onclick=e=&gt;{if(e.target.classList.contains(&#x27;star&#x27;)){play(&#x27;twinkle&#x27;);bump(e.target);speak(&#x27;Звёздочка!&#x27;);return;}set((i+1)%4);};
+ sc.onclick=e=&gt;{if(e.target.classList.contains(&#x27;star&#x27;)){play(&#x27;twinkle&#x27;);bump(e.target);speak(L(&#x27;Звёздочка!&#x27;,&#x27;Жұлдызша!&#x27;));return;}set((i+1)%4);};
  app.querySelectorAll(&#x27;.phases button&#x27;).forEach(b=&gt;b.onclick=()=&gt;set(+b.dataset.j));
- set(0,false);speak(&#x27;Нажми на картинку: утро, день, вечер, ночь!&#x27;);
+ set(0,false);speak(L(&#x27;Нажми на картинку: утро, день, вечер, ночь!&#x27;,&#x27;Суретті бас: таң, күндіз, кеш, түн!&#x27;));
 }
 /* 5. Семья (можно поставить свои фото) */
 let photos={};try{photos=JSON.parse(localStorage.getItem(&#x27;m_photos&#x27;)||&#x27;{}&#x27;);}catch(e){}
 function family(){reset();
- app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${FAMILY.map((f,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;${photos[f[1]]?`&lt;img class=&quot;photo&quot; src=&quot;${photos[f[1]]}&quot; alt=&quot;&quot;&gt;`:`&lt;span class=&quot;em&quot;&gt;${f[0]}&lt;/span&gt;`}&lt;span class=&quot;nm&quot;&gt;${f[1]}&lt;/span&gt;&lt;span class=&quot;cam&quot; data-c=&quot;${i}&quot; role=&quot;button&quot;&gt;📷&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
-  &lt;p class=&quot;hint&quot;&gt;Для взрослых: нажмите 📷, чтобы поставить настоящую фотографию мамы, папы, бабушки…&lt;/p&gt;`;
+ app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${FAMILY.map((f,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;${photos[f[2]||f[1]]?`&lt;img class=&quot;photo&quot; src=&quot;${photos[f[2]||f[1]]}&quot; alt=&quot;&quot;&gt;`:`&lt;span class=&quot;em&quot;&gt;${f[0]}&lt;/span&gt;`}&lt;span class=&quot;nm&quot;&gt;${f[1]}&lt;/span&gt;&lt;span class=&quot;cam&quot; data-c=&quot;${i}&quot; role=&quot;button&quot;&gt;📷&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;p class=&quot;hint&quot;&gt;${L(&#x27;Для взрослых: нажмите 📷, чтобы поставить настоящую фотографию мамы, папы, бабушки…&#x27;,&#x27;Ересектерге: 📷 басып, ананың, әкенің, әженің шын суретін қойыңыз…&#x27;)}&lt;/p&gt;`;
  app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=e=&gt;{const f=FAMILY[+b.dataset.i];
-  if(e.target.dataset.c!==undefined){pickPhoto(f[1]);return;}
-  bump(b);play(&#x27;yay&#x27;);label(f[1]);speak(f[1]===&#x27;Малыш&#x27;?&#x27;Это малыш! Это ты!&#x27;:`Это ${f[1].toLowerCase()}!`,250);});
- speak(&#x27;Это моя семья!&#x27;);
+  if(e.target.dataset.c!==undefined){pickPhoto(f[2]||f[1]);return;}
+  bump(b);play(&#x27;yay&#x27;);label(f[1]);speak(KZ?(f[1]===&#x27;Сәби&#x27;?&#x27;Бұл — сәби! Бұл сенсің!&#x27;:`Бұл — ${f[1].toLowerCase()}!`):(f[1]===&#x27;Малыш&#x27;?&#x27;Это малыш! Это ты!&#x27;:`Это ${f[1].toLowerCase()}!`),250);});
+ speak(L(&#x27;Это моя семья!&#x27;,&#x27;Бұл — менің отбасым!&#x27;));
 }
 function pickPhoto(name){const inp=document.getElementById(&#x27;file&#x27;);inp.value=&#x27;&#x27;;inp.onchange=()=&gt;{const fl=inp.files[0];if(!fl)return;const img=new Image();const r=new FileReader();
   r.onload=()=&gt;{img.onload=()=&gt;{const c=document.createElement(&#x27;canvas&#x27;),S=320;c.width=c.height=S;const k=Math.max(S/img.width,S/img.height),w=img.width*k,h=img.height*k;
@@ -340,7 +374,7 @@ function pickPhoto(name){const inp=document.getElementById(&#x27;file&#x27;);inp
 function transport(){reset();
  app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${TRANSPORT.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=TRANSPORT[+b.dataset.i];bump(b);play(a[3]);label(a[2]);speak(`${a[1]}: ${a[2]}!`,a[3]===&#x27;plane&#x27;||a[3]===&#x27;fire&#x27;||a[3]===&#x27;amb&#x27;?1800:900);});
- speak(&#x27;Нажми на машинку!&#x27;);
+ speak(L(&#x27;Нажми на машинку!&#x27;,&#x27;Көлікті бас!&#x27;));
 }
 /* 7. Пузыри и цвета */
 function bubbles(){reset();
@@ -350,7 +384,7 @@ function bubbles(){reset();
   b.onpointerdown=()=&gt;{if(b.dataset.p)return;b.dataset.p=1;b.style.animation=&#x27;bpop .28s forwards&#x27;;play(&#x27;pop&#x27;);speak(n+&#x27;!&#x27;);timers.push(setTimeout(()=&gt;b.remove(),300));};
   pond.appendChild(b);timers.push(setTimeout(()=&gt;b.remove(),13000));};
  for(let k=0;k&lt;4;k++)timers.push(setTimeout(spawn,k*400));timers.push(setInterval(spawn,1100));
- speak(&#x27;Лопай пузыри!&#x27;);
+ speak(L(&#x27;Лопай пузыри!&#x27;,&#x27;Көпіршіктерді жар!&#x27;));
 }
 /* 8. Ксилофон */
 function xylo(){reset();
@@ -366,10 +400,10 @@ function xylo(){reset();
 /* 9. Ку-ку */
 function peek(){reset();
  const covers=[&quot;🌳&quot;,&quot;🎁&quot;,&quot;🌷&quot;,&quot;🧺&quot;,&quot;🪣&quot;,&quot;☁️&quot;];const pick=shuffle(ANIMALS).slice(0,6);
- app.innerHTML=`&lt;h2&gt;Кто спрятался?&lt;/h2&gt;&lt;div class=&quot;hide&quot;&gt;${pick.map((a,i)=&gt;`&lt;button class=&quot;box&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;co&quot;&gt;${covers[i]}&lt;/span&gt;&lt;span class=&quot;an&quot;&gt;${a[0]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Кто спрятался?&#x27;,&#x27;Кім жасырынды?&#x27;)}&lt;/h2&gt;&lt;div class=&quot;hide&quot;&gt;${pick.map((a,i)=&gt;`&lt;button class=&quot;box&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;co&quot;&gt;${covers[i]}&lt;/span&gt;&lt;span class=&quot;an&quot;&gt;${a[0]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  app.querySelectorAll(&#x27;.box&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=pick[+b.dataset.i];const open=b.classList.toggle(&#x27;open&#x27;);
-  if(open){play(a[3]);speak(`Ку-ку! Это ${a[1].toLowerCase()}!`,800);}else play(&#x27;pop&#x27;);});
- speak(&#x27;Кто спрятался? Нажми!&#x27;);
+  if(open){play(a[3]);speak(L(`Ку-ку! Это ${a[1].toLowerCase()}!`,`Ку-ку! Бұл — ${a[1].toLowerCase()}!`),800);}else play(&#x27;pop&#x27;);});
+ speak(L(&#x27;Кто спрятался? Нажми!&#x27;,&#x27;Кім жасырынды? Бас!&#x27;));
 }
 /* 10. Покажи, где */
 let sw={};
@@ -377,23 +411,23 @@ function showme(){reset();sw={n:0};swQ();}
 function swQ(){
  const pool=shuffle([...ANIMALS.map(a=&gt;[a[0],a[1],a[3]]),...TRANSPORT.slice(0,4).map(a=&gt;[a[0],a[1],a[3]]),...FOOD.slice(0,6).map(f=&gt;[f[0],f[1],&#x27;yum&#x27;])]);
  const t=pool[0],o=pool[1],opts=shuffle([t,o]);
- const ask=()=&gt;speak(`Где ${t[1].toLowerCase()}?`);
- app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Где ${t[1].toLowerCase()}? &lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+ const q=L(`Где ${t[1].toLowerCase()}?`,`${t[1]} қайда?`);const ask=()=&gt;speak(q);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${q} &lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
   &lt;div class=&quot;two&quot;&gt;${opts.map((x,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${x[0]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
  app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];bump(b);
-  if(x===t){play(&#x27;yay&#x27;);confetti();label(&#x27;Молодец!&#x27;);speak(`Молодец! Вот ${t[1].toLowerCase()}!`,300);app.querySelectorAll(&#x27;.card&#x27;).forEach(c=&gt;c.onclick=null);timers.push(setTimeout(swQ,2600));}
-  else{play(x[2]);speak(`Это ${x[1].toLowerCase()}. А где ${t[1].toLowerCase()}?`,700);}});
+  if(x===t){play(&#x27;yay&#x27;);confetti();label(L(&#x27;Молодец!&#x27;,&#x27;Жарайсың!&#x27;));speak(L(`Молодец! Вот ${t[1].toLowerCase()}!`,`Жарайсың! Міне, ${t[1].toLowerCase()}!`),300);app.querySelectorAll(&#x27;.card&#x27;).forEach(c=&gt;c.onclick=null);timers.push(setTimeout(swQ,2600));}
+  else{play(x[2]);speak(L(`Это ${x[1].toLowerCase()}. А где ${t[1].toLowerCase()}?`,`Бұл — ${x[1].toLowerCase()}. Ал ${t[1].toLowerCase()} қайда?`),700);}});
 }
 /* 11. Ням-ням */
 function food(){reset();
  app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${FOOD.map((f,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot; data-b=&quot;0&quot;&gt;&lt;span class=&quot;em&quot;&gt;${f[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${f[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const f=FOOD[+b.dataset.i];let n=+b.dataset.b+1;const em=b.querySelector(&#x27;.em&#x27;);
   play(&#x27;yum&#x27;);
-  if(n&lt;3){em.style.transform=`scale(${1-n*.25})`;speak(n===1?`${f[1]}. Ам!`:&#x27;Ам! Вкусно!&#x27;);}
-  else{em.style.transform=&#x27;scale(0)&#x27;;speak(&#x27;Всё съели! Ням-ням!&#x27;);timers.push(setTimeout(()=&gt;{em.style.transform=&#x27;scale(1)&#x27;;b.dataset.b=0;play(&#x27;pop&#x27;);},1400));n=0;}
+  if(n&lt;3){em.style.transform=`scale(${1-n*.25})`;speak(n===1?`${f[1]}. Ам!`:L(&#x27;Ам! Вкусно!&#x27;,&#x27;Ам! Дәмді!&#x27;));}
+  else{em.style.transform=&#x27;scale(0)&#x27;;speak(L(&#x27;Всё съели! Ням-ням!&#x27;,&#x27;Бәрін жедік! Ням-ням!&#x27;));timers.push(setTimeout(()=&gt;{em.style.transform=&#x27;scale(1)&#x27;;b.dataset.b=0;play(&#x27;pop&#x27;);},1400));n=0;}
   em.style.transition=&#x27;transform .25s&#x27;;b.dataset.b=n;});
- speak(&#x27;Покорми меня! Нажимай на еду!&#x27;);
+ speak(L(&#x27;Покорми меня! Нажимай на еду!&#x27;,&#x27;Мені тамақтандыр! Тағамды бас!&#x27;));
 }
 /* 12. Рисуем */
 function paint(){reset();
@@ -407,35 +441,36 @@ function paint(){reset();
  c.onpointermove=e=&gt;{if(!down)return;const p=pos(e);g.strokeStyle=col;g.beginPath();g.moveTo(...last);g.lineTo(...p);g.stroke();last=p;const now=Date.now();if(now-lastS&gt;250&amp;&amp;soundOn){lastS=now;osc(&#x27;sine&#x27;,600+Math.random()*700,null,0,.08,.05);}};
  c.onpointerup=c.onpointercancel=()=&gt;{down=false;};
  app.querySelectorAll(&#x27;.pal button[data-c]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{col=b.dataset.c;app.querySelectorAll(&#x27;.pal button&#x27;).forEach(x=&gt;x.classList.remove(&#x27;on&#x27;));b.classList.add(&#x27;on&#x27;);play(&#x27;pop&#x27;);
-  const nm=COLORS.find(x=&gt;x[0]===col);speak(nm?nm[1]:(col===&#x27;#3A3355&#x27;?&#x27;Чёрный&#x27;:&#x27;&#x27;));});
+  const nm=COLORS.find(x=&gt;x[0]===col);speak(nm?nm[1]:(col===&#x27;#3A3355&#x27;?L(&#x27;Чёрный&#x27;,&#x27;Қара&#x27;):&#x27;&#x27;));});
  document.getElementById(&#x27;clr&#x27;).onclick=()=&gt;{g.clearRect(0,0,c.width,c.height);play(&#x27;pop&#x27;);};
  const onR=()=&gt;fit();window.addEventListener(&#x27;resize&#x27;,onR);cleanup=()=&gt;window.removeEventListener(&#x27;resize&#x27;,onR);
- speak(&#x27;Рисуй пальчиком!&#x27;);
+ speak(L(&#x27;Рисуй пальчиком!&#x27;,&#x27;Саусақпен сурет сал!&#x27;));
 }
 /* 13. Тук-тук, кто там? */
 function whoThere(){reset();
  const pick=shuffle(ANIMALS.filter(a=&gt;![&#x27;bee&#x27;,&#x27;mouse&#x27;,&#x27;owl&#x27;].includes(a[3]))).slice(0,2),t=rnd(pick);let open=false;
- app.innerHTML=`&lt;h2&gt;Тук-тук! Кто там?&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;button class=&quot;card&quot; id=&quot;door&quot; style=&quot;width:min(320px,70vw);font-size:0&quot;&gt;&lt;span class=&quot;em&quot; id=&quot;de&quot; style=&quot;font-size:180px&quot;&gt;🚪&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Тук-тук! Кто там?&#x27;,&#x27;Тық-тық! Кім бар?&#x27;)}&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;button class=&quot;card&quot; id=&quot;door&quot; style=&quot;width:min(320px,70vw);font-size:0&quot;&gt;&lt;span class=&quot;em&quot; id=&quot;de&quot; style=&quot;font-size:180px&quot;&gt;🚪&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
   &lt;div class=&quot;two&quot; id=&quot;ch&quot; style=&quot;margin-top:18px;visibility:hidden&quot;&gt;${pick.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  const knock=()=&gt;{if(soundOn){[0,.22,.44].forEach(t=&gt;noise(t,.08,.5,[&#x27;lowpass&#x27;,300]));}};
- document.getElementById(&#x27;door&#x27;).onclick=()=&gt;{if(open){whoThere();return;}knock();bump(document.getElementById(&#x27;door&#x27;));setTimeout(()=&gt;play(t[3]),700);speak(&#x27;Кто там?&#x27;,1900);document.getElementById(&#x27;ch&#x27;).style.visibility=&#x27;visible&#x27;;};
+ document.getElementById(&#x27;door&#x27;).onclick=()=&gt;{if(open){whoThere();return;}knock();bump(document.getElementById(&#x27;door&#x27;));setTimeout(()=&gt;play(t[3]),700);speak(L(&#x27;Кто там?&#x27;,&#x27;Кім бар?&#x27;),1900);document.getElementById(&#x27;ch&#x27;).style.visibility=&#x27;visible&#x27;;};
  app.querySelectorAll(&#x27;#ch .card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=pick[+b.dataset.i];bump(b);
-  if(a===t){open=true;document.getElementById(&#x27;de&#x27;).textContent=t[0];play(&#x27;yay&#x27;);confetti();label(t[1]+&#x27;!&#x27;);speak(`Это ${t[1].toLowerCase()}! ${t[1]} говорит: ${t[2]}!`,300);timers.push(setTimeout(whoThere,4200));}
-  else{play(a[3]);speak(`Это ${a[1].toLowerCase()}, она говорит ${a[2]}. А кто за дверью?`.replace(&#x27;она говорит&#x27;,&#x27;говорит&#x27;),800);}});
- speak(&#x27;Тук-тук! Нажми на дверь!&#x27;);
+  if(a===t){open=true;document.getElementById(&#x27;de&#x27;).textContent=t[0];play(&#x27;yay&#x27;);confetti();label(t[1]+&#x27;!&#x27;);speak(L(`Это ${t[1].toLowerCase()}! ${t[1]} говорит: ${t[2]}!`,`Бұл — ${t[1].toLowerCase()}! ${t[1]}: ${t[2]}!`),300);timers.push(setTimeout(whoThere,4200));}
+  else{play(a[3]);speak(L(`Это ${a[1].toLowerCase()}, говорит ${a[2]}. А кто за дверью?`,`Бұл — ${a[1].toLowerCase()}: ${a[2]}. Ал есік артында кім?`),800);}});
+ speak(L(&#x27;Тук-тук! Нажми на дверь!&#x27;,&#x27;Тық-тық! Есікті бас!&#x27;));
 }
 /* 14. Баю-бай */
 function sleepy(){reset();
- const T=[[&quot;🐻&quot;,&quot;мишка&quot;],[&quot;🐰&quot;,&quot;зайка&quot;],[&quot;🐱&quot;,&quot;котик&quot;],[&quot;🐶&quot;,&quot;собачка&quot;],[&quot;🐥&quot;,&quot;цыплёнок&quot;],[&quot;🐷&quot;,&quot;свинка&quot;]];let left=T.length;
+ const T=KZ?[[&quot;🐻&quot;,&quot;аю&quot;],[&quot;🐰&quot;,&quot;қоян&quot;],[&quot;🐱&quot;,&quot;мысық&quot;],[&quot;🐶&quot;,&quot;күшік&quot;],[&quot;🐥&quot;,&quot;балапан&quot;],[&quot;🐷&quot;,&quot;шошқа&quot;]]:[[&quot;🐻&quot;,&quot;мишка&quot;],[&quot;🐰&quot;,&quot;зайка&quot;],[&quot;🐱&quot;,&quot;котик&quot;],[&quot;🐶&quot;,&quot;собачка&quot;],[&quot;🐥&quot;,&quot;цыплёнок&quot;],[&quot;🐷&quot;,&quot;свинка&quot;]];let left=T.length;
  app.innerHTML=`&lt;div class=&quot;scene&quot; id=&quot;room&quot; style=&quot;background:linear-gradient(#FFE7B8,#FFF5DE);cursor:default&quot;&gt;
-   &lt;div class=&quot;cap&quot; id=&quot;rc&quot;&gt;Уложи всех спать&lt;/div&gt;
+   &lt;div class=&quot;cap&quot; id=&quot;rc&quot;&gt;${L(&quot;Уложи всех спать&quot;,&quot;Бәрін ұйықтат&quot;)}&lt;/div&gt;
    &lt;div class=&quot;cards&quot; style=&quot;position:absolute;left:16px;right:16px;top:90px&quot;&gt;${T.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot; data-z&gt;😃&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/div&gt;`;
  app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.s)return;b.dataset.s=1;const a=T[+b.dataset.i];bump(b);b.querySelector(&#x27;[data-z]&#x27;).textContent=&#x27;😴 💤&#x27;;b.style.background=&#x27;#DCD6F7&#x27;;
-  if(soundOn)osc(&#x27;sine&#x27;,500,300,0,.6,.12);speak(`${a[1]} спит. Баю-бай!`,100);left--;
-  if(!left){const r=document.getElementById(&#x27;room&#x27;);r.style.transition=&#x27;background 1.5s&#x27;;r.style.background=&#x27;linear-gradient(#0E1A4A,#2C2F7A)&#x27;;document.getElementById(&#x27;rc&#x27;).textContent=&#x27;🌙 Спокойной ночи!&#x27;;
-   timers.push(setTimeout(()=&gt;{play(&#x27;lull&#x27;);speak(&#x27;Все уснули. Спокойной ночи!&#x27;,2800);},800));}});
- speak(&#x27;Пора спать! Нажми на каждого, чтобы уложить.&#x27;);
+  if(soundOn)osc(&#x27;sine&#x27;,500,300,0,.6,.12);speak(L(`${a[1]} спит. Баю-бай!`,`${a[1]} ұйықтап жатыр. Әлди-әлди!`),100);left--;
+  if(!left){const r=document.getElementById(&#x27;room&#x27;);r.style.transition=&#x27;background 1.5s&#x27;;r.style.background=&#x27;linear-gradient(#0E1A4A,#2C2F7A)&#x27;;document.getElementById(&#x27;rc&#x27;).textContent=L(&#x27;🌙 Спокойной ночи!&#x27;,&#x27;🌙 Қайырлы түн!&#x27;);
+   timers.push(setTimeout(()=&gt;{play(&#x27;lull&#x27;);speak(L(&#x27;Все уснули. Спокойной ночи!&#x27;,&#x27;Бәрі ұйықтады. Қайырлы түн!&#x27;),2800);},800));}});
+ speak(L(&#x27;Пора спать! Нажми на каждого, чтобы уложить.&#x27;,&#x27;Ұйықтайтын уақыт! Әрқайсысын бас.&#x27;));
 }
+if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Бөбектер&#x27;;}
 home();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -521,7 +556,7 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
 &lt;body&gt;
 &lt;canvas id=&quot;conf&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;label&quot; id=&quot;lbl&quot;&gt;&lt;/div&gt;
 &lt;div class=&quot;wrap&quot;&gt;
- &lt;header&gt;&lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🦊&lt;/span&gt;Почемучки&lt;/div&gt;
+ &lt;header&gt;&lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🦊&lt;/span&gt;&lt;span id=&quot;lgT&quot; style=&quot;font-size:inherit&quot;&gt;Почемучки&lt;/span&gt;&lt;/div&gt;
   &lt;div class=&quot;hb&quot;&gt;&lt;span class=&quot;pill&quot;&gt;⭐ &lt;span id=&quot;stars&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;rb&quot; id=&quot;homeB&quot;&gt;🏠&lt;/button&gt;&lt;button class=&quot;rb&quot; id=&quot;snd&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;
  &lt;main id=&quot;app&quot;&gt;&lt;/main&gt;
  &lt;p class=&quot;voice&quot; id=&quot;vnote&quot;&gt;&lt;/p&gt;
@@ -534,6 +569,18 @@ function pickV(){try{const v=speechSynthesis.getVoices();ru=v.find(x=&gt;/^ru/i.
  document.getElementById(&#x27;vnote&#x27;).textContent=ru?&#x27;&#x27;:&#x27;Чтобы игры говорили, на устройстве нужен русский голос (обычно уже есть в Windows, Android, iPad).&#x27;;}catch(e){}}
 if(&#x27;speechSynthesis&#x27; in window){pickV();speechSynthesis.onvoiceschanged=pickV;}
 function speak(t,delay=0,rate=.85){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;ru-RU&#x27;;if(ru)u.voice=ru;u.rate=rate;u.pitch=1.2;speechSynthesis.speak(u);}catch(e){}},delay);}
+/* ===== Язык: русский / қазақша ===== */
+const LANG=(()=&gt;{try{if(window.parent&amp;&amp;window.parent!==window&amp;&amp;window.parent.APP_LANG)return window.parent.APP_LANG;return localStorage.getItem(&#x27;app_lang&#x27;)||&#x27;ru&#x27;;}catch(e){return &#x27;ru&#x27;;}})();
+const KZ=LANG===&#x27;kz&#x27;;const L=(r,k)=&gt;KZ?k:r;
+let kzV=null;function pickKzV(){try{kzV=speechSynthesis.getVoices().find(x=&gt;/^kk/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickKzV();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickKzV);}
+const KZMAP={&#x27;ә&#x27;:&#x27;э&#x27;,&#x27;Ә&#x27;:&#x27;Э&#x27;,&#x27;ғ&#x27;:&#x27;г&#x27;,&#x27;Ғ&#x27;:&#x27;Г&#x27;,&#x27;қ&#x27;:&#x27;к&#x27;,&#x27;Қ&#x27;:&#x27;К&#x27;,&#x27;ң&#x27;:&#x27;нг&#x27;,&#x27;Ң&#x27;:&#x27;Нг&#x27;,&#x27;ө&#x27;:&#x27;о&#x27;,&#x27;Ө&#x27;:&#x27;О&#x27;,&#x27;ұ&#x27;:&#x27;у&#x27;,&#x27;Ұ&#x27;:&#x27;У&#x27;,&#x27;ү&#x27;:&#x27;у&#x27;,&#x27;Ү&#x27;:&#x27;У&#x27;,&#x27;һ&#x27;:&#x27;х&#x27;,&#x27;Һ&#x27;:&#x27;Х&#x27;,&#x27;і&#x27;:&#x27;ы&#x27;,&#x27;І&#x27;:&#x27;Ы&#x27;};
+const kzFix=t=&gt;String(t).replace(/[әғқңөұүһіӘҒҚҢӨҰҮҺІ]/g,c=&gt;KZMAP[c]);
+let RUONLY=false;
+function kzUtter(t,ruVoice,rate,pitch){const u=new SpeechSynthesisUtterance(kzV?t:kzFix(t));u.lang=kzV?&#x27;kk-KZ&#x27;:&#x27;ru-RU&#x27;;u.voice=kzV||ruVoice||null;u.rate=rate;u.pitch=pitch;return u;}
+const PRAISE_KZ=[&quot;Жарайсың!&quot;,&quot;Дұрыс!&quot;,&quot;Керемет!&quot;,&quot;Тамаша!&quot;,&quot;Ура!&quot;,&quot;Бәрекелді!&quot;];
+
+const _spRU=speak;speak=function(t,delay=0,rate=.85){if(!KZ||RUONLY)return _spRU(t,delay,rate);if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();speechSynthesis.speak(kzUtter(t,ru,rate,1.2));}catch(e){}},delay);};
 function ac(){if(!A)A=new (window.AudioContext||window.webkitAudioContext)();if(A.state===&#x27;suspended&#x27;)A.resume();return A;}
 function osc(type,f0,f1,t0,dur,vol=.22){if(!soundOn)return;try{const a=ac(),o=a.createOscillator(),g=a.createGain(),n=a.currentTime+t0;o.type=type;o.frequency.setValueAtTime(f0,n);if(f1)o.frequency.exponentialRampToValueAtTime(f1,n+dur);
  g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+dur);o.connect(g).connect(a.destination);o.start(n);o.stop(n+dur+.05);}catch(e){}}
@@ -600,96 +647,109 @@ const LETTERS=[[&quot;А&quot;,&quot;v&quot;,&quot;а&quot;,&quot;🍉&quot;,&qu
  [&quot;М&quot;,&quot;c&quot;,&quot;мэ&quot;,&quot;🐭&quot;,&quot;мышка&quot;],[&quot;П&quot;,&quot;c&quot;,&quot;пэ&quot;,&quot;🐧&quot;,&quot;пингвин&quot;],[&quot;Б&quot;,&quot;c&quot;,&quot;бэ&quot;,&quot;🍌&quot;,&quot;банан&quot;],[&quot;Д&quot;,&quot;c&quot;,&quot;дэ&quot;,&quot;🏠&quot;,&quot;дом&quot;],[&quot;К&quot;,&quot;c&quot;,&quot;кэ&quot;,&quot;🐱&quot;,&quot;кошка&quot;],[&quot;Т&quot;,&quot;c&quot;,&quot;тэ&quot;,&quot;🐯&quot;,&quot;тигр&quot;]];
 const NUMS=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;];
 
+const SHN=KZ?{круг:&quot;шеңбер&quot;,квадрат:&quot;шаршы&quot;,треугольник:&quot;үшбұрыш&quot;,звёздочка:&quot;жұлдызша&quot;,сердечко:&quot;жүрекше&quot;,овал:&quot;сопақ&quot;}:null;
+const shn=n=&gt;SHN?SHN[n]:n;
+if(KZ){
+ const CK={red:&quot;қызыл&quot;,yellow:&quot;сары&quot;,green:&quot;жасыл&quot;,blue:&quot;көк&quot;,orange:&quot;қызғылт сары&quot;,purple:&quot;күлгін&quot;};for(const k in COL)COL[k][1]=CK[k];
+ const FK=[[&quot;қоян&quot;,&quot;сәбізді&quot;],[&quot;маймыл&quot;,&quot;бананды&quot;],[&quot;тышқан&quot;,&quot;ірімшікті&quot;],[&quot;аю&quot;,&quot;балды&quot;],[&quot;күшік&quot;,&quot;сүйекті&quot;],[&quot;мысық&quot;,&quot;сүтті&quot;],[&quot;тиін&quot;,&quot;жаңғақты&quot;],[&quot;сиыр&quot;,&quot;шөпті&quot;],[&quot;панда&quot;,&quot;бамбукты&quot;],[&quot;тауық&quot;,&quot;дәнді&quot;]];
+ FEED.forEach((f,i)=&gt;{f[1]=FK[i][0];f[3]=FK[i][1];});
+ const CTK=[&quot;жемістер&quot;,&quot;көліктер&quot;,&quot;жануарлар&quot;,&quot;киімдер&quot;];CATS.forEach((c,i)=&gt;c[0]=CTK[i]);
+ const WK=[[&quot;Қыс, суық. Не киеміз?&quot;,&quot;шарф&quot;],[&quot;Жаңбыр жауып тұр. Не аламыз?&quot;,&quot;қолшатыр&quot;],[&quot;Жаз, ыстық. Не киеміз?&quot;,&quot;күн көзілдірігі&quot;],[&quot;Шалшық! Аяққа не киеміз?&quot;,&quot;етік&quot;],[&quot;Қар! Қолға не киеміз?&quot;,&quot;қолғап&quot;],[&quot;Күн ыстық. Не киеміз?&quot;,&quot;панама&quot;]];
+ WEATHER.forEach((w,i)=&gt;{w[1]=WK[i][0];w[3]=WK[i][1];});
+ const EK=[&quot;көңілді&quot;,&quot;мұңды&quot;,&quot;ашулы&quot;,&quot;таңғалған&quot;,&quot;ұйқылы&quot;];EMO.forEach((e,i)=&gt;e[1]=EK[i]);
+ NUMS.splice(0,NUMS.length,&quot;нөл&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;);
+ PR.splice(0,PR.length,...PRAISE_KZ);
+}
 /* ---------- меню ---------- */
-const G={color:[&quot;🎨&quot;,&quot;Найди цвет&quot;,&quot;#FF6B6B&quot;,gColor],sort:[&quot;🧺&quot;,&quot;Разложи по цветам&quot;,&quot;#FF9A4D&quot;,gSort],shape:[&quot;🔺&quot;,&quot;Фигуры&quot;,&quot;#4F8BFF&quot;,gShape],sorter:[&quot;🧩&quot;,&quot;Вставь фигурку&quot;,&quot;#22B8C8&quot;,gSorter],
- size:[&quot;🐘&quot;,&quot;Большой и маленький&quot;,&quot;#9C7BFF&quot;,gSize],nest:[&quot;📏&quot;,&quot;Поставь по росту&quot;,&quot;#D9822B&quot;,gNest],shadow:[&quot;👤&quot;,&quot;Найди тень&quot;,&quot;#6C6A8A&quot;,gShadow],mem:[&quot;🃏&quot;,&quot;Найди пару&quot;,&quot;#B15CE6&quot;,gMem],
- odd:[&quot;🤔&quot;,&quot;Что лишнее?&quot;,&quot;#2FA37E&quot;,gOdd],opp:[&quot;🔥&quot;,&quot;Наоборот&quot;,&quot;#E8505B&quot;,gOpp],next:[&quot;🐣&quot;,&quot;Что потом?&quot;,&quot;#F0A500&quot;,gNext],puzzle:[&quot;🖼️&quot;,&quot;Собери картинку&quot;,&quot;#F07FB0&quot;,gPuzzle],
- count:[&quot;🔢&quot;,&quot;Считаем до 5&quot;,&quot;#43C26B&quot;,gCount],dice:[&quot;🎲&quot;,&quot;Кубик&quot;,&quot;#3A9BDC&quot;,gDice],
- feed:[&quot;🥕&quot;,&quot;Покорми зверюшку&quot;,&quot;#E8A33B&quot;,gFeed],weather:[&quot;☂️&quot;,&quot;Одень по погоде&quot;,&quot;#3A9BDC&quot;,gWeather],emo:[&quot;😀&quot;,&quot;Настроение&quot;,&quot;#F5B700&quot;,gEmo],
- letters:[&quot;🅰️&quot;,&quot;Первые буквы&quot;,&quot;#F0435A&quot;,gLetters],findl:[&quot;🔍&quot;,&quot;Найди букву&quot;,&quot;#2F6FE4&quot;,gFindL]};
-const SECTIONS=[[&quot;🎨 Цвета и формы&quot;,[&quot;color&quot;,&quot;sort&quot;,&quot;shape&quot;,&quot;sorter&quot;]],[&quot;🧠 Логика и внимание&quot;,[&quot;size&quot;,&quot;nest&quot;,&quot;shadow&quot;,&quot;mem&quot;,&quot;odd&quot;,&quot;opp&quot;,&quot;next&quot;,&quot;puzzle&quot;]],[&quot;🔢 Счёт&quot;,[&quot;count&quot;,&quot;dice&quot;]],[&quot;🌍 Мир вокруг&quot;,[&quot;feed&quot;,&quot;weather&quot;,&quot;emo&quot;]],[&quot;🔤 Буквы&quot;,[&quot;letters&quot;,&quot;findl&quot;]]];
+const G={color:[&quot;🎨&quot;,L(&quot;Найди цвет&quot;,&quot;Түсті тап&quot;),&quot;#FF6B6B&quot;,gColor],sort:[&quot;🧺&quot;,L(&quot;Разложи по цветам&quot;,&quot;Түсіне қарай сал&quot;),&quot;#FF9A4D&quot;,gSort],shape:[&quot;🔺&quot;,L(&quot;Фигуры&quot;,&quot;Пішіндер&quot;),&quot;#4F8BFF&quot;,gShape],sorter:[&quot;🧩&quot;,L(&quot;Вставь фигурку&quot;,&quot;Пішінді орнына қой&quot;),&quot;#22B8C8&quot;,gSorter],
+ size:[&quot;🐘&quot;,L(&quot;Большой и маленький&quot;,&quot;Үлкен және кішкентай&quot;),&quot;#9C7BFF&quot;,gSize],nest:[&quot;📏&quot;,L(&quot;Поставь по росту&quot;,&quot;Бойына қарай қой&quot;),&quot;#D9822B&quot;,gNest],shadow:[&quot;👤&quot;,L(&quot;Найди тень&quot;,&quot;Көлеңкесін тап&quot;),&quot;#6C6A8A&quot;,gShadow],mem:[&quot;🃏&quot;,L(&quot;Найди пару&quot;,&quot;Жұбын тап&quot;),&quot;#B15CE6&quot;,gMem],
+ odd:[&quot;🤔&quot;,L(&quot;Что лишнее?&quot;,&quot;Артығы қайсы?&quot;),&quot;#2FA37E&quot;,gOdd],opp:[&quot;🔥&quot;,L(&quot;Наоборот&quot;,&quot;Керісінше&quot;),&quot;#E8505B&quot;,gOpp],next:[&quot;🐣&quot;,L(&quot;Что потом?&quot;,&quot;Сосын не болады?&quot;),&quot;#F0A500&quot;,gNext],puzzle:[&quot;🖼️&quot;,L(&quot;Собери картинку&quot;,&quot;Суретті құрастыр&quot;),&quot;#F07FB0&quot;,gPuzzle],
+ count:[&quot;🔢&quot;,L(&quot;Считаем до 5&quot;,&quot;5-ке дейін санау&quot;),&quot;#43C26B&quot;,gCount],dice:[&quot;🎲&quot;,L(&quot;Кубик&quot;,&quot;Текше&quot;),&quot;#3A9BDC&quot;,gDice],
+ feed:[&quot;🥕&quot;,L(&quot;Покорми зверюшку&quot;,&quot;Жануарды тамақтандыр&quot;),&quot;#E8A33B&quot;,gFeed],weather:[&quot;☂️&quot;,L(&quot;Одень по погоде&quot;,&quot;Ауа райына қарай киін&quot;),&quot;#3A9BDC&quot;,gWeather],emo:[&quot;😀&quot;,L(&quot;Настроение&quot;,&quot;Көңіл-күй&quot;),&quot;#F5B700&quot;,gEmo],
+ letters:[&quot;🅰️&quot;,L(&quot;Первые буквы&quot;,&quot;Алғашқы әріптер (орысша)&quot;),&quot;#F0435A&quot;,gLetters],findl:[&quot;🔍&quot;,L(&quot;Найди букву&quot;,&quot;Әріпті тап (орысша)&quot;),&quot;#2F6FE4&quot;,gFindL]};
+const SECTIONS=[[L(&quot;🎨 Цвета и формы&quot;,&quot;🎨 Түстер мен пішіндер&quot;),[&quot;color&quot;,&quot;sort&quot;,&quot;shape&quot;,&quot;sorter&quot;]],[L(&quot;🧠 Логика и внимание&quot;,&quot;🧠 Логика және зейін&quot;),[&quot;size&quot;,&quot;nest&quot;,&quot;shadow&quot;,&quot;mem&quot;,&quot;odd&quot;,&quot;opp&quot;,&quot;next&quot;,&quot;puzzle&quot;]],[L(&quot;🔢 Счёт&quot;,&quot;🔢 Санау&quot;),[&quot;count&quot;,&quot;dice&quot;]],[L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;feed&quot;,&quot;weather&quot;,&quot;emo&quot;]],[L(&quot;🔤 Буквы&quot;,&quot;🔤 Әріптер (орысша)&quot;),[&quot;letters&quot;,&quot;findl&quot;]]];
 function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&quot;sec&quot;&gt;${t}&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;${ks.map(k=&gt;{const g=G[k];return `&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`}).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;);
- app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();});}
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();RUONLY=[&#x27;letters&#x27;,&#x27;findl&#x27;].includes(b.dataset.k);});RUONLY=false;}
 document.getElementById(&#x27;homeB&#x27;).onclick=home;
 
 /* 1. Найди цвет */
-function gColor(){reset();const keys=shuffle(Object.keys(COL)).slice(0,3),t=rnd(keys),q=`Где ${COL[t][1]}?`;
+function gColor(){reset();const keys=shuffle(Object.keys(COL)).slice(0,3),t=rnd(keys),q=L(`Где ${COL[t][1]}?`,`${COL[t][1][0].toUpperCase()+COL[t][1].slice(1)} қайда?`);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${keys.map(k=&gt;`&lt;button class=&quot;dot&quot; data-k=&quot;${k}&quot; style=&quot;background:${COL[k][0]}&quot;&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
- app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.k===t){bump(b);good(null,`Да! Это ${COL[t][1]}!`);confetti();app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(gColor,2000);}
-  else{shake(b);sfx.bad();speak(`Это ${COL[b.dataset.k][1]}. А где ${COL[t][1]}?`);}});}
+ app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.k===t){bump(b);good(null,L(`Да! Это ${COL[t][1]}!`,`Иә! Бұл — ${COL[t][1]}!`));confetti();app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(gColor,2000);}
+  else{shake(b);sfx.bad();speak(L(`Это ${COL[b.dataset.k][1]}. А где ${COL[t][1]}?`,`Бұл — ${COL[b.dataset.k][1]}. Ал ${COL[t][1]} қайда?`));}});}
 /* 2. Разложи по цветам */
 function gSort(){reset();const keys=shuffle([&quot;red&quot;,&quot;yellow&quot;,&quot;green&quot;,&quot;blue&quot;]).slice(0,3);const items=shuffle(keys.flatMap(k=&gt;shuffle(COL[k][2]).slice(0,2).map(e=&gt;[e,k])));let left=items.length;
- app.innerHTML=`&lt;h2&gt;Разложи по цветным тарелкам&lt;/h2&gt;&lt;div class=&quot;tray&quot;&gt;${items.map((it,i)=&gt;`&lt;div class=&quot;item&quot; data-i=&quot;${i}&quot;&gt;${it[0]}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
-  &lt;div class=&quot;bowls&quot;&gt;${keys.map(k=&gt;`&lt;div class=&quot;bowl&quot; data-k=&quot;${k}&quot; style=&quot;background:${COL[k][0]}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Разложи по цветам! Перетащи пальчиком.&#x27;);
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Разложи по цветным тарелкам&#x27;,&#x27;Түсті тәрелкелерге сал&#x27;)}&lt;/h2&gt;&lt;div class=&quot;tray&quot;&gt;${items.map((it,i)=&gt;`&lt;div class=&quot;item&quot; data-i=&quot;${i}&quot;&gt;${it[0]}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;bowls&quot;&gt;${keys.map(k=&gt;`&lt;div class=&quot;bowl&quot; data-k=&quot;${k}&quot; style=&quot;background:${COL[k][0]}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Разложи по цветам! Перетащи пальчиком.&#x27;,&#x27;Түсіне қарай сал! Саусақпен сүйре.&#x27;));
  app.querySelectorAll(&#x27;.item&#x27;).forEach(el=&gt;makeDrag(el,under=&gt;{const bowl=under&amp;&amp;under.closest(&#x27;.bowl&#x27;);const it=items[+el.dataset.i];if(!bowl)return;
-  if(bowl.dataset.k===it[1]){bowl.appendChild(el);el.className=&#x27;&#x27;;el.style.fontSize=&#x27;46px&#x27;;star();sfx.snap();speak(COL[it[1]][1]);left--;if(!left){sfx.win();confetti();speak(&#x27;Всё разложили! Молодец!&#x27;,600);later(gSort,3000);}}
-  else{sfx.bad();shake(bowl);speak(`Это не ${COL[bowl.dataset.k][1]}!`);}}));}
+  if(bowl.dataset.k===it[1]){bowl.appendChild(el);el.className=&#x27;&#x27;;el.style.fontSize=&#x27;46px&#x27;;star();sfx.snap();speak(COL[it[1]][1]);left--;if(!left){sfx.win();confetti();speak(L(&#x27;Всё разложили! Молодец!&#x27;,&#x27;Бәрін салдың! Жарайсың!&#x27;),600);later(gSort,3000);}}
+  else{sfx.bad();shake(bowl);speak(L(`Это не ${COL[bowl.dataset.k][1]}!`,`Бұл ${COL[bowl.dataset.k][1]} емес!`));}}));}
 /* 3. Фигуры */
-function gShape(){reset();const names=shuffle(Object.keys(SHAPES)).slice(0,3),t=rnd(names),q=`Где ${t}?`;
+function gShape(){reset();const names=shuffle(Object.keys(SHAPES)).slice(0,3),t=rnd(names),q=L(`Где ${t}?`,`${shn(t)[0].toUpperCase()+shn(t).slice(1)} қайда?`);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${names.map((n,i)=&gt;`&lt;button class=&quot;opt&quot; data-n=&quot;${n}&quot;&gt;${shapeSVG(n,SHCOL[i+Math.floor(Math.random()*3)])}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
- app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.n===t){bump(b);good(b,`Да, это ${t}!`);confetti();app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);later(gShape,2000);}
-  else{shake(b);sfx.bad();speak(`Это ${b.dataset.n}. А где ${t}?`);}});}
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.n===t){bump(b);good(b,L(`Да, это ${t}!`,`Иә, бұл — ${shn(t)}!`));confetti();app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);later(gShape,2000);}
+  else{shake(b);sfx.bad();speak(L(`Это ${b.dataset.n}. А где ${t}?`,`Бұл — ${shn(b.dataset.n)}. Ал ${shn(t)} қайда?`));}});}
 /* 4. Вставь фигурку (сортер) */
 function gSorter(){reset();const names=shuffle(Object.keys(SHAPES)).slice(0,3);let left=3;
- app.innerHTML=`&lt;h2&gt;Вставь фигурку в домик&lt;/h2&gt;&lt;div class=&quot;board&quot;&gt;${names.map(n=&gt;`&lt;div class=&quot;hole&quot; data-n=&quot;${n}&quot;&gt;${shapeSVG(n,&#x27;#7A6A55&#x27;,150)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
-  &lt;div class=&quot;tray&quot;&gt;${shuffle(names).map((n,i)=&gt;`&lt;div class=&quot;item sh&quot; data-n=&quot;${n}&quot; style=&quot;padding:6px&quot;&gt;${shapeSVG(n,SHCOL[i],120)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Вставь фигурку в свой домик!&#x27;);
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Вставь фигурку в домик&#x27;,&#x27;Пішінді үйшігіне сал&#x27;)}&lt;/h2&gt;&lt;div class=&quot;board&quot;&gt;${names.map(n=&gt;`&lt;div class=&quot;hole&quot; data-n=&quot;${n}&quot;&gt;${shapeSVG(n,&#x27;#7A6A55&#x27;,150)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;tray&quot;&gt;${shuffle(names).map((n,i)=&gt;`&lt;div class=&quot;item sh&quot; data-n=&quot;${n}&quot; style=&quot;padding:6px&quot;&gt;${shapeSVG(n,SHCOL[i],120)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Вставь фигурку в свой домик!&#x27;,&#x27;Пішінді өз үйшігіне сал!&#x27;));
  app.querySelectorAll(&#x27;.sh&#x27;).forEach(el=&gt;makeDrag(el,under=&gt;{const h=under&amp;&amp;under.closest(&#x27;.hole&#x27;);if(!h||h.dataset.filled)return;
-  if(h.dataset.n===el.dataset.n){h.dataset.filled=1;h.innerHTML=el.innerHTML.replace(&#x27;width=&quot;120&quot; height=&quot;120&quot;&#x27;,&#x27;width=&quot;150&quot; height=&quot;150&quot;&#x27;);el.remove();star();sfx.snap();speak(el.dataset.n);left--;
-   if(!left){sfx.win();confetti();speak(&#x27;Все фигурки дома! Молодец!&#x27;,600);later(gSorter,3000);}}else{sfx.bad();shake(h);speak(&#x27;Не подходит! Попробуй другой домик.&#x27;);}}));}
+  if(h.dataset.n===el.dataset.n){h.dataset.filled=1;h.innerHTML=el.innerHTML.replace(&#x27;width=&quot;120&quot; height=&quot;120&quot;&#x27;,&#x27;width=&quot;150&quot; height=&quot;150&quot;&#x27;);el.remove();star();sfx.snap();speak(shn(el.dataset.n));left--;
+   if(!left){sfx.win();confetti();speak(L(&#x27;Все фигурки дома! Молодец!&#x27;,&#x27;Барлық пішін орнында! Жарайсың!&#x27;),600);later(gSorter,3000);}}else{sfx.bad();shake(h);speak(L(&#x27;Не подходит! Попробуй другой домик.&#x27;,&#x27;Сыймайды! Басқа үйшікті байқап көр.&#x27;));}}));}
 /* 5. Большой и маленький */
-function gSize(){reset();const o=rnd(OBJ),big=Math.random()&lt;.5,q=`Где ${big?&#x27;большой&#x27;:&#x27;маленький&#x27;}?`,ord=shuffle([1,0]);
+function gSize(){reset();const o=rnd(OBJ),big=Math.random()&lt;.5,q=L(`Где ${big?&#x27;большой&#x27;:&#x27;маленький&#x27;}?`,big?&#x27;Үлкені қайсы?&#x27;:&#x27;Кішкентайы қайсы?&#x27;),ord=shuffle([1,0]);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot; style=&quot;align-items:flex-end&quot;&gt;${ord.map(b=&gt;`&lt;button class=&quot;opt&quot; data-b=&quot;${b}&quot; style=&quot;font-size:${b?170:70}px&quot;&gt;${o[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
- app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(+btn.dataset.b===(big?1:0)){bump(btn);good(btn,big?&#x27;Да! Большой!&#x27;:&#x27;Да! Маленький!&#x27;);later(gSize,1900);app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);}
-  else{shake(btn);sfx.bad();speak(big?&#x27;Это маленький. А где большой?&#x27;:&#x27;Это большой. А где маленький?&#x27;);}});}
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(+btn.dataset.b===(big?1:0)){bump(btn);good(btn,L(big?&#x27;Да! Большой!&#x27;:&#x27;Да! Маленький!&#x27;,big?&#x27;Иә! Үлкені!&#x27;:&#x27;Иә! Кішкентайы!&#x27;));later(gSize,1900);app.querySelectorAll(&#x27;.opt&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{shake(btn);sfx.bad();speak(L(big?&#x27;Это маленький. А где большой?&#x27;:&#x27;Это большой. А где маленький?&#x27;,big?&#x27;Бұл — кішкентайы. Ал үлкені қайсы?&#x27;:&#x27;Бұл — үлкені. Ал кішкентайы қайсы?&#x27;));}});}
 /* 6. Считаем до 5 */
 function gCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c=0;const opts=shuffle([n,...shuffle([1,2,3,4,5].filter(x=&gt;x!==n)).slice(0,2)]);
- app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Посчитай! Нажимай на каждого&lt;/div&gt;&lt;div class=&quot;count&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;span class=&quot;c&quot;&gt;${o[0]}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
-  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Посчитаем? Нажимай на каждого!&#x27;);
- app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();speak(NUMS[c]);if(c===n)speak(`Всего ${NUMS[n]}! Найди цифру ${n}`,900);});
- app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,`Правильно! ${NUMS[n]}!`);confetti();later(gCount,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
-  else{shake(b);sfx.bad();speak(&#x27;Давай посчитаем ещё раз!&#x27;);}});}
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${L(&quot;Посчитай! Нажимай на каждого&quot;,&quot;Санап көр! Әрқайсысын бас&quot;)}&lt;/div&gt;&lt;div class=&quot;count&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;span class=&quot;c&quot;&gt;${o[0]}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Посчитаем? Нажимай на каждого!&#x27;,&#x27;Санайық па? Әрқайсысын бас!&#x27;));
+ app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();speak(NUMS[c]);if(c===n)speak(L(`Всего ${NUMS[n]}! Найди цифру ${n}`,`Барлығы ${NUMS[n]}! ${NUMS[n]} цифрын тап`),900);});
+ app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,L(`Правильно! ${NUMS[n]}!`,`Дұрыс! ${NUMS[n]}!`));confetti();later(gCount,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{shake(b);sfx.bad();speak(L(&#x27;Давай посчитаем ещё раз!&#x27;,&#x27;Қайта санайық!&#x27;));}});}
 /* 7. Покорми зверюшку */
-function gFeed(){reset();const f=rnd(FEED),others=shuffle(FEED.filter(x=&gt;x!==f)).slice(0,2),opts=shuffle([f,...others]),q=`Что любит ${f[1]}?`;
+function gFeed(){reset();const f=rnd(FEED),others=shuffle(FEED.filter(x=&gt;x!==f)).slice(0,2),opts=shuffle([f,...others]),q=L(`Что любит ${f[1]}?`,`${f[1][0].toUpperCase()+f[1].slice(1)} не жақсы көреді?`);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; id=&quot;an&quot; style=&quot;font-size:150px;background:#E7F7EC;box-shadow:none&quot;&gt;${f[0]}&lt;/div&gt;&lt;/div&gt;
   &lt;div class=&quot;opts&quot;&gt;${opts.map((x,i)=&gt;`&lt;button class=&quot;opt&quot; data-i=&quot;${i}&quot; style=&quot;font-size:100px;min-width:150px;min-height:150px&quot;&gt;${x[2]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
- app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];if(x===f){bump(b);bump(document.getElementById(&#x27;an&#x27;));good(b,`Ам-ам! ${f[1][0].toUpperCase()+f[1].slice(1)} любит ${f[3]}!`);later(gFeed,2600);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(b);sfx.bad();speak(`Нет, ${f[1]} не хочет. Попробуй другое!`);}});}
+ app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];if(x===f){bump(b);bump(document.getElementById(&#x27;an&#x27;));good(b,L(`Ам-ам! ${f[1][0].toUpperCase()+f[1].slice(1)} любит ${f[3]}!`,`Ам-ам! ${f[1][0].toUpperCase()+f[1].slice(1)} ${f[3]} жақсы көреді!`));later(gFeed,2600);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(b);sfx.bad();speak(L(`Нет, ${f[1]} не хочет. Попробуй другое!`,`Жоқ, ${f[1]} мұны қаламайды. Басқасын байқап көр!`));}});}
 /* 8. Найди тень */
 function gShadow(){reset();const pool=[&quot;🐘&quot;,&quot;🦒&quot;,&quot;🐰&quot;,&quot;🚗&quot;,&quot;✈️&quot;,&quot;🍎&quot;,&quot;🐢&quot;,&quot;🦋&quot;,&quot;🐟&quot;,&quot;🌲&quot;,&quot;🐓&quot;,&quot;🎸&quot;,&quot;🐌&quot;,&quot;☂️&quot;];const t=rnd(pool),opts=shuffle([t,...shuffle(pool.filter(x=&gt;x!==t)).slice(0,2)]);
- app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Где тень?&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;background:#EAF6FF;box-shadow:none&quot;&gt;${t}&lt;/div&gt;&lt;/div&gt;
-  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot;&gt;&lt;span class=&quot;shadow&quot;&gt;${x}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(&#x27;Найди тень!&#x27;);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${L(&quot;Где тень?&quot;,&quot;Көлеңкесі қайсы?&quot;)}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;background:#EAF6FF;box-shadow:none&quot;&gt;${t}&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot;&gt;&lt;span class=&quot;shadow&quot;&gt;${x}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(L(&#x27;Найди тень!&#x27;,&#x27;Көлеңкесін тап!&#x27;));
  app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===t){b.querySelector(&#x27;span&#x27;).classList.remove(&#x27;shadow&#x27;);bump(b);good(b);confetti();later(gShadow,2000);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(b);sfx.bad();speak(&#x27;Не похоже. Посмотри ещё!&#x27;);}});}
+  else{shake(b);sfx.bad();speak(L(&#x27;Не похоже. Посмотри ещё!&#x27;,&#x27;Ұқсамайды. Тағы қара!&#x27;));}});}
 /* 9. Найди пару */
 function gMem(){reset();const set=shuffle([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🐰&quot;,&quot;🦊&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦁&quot;,&quot;🐷&quot;]).slice(0,4);const cards=shuffle([...set,...set]);let open=[],done=0,lock=false;
- app.innerHTML=`&lt;h2&gt;Найди пару&lt;/h2&gt;&lt;div class=&quot;mem&quot;&gt;${cards.map((e,i)=&gt;`&lt;button class=&quot;mc&quot; data-i=&quot;${i}&quot;&gt;&lt;span&gt;${e}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Открывай карточки и ищи одинаковые!&#x27;);
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Найди пару&#x27;,&#x27;Жұбын тап&#x27;)}&lt;/h2&gt;&lt;div class=&quot;mem&quot;&gt;${cards.map((e,i)=&gt;`&lt;button class=&quot;mc&quot; data-i=&quot;${i}&quot;&gt;&lt;span&gt;${e}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Открывай карточки и ищи одинаковые!&#x27;,&#x27;Карточкаларды аш та, бірдейін тап!&#x27;));
  app.querySelectorAll(&#x27;.mc&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(lock||b.classList.contains(&#x27;open&#x27;)||b.classList.contains(&#x27;done&#x27;))return;b.classList.add(&#x27;open&#x27;);sfx.flip();open.push(b);
   if(open.length===2){lock=true;const [a,c]=open;if(cards[a.dataset.i]===cards[c.dataset.i]){later(()=&gt;{a.classList.add(&#x27;done&#x27;);c.classList.add(&#x27;done&#x27;);sfx.ok();star();open=[];lock=false;done++;
-     if(done===4){sfx.win();confetti();speak(&#x27;Все пары нашли! Ура!&#x27;);later(gMem,3000);}else speak(praise());},500);}
+     if(done===4){sfx.win();confetti();speak(L(&#x27;Все пары нашли! Ура!&#x27;,&#x27;Барлық жұбын таптың! Ура!&#x27;));later(gMem,3000);}else speak(praise());},500);}
    else later(()=&gt;{a.classList.remove(&#x27;open&#x27;);c.classList.remove(&#x27;open&#x27;);open=[];lock=false;},1000);}});}
 /* 10. Собери картинку */
 function gPuzzle(){reset();const e=rnd([&quot;🐶&quot;,&quot;🐱&quot;,&quot;🦁&quot;,&quot;🐸&quot;,&quot;🐼&quot;,&quot;🦄&quot;,&quot;🐵&quot;,&quot;🐷&quot;,&quot;🐯&quot;,&quot;🦊&quot;]);let left=4;
  const piece=(i)=&gt;`&lt;span style=&quot;left:${i%2?&#x27;calc(var(--ps)*-1)&#x27;:&#x27;0&#x27;};top:${i&gt;1?&#x27;calc(var(--ps)*-1)&#x27;:&#x27;0&#x27;}&quot;&gt;${e}&lt;/span&gt;`;
- app.innerHTML=`&lt;h2&gt;Собери картинку&lt;/h2&gt;&lt;div class=&quot;pz&quot;&gt;${[0,1,2,3].map(i=&gt;`&lt;div class=&quot;slot&quot; data-i=&quot;${i}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
-  &lt;div class=&quot;ptray&quot;&gt;${shuffle([0,1,2,3]).map(i=&gt;`&lt;div class=&quot;piece&quot; data-i=&quot;${i}&quot;&gt;${piece(i)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Собери картинку! Перетащи кусочки.&#x27;);
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Собери картинку&#x27;,&#x27;Суретті құрастыр&#x27;)}&lt;/h2&gt;&lt;div class=&quot;pz&quot;&gt;${[0,1,2,3].map(i=&gt;`&lt;div class=&quot;slot&quot; data-i=&quot;${i}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;ptray&quot;&gt;${shuffle([0,1,2,3]).map(i=&gt;`&lt;div class=&quot;piece&quot; data-i=&quot;${i}&quot;&gt;${piece(i)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(L(&#x27;Собери картинку! Перетащи кусочки.&#x27;,&#x27;Суретті құрастыр! Бөліктерін сүйре.&#x27;));
  app.querySelectorAll(&#x27;.piece&#x27;).forEach(el=&gt;makeDrag(el,under=&gt;{const s=under&amp;&amp;under.closest(&#x27;.slot&#x27;);if(!s||s.dataset.f)return;
   if(s.dataset.i===el.dataset.i){s.dataset.f=1;s.style.border=&#x27;none&#x27;;s.innerHTML=piece(+el.dataset.i);el.remove();sfx.snap();star();left--;
-   if(!left){sfx.win();confetti();speak(&#x27;Получилось! Молодец!&#x27;);later(gPuzzle,3000);}}else{sfx.bad();shake(s);}}));}
+   if(!left){sfx.win();confetti();speak(L(&#x27;Получилось! Молодец!&#x27;,&#x27;Шықты! Жарайсың!&#x27;));later(gPuzzle,3000);}}else{sfx.bad();shake(s);}}));}
 /* 11. Что лишнее */
 function gOdd(){reset();const [a,b]=shuffle(CATS);const three=shuffle(a[1]).slice(0,3),odd=rnd(b[1]),opts=shuffle([...three,odd]);
- app.innerHTML=askBar(&#x27;Что лишнее?&#x27;)+`&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:110px;min-width:160px;min-height:160px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(&#x27;Что здесь лишнее?&#x27;);
- app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(btn.dataset.e===odd){bump(btn);good(btn,`Правильно! Остальные — это ${a[0]}.`);confetti();later(gOdd,2600);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(btn);sfx.bad();speak(&#x27;Подумай ещё!&#x27;);}});}
+ app.innerHTML=askBar(L(&#x27;Что лишнее?&#x27;,&#x27;Артығы қайсы?&#x27;))+`&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:110px;min-width:160px;min-height:160px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(L(&#x27;Что здесь лишнее?&#x27;,&#x27;Мұнда артығы қайсы?&#x27;));
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(btn.dataset.e===odd){bump(btn);good(btn,L(`Правильно! Остальные — это ${a[0]}.`,`Дұрыс! Қалғандары — ${a[0]}.`));confetti();later(gOdd,2600);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(btn);sfx.bad();speak(L(&#x27;Подумай ещё!&#x27;,&#x27;Тағы ойлан!&#x27;));}});}
 /* 12. Одень по погоде */
 function gWeather(){reset();const w=rnd(WEATHER),opts=shuffle([w[2],...shuffle(NOTW.filter(x=&gt;x!==w[2]&amp;&amp;!(w[0]===&#x27;❄️&#x27;&amp;&amp;[&#x27;🧣&#x27;,&#x27;🧤&#x27;,&#x27;🥾&#x27;].includes(x))&amp;&amp;!(w[0]===&#x27;🌧️&#x27;&amp;&amp;[&#x27;☂️&#x27;,&#x27;🥾&#x27;].includes(x))&amp;&amp;!(w[0]===&#x27;☀️&#x27;&amp;&amp;[&#x27;🕶️&#x27;,&#x27;🩴&#x27;,&#x27;👙&#x27;].includes(x)))).slice(0,2)]);
  app.innerHTML=askBar(w[1])+`&lt;div class=&quot;weather&quot;&gt;${w[0]}&lt;/div&gt;&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:110px;min-width:160px;min-height:160px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(w[1]);
- app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(btn.dataset.e===w[2]){bump(btn);good(btn,`Правильно! ${w[3][0].toUpperCase()+w[3].slice(1)}!`);later(gWeather,2400);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(btn);sfx.bad();speak(&#x27;Нет, это не подходит. Попробуй ещё!&#x27;);}});}
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(btn=&gt;btn.onclick=()=&gt;{if(btn.dataset.e===w[2]){bump(btn);good(btn,`${L(&#x27;Правильно!&#x27;,&#x27;Дұрыс!&#x27;)} ${w[3][0].toUpperCase()+w[3].slice(1)}!`);later(gWeather,2400);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(btn);sfx.bad();speak(L(&#x27;Нет, это не подходит. Попробуй ещё!&#x27;,&#x27;Жоқ, бұл келмейді. Тағы байқап көр!&#x27;));}});}
 /* 13. Настроение */
-function gEmo(){reset();const opts=shuffle(EMO).slice(0,3),t=rnd(opts),q=`Где ${t[1]} смайлик?`;
+function gEmo(){reset();const opts=shuffle(EMO).slice(0,3),t=rnd(opts),q=L(`Где ${t[1]} смайлик?`,`${t[1][0].toUpperCase()+t[1].slice(1)} смайлик қайсы?`);
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x[0]}&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
- app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=EMO.find(z=&gt;z[0]===b.dataset.e);if(x===t){bump(b);good(b,`Да! Он ${t[1]}!`);later(gEmo,2000);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(b);sfx.bad();speak(`Это ${x[1]}. А где ${t[1]}?`);}});}
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=EMO.find(z=&gt;z[0]===b.dataset.e);if(x===t){bump(b);good(b,L(`Да! Он ${t[1]}!`,`Иә! Ол ${t[1]}!`));later(gEmo,2000);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);}
+  else{shake(b);sfx.bad();speak(L(`Это ${x[1]}. А где ${t[1]}?`,`Бұл — ${x[1]}. Ал ${t[1]} қайсы?`));}});}
 /* 14. Первые буквы */
 function gLetters(){reset();
  app.innerHTML=`&lt;h2&gt;Познакомимся с буквами!&lt;/h2&gt;&lt;div class=&quot;opts&quot;&gt;${LETTERS.map((l,i)=&gt;`&lt;button class=&quot;opt lt ${l[1]}&quot; data-i=&quot;${i}&quot; style=&quot;min-width:150px;min-height:150px;font-size:110px&quot;&gt;${l[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;speak(&#x27;Нажми на букву!&#x27;);
@@ -702,38 +762,42 @@ function gFindL(){reset();const opts=shuffle(LETTERS).slice(0,3),t=rnd(opts),q=`
   else{const l=LETTERS.find(z=&gt;z[0]===b.dataset.l);shake(b);sfx.bad();speak(`Это буква ${l[2]}. А где ${t[2]}?`);}});}
 
 /* ===== Наоборот (противоположности) ===== */
+const OPP_KZ=[[&quot;ыстық&quot;,&quot;суық&quot;],[&quot;күндіз&quot;,&quot;түн&quot;],[&quot;көңілді&quot;,&quot;мұңды&quot;],[&quot;үлкен&quot;,&quot;кішкентай&quot;],[&quot;жылдам&quot;,&quot;баяу&quot;],[&quot;жаз&quot;,&quot;қыс&quot;],[&quot;биік&quot;,&quot;аласа&quot;],[&quot;қарт&quot;,&quot;жас&quot;]];
 const OPP=[[[&quot;🔥&quot;,&quot;горячий&quot;],[&quot;🧊&quot;,&quot;холодный&quot;]],[[&quot;☀️&quot;,&quot;день&quot;],[&quot;🌙&quot;,&quot;ночь&quot;]],[[&quot;😀&quot;,&quot;весёлый&quot;],[&quot;😢&quot;,&quot;грустный&quot;]],[[&quot;🐘&quot;,&quot;большой&quot;],[&quot;🐭&quot;,&quot;маленький&quot;]],
  [[&quot;🐆&quot;,&quot;быстрый&quot;],[&quot;🐌&quot;,&quot;медленный&quot;]],[[&quot;🏖️&quot;,&quot;лето&quot;],[&quot;⛄&quot;,&quot;зима&quot;]],[[&quot;🦒&quot;,&quot;высокий&quot;],[&quot;🐢&quot;,&quot;низкий&quot;]],[[&quot;👴&quot;,&quot;старый&quot;],[&quot;👶&quot;,&quot;молодой&quot;]]];
+if(KZ)OPP.forEach((p,i)=&gt;{p[0][1]=OPP_KZ[i][0];p[1][1]=OPP_KZ[i][1];});
 function gOpp(){reset();const pr=rnd(OPP),flip=Math.random()&lt;.5,a=flip?pr[1]:pr[0],t=flip?pr[0]:pr[1];
- const others=shuffle(OPP.filter(x=&gt;x!==pr).flat()).slice(0,2),opts=shuffle([t,...others]);const q=`${a[1][0].toUpperCase()+a[1].slice(1)}. А наоборот?`;
+ const others=shuffle(OPP.filter(x=&gt;x!==pr).flat()).slice(0,2),opts=shuffle([t,...others]);const q=`${a[1][0].toUpperCase()+a[1].slice(1)}. ${L(&#x27;А наоборот?&#x27;,&#x27;Ал керісінше?&#x27;)}`;
  app.innerHTML=askBar(q)+`&lt;div class=&quot;opts&quot; style=&quot;margin-bottom:20px&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;background:#FFEFE8;box-shadow:none&quot;&gt;${a[0]}&lt;/div&gt;&lt;/div&gt;
   &lt;div class=&quot;opts&quot;&gt;${opts.map((x,i)=&gt;`&lt;button class=&quot;opt&quot; data-i=&quot;${i}&quot; style=&quot;font-size:100px;min-width:150px;min-height:150px&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(q);
  app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];
   if(x===t){bump(b);good(b,`${a[1]} — ${t[1]}!`);label(`${a[1]} — ${t[1]}`);confetti();later(gOpp,2600);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(b);sfx.bad();speak(`Это ${x[1]}. Подумай ещё!`);}});}
+  else{shake(b);sfx.bad();speak(L(`Это ${x[1]}. Подумай ещё!`,`Бұл — ${x[1]}. Тағы ойлан!`));}});}
 /* ===== Поставь по росту ===== */
 function gNest(){reset();const e=rnd([&quot;🐻&quot;,&quot;🐰&quot;,&quot;🌳&quot;,&quot;🏠&quot;,&quot;🐟&quot;,&quot;🎄&quot;]),sizes=[60,90,125,165];let next=0;
  const order=shuffle([0,1,2,3]);
- app.innerHTML=`&lt;h2&gt;Поставь по росту: от маленького к большому&lt;/h2&gt;&lt;div class=&quot;row3&quot; id=&quot;line&quot;&gt;&lt;/div&gt;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Поставь по росту: от маленького к большому&#x27;,&#x27;Бойына қарай қой: кішкентайдан үлкенге&#x27;)}&lt;/h2&gt;&lt;div class=&quot;row3&quot; id=&quot;line&quot;&gt;&lt;/div&gt;
   &lt;div class=&quot;row3&quot; id=&quot;pile&quot;&gt;${order.map(i=&gt;`&lt;button class=&quot;opt&quot; data-i=&quot;${i}&quot; style=&quot;font-size:${sizes[i]}px;min-width:0;min-height:0;padding:10px 14px&quot;&gt;${e}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
- speak(&#x27;Поставь по росту. Сначала самый маленький!&#x27;);
+ speak(L(&#x27;Поставь по росту. Сначала самый маленький!&#x27;,&#x27;Бойына қарай қой. Алдымен ең кішкентайын!&#x27;));
  app.querySelectorAll(&#x27;#pile .opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.i===next){document.getElementById(&#x27;line&#x27;).appendChild(b);b.onclick=null;b.classList.add(&#x27;ok&#x27;);sfx.snap();star();next++;
-   if(next===4){sfx.win();confetti();speak(&#x27;От маленького к большому! Молодец!&#x27;);later(gNest,3000);}else speak([&#x27;Теперь побольше&#x27;,&#x27;Ещё больше&#x27;,&#x27;А теперь самый большой&#x27;][next-1]);}
-  else{shake(b);sfx.bad();speak(&#x27;Найди самый маленький!&#x27;);}});}
+   if(next===4){sfx.win();confetti();speak(L(&#x27;От маленького к большому! Молодец!&#x27;,&#x27;Кішкентайдан үлкенге! Жарайсың!&#x27;));later(gNest,3000);}else speak((KZ?[&#x27;Енді үлкенірегін&#x27;,&#x27;Одан да үлкенін&#x27;,&#x27;Енді ең үлкенін&#x27;]:[&#x27;Теперь побольше&#x27;,&#x27;Ещё больше&#x27;,&#x27;А теперь самый большой&#x27;])[next-1]);}
+  else{shake(b);sfx.bad();speak(L(&#x27;Найди самый маленький!&#x27;,&#x27;Ең кішкентайын тап!&#x27;));}});}
 /* ===== Кубик (точечки) ===== */
 const DOTS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
-function gDice(){reset();const n=1+Math.floor(Math.random()*6),opts=shuffle([n,...shuffle([1,2,3,4,5,6].filter(x=&gt;x!==n)).slice(0,2)]);const NN=[&quot;&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;];
- app.innerHTML=askBar(&#x27;Сколько точек на кубике?&#x27;)+`&lt;div class=&quot;die&quot;&gt;${Array.from({length:9},(_,i)=&gt;DOTS[n].includes(i)?&#x27;&lt;i&gt;&lt;/i&gt;&#x27;:&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
-  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(&#x27;Сколько точек на кубике?&#x27;);
- app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,`Правильно! ${NN[n]}!`);confetti();later(gDice,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
-  else{shake(b);sfx.bad();speak(&#x27;Посчитай точки пальчиком!&#x27;);}});}
+function gDice(){reset();const n=1+Math.floor(Math.random()*6),opts=shuffle([n,...shuffle([1,2,3,4,5,6].filter(x=&gt;x!==n)).slice(0,2)]);const NN=KZ?[&quot;&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;,&quot;алты&quot;]:[&quot;&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;];
+ app.innerHTML=askBar(L(&#x27;Сколько точек на кубике?&#x27;,&#x27;Текшеде неше нүкте бар?&#x27;))+`&lt;div class=&quot;die&quot;&gt;${Array.from({length:9},(_,i)=&gt;DOTS[n].includes(i)?&#x27;&lt;i&gt;&lt;/i&gt;&#x27;:&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(L(&#x27;Сколько точек на кубике?&#x27;,&#x27;Текшеде неше нүкте бар?&#x27;));
+ app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);good(b,`${L(&#x27;Правильно!&#x27;,&#x27;Дұрыс!&#x27;)} ${NN[n]}!`);confetti();later(gDice,2200);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{shake(b);sfx.bad();speak(L(&#x27;Посчитай точки пальчиком!&#x27;,&#x27;Нүктелерді саусақпен сана!&#x27;));}});}
 /* ===== Что потом? ===== */
+const SEQ_KZ=[&quot;Жұмыртқадан балапан шықты!&quot;,&quot;Өскін өсіп, гүл ашты!&quot;,&quot;Таң, күндіз, сосын түн!&quot;,&quot;Бұлт, жаңбыр, сосын кемпірқосақ!&quot;,&quot;Сәби өсті!&quot;,&quot;Мұз еріді, су бұлтқа айналды!&quot;];
 const SEQ=[[&quot;🥚&quot;,&quot;🐣&quot;,&quot;🐥&quot;,&quot;Из яичка вылупился цыплёнок!&quot;],[&quot;🌱&quot;,&quot;🌿&quot;,&quot;🌻&quot;,&quot;Росток вырос и расцвёл!&quot;],[&quot;🌅&quot;,&quot;☀️&quot;,&quot;🌙&quot;,&quot;Утро, день, а потом ночь!&quot;],[&quot;☁️&quot;,&quot;🌧️&quot;,&quot;🌈&quot;,&quot;Туча, дождь, а потом радуга!&quot;],[&quot;👶&quot;,&quot;🧒&quot;,&quot;🧑&quot;,&quot;Малыш вырос!&quot;],[&quot;🧊&quot;,&quot;💧&quot;,&quot;☁️&quot;,&quot;Лёд растаял, а вода стала облаком!&quot;]];
+if(KZ)SEQ.forEach((s,i)=&gt;s[3]=SEQ_KZ[i]);
 function gNext(){reset();const s=rnd(SEQ),others=shuffle(SEQ.filter(x=&gt;x!==s).map(x=&gt;x[2])).slice(0,2),opts=shuffle([s[2],...others]);
- app.innerHTML=askBar(&#x27;Что будет потом?&#x27;)+`&lt;div class=&quot;row3&quot; style=&quot;min-height:0&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;box-shadow:none&quot;&gt;${s[0]}&lt;/div&gt;&lt;div style=&quot;font-size:60px&quot;&gt;➡️&lt;/div&gt;&lt;div class=&quot;opt&quot; style=&quot;box-shadow:none&quot;&gt;${s[1]}&lt;/div&gt;&lt;div style=&quot;font-size:60px&quot;&gt;➡️&lt;/div&gt;&lt;div class=&quot;opt&quot; style=&quot;box-shadow:none;border:6px dashed #FFC83D;background:#fff;color:#FFC83D&quot;&gt;?&lt;/div&gt;&lt;/div&gt;
-  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:100px;min-width:150px;min-height:150px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(&#x27;Что будет потом?&#x27;);
+ app.innerHTML=askBar(L(&#x27;Что будет потом?&#x27;,&#x27;Сосын не болады?&#x27;))+`&lt;div class=&quot;row3&quot; style=&quot;min-height:0&quot;&gt;&lt;div class=&quot;opt&quot; style=&quot;box-shadow:none&quot;&gt;${s[0]}&lt;/div&gt;&lt;div style=&quot;font-size:60px&quot;&gt;➡️&lt;/div&gt;&lt;div class=&quot;opt&quot; style=&quot;box-shadow:none&quot;&gt;${s[1]}&lt;/div&gt;&lt;div style=&quot;font-size:60px&quot;&gt;➡️&lt;/div&gt;&lt;div class=&quot;opt&quot; style=&quot;box-shadow:none;border:6px dashed #FFC83D;background:#fff;color:#FFC83D&quot;&gt;?&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt&quot; data-e=&quot;${x}&quot; style=&quot;font-size:100px;min-width:150px;min-height:150px&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;bindAsk(L(&#x27;Что будет потом?&#x27;,&#x27;Сосын не болады?&#x27;));
  app.querySelectorAll(&#x27;button.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===s[2]){bump(b);good(b,s[3]);confetti();later(gNext,3000);app.querySelectorAll(&#x27;button.opt&#x27;).forEach(z=&gt;z.onclick=null);}
-  else{shake(b);sfx.bad();speak(&#x27;Подумай, что бывает дальше!&#x27;);}});}
+  else{shake(b);sfx.bad();speak(L(&#x27;Подумай, что бывает дальше!&#x27;,&#x27;Сосын не болатынын ойлан!&#x27;));}});}
 
 /* ===== English ===== */
 const EN_COL=[[&quot;#FF4D4D&quot;,&quot;red&quot;,&quot;красный&quot;],[&quot;#FFD21F&quot;,&quot;yellow&quot;,&quot;жёлтый&quot;],[&quot;#3CC75A&quot;,&quot;green&quot;,&quot;зелёный&quot;],[&quot;#3B7BFF&quot;,&quot;blue&quot;,&quot;синий&quot;],[&quot;#FF8C1A&quot;,&quot;orange&quot;,&quot;оранжевый&quot;],[&quot;#9B5CFF&quot;,&quot;purple&quot;,&quot;фиолетовый&quot;],[&quot;#FF7BC0&quot;,&quot;pink&quot;,&quot;розовый&quot;]];
@@ -760,6 +824,7 @@ function eCount(){reset();const n=1+Math.floor(Math.random()*5),o=rnd(OBJ);let c
  app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();speakEn(EN_N[c]);});
  app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(+b.dataset.n===n){bump(b);b.classList.add(&#x27;ok&#x27;);star();sfx.ok();confetti();speakEn(`Yes! ${EN_N[n]}!`);label(`${n} — ${EN_N[n]}`);later(eCount,2300);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
   else{shake(b);sfx.bad();speakEn(EN_N[+b.dataset.n]+&#x27;. Try again!&#x27;);}});}
+if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Білгіштер&#x27;;document.title=&#x27;Білгіштер&#x27;;}
 home();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -944,7 +1009,7 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:15}
 &lt;div class=&quot;toast&quot; id=&quot;toast&quot;&gt;⭐&lt;/div&gt;
 &lt;div class=&quot;wrap&quot;&gt;
   &lt;header&gt;
-    &lt;div class=&quot;logo&quot; id=&quot;home&quot;&gt;&lt;span&gt;🦉&lt;/span&gt;Скоро в школу&lt;/div&gt;
+    &lt;div class=&quot;logo&quot; id=&quot;home&quot;&gt;&lt;span&gt;🦉&lt;/span&gt;&lt;span id=&quot;lgT&quot; style=&quot;font-size:inherit&quot;&gt;Скоро в школу&lt;/span&gt;&lt;/div&gt;
     &lt;div class=&quot;hbtns&quot;&gt;&lt;span class=&quot;pill&quot;&gt;⭐ &lt;span id=&quot;stars&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;round&quot; id=&quot;snd&quot; title=&quot;Звук&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
   &lt;/header&gt;
   &lt;main class=&quot;panel&quot; id=&quot;app&quot;&gt;&lt;/main&gt;
@@ -1009,6 +1074,18 @@ document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.curre
 let enVoice=null;
 function pickEn(){try{const v=speechSynthesis.getVoices();enVoice=v.find(x=&gt;/^en[-_]US/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^en[-_](US|GB)/i.test(x.lang))||v.find(x=&gt;/^en/i.test(x.lang))||null;}catch(e){}}
 if(&#x27;speechSynthesis&#x27; in window){pickEn();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickEn);}
+/* ===== Язык: русский / қазақша ===== */
+const LANG=(()=&gt;{try{if(window.parent&amp;&amp;window.parent!==window&amp;&amp;window.parent.APP_LANG)return window.parent.APP_LANG;return localStorage.getItem(&#x27;app_lang&#x27;)||&#x27;ru&#x27;;}catch(e){return &#x27;ru&#x27;;}})();
+const KZ=LANG===&#x27;kz&#x27;;const TT=(r,k)=&gt;KZ?k:r;
+let kzV=null;function pickKzV(){try{kzV=speechSynthesis.getVoices().find(x=&gt;/^kk/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickKzV();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickKzV);}
+const KZMAP={&#x27;ә&#x27;:&#x27;э&#x27;,&#x27;Ә&#x27;:&#x27;Э&#x27;,&#x27;ғ&#x27;:&#x27;г&#x27;,&#x27;Ғ&#x27;:&#x27;Г&#x27;,&#x27;қ&#x27;:&#x27;к&#x27;,&#x27;Қ&#x27;:&#x27;К&#x27;,&#x27;ң&#x27;:&#x27;нг&#x27;,&#x27;Ң&#x27;:&#x27;Нг&#x27;,&#x27;ө&#x27;:&#x27;о&#x27;,&#x27;Ө&#x27;:&#x27;О&#x27;,&#x27;ұ&#x27;:&#x27;у&#x27;,&#x27;Ұ&#x27;:&#x27;У&#x27;,&#x27;ү&#x27;:&#x27;у&#x27;,&#x27;Ү&#x27;:&#x27;У&#x27;,&#x27;һ&#x27;:&#x27;х&#x27;,&#x27;Һ&#x27;:&#x27;Х&#x27;,&#x27;і&#x27;:&#x27;ы&#x27;,&#x27;І&#x27;:&#x27;Ы&#x27;};
+const kzFix=t=&gt;String(t).replace(/[әғқңөұүһіӘҒҚҢӨҰҮҺІ]/g,c=&gt;KZMAP[c]);
+let RUONLY=false;
+function kzUtter(t,ruVoice,rate,pitch){const u=new SpeechSynthesisUtterance(kzV?t:kzFix(t));u.lang=kzV?&#x27;kk-KZ&#x27;:&#x27;ru-RU&#x27;;u.voice=kzV||ruVoice||null;u.rate=rate;u.pitch=pitch;return u;}
+const PRAISE_KZ=[&quot;Жарайсың!&quot;,&quot;Дұрыс!&quot;,&quot;Керемет!&quot;,&quot;Тамаша!&quot;,&quot;Ура!&quot;,&quot;Бәрекелді!&quot;];
+
+const _spRU=speak;speak=function(t,rate=.8,r2){if(r2!==undefined)rate=r2;if(!KZ||RUONLY)return _spRU(t,rate);if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;try{speechSynthesis.cancel();speechSynthesis.speak(kzUtter(t,ruVoice,rate,1.15));}catch(e){}};
 function speakEn(t,delay=0){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;en-US&#x27;;if(enVoice)u.voice=enVoice;u.rate=.8;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}},delay);}
 const ABC_EN=[[&quot;A&quot;,&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;B&quot;,&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;C&quot;,&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;D&quot;,&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;E&quot;,&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;F&quot;,&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;G&quot;,&quot;🍇&quot;,&quot;grapes&quot;,&quot;виноград&quot;],
  [&quot;H&quot;,&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;I&quot;,&quot;🍦&quot;,&quot;ice cream&quot;,&quot;мороженое&quot;],[&quot;J&quot;,&quot;🧃&quot;,&quot;juice&quot;,&quot;сок&quot;],[&quot;K&quot;,&quot;🪁&quot;,&quot;kite&quot;,&quot;воздушный змей&quot;],[&quot;L&quot;,&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],[&quot;M&quot;,&quot;🌙&quot;,&quot;moon&quot;,&quot;луна&quot;],[&quot;N&quot;,&quot;👃&quot;,&quot;nose&quot;,&quot;нос&quot;],
@@ -1028,19 +1105,29 @@ let stars=0,learned={};try{stars=+localStorage.getItem(&#x27;az_stars&#x27;)||0;
 const starsEl=document.getElementById(&#x27;stars&#x27;);starsEl.textContent=stars;
 function save(){try{localStorage.setItem(&#x27;az_stars&#x27;,stars);localStorage.setItem(&#x27;az_learned&#x27;,JSON.stringify(learned));}catch(e){}}
 function star(){stars++;starsEl.textContent=stars;save();const t=document.getElementById(&#x27;toast&#x27;);t.textContent=[&quot;⭐&quot;,&quot;🌟&quot;,&quot;🎉&quot;,&quot;👏&quot;,&quot;🏆&quot;][Math.floor(Math.random()*5)];t.classList.add(&#x27;show&#x27;);setTimeout(()=&gt;t.classList.remove(&#x27;show&#x27;),700);}
-const PRAISE=[&quot;Молодец!&quot;,&quot;Умница!&quot;,&quot;Правильно!&quot;,&quot;Отлично!&quot;,&quot;Ура!&quot;,&quot;Здорово!&quot;];
+const PRAISE=[&quot;Молодец!&quot;,&quot;Умница!&quot;,&quot;Правильно!&quot;,&quot;Отлично!&quot;,&quot;Ура!&quot;,&quot;Здорово!&quot;];if(KZ)PRAISE.splice(0,PRAISE.length,...PRAISE_KZ);
 const praise=()=&gt;PRAISE[Math.floor(Math.random()*PRAISE.length)];
 const rnd=a=&gt;a[Math.floor(Math.random()*a.length)];
 const shuffle=a=&gt;{a=[...a];for(let i=a.length-1;i&gt;0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const cls=l=&gt;BY[l][1];
 const app=document.getElementById(&#x27;app&#x27;);
 let timers=[];const clearT=()=&gt;{timers.forEach(clearTimeout);timers.forEach(clearInterval);timers=[];};
-function back(){return `&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;🏠 Меню&lt;/button&gt;`;}
+function back(){return `&lt;button class=&quot;big-btn y&quot; onclick=&quot;home()&quot;&gt;🏠 ${TT(&#x27;Меню&#x27;,&#x27;Мәзір&#x27;)}&lt;/button&gt;`;}
 
 /* ===== Меню ===== */
 function home(){clearT();
   app.innerHTML=`&lt;div class=&quot;sec&quot;&gt;🔤 Буквы и звуки&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;&lt;button class=&quot;tile t1&quot; onclick=&quot;abc()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Азбука&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t2&quot; onclick=&quot;findLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔍&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди букву&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t3&quot; onclick=&quot;firstLetter()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🐱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Первая буква&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t6&quot; onclick=&quot;vowelGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎵&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Поющие буквы&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t5&quot; onclick=&quot;balloons()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎈&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Лопни шарик&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t20&quot; onclick=&quot;wherePos()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📍&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Где буква?&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;sec&quot;&gt;📖 Слоги и чтение&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;&lt;button class=&quot;tile t4&quot; onclick=&quot;mergeGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏃&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Бежит к букве&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t11&quot; onclick=&quot;sylGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;👏&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Сколько слогов?&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t7&quot; onclick=&quot;picWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🖼️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Найди слово&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t8&quot; onclick=&quot;readMenu()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📖&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Читаем слова&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t10&quot; onclick=&quot;buildWord()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🧱&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Собери слово&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t21&quot; onclick=&quot;rebus()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🧩&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Ребусы&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t9&quot; onclick=&quot;sayGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🎤&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Скажи слово&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;sec&quot;&gt;🔢 Математика&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;&lt;button class=&quot;tile t12&quot; onclick=&quot;count10()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔟&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Считаем до 10&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t13&quot; onclick=&quot;cmpGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;⚖️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Больше, меньше&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t15&quot; onclick=&quot;nbGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏘️&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Соседи числа&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t14&quot; onclick=&quot;patGame()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🔁&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Продолжи ряд&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t22&quot; onclick=&quot;house()&quot;&gt;&lt;span class=&quot;e&quot;&gt;🏠&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Состав числа&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t16&quot; onclick=&quot;addSub()&quot;&gt;&lt;span class=&quot;e&quot;&gt;➕&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Плюс и минус&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;tile t23&quot; onclick=&quot;tasks()&quot;&gt;&lt;span class=&quot;e&quot;&gt;📝&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;Задачки&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;`;
 }
+const MATHF=[&quot;count10&quot;,&quot;cmpGame&quot;,&quot;nbGame&quot;,&quot;patGame&quot;,&quot;house&quot;,&quot;addSub&quot;,&quot;tasks&quot;];
+const _homeRU=home;home=function(){_homeRU();RUONLY=false;
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;{const fn=(b.getAttribute(&#x27;onclick&#x27;)||&#x27;&#x27;).replace(&#x27;()&#x27;,&#x27;&#x27;);b.addEventListener(&#x27;pointerdown&#x27;,()=&gt;{RUONLY=KZ&amp;&amp;!MATHF.includes(fn);},true);b.addEventListener(&#x27;keydown&#x27;,()=&gt;{RUONLY=KZ&amp;&amp;!MATHF.includes(fn);},true);});
+ if(!KZ)return;
+ const TN={&quot;Считаем до 10&quot;:&quot;10-ға дейін санау&quot;,&quot;Больше, меньше&quot;:&quot;Артық, кем&quot;,&quot;Соседи числа&quot;:&quot;Санның көршілері&quot;,&quot;Продолжи ряд&quot;:&quot;Қатарды жалғастыр&quot;,&quot;Состав числа&quot;:&quot;Санның құрамы&quot;,&quot;Плюс и минус&quot;:&quot;Қосу және азайту&quot;,&quot;Задачки&quot;:&quot;Есептер&quot;};
+ app.querySelectorAll(&#x27;.tile .t&#x27;).forEach(t=&gt;{if(TN[t.textContent])t.textContent=TN[t.textContent];});
+ const secs=[...app.querySelectorAll(&#x27;.sec&#x27;)];const SN={&quot;🔤 Буквы и звуки&quot;:&quot;🔤 Әріптер мен дыбыстар · орысша&quot;,&quot;📖 Слоги и чтение&quot;:&quot;📖 Буындар және оқу · орысша&quot;,&quot;🔢 Математика&quot;:&quot;🔢 Математика&quot;};
+ secs.forEach(s=&gt;{s.textContent=SN[s.textContent]||s.textContent;});
+ const math=secs.find(s=&gt;s.textContent===&quot;🔢 Математика&quot;);if(math){const menu=math.nextElementSibling;app.prepend(menu);app.prepend(math);}
+};
 document.getElementById(&#x27;home&#x27;).onclick=home;
 
 /* ===== 1. Азбука ===== */
@@ -1404,71 +1491,72 @@ function syQ(){
 }
 /* ===== 12. Считаем до 10 ===== */
 let c10={n:0,ok:0};
-const N10=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;,&quot;восемь&quot;,&quot;девять&quot;,&quot;десять&quot;];
+const N10=KZ?[&quot;нөл&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;,&quot;алты&quot;,&quot;жеті&quot;,&quot;сегіз&quot;,&quot;тоғыз&quot;,&quot;он&quot;]:[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;,&quot;восемь&quot;,&quot;девять&quot;,&quot;десять&quot;];
 function count10(){clearT();c10={n:0,ok:0};c10Q();}
 function c10Q(){
   if(c10.n&gt;=8) return finish(c10.ok,8,count10);
   const n=1+Math.floor(Math.random()*10),e=rnd([&quot;🍎&quot;,&quot;🐟&quot;,&quot;⭐&quot;,&quot;🎈&quot;,&quot;🐞&quot;,&quot;🍓&quot;,&quot;🚗&quot;,&quot;🌸&quot;,&quot;🐥&quot;,&quot;🍪&quot;]);let c=0,tries=0;
   const opts=shuffle([n,...shuffle([1,2,3,4,5,6,7,8,9,10].filter(x=&gt;x!==n&amp;&amp;Math.abs(x-n)&lt;=3)).slice(0,2)]);
-  app.innerHTML=`&lt;h2&gt;Сколько здесь? Нажимай и считай!&lt;/h2&gt;&lt;div class=&quot;cnt&quot;&gt;${Array.from({length:n},()=&gt;`&lt;span&gt;${e}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(&#x27;Сколько здесь? Нажимай и считай!&#x27;,&#x27;Мұнда нешеу? Басып сана!&#x27;)}&lt;/h2&gt;&lt;div class=&quot;cnt&quot;&gt;${Array.from({length:n},()=&gt;`&lt;span&gt;${e}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;ch c&quot; data-n=&quot;${x}&quot; style=&quot;color:#3D63D8&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(c10.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
-  speak(&#x27;Посчитай и выбери цифру!&#x27;);
+  speak(TT(&#x27;Посчитай и выбери цифру!&#x27;,&#x27;Санап, цифрды таңда!&#x27;));
   app.querySelectorAll(&#x27;.cnt span&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);tone(&#x27;pop&#x27;);speak(N10[c],0,1);});
   app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{
     if(+b.dataset.n===n){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=null);if(!tries){c10.ok++;star();}tone(&#x27;ok&#x27;);speak(`${praise()} ${N10[n]}!`);c10.n++;timers.push(setTimeout(c10Q,1800));}
-    else{tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(&#x27;Посчитай ещё раз!&#x27;);}});
+    else{tries++;b.classList.add(&#x27;no&#x27;,&#x27;shake&#x27;);tone(&#x27;bad&#x27;);speak(TT(&#x27;Посчитай ещё раз!&#x27;,&#x27;Қайта сана!&#x27;));}});
 }
 
 
 /* ===== МАТЕМАТИКА ===== */
 const N20=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;,&quot;восемь&quot;,&quot;девять&quot;,&quot;десять&quot;,&quot;одиннадцать&quot;,&quot;двенадцать&quot;,&quot;тринадцать&quot;,&quot;четырнадцать&quot;,&quot;пятнадцать&quot;,&quot;шестнадцать&quot;,&quot;семнадцать&quot;,&quot;восемнадцать&quot;,&quot;девятнадцать&quot;,&quot;двадцать&quot;];
+if(KZ)N20.splice(0,N20.length,&quot;нөл&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;,&quot;алты&quot;,&quot;жеті&quot;,&quot;сегіз&quot;,&quot;тоғыз&quot;,&quot;он&quot;,&quot;он бір&quot;,&quot;он екі&quot;,&quot;он үш&quot;,&quot;он төрт&quot;,&quot;он бес&quot;,&quot;он алты&quot;,&quot;он жеті&quot;,&quot;он сегіз&quot;,&quot;он тоғыз&quot;,&quot;жиырма&quot;);
 function mathRound(st,q,again){if(st.n&gt;=8)return finish(st.ok,8,again);q();}
 function mathOK(st,b,say,next){if(b){b.classList.add(&#x27;ok&#x27;);}app.querySelectorAll(&#x27;.ch,.opt&#x27;).forEach(x=&gt;x.onclick=null);if(!st.tries){st.ok++;star();}tone(&#x27;ok&#x27;);speak(say);st.n++;timers.push(setTimeout(next,2300));}
-function mathBad(st,b,say){st.tries++;if(b){b.classList.add(&#x27;no&#x27;);b.classList.remove(&#x27;shake&#x27;);void b.offsetWidth;b.classList.add(&#x27;shake&#x27;);}tone(&#x27;bad&#x27;);speak(say||&#x27;Подумай ещё!&#x27;);}
+function mathBad(st,b,say){st.tries++;if(b){b.classList.add(&#x27;no&#x27;);b.classList.remove(&#x27;shake&#x27;);void b.offsetWidth;b.classList.add(&#x27;shake&#x27;);}tone(&#x27;bad&#x27;);speak(say||TT(&#x27;Подумай ещё!&#x27;,&#x27;Тағы ойлан!&#x27;));}
 /* Больше, меньше, равно */
 let cm={n:0,ok:0};
 function cmpGame(){clearT();cm={n:0,ok:0};mathRound(cm,cmQ,cmpGame);}
 function cmQ(){cm.tries=0;const max=cm.n&lt;4?10:20;let a=Math.floor(Math.random()*(max+1)),b=Math.random()&lt;.2?a:Math.floor(Math.random()*(max+1));
   const sign=a&gt;b?&#x27;&gt;&#x27;:a&lt;b?&#x27;&lt;&#x27;:&#x27;=&#x27;;const e=rnd([&quot;🍎&quot;,&quot;⭐&quot;,&quot;🐟&quot;,&quot;🌸&quot;,&quot;🍓&quot;]);
-  app.innerHTML=`&lt;h2&gt;Поставь знак: больше, меньше или равно&lt;/h2&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(&#x27;Поставь знак: больше, меньше или равно&#x27;,&#x27;Белгі қой: артық, кем немесе тең&#x27;)}&lt;/h2&gt;
    &lt;div class=&quot;cmp&quot;&gt;&lt;div class=&quot;grp&quot;&gt;&lt;div class=&quot;n&quot;&gt;${a}&lt;/div&gt;${max===10?`&lt;div class=&quot;o&quot;&gt;${e.repeat(a)||&#x27;—&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;div class=&quot;sign&quot; id=&quot;sg&quot;&gt;?&lt;/div&gt;&lt;div class=&quot;grp&quot;&gt;&lt;div class=&quot;n&quot;&gt;${b}&lt;/div&gt;${max===10?`&lt;div class=&quot;o&quot;&gt;${e.repeat(b)||&#x27;—&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${[&#x27;&lt;&#x27;,&#x27;=&#x27;,&#x27;&gt;&#x27;].map(s=&gt;`&lt;button class=&quot;ch c&quot; data-s=&quot;${s}&quot; style=&quot;color:var(--violet)&quot;&gt;${s}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(cm.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
-  speak(`Сравни: ${N20[a]} и ${N20[b]}`);
+  speak(TT(`Сравни: ${N20[a]} и ${N20[b]}`,`Салыстыр: ${N20[a]} және ${N20[b]}`));
   app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(x.dataset.s===sign){document.getElementById(&#x27;sg&#x27;).textContent=sign;
-      mathOK(cm,x,sign===&#x27;=&#x27;?`${N20[a]} равно ${N20[b]}`:`${N20[a]} ${sign===&#x27;&gt;&#x27;?&#x27;больше&#x27;:&#x27;меньше&#x27;}, чем ${N20[b]}`,()=&gt;mathRound(cm,cmQ,cmpGame));}
-    else mathBad(cm,x,&#x27;Посмотри внимательно, где больше!&#x27;);});}
+      mathOK(cm,x,KZ?(sign===&#x27;=&#x27;?`${N20[a]} және ${N20[b]} — тең`:sign===&#x27;&gt;&#x27;?`${N20[a]} үлкен, ${N20[b]} кіші`:`${N20[a]} кіші, ${N20[b]} үлкен`):(sign===&#x27;=&#x27;?`${N20[a]} равно ${N20[b]}`:`${N20[a]} ${sign===&#x27;&gt;&#x27;?&#x27;больше&#x27;:&#x27;меньше&#x27;}, чем ${N20[b]}`),()=&gt;mathRound(cm,cmQ,cmpGame));}
+    else mathBad(cm,x,TT(&#x27;Посмотри внимательно, где больше!&#x27;,&#x27;Мұқият қара, қайсысы көп?&#x27;));});}
 /* Продолжи ряд (закономерности) */
 let pt={n:0,ok:0};
 function patGame(){clearT();pt={n:0,ok:0};mathRound(pt,ptQ,patGame);}
 function ptQ(){pt.tries=0;let seq,ans,opts,say;
   if(pt.n&lt;4){const sets=[[&quot;🍎&quot;,&quot;🍌&quot;],[&quot;🔴&quot;,&quot;🔵&quot;],[&quot;🐱&quot;,&quot;🐶&quot;],[&quot;⭐&quot;,&quot;🌙&quot;],[&quot;🟨&quot;,&quot;🟩&quot;,&quot;🟥&quot;],[&quot;🐸&quot;,&quot;🐸&quot;,&quot;🐞&quot;],[&quot;🍓&quot;,&quot;🍋&quot;,&quot;🍇&quot;]];const s=rnd(sets);
-    const full=Array.from({length:7},(_,i)=&gt;s[i%s.length]);seq=full.slice(0,6);ans=full[6];opts=shuffle([...new Set([ans,...s,rnd([&quot;🚗&quot;,&quot;🎈&quot;,&quot;🐟&quot;])])]).slice(0,3);if(!opts.includes(ans))opts[0]=ans;opts=shuffle(opts);say=&#x27;Что будет дальше?&#x27;;}
+    const full=Array.from({length:7},(_,i)=&gt;s[i%s.length]);seq=full.slice(0,6);ans=full[6];opts=shuffle([...new Set([ans,...s,rnd([&quot;🚗&quot;,&quot;🎈&quot;,&quot;🐟&quot;])])]).slice(0,3);if(!opts.includes(ans))opts[0]=ans;opts=shuffle(opts);say=TT(&#x27;Что будет дальше?&#x27;,&#x27;Келесісі не?&#x27;);}
   else{const step=rnd([1,1,2,2,-1,5,10]);let st=step&gt;0?Math.floor(Math.random()*5)+(step===10?0:1):10+Math.floor(Math.random()*5);if(step===5)st=0;if(step===10)st=0;
     seq=Array.from({length:5},(_,i)=&gt;st+i*step);ans=st+5*step;opts=shuffle([ans,ans+1,ans-1].filter(x=&gt;x&gt;=0));
-    while(opts.length&lt;3)opts.push(ans+2);opts=shuffle(opts);say=&#x27;Какое число будет дальше?&#x27;;}
-  app.innerHTML=`&lt;h2&gt;Продолжи ряд&lt;/h2&gt;&lt;div class=&quot;seq&quot;&gt;${seq.map(x=&gt;`&lt;span&gt;${x}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;span class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/span&gt;&lt;/div&gt;
+    while(opts.length&lt;3)opts.push(ans+2);opts=shuffle(opts);say=TT(&#x27;Какое число будет дальше?&#x27;,&#x27;Келесі сан қандай?&#x27;);}
+  app.innerHTML=`&lt;h2&gt;${TT(&#x27;Продолжи ряд&#x27;,&#x27;Қатарды жалғастыр&#x27;)}&lt;/h2&gt;&lt;div class=&quot;seq&quot;&gt;${seq.map(x=&gt;`&lt;span&gt;${x}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;span class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/span&gt;&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${opts.map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons);font-size:${typeof o===&#x27;number&#x27;?&#x27;&#x27;:&#x27;90px&#x27;}&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(pt.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
   speak(say);
   app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(x.dataset.o==String(ans)){const q=document.getElementById(&#x27;qq&#x27;);q.textContent=ans;q.classList.remove(&#x27;q&#x27;);mathOK(pt,x,praise(),()=&gt;mathRound(pt,ptQ,patGame));}
-    else mathBad(pt,x,&#x27;Найди, что повторяется!&#x27;);});}
+    else mathBad(pt,x,TT(&#x27;Найди, что повторяется!&#x27;,&#x27;Не қайталанатынын тап!&#x27;));});}
 /* Соседи числа */
 let nb={n:0,ok:0};
 function nbGame(){clearT();nb={n:0,ok:0};mathRound(nb,nbQ,nbGame);}
 function nbQ(){nb.tries=0;const max=nb.n&lt;4?10:20;const x=1+Math.floor(Math.random()*(max-1));let step=0;
   const opts=shuffle([...new Set([x-1,x+1,x-2,x+2,x].filter(v=&gt;v&gt;=0&amp;&amp;v&lt;=max+1))]);
-  app.innerHTML=`&lt;h2&gt;Найди соседей числа ${x}&lt;/h2&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(`Найди соседей числа ${x}`,`${x} санының көршілерін тап`)}&lt;/h2&gt;
    &lt;div class=&quot;seq&quot;&gt;&lt;span class=&quot;q&quot; id=&quot;l&quot;&gt;?&lt;/span&gt;&lt;span style=&quot;background:#E9E4FF;color:var(--violet);font-size:90px&quot;&gt;${x}&lt;/span&gt;&lt;span class=&quot;q&quot; id=&quot;r&quot;&gt;?&lt;/span&gt;&lt;/div&gt;
-   &lt;p class=&quot;say&quot; id=&quot;hint&quot;&gt;Кто живёт перед числом ${x}?&lt;/p&gt;
+   &lt;p class=&quot;say&quot; id=&quot;hint&quot;&gt;${TT(`Кто живёт перед числом ${x}?`,`${x} санының алдында қай сан тұр?`)}&lt;/p&gt;
    &lt;div class=&quot;choices&quot;&gt;${opts.map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(nb.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
-  speak(`Найди соседей числа ${N20[x]}. Какое число стоит перед ним?`);
+  speak(TT(`Найди соседей числа ${N20[x]}. Какое число стоит перед ним?`,`${N20[x]} санының көршілерін тап. Оның алдында қай сан тұр?`));
   app.querySelectorAll(&#x27;.ch&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const v=+b.dataset.o;
-    if(step===0&amp;&amp;v===x-1){const l=document.getElementById(&#x27;l&#x27;);l.textContent=v;l.classList.remove(&#x27;q&#x27;);b.classList.add(&#x27;ok&#x27;);b.onclick=null;tone(&#x27;pop&#x27;);step=1;document.getElementById(&#x27;hint&#x27;).textContent=`А после числа ${x}?`;speak(`Правильно, ${N20[v]}. А какое число стоит после ${N20[x]}?`.replace(&#x27;после &#x27;+N20[x],&#x27;после числа &#x27;+N20[x]));}
-    else if(step===1&amp;&amp;v===x+1){const r=document.getElementById(&#x27;r&#x27;);r.textContent=v;r.classList.remove(&#x27;q&#x27;);mathOK(nb,b,`Молодец! Соседи числа ${N20[x]}: ${N20[x-1]} и ${N20[x+1]}`,()=&gt;mathRound(nb,nbQ,nbGame));}
-    else mathBad(nb,b,step===0?&#x27;Это число не стоит прямо перед ним. Посчитай назад!&#x27;:&#x27;Посчитай вперёд на один!&#x27;);});}
+    if(step===0&amp;&amp;v===x-1){const l=document.getElementById(&#x27;l&#x27;);l.textContent=v;l.classList.remove(&#x27;q&#x27;);b.classList.add(&#x27;ok&#x27;);b.onclick=null;tone(&#x27;pop&#x27;);step=1;document.getElementById(&#x27;hint&#x27;).textContent=TT(`А после числа ${x}?`,`Ал ${x} санынан кейін?`);speak(TT(`Правильно, ${N20[v]}. А какое число стоит после числа ${N20[x]}?`,`Дұрыс, ${N20[v]}. Ал ${N20[x]} санынан кейін қай сан тұр?`));}
+    else if(step===1&amp;&amp;v===x+1){const r=document.getElementById(&#x27;r&#x27;);r.textContent=v;r.classList.remove(&#x27;q&#x27;);mathOK(nb,b,TT(`Молодец! Соседи числа ${N20[x]}: ${N20[x-1]} и ${N20[x+1]}`,`Жарайсың! ${N20[x]} санының көршілері: ${N20[x-1]} және ${N20[x+1]}`),()=&gt;mathRound(nb,nbQ,nbGame));}
+    else mathBad(nb,b,step===0?TT(&#x27;Это число не стоит прямо перед ним. Посчитай назад!&#x27;,&#x27;Бұл сан тура алдында тұрған жоқ. Кері сана!&#x27;):TT(&#x27;Посчитай вперёд на один!&#x27;,&#x27;Бір сан алға сана!&#x27;));});}
 /* Плюс и минус в пределах 10 */
 let as={n:0,ok:0};
 function addSub(){clearT();as={n:0,ok:0};mathRound(as,asQ,addSub);}
@@ -1477,13 +1565,13 @@ function asQ(){as.tries=0;const plus=Math.random()&lt;.5;let a,b,r;
   const e=rnd([&quot;🍎&quot;,&quot;🐥&quot;,&quot;⭐&quot;,&quot;🍬&quot;,&quot;🐞&quot;,&quot;🎈&quot;]);
   const pics=plus?`${e.repeat(a)}${a&amp;&amp;b?&#x27; ➕ &#x27;:&#x27;&#x27;}${e.repeat(b)}`:`${e.repeat(a-b)}${`&lt;s&gt;${e}&lt;/s&gt;`.repeat(b)}`;
   const opts=shuffle([...new Set([r,r+1,Math.max(0,r-1),r+2])]).slice(0,3);if(!opts.includes(r))opts[0]=r;
-  app.innerHTML=`&lt;h2&gt;${plus?&#x27;Сложи&#x27;:&#x27;Вычти&#x27;}&lt;/h2&gt;&lt;div class=&quot;pics2&quot;&gt;${pics||&#x27;—&#x27;}&lt;/div&gt;
+  app.innerHTML=`&lt;h2&gt;${plus?TT(&#x27;Сложи&#x27;,&#x27;Қос&#x27;):TT(&#x27;Вычти&#x27;,&#x27;Азайт&#x27;)}&lt;/h2&gt;&lt;div class=&quot;pics2&quot;&gt;${pics||&#x27;—&#x27;}&lt;/div&gt;
    &lt;div class=&quot;ex&quot;&gt;${a} ${plus?&#x27;+&#x27;:&#x27;−&#x27;} ${b} = &lt;span class=&quot;q&quot; id=&quot;qq&quot;&gt;${r}&lt;/span&gt;&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${shuffle(opts).map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(as.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
-  speak(`${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]}. Сколько будет?`);
-  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===r){document.getElementById(&#x27;qq&#x27;).classList.add(&#x27;show&#x27;);mathOK(as,x,`${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]} будет ${N20[r]}!`,()=&gt;mathRound(as,asQ,addSub));}
-    else mathBad(as,x,&#x27;Посчитай картинки!&#x27;);});}
+  speak(TT(`${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]}. Сколько будет?`,`${N20[a]} ${plus?&#x27;қосу&#x27;:&#x27;азайту&#x27;} ${N20[b]}. Қанша болады?`));
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===r){document.getElementById(&#x27;qq&#x27;).classList.add(&#x27;show&#x27;);mathOK(as,x,TT(`${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]} будет ${N20[r]}!`,`${N20[a]} ${plus?&#x27;қосу&#x27;:&#x27;азайту&#x27;} ${N20[b]} — ${N20[r]}!`),()=&gt;mathRound(as,asQ,addSub));}
+    else mathBad(as,x,TT(&#x27;Посчитай картинки!&#x27;,&#x27;Суреттерді сана!&#x27;));});}
 /* ===== ENGLISH 5–6 ===== */
 function enABC(){clearT();
   app.innerHTML=`&lt;h2&gt;English ABC&lt;/h2&gt;&lt;div class=&quot;grid&quot;&gt;${ABC_EN.map((l,i)=&gt;`&lt;button class=&quot;lt ${&#x27;AEIOU&#x27;.includes(l[0])?&#x27;v&#x27;:&#x27;c&#x27;}&quot; data-i=&quot;${i}&quot;&gt;${l[0]}&lt;small&gt;${l[0].toLowerCase()}&lt;/small&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
@@ -1559,13 +1647,13 @@ let hs={n:0,ok:0};
 function house(){clearT();hs={n:0,ok:0};mathRound(hs,hsQ,house);}
 function hsQ(){hs.tries=0;const n=2+Math.floor(Math.random()*9),a=Math.floor(Math.random()*(n+1)),b=n-a,left=Math.random()&lt;.5;
   const opts=shuffle([...new Set([b,Math.max(0,b-1),b+1,b+2].filter(x=&gt;x&lt;=10))]).slice(0,3);if(!opts.includes(b))opts[0]=b;
-  app.innerHTML=`&lt;h2&gt;Состав числа ${n}&lt;/h2&gt;&lt;div class=&quot;hs&quot;&gt;&lt;div class=&quot;roof&quot;&gt;&lt;span&gt;${n}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;flo&quot;&gt;${left?`&lt;div&gt;${a}&lt;/div&gt;&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;`:`&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;&lt;div&gt;${a}&lt;/div&gt;`}&lt;/div&gt;&lt;/div&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(`Состав числа ${n}`,`${n} санының құрамы`)}&lt;/h2&gt;&lt;div class=&quot;hs&quot;&gt;&lt;div class=&quot;roof&quot;&gt;&lt;span&gt;${n}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;flo&quot;&gt;${left?`&lt;div&gt;${a}&lt;/div&gt;&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;`:`&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;&lt;div&gt;${a}&lt;/div&gt;`}&lt;/div&gt;&lt;/div&gt;
    &lt;div class=&quot;pics2&quot;&gt;${&#x27;🔵&#x27;.repeat(a)}${&#x27;⚪&#x27;.repeat(b)}&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${shuffle(opts).map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(hs.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
-  speak(`${N20[n]} — это ${N20[a]} и сколько?`);
-  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===b){const q=document.getElementById(&#x27;qq&#x27;);q.textContent=b;q.classList.remove(&#x27;q&#x27;);mathOK(hs,x,`${N20[n]} — это ${N20[a]} и ${N20[b]}!`,()=&gt;mathRound(hs,hsQ,house));}
-    else mathBad(hs,x,&#x27;Посчитай кружочки!&#x27;);});}
+  speak(TT(`${N20[n]} — это ${N20[a]} и сколько?`,`${N20[n]} — ол ${N20[a]} және қанша?`));
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===b){const q=document.getElementById(&#x27;qq&#x27;);q.textContent=b;q.classList.remove(&#x27;q&#x27;);mathOK(hs,x,TT(`${N20[n]} — это ${N20[a]} и ${N20[b]}!`,`${N20[n]} — ол ${N20[a]} және ${N20[b]}!`),()=&gt;mathRound(hs,hsQ,house));}
+    else mathBad(hs,x,TT(&#x27;Посчитай кружочки!&#x27;,&#x27;Дөңгелектерді сана!&#x27;));});}
 /* ===== Задачки ===== */
 const NOUN=[[&quot;🎈&quot;,&quot;шарик&quot;,&quot;шарика&quot;,&quot;шариков&quot;],[&quot;🍄&quot;,&quot;грибок&quot;,&quot;грибка&quot;,&quot;грибков&quot;],[&quot;🧸&quot;,&quot;мишка&quot;,&quot;мишки&quot;,&quot;мишек&quot;],[&quot;⚽&quot;,&quot;мячик&quot;,&quot;мячика&quot;,&quot;мячиков&quot;],[&quot;🌸&quot;,&quot;цветок&quot;,&quot;цветка&quot;,&quot;цветов&quot;],[&quot;🐟&quot;,&quot;карасик&quot;,&quot;карасика&quot;,&quot;карасиков&quot;]];
 const NOUN_OK=[0,1,3,4,5];
@@ -1577,23 +1665,29 @@ function tkQ(){tk.tries=0;const f=NOUN[rnd(NOUN_OK)],plus=Math.random()&lt;.5,wh
     text=rnd([`У ${who} было ${a} ${pl(a,f)}. Ещё ${b} ${pl(b,f)} подарили. Сколько ${f[3]} стало?`,`В корзине ${a} ${pl(a,f)}. Положили ещё ${b}. Сколько ${f[3]} стало в корзине?`]);}
   else{a=2+Math.floor(Math.random()*9);b=1+Math.floor(Math.random()*(a-1));r=a-b;
     text=rnd([`У ${who} было ${a} ${pl(a,f)}. ${b} ${pl(b,f)} отдали другу. Сколько ${f[3]} осталось?`,`На столе лежало ${a} ${pl(a,f)}. ${b} убрали в коробку. Сколько ${f[3]} осталось?`]);}
+  let sayText=text;
+  if(KZ){const KN={&quot;🎈&quot;:&quot;шар&quot;,&quot;🍄&quot;:&quot;саңырауқұлақ&quot;,&quot;⚽&quot;:&quot;доп&quot;,&quot;🌸&quot;:&quot;гүл&quot;,&quot;🐟&quot;:&quot;балық&quot;}[f[0]];const LOC=rnd([&quot;Айгерімде&quot;,&quot;Нұрланда&quot;,&quot;Әлияда&quot;,&quot;Ерланда&quot;,&quot;Данада&quot;]);const v=rnd([0,1]);
+    const mk=(A,B)=&gt;plus?(v?`Себетте ${A} ${KN} бар. Тағы ${B} ${KN} салды. Себетте неше ${KN} болды?`:`${LOC} ${A} ${KN} болды. Тағы ${B} ${KN} сыйлады. Барлығы неше ${KN} болды?`)
+      :(v?`Үстелде ${A} ${KN} жатты. ${B} ${KN} қорапқа салды. Неше ${KN} қалды?`:`${LOC} ${A} ${KN} болды. ${B} ${KN} досына берді. Неше ${KN} қалды?`);
+    text=mk(a,b);sayText=mk(N20[a],N20[b]);}
   const opts=shuffle([...new Set([r,r+1,Math.max(0,r-1),r+2])]).slice(0,3);if(!opts.includes(r))opts[0]=r;
   const pics=plus?`${f[0].repeat(a)} ➕ ${f[0].repeat(b)}`:`${f[0].repeat(a-b)}${`&lt;s&gt;${f[0]}&lt;/s&gt;`.repeat(b)}`;
-  app.innerHTML=`&lt;h2&gt;Задачка&lt;/h2&gt;&lt;p class=&quot;task&quot;&gt;${text}&lt;/p&gt;&lt;div class=&quot;pics2&quot;&gt;${pics}&lt;/div&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(&#x27;Задачка&#x27;,&#x27;Есеп&#x27;)}&lt;/h2&gt;&lt;p class=&quot;task&quot;&gt;${text}&lt;/p&gt;&lt;div class=&quot;pics2&quot;&gt;${pics}&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${shuffle(opts).map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
-   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(tk.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; id=&quot;rep&quot;&gt;🔊 Ещё раз&lt;/button&gt;&lt;/div&gt;`;
-  const say=()=&gt;speak(text,.85);document.getElementById(&#x27;rep&#x27;).onclick=say;say();
-  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===r)mathOK(tk,x,`${praise()} ${N20[a]} ${plus?&#x27;плюс&#x27;:&#x27;минус&#x27;} ${N20[b]} — ${N20[r]}!`,()=&gt;mathRound(tk,tkQ,tasks));
-    else mathBad(tk,x,&#x27;Послушай задачку ещё раз!&#x27;);});}
+   &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(tk.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;button class=&quot;big-btn y&quot; id=&quot;rep&quot;&gt;🔊 ${TT(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;)}&lt;/button&gt;&lt;/div&gt;`;
+  const say=()=&gt;speak(sayText,.85);document.getElementById(&#x27;rep&#x27;).onclick=say;say();
+  app.querySelectorAll(&#x27;.ch&#x27;).forEach(x=&gt;x.onclick=()=&gt;{if(+x.dataset.o===r)mathOK(tk,x,`${praise()} ${N20[a]} ${plus?TT(&#x27;плюс&#x27;,&#x27;қосу&#x27;):TT(&#x27;минус&#x27;,&#x27;азайту&#x27;)} ${N20[b]} — ${N20[r]}!`,()=&gt;mathRound(tk,tkQ,tasks));
+    else mathBad(tk,x,TT(&#x27;Послушай задачку ещё раз!&#x27;,&#x27;Есепті тағы тыңда!&#x27;));});}
 
 /* ===== Итог ===== */
 function finish(ok,n,again){clearT();
   app.innerHTML=`&lt;div style=&quot;text-align:center&quot;&gt;&lt;div style=&quot;font-size:150px;line-height:1.1&quot;&gt;${ok&gt;=n-1?&#x27;🏆&#x27;:ok&gt;=n/2?&#x27;🥳&#x27;:&#x27;🦉&#x27;}&lt;/div&gt;
-   &lt;h2&gt;${ok&gt;=n-1?&#x27;Ты супер!&#x27;:ok&gt;=n/2?&#x27;Молодец!&#x27;:&#x27;Хорошо! Сыграем ещё?&#x27;}&lt;/h2&gt;
+   &lt;h2&gt;${ok&gt;=n-1?TT(&#x27;Ты супер!&#x27;,&#x27;Керемет!&#x27;):ok&gt;=n/2?TT(&#x27;Молодец!&#x27;,&#x27;Жарайсың!&#x27;):TT(&#x27;Хорошо! Сыграем ещё?&#x27;,&#x27;Жақсы! Тағы ойнаймыз ба?&#x27;)}&lt;/h2&gt;
    &lt;div class=&quot;stars&quot; style=&quot;font-size:60px&quot;&gt;${&quot;⭐&quot;.repeat(ok)}&lt;/div&gt;
-   &lt;div class=&quot;row&quot; style=&quot;margin-top:20px&quot;&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;ag&quot;&gt;🔁 Ещё раз&lt;/button&gt;${back()}&lt;/div&gt;&lt;/div&gt;`;
-  document.getElementById(&#x27;ag&#x27;).onclick=again;tone(&#x27;win&#x27;);if(ok&gt;=n/2)confetti();speak(ok&gt;=n/2?&quot;Молодец! Ты собрал &quot;+ok+&quot; звёзд!&quot;:&quot;Хорошо! Давай сыграем ещё!&quot;);
+   &lt;div class=&quot;row&quot; style=&quot;margin-top:20px&quot;&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;ag&quot;&gt;🔁 ${TT(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;)}&lt;/button&gt;${back()}&lt;/div&gt;&lt;/div&gt;`;
+  document.getElementById(&#x27;ag&#x27;).onclick=again;tone(&#x27;win&#x27;);if(ok&gt;=n/2)confetti();speak(KZ?(ok&gt;=n/2?`Жарайсың! Сен ${ok} жұлдыз жинадың!`:&quot;Жақсы! Тағы ойнайық!&quot;):(ok&gt;=n/2?&quot;Молодец! Ты собрал &quot;+ok+&quot; звёзд!&quot;:&quot;Хорошо! Давай сыграем ещё!&quot;));
 }
+if(KZ){const t=document.getElementById(&#x27;lgT&#x27;);if(t)t.textContent=&#x27;Мектепке дайындық&#x27;;document.title=&#x27;Мектепке дайындық&#x27;;}
 home();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -1869,15 +1963,358 @@ home();
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
+"></iframe><iframe id="akz" title="Казахский язык" allow="microphone *; autoplay *" data-src="&lt;!doctype html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;&gt;
+&lt;title&gt;Қазақ тілі&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#F2FBF4;--ink:#33304F;--muted:#8A86A3;--sun:#FFC83D;--green:#43C26B;--pink:#FF6FA0;--blue:#4F8BFF;--violet:#9C7BFF;--orange:#FF9A4D;--teal:#22B8C8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html,body{margin:0;height:100%;overscroll-behavior:none}
+body{background:var(--bg);color:var(--ink);font-family:&quot;Trebuchet MS&quot;,&quot;Arial Rounded MT Bold&quot;,&quot;Segoe UI&quot;,system-ui,Arial,sans-serif;font-weight:700;touch-action:manipulation;
+ background-image:radial-gradient(circle at 5% 12%,#CFF2D9 0 80px,transparent 81px),radial-gradient(circle at 96% 20%,#FFE6B3 0 70px,transparent 71px),radial-gradient(circle at 88% 95%,#DCE7FF 0 120px,transparent 121px);background-attachment:fixed}
+.wrap{max-width:1200px;margin:0 auto;padding:12px 14px 18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.logo{font-size:30px;color:var(--green);display:flex;align-items:center;gap:8px}.logo span{font-size:42px}
+.hb{display:flex;gap:10px;align-items:center}
+.pill{background:#fff;border-radius:999px;padding:8px 16px;font-size:26px;box-shadow:0 5px 0 rgba(0,0,0,.08)}
+.rb{width:62px;height:62px;border-radius:50%;border:none;background:#fff;font-size:30px;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.08)}
+main{background:#fff;border-radius:34px;padding:16px;box-shadow:0 8px 0 rgba(0,0,0,.06);position:relative;overflow:hidden;min-height:72vh}
+.voice{text-align:center;font-size:15px;color:var(--muted);margin:8px 0 0;font-weight:400}
+.sec{font-size:28px;margin:18px 4px 10px}.sec:first-child{margin-top:2px}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tile{border:none;border-radius:30px;padding:14px 8px 12px;cursor:pointer;color:#fff;font:inherit;box-shadow:0 8px 0 rgba(0,0,0,.14)}
+.tile:active{transform:scale(.95)}
+.tile .e{font-size:78px;line-height:1.1;display:block}.tile .t{font-size:23px;display:block;margin-top:4px}
+h2{text-align:center;font-size:38px;margin:4px 0 14px}
+.ask{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:14px;font-size:40px;text-align:center;flex-wrap:wrap}
+.ask button{border:none;background:var(--sun);border-radius:50%;width:76px;height:76px;font-size:38px;cursor:pointer;box-shadow:0 6px 0 #D29B00;flex:none}
+.opts{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.opt{min-width:clamp(140px,22vw,230px);min-height:clamp(140px,22vw,230px);border:none;border-radius:34px;background:#FFF6E3;cursor:pointer;font:inherit;font-size:clamp(90px,14vw,150px);line-height:1;box-shadow:0 8px 0 #EEDDB5;display:flex;align-items:center;justify-content:center;padding:10px;color:var(--ink)}
+.opt.ok{background:#D9F7E3;box-shadow:0 8px 0 var(--green)}
+.opt.no{opacity:.35}
+.stars{text-align:center;font-size:38px;min-height:46px;margin-top:14px;letter-spacing:4px}
+.jump{animation:jump .6s}
+@keyframes jump{0%{transform:scale(1)}30%{transform:scale(1.15) rotate(-5deg)}60%{transform:scale(.96) rotate(3deg)}100%{transform:scale(1)}}
+.shake{animation:shake .35s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.dot{width:clamp(120px,18vw,180px);height:clamp(120px,18vw,180px);border-radius:50%;border:none;cursor:pointer;box-shadow:inset -14px -14px 0 rgba(0,0,0,.1),0 8px 0 rgba(0,0,0,.12)}
+/* перетаскивание */
+.drag{cursor:grab;touch-action:none}
+.ghost{position:fixed;pointer-events:none;z-index:50;transform:translate(-50%,-50%) scale(1.15);filter:drop-shadow(0 10px 10px rgba(0,0,0,.25))}
+.tray{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;min-height:130px;margin:10px 0 20px}
+.item{font-size:90px;line-height:1;background:#FFF6E3;border-radius:26px;padding:10px;box-shadow:0 6px 0 #EEDDB5}
+.bowls{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.bowl{width:clamp(170px,26vw,260px);min-height:180px;border-radius:30px 30px 90px 90px;display:flex;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:10px;font-size:46px;gap:4px;border:8px solid rgba(0,0,0,.08)}
+.board{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;background:#F5E6CF;border-radius:34px;padding:26px;margin-bottom:20px}
+.hole{width:150px;height:150px;display:flex;align-items:center;justify-content:center}
+/* счёт */
+.count{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:0 0 18px}
+.count .c{font-size:100px;line-height:1;cursor:pointer;position:relative}
+.count .c i{position:absolute;top:-6px;right:-6px;background:var(--blue);color:#fff;font-style:normal;font-size:30px;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center}
+.num{font-size:clamp(90px,14vw,140px)!important;color:var(--blue)}
+/* память */
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:760px;margin:0 auto}
+.mc{aspect-ratio:1/1;border:none;border-radius:26px;cursor:pointer;font-size:clamp(60px,10vw,100px);background:linear-gradient(135deg,#9C7BFF,#4F8BFF);color:transparent;box-shadow:0 7px 0 #5B44C9;transition:transform .3s}
+.mc.open,.mc.done{background:#FFF6E3;color:inherit;box-shadow:0 7px 0 #EEDDB5;transform:rotateY(180deg)}
+.mc span{display:inline-block;transform:rotateY(180deg)}
+.mc.done{opacity:.55}
+/* пазл */
+.pz{display:grid;grid-template-columns:repeat(2,var(--ps));grid-template-rows:repeat(2,var(--ps));gap:6px;justify-content:center;margin:0 auto 18px;--ps:min(170px,36vw)}
+.slot{background:#EDE7DA;border-radius:16px;border:4px dashed #D4C7AE;overflow:hidden;position:relative}
+.piece{width:var(--ps);height:var(--ps);overflow:hidden;position:relative;border-radius:16px;background:#FFF6E3;box-shadow:0 5px 0 #EEDDB5}
+.piece span,.slot span{position:absolute;width:calc(var(--ps)*2);height:calc(var(--ps)*2);font-size:calc(var(--ps)*1.6);line-height:calc(var(--ps)*2);text-align:center}
+.ptray{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;--ps:min(150px,22vw)}
+.ptray .piece span{width:calc(var(--ps)*2);height:calc(var(--ps)*2);font-size:calc(var(--ps)*1.6);line-height:calc(var(--ps)*2)}
+/* буквы */
+.lt{font-size:clamp(110px,16vw,170px)!important;color:#F0435A}
+.lt.c{color:#2F6FE4}
+.weather{font-size:150px;text-align:center;line-height:1.1}
+.shadow{filter:brightness(0) opacity(.75)}
+.die{width:clamp(170px,26vw,230px);aspect-ratio:1/1;background:#fff;border:8px solid #33304F;border-radius:36px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:18px;margin:0 auto 20px;box-shadow:0 8px 0 rgba(0,0,0,.12)}
+.die i{width:70%;height:70%;margin:auto;border-radius:50%;background:#E8505B}
+.row3{display:flex;justify-content:center;align-items:flex-end;gap:16px;min-height:200px;margin:10px 0 20px;flex-wrap:wrap}
+.sec{font-size:28px;margin:18px 4px 10px}.sec:first-child{margin-top:2px}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tile{border:none;border-radius:30px;padding:14px 8px 12px;cursor:pointer;color:#fff;font:inherit;box-shadow:0 8px 0 rgba(0,0,0,.14)}
+.tile:active{transform:scale(.95)}
+.tile .e{font-size:78px;line-height:1.1;display:block}.tile .t{font-size:23px;display:block;margin-top:4px}
+h2{text-align:center;font-size:38px;margin:4px 0 14px}
+.ask{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:14px;font-size:40px;text-align:center;flex-wrap:wrap}
+.ask button{border:none;background:var(--sun);border-radius:50%;width:76px;height:76px;font-size:38px;cursor:pointer;box-shadow:0 6px 0 #D29B00;flex:none}
+.opts{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.opt{min-width:clamp(140px,22vw,230px);min-height:clamp(140px,22vw,230px);border:none;border-radius:34px;background:#FFF6E3;cursor:pointer;font:inherit;font-size:clamp(90px,14vw,150px);line-height:1;box-shadow:0 8px 0 #EEDDB5;display:flex;align-items:center;justify-content:center;padding:10px;color:var(--ink)}
+.opt.ok{background:#D9F7E3;box-shadow:0 8px 0 var(--green)}
+.opt.no{opacity:.35}
+.stars{text-align:center;font-size:38px;min-height:46px;margin-top:14px;letter-spacing:4px}
+.jump{animation:jump .6s}
+@keyframes jump{0%{transform:scale(1)}30%{transform:scale(1.15) rotate(-5deg)}60%{transform:scale(.96) rotate(3deg)}100%{transform:scale(1)}}
+.shake{animation:shake .35s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.dot{width:clamp(120px,18vw,180px);height:clamp(120px,18vw,180px);border-radius:50%;border:none;cursor:pointer;box-shadow:inset -14px -14px 0 rgba(0,0,0,.1),0 8px 0 rgba(0,0,0,.12)}
+/* перетаскивание */
+.drag{cursor:grab;touch-action:none}
+.ghost{position:fixed;pointer-events:none;z-index:50;transform:translate(-50%,-50%) scale(1.15);filter:drop-shadow(0 10px 10px rgba(0,0,0,.25))}
+.tray{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;min-height:130px;margin:10px 0 20px}
+.item{font-size:90px;line-height:1;background:#FFF6E3;border-radius:26px;padding:10px;box-shadow:0 6px 0 #EEDDB5}
+.bowls{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.bowl{width:clamp(170px,26vw,260px);min-height:180px;border-radius:30px 30px 90px 90px;display:flex;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:10px;font-size:46px;gap:4px;border:8px solid rgba(0,0,0,.08)}
+.board{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;background:#F5E6CF;border-radius:34px;padding:26px;margin-bottom:20px}
+.hole{width:150px;height:150px;display:flex;align-items:center;justify-content:center}
+/* счёт */
+.count{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:0 0 18px}
+.count .c{font-size:100px;line-height:1;cursor:pointer;position:relative}
+.count .c i{position:absolute;top:-6px;right:-6px;background:var(--blue);color:#fff;font-style:normal;font-size:30px;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center}
+.num{font-size:clamp(90px,14vw,140px)!important;color:var(--blue)}
+/* память */
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:760px;margin:0 auto}
+.mc{aspect-ratio:1/1;border:none;border-radius:26px;cursor:pointer;font-size:clamp(60px,10vw,100px);background:linear-gradient(135deg,#9C7BFF,#4F8BFF);color:transparent;box-shadow:0 7px 0 #5B44C9;transition:transform .3s}
+.mc.open,.mc.done{background:#FFF6E3;color:inherit;box-shadow:0 7px 0 #EEDDB5;transform:rotateY(180deg)}
+.mc span{display:inline-block;transform:rotateY(180deg)}
+.mc.done{opacity:.55}
+/* пазл */
+.pz{display:grid;grid-template-columns:repeat(2,var(--ps));grid-template-rows:repeat(2,var(--ps));gap:6px;justify-content:center;margin:0 auto 18px;--ps:min(170px,36vw)}
+.slot{background:#EDE7DA;border-radius:16px;border:4px dashed #D4C7AE;overflow:hidden;position:relative}
+.piece{width:var(--ps);height:var(--ps);overflow:hidden;position:relative;border-radius:16px;background:#FFF6E3;box-shadow:0 5px 0 #EEDDB5}
+.piece span,.slot span{position:absolute;width:calc(var(--ps)*2);height:calc(var(--ps)*2);font-size:calc(var(--ps)*1.6);line-height:calc(var(--ps)*2);text-align:center}
+.ptray{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;--ps:min(150px,22vw)}
+.ptray .piece span{width:calc(var(--ps)*2);height:calc(var(--ps)*2);font-size:calc(var(--ps)*1.6);line-height:calc(var(--ps)*2)}
+/* буквы */
+.lt{font-size:clamp(110px,16vw,170px)!important;color:#F0435A}
+.lt.c{color:#2F6FE4}
+.weather{font-size:150px;text-align:center;line-height:1.1}
+.shadow{filter:brightness(0) opacity(.75)}
+.die{width:clamp(170px,26vw,230px);aspect-ratio:1/1;background:#fff;border:8px solid #33304F;border-radius:36px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:18px;margin:0 auto 20px;box-shadow:0 8px 0 rgba(0,0,0,.12)}
+.die i{width:70%;height:70%;margin:auto;border-radius:50%;background:#E8505B}
+.row3{display:flex;justify-content:center;align-items:flex-end;gap:16px;min-height:200px;margin:10px 0 20px;flex-wrap:wrap}
+.sec{font-size:28px;margin:18px 4px 10px}.sec:first-child{margin-top:2px}
+svg .part{cursor:pointer;transition:filter .2s,transform .3s;transform-box:fill-box;transform-origin:center}
+svg .part.lit{filter:drop-shadow(0 0 14px #FFD400) drop-shadow(0 0 6px #FFB000);transform:scale(1.08)}
+.svgbox{display:flex;justify-content:center}.svgbox svg{width:min(460px,88vw);height:auto;max-height:68vh}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.card{border:none;border-radius:30px;background:#FFF5E1;cursor:pointer;font:inherit;color:var(--ink);padding:10px 6px 12px;box-shadow:0 7px 0 #F2DDB2}
+.card .em{font-size:92px;line-height:1.15;display:block}.card .en{font-size:30px;display:block;color:#0A8FB0}.card .ru{font-size:19px;display:block;color:var(--muted)}
+.card:active{transform:scale(.95)}
+.enw{font-size:clamp(70px,12vw,120px);text-align:center;color:#3D4FD8;letter-spacing:3px;margin:6px 0 14px}
+.sw{width:100%;aspect-ratio:1/1;border-radius:24px;display:block;border:4px solid #eee}
+canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:60}
+.label{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(.5);background:#fff;border:5px solid var(--sun);border-radius:30px;padding:10px 30px;font-size:50px;opacity:0;pointer-events:none;transition:.25s;z-index:55;white-space:nowrap}
+.label.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+@media (max-width:640px){.cards{grid-template-columns:1fr 1fr}.card .em{font-size:76px}.logo{font-size:22px}.logo span{font-size:32px}.rb{width:50px;height:50px;font-size:24px}.pill{font-size:20px;padding:6px 10px}.hb{gap:6px}.menu{grid-template-columns:1fr 1fr}.tile .e{font-size:64px}.tile .t{font-size:20px}h2,.ask{font-size:30px}.mem{grid-template-columns:repeat(3,1fr)}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id=&quot;conf&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;label&quot; id=&quot;lbl&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;wrap&quot;&gt;
+ &lt;header&gt;&lt;div class=&quot;logo&quot;&gt;&lt;span&gt;🇰🇿&lt;/span&gt;Қазақ тілі · Казахский&lt;/div&gt;
+  &lt;div class=&quot;hb&quot;&gt;&lt;span class=&quot;pill&quot;&gt;⭐ &lt;span id=&quot;stars&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;button class=&quot;rb&quot; id=&quot;homeB&quot;&gt;🏠&lt;/button&gt;&lt;button class=&quot;rb&quot; id=&quot;snd&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;
+ &lt;main id=&quot;app&quot;&gt;&lt;/main&gt;
+ &lt;p class=&quot;voice&quot; id=&quot;vnote&quot;&gt;&lt;/p&gt;
+ &lt;p class=&quot;voice&quot; style=&quot;font-weight:700&quot;&gt;Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.&lt;/p&gt;
+ &lt;p class=&quot;voice&quot; id=&quot;kznote&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+/* ---------- голос и звуки ---------- */
+let soundOn=true,ru=null,A=null;
+function pickV(){try{const v=speechSynthesis.getVoices();ru=v.find(x=&gt;/^ru/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^ru/i.test(x.lang))||null;
+ document.getElementById(&#x27;vnote&#x27;).textContent=ru?&#x27;&#x27;:&#x27;Чтобы игры говорили, на устройстве нужен русский голос (обычно уже есть в Windows, Android, iPad).&#x27;;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickV();speechSynthesis.onvoiceschanged=pickV;}
+function speak(t,delay=0,rate=.85){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;ru-RU&#x27;;if(ru)u.voice=ru;u.rate=rate;u.pitch=1.2;speechSynthesis.speak(u);}catch(e){}},delay);}
+function ac(){if(!A)A=new (window.AudioContext||window.webkitAudioContext)();if(A.state===&#x27;suspended&#x27;)A.resume();return A;}
+function osc(type,f0,f1,t0,dur,vol=.22){if(!soundOn)return;try{const a=ac(),o=a.createOscillator(),g=a.createGain(),n=a.currentTime+t0;o.type=type;o.frequency.setValueAtTime(f0,n);if(f1)o.frequency.exponentialRampToValueAtTime(f1,n+dur);
+ g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+dur);o.connect(g).connect(a.destination);o.start(n);o.stop(n+dur+.05);}catch(e){}}
+const sfx={ok:()=&gt;[[660,0],[880,.1],[1320,.2]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.2)),
+ win:()=&gt;[[523,0],[659,.12],[784,.24],[1046,.38],[1318,.52]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.25)),
+ bad:()=&gt;osc(&#x27;sine&#x27;,300,200,0,.25,.15),pop:()=&gt;osc(&#x27;sine&#x27;,900,200,0,.12,.25),flip:()=&gt;osc(&#x27;triangle&#x27;,600,900,0,.1,.15),snap:()=&gt;osc(&#x27;square&#x27;,500,800,0,.08,.12)};
+document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&#x27;🔊&#x27;:&#x27;🔇&#x27;;try{speechSynthesis.cancel()}catch(e){}};
+/* ===== English voice ===== */
+let enVoice=null;
+function pickEn(){try{const v=speechSynthesis.getVoices();enVoice=v.find(x=&gt;/^en[-_]US/i.test(x.lang)&amp;&amp;x.localService)||v.find(x=&gt;/^en[-_](US|GB)/i.test(x.lang))||v.find(x=&gt;/^en/i.test(x.lang))||null;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickEn();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickEn);}
+function speakEn(t,delay=0){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=&#x27;en-US&#x27;;if(enVoice)u.voice=enVoice;u.rate=.8;u.pitch=1.15;speechSynthesis.speak(u);}catch(e){}},delay);}
+const ABC_EN=[[&quot;A&quot;,&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;B&quot;,&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;C&quot;,&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;D&quot;,&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;E&quot;,&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;F&quot;,&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;G&quot;,&quot;🍇&quot;,&quot;grapes&quot;,&quot;виноград&quot;],
+ [&quot;H&quot;,&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;I&quot;,&quot;🍦&quot;,&quot;ice cream&quot;,&quot;мороженое&quot;],[&quot;J&quot;,&quot;🧃&quot;,&quot;juice&quot;,&quot;сок&quot;],[&quot;K&quot;,&quot;🪁&quot;,&quot;kite&quot;,&quot;воздушный змей&quot;],[&quot;L&quot;,&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],[&quot;M&quot;,&quot;🌙&quot;,&quot;moon&quot;,&quot;луна&quot;],[&quot;N&quot;,&quot;👃&quot;,&quot;nose&quot;,&quot;нос&quot;],
+ [&quot;O&quot;,&quot;🍊&quot;,&quot;orange&quot;,&quot;апельсин&quot;],[&quot;P&quot;,&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;Q&quot;,&quot;👸&quot;,&quot;queen&quot;,&quot;королева&quot;],[&quot;R&quot;,&quot;🐰&quot;,&quot;rabbit&quot;,&quot;кролик&quot;],[&quot;S&quot;,&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;T&quot;,&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;U&quot;,&quot;☂️&quot;,&quot;umbrella&quot;,&quot;зонт&quot;],
+ [&quot;V&quot;,&quot;🚐&quot;,&quot;van&quot;,&quot;фургон&quot;],[&quot;W&quot;,&quot;🐳&quot;,&quot;whale&quot;,&quot;кит&quot;],[&quot;X&quot;,&quot;🦊&quot;,&quot;fox&quot;,&quot;лиса&quot;],[&quot;Y&quot;,&quot;🪀&quot;,&quot;yo-yo&quot;,&quot;йо-йо&quot;],[&quot;Z&quot;,&quot;🦓&quot;,&quot;zebra&quot;,&quot;зебра&quot;]];
+const EN_WORDS=[[&quot;🐱&quot;,&quot;cat&quot;,&quot;кошка&quot;],[&quot;🐶&quot;,&quot;dog&quot;,&quot;собака&quot;],[&quot;🐮&quot;,&quot;cow&quot;,&quot;корова&quot;],[&quot;🦆&quot;,&quot;duck&quot;,&quot;утка&quot;],[&quot;🐷&quot;,&quot;pig&quot;,&quot;свинка&quot;],[&quot;🐟&quot;,&quot;fish&quot;,&quot;рыба&quot;],[&quot;🐦&quot;,&quot;bird&quot;,&quot;птичка&quot;],[&quot;🦁&quot;,&quot;lion&quot;,&quot;лев&quot;],
+ [&quot;🍎&quot;,&quot;apple&quot;,&quot;яблоко&quot;],[&quot;🍌&quot;,&quot;banana&quot;,&quot;банан&quot;],[&quot;⚽&quot;,&quot;ball&quot;,&quot;мяч&quot;],[&quot;🚗&quot;,&quot;car&quot;,&quot;машина&quot;],[&quot;🚌&quot;,&quot;bus&quot;,&quot;автобус&quot;],[&quot;☀️&quot;,&quot;sun&quot;,&quot;солнце&quot;],[&quot;🏠&quot;,&quot;house&quot;,&quot;дом&quot;],[&quot;🎩&quot;,&quot;hat&quot;,&quot;шляпа&quot;],[&quot;🥚&quot;,&quot;egg&quot;,&quot;яйцо&quot;],[&quot;🌳&quot;,&quot;tree&quot;,&quot;дерево&quot;],[&quot;📕&quot;,&quot;book&quot;,&quot;книга&quot;],[&quot;🐻&quot;,&quot;bear&quot;,&quot;медведь&quot;]];
+
+/* ---------- общее ---------- */
+const app=document.getElementById(&#x27;app&#x27;);let timers=[];
+function reset(){timers.forEach(t=&gt;{clearTimeout(t);clearInterval(t)});timers=[];try{speechSynthesis.cancel()}catch(e){}}
+const rnd=a=&gt;a[Math.floor(Math.random()*a.length)];
+const shuffle=a=&gt;{a=[...a];for(let i=a.length-1;i&gt;0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const later=(f,ms)=&gt;timers.push(setTimeout(f,ms));
+function bump(el){el.classList.remove(&#x27;jump&#x27;,&#x27;shake&#x27;);void el.offsetWidth;el.classList.add(&#x27;jump&#x27;);}
+function shake(el){el.classList.remove(&#x27;jump&#x27;,&#x27;shake&#x27;);void el.offsetWidth;el.classList.add(&#x27;shake&#x27;);}
+let lt;function label(t){const l=document.getElementById(&#x27;lbl&#x27;);l.textContent=t;l.classList.add(&#x27;show&#x27;);clearTimeout(lt);lt=setTimeout(()=&gt;l.classList.remove(&#x27;show&#x27;),1400);}
+const cv=document.getElementById(&#x27;conf&#x27;),cx=cv.getContext(&#x27;2d&#x27;);let parts=[];
+function confetti(){cv.width=innerWidth;cv.height=innerHeight;const c=[&quot;#FF6FA0&quot;,&quot;#FFC83D&quot;,&quot;#43C26B&quot;,&quot;#4F8BFF&quot;,&quot;#9C7BFF&quot;,&quot;#FF9A4D&quot;];const st=!parts.length;
+ for(let i=0;i&lt;120;i++)parts.push({x:innerWidth/2,y:innerHeight/2.6,vx:(Math.random()-.5)*16,vy:Math.random()*-14-4,s:10+Math.random()*8,c:c[i%6],r:Math.random()*6,l:130});if(st)requestAnimationFrame(tk);}
+function tk(){cx.clearRect(0,0,cv.width,cv.height);parts.forEach(p=&gt;{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+ parts=parts.filter(p=&gt;p.l&gt;0&amp;&amp;p.y&lt;cv.height+30);if(parts.length)requestAnimationFrame(tk);else cx.clearRect(0,0,cv.width,cv.height);}
+let stars=0;try{stars=+localStorage.getItem(&#x27;kz_stars&#x27;)||0;}catch(e){}
+const starsEl=document.getElementById(&#x27;stars&#x27;);starsEl.textContent=stars;
+function star(){stars++;starsEl.textContent=stars;try{localStorage.setItem(&#x27;kz_stars&#x27;,stars)}catch(e){}}
+const PR=[&quot;Молодец!&quot;,&quot;Умница!&quot;,&quot;Правильно!&quot;,&quot;Отлично!&quot;,&quot;Ура!&quot;,&quot;Здорово!&quot;];const praise=()=&gt;rnd(PR);
+function good(el,say){if(el)el.classList.add(&#x27;ok&#x27;);star();sfx.ok();speak(say||praise(),200);}
+function askBar(text,sayText){return `&lt;div class=&quot;ask&quot;&gt;${text}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;`;}
+function bindAsk(t){const b=document.getElementById(&#x27;rep&#x27;);if(b)b.onclick=()=&gt;speak(t);speak(t);}
+/* перетаскивание (палец и мышь) */
+function makeDrag(el,onDrop){el.classList.add(&#x27;drag&#x27;);
+ el.addEventListener(&#x27;pointerdown&#x27;,e=&gt;{e.preventDefault();const g=el.cloneNode(true);g.classList.add(&#x27;ghost&#x27;);g.classList.remove(&#x27;drag&#x27;);const r=el.getBoundingClientRect();g.style.width=r.width+&#x27;px&#x27;;g.style.height=r.height+&#x27;px&#x27;;
+  document.body.appendChild(g);el.style.opacity=.3;sfx.flip();const mv=ev=&gt;{g.style.left=ev.clientX+&#x27;px&#x27;;g.style.top=ev.clientY+&#x27;px&#x27;;};mv(e);
+  const up=ev=&gt;{document.removeEventListener(&#x27;pointermove&#x27;,mv);document.removeEventListener(&#x27;pointerup&#x27;,up);document.removeEventListener(&#x27;pointercancel&#x27;,up);g.remove();el.style.opacity=1;
+   const under=document.elementFromPoint(ev.clientX,ev.clientY);onDrop(under,ev);};
+  document.addEventListener(&#x27;pointermove&#x27;,mv);document.addEventListener(&#x27;pointerup&#x27;,up);document.addEventListener(&#x27;pointercancel&#x27;,up);});}
+
+/* Человечек (общий для «Тело» и English) */
+function bodySVG(names){const S=&quot;#FFD9B8&quot;,K=&quot;#F2B48C&quot;,SH=&quot;#FFB627&quot;,n=k=&gt;names[k];
+ return `&lt;svg viewBox=&quot;0 0 320 600&quot;&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;arm&#x27;)}&quot;&gt;&lt;path d=&quot;M106 192 C80 222 68 270 62 318&quot; stroke=&quot;${S}&quot; stroke-width=&quot;30&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M106 190 C94 204 86 220 82 238&quot; stroke=&quot;${SH}&quot; stroke-width=&quot;40&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;arm&#x27;)}&quot;&gt;&lt;path d=&quot;M214 192 C240 222 252 270 258 318&quot; stroke=&quot;${S}&quot; stroke-width=&quot;30&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M214 190 C226 204 234 220 238 238&quot; stroke=&quot;${SH}&quot; stroke-width=&quot;40&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;leg&#x27;)}&quot;&gt;&lt;path d=&quot;M134 380 L130 518&quot; stroke=&quot;${S}&quot; stroke-width=&quot;36&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;leg&#x27;)}&quot;&gt;&lt;path d=&quot;M186 380 L190 518&quot; stroke=&quot;${S}&quot; stroke-width=&quot;36&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+ &lt;rect class=&quot;part&quot; data-n=&quot;${n(&#x27;neck&#x27;)}&quot; x=&quot;146&quot; y=&quot;144&quot; width=&quot;28&quot; height=&quot;40&quot; rx=&quot;9&quot; fill=&quot;${K}&quot;/&gt;
+ &lt;path class=&quot;part&quot; data-n=&quot;${n(&#x27;shorts&#x27;)}&quot; d=&quot;M114 318 L206 318 L214 404 L166 404 L160 366 L154 404 L106 404 Z&quot; fill=&quot;#3B7BFF&quot;/&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;body&#x27;)}&quot;&gt;&lt;path d=&quot;M106 178 Q160 162 214 178 L218 226 L208 230 L206 330 Q160 342 114 330 L112 230 L102 226 Z&quot; fill=&quot;${SH}&quot;/&gt;
+   &lt;path d=&quot;M144 176 Q160 192 176 176&quot; stroke=&quot;#E09A10&quot; stroke-width=&quot;5&quot; fill=&quot;none&quot;/&gt;&lt;text x=&quot;160&quot; y=&quot;280&quot; text-anchor=&quot;middle&quot; font-size=&quot;46&quot;&gt;⭐&lt;/text&gt;&lt;/g&gt;
+ &lt;ellipse class=&quot;part&quot; data-n=&quot;${n(&#x27;knee&#x27;)}&quot; cx=&quot;132&quot; cy=&quot;458&quot; rx=&quot;15&quot; ry=&quot;11&quot; fill=&quot;${K}&quot;/&gt;
+ &lt;ellipse class=&quot;part&quot; data-n=&quot;${n(&#x27;knee&#x27;)}&quot; cx=&quot;188&quot; cy=&quot;458&quot; rx=&quot;15&quot; ry=&quot;11&quot; fill=&quot;${K}&quot;/&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;foot&#x27;)}&quot;&gt;&lt;path d=&quot;M98 548 Q98 516 130 516 Q160 516 160 548 Q130 556 98 548Z&quot; fill=&quot;#E8505B&quot;/&gt;&lt;rect x=&quot;98&quot; y=&quot;544&quot; width=&quot;62&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;foot&#x27;)}&quot;&gt;&lt;path d=&quot;M160 548 Q160 516 190 516 Q222 516 222 548 Q190 556 160 548Z&quot; fill=&quot;#E8505B&quot;/&gt;&lt;rect x=&quot;160&quot; y=&quot;544&quot; width=&quot;62&quot; height=&quot;9&quot; rx=&quot;4&quot; fill=&quot;#fff&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;hand&#x27;)}&quot;&gt;&lt;ellipse cx=&quot;60&quot; cy=&quot;336&quot; rx=&quot;20&quot; ry=&quot;24&quot; fill=&quot;${S}&quot;/&gt;&lt;ellipse cx=&quot;78&quot; cy=&quot;326&quot; rx=&quot;7&quot; ry=&quot;13&quot; fill=&quot;${S}&quot; transform=&quot;rotate(-35 78 326)&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;hand&#x27;)}&quot;&gt;&lt;ellipse cx=&quot;260&quot; cy=&quot;336&quot; rx=&quot;20&quot; ry=&quot;24&quot; fill=&quot;${S}&quot;/&gt;&lt;ellipse cx=&quot;242&quot; cy=&quot;326&quot; rx=&quot;7&quot; ry=&quot;13&quot; fill=&quot;${S}&quot; transform=&quot;rotate(35 242 326)&quot;/&gt;&lt;/g&gt;
+ &lt;g class=&quot;part&quot; data-n=&quot;${n(&#x27;head&#x27;)}&quot;&gt;&lt;circle cx=&quot;98&quot; cy=&quot;96&quot; r=&quot;15&quot; fill=&quot;${K}&quot;/&gt;&lt;circle cx=&quot;222&quot; cy=&quot;96&quot; r=&quot;15&quot; fill=&quot;${K}&quot;/&gt;&lt;circle cx=&quot;160&quot; cy=&quot;90&quot; r=&quot;64&quot; fill=&quot;${S}&quot;/&gt;
+   &lt;path d=&quot;M92 100 C76 -6 244 -6 228 100 C218 72 204 62 188 64 C180 52 162 50 150 60 C136 52 116 58 108 70 C100 76 96 86 94 96Z&quot; fill=&quot;#8B5A2B&quot;/&gt;
+   &lt;circle cx=&quot;137&quot; cy=&quot;94&quot; r=&quot;8&quot; fill=&quot;#3A3355&quot;/&gt;&lt;circle cx=&quot;183&quot; cy=&quot;94&quot; r=&quot;8&quot; fill=&quot;#3A3355&quot;/&gt;&lt;circle cx=&quot;139&quot; cy=&quot;91&quot; r=&quot;2.5&quot; fill=&quot;#fff&quot;/&gt;&lt;circle cx=&quot;185&quot; cy=&quot;91&quot; r=&quot;2.5&quot; fill=&quot;#fff&quot;/&gt;
+   &lt;circle cx=&quot;122&quot; cy=&quot;114&quot; r=&quot;10&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.7&quot;/&gt;&lt;circle cx=&quot;198&quot; cy=&quot;114&quot; r=&quot;10&quot; fill=&quot;#FF9FB2&quot; opacity=&quot;.7&quot;/&gt;
+   &lt;path d=&quot;M140 120 Q160 138 180 120&quot; stroke=&quot;#E8505B&quot; stroke-width=&quot;6&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+ &lt;/svg&gt;`;}
+
+/* ---------- голос: казахский + русский ---------- */
+let kzVoice=null;
+function pickKz(){try{const v=speechSynthesis.getVoices();kzVoice=v.find(x=&gt;/^kk/i.test(x.lang))||null;
+ const n=document.getElementById(&#x27;kznote&#x27;);if(n)n.textContent=kzVoice?&#x27;&#x27;:&#x27;На этом устройстве нет казахского голоса — казахские слова читает русский голос примерно. Лучше всего звучит на устройстве с установленным казахским голосом.&#x27;;}catch(e){}}
+if(&#x27;speechSynthesis&#x27; in window){pickKz();speechSynthesis.addEventListener&amp;&amp;speechSynthesis.addEventListener(&#x27;voiceschanged&#x27;,pickKz);}
+// если казахского голоса нет — приближаем звуки для русского голоса
+const KZMAP={&#x27;ә&#x27;:&#x27;э&#x27;,&#x27;Ә&#x27;:&#x27;Э&#x27;,&#x27;ғ&#x27;:&#x27;г&#x27;,&#x27;Ғ&#x27;:&#x27;Г&#x27;,&#x27;қ&#x27;:&#x27;к&#x27;,&#x27;Қ&#x27;:&#x27;К&#x27;,&#x27;ң&#x27;:&#x27;нг&#x27;,&#x27;Ң&#x27;:&#x27;Нг&#x27;,&#x27;ө&#x27;:&#x27;о&#x27;,&#x27;Ө&#x27;:&#x27;О&#x27;,&#x27;ұ&#x27;:&#x27;у&#x27;,&#x27;Ұ&#x27;:&#x27;У&#x27;,&#x27;ү&#x27;:&#x27;у&#x27;,&#x27;Ү&#x27;:&#x27;У&#x27;,&#x27;һ&#x27;:&#x27;х&#x27;,&#x27;Һ&#x27;:&#x27;Х&#x27;,&#x27;і&#x27;:&#x27;ы&#x27;,&#x27;І&#x27;:&#x27;Ы&#x27;};
+const kzFallback=t=&gt;t.replace(/[әғқңөұүһіӘҒҚҢӨҰҮҺІ]/g,c=&gt;KZMAP[c]);
+function sayKZ(kz,ruText,delay=0){if(!soundOn||!(&#x27;speechSynthesis&#x27; in window))return;setTimeout(()=&gt;{try{speechSynthesis.cancel();
+  if(kz){const a=new SpeechSynthesisUtterance(kzVoice?kz:kzFallback(kz));a.lang=kzVoice?&#x27;kk-KZ&#x27;:&#x27;ru-RU&#x27;;a.voice=kzVoice||ru||null;a.rate=.8;a.pitch=1.15;speechSynthesis.speak(a);}
+  if(ruText){const b=new SpeechSynthesisUtterance(ruText);b.lang=&#x27;ru-RU&#x27;;if(ru)b.voice=ru;b.rate=.9;b.pitch=1.15;speechSynthesis.speak(b);}}catch(e){}},delay);}
+const cap=s=&gt;s[0].toUpperCase()+s.slice(1);
+const PRK=[&quot;Жарайсың!&quot;,&quot;Дұрыс!&quot;,&quot;Керемет!&quot;,&quot;Тамаша!&quot;];const prk=()=&gt;rnd(PRK);
+/* ---------- сөздік (словарь) ---------- */
+const ANIM=[[&quot;🐱&quot;,&quot;мысық&quot;,&quot;кошка&quot;],[&quot;🐶&quot;,&quot;ит&quot;,&quot;собака&quot;],[&quot;🐮&quot;,&quot;сиыр&quot;,&quot;корова&quot;],[&quot;🐴&quot;,&quot;жылқы&quot;,&quot;лошадь&quot;],[&quot;🐑&quot;,&quot;қой&quot;,&quot;овца&quot;],[&quot;🐐&quot;,&quot;ешкі&quot;,&quot;коза&quot;],[&quot;🐫&quot;,&quot;түйе&quot;,&quot;верблюд&quot;],[&quot;🐔&quot;,&quot;тауық&quot;,&quot;курица&quot;],
+ [&quot;🦆&quot;,&quot;үйрек&quot;,&quot;утка&quot;],[&quot;🐸&quot;,&quot;бақа&quot;,&quot;лягушка&quot;],[&quot;🦁&quot;,&quot;арыстан&quot;,&quot;лев&quot;],[&quot;🐯&quot;,&quot;жолбарыс&quot;,&quot;тигр&quot;],[&quot;🐘&quot;,&quot;піл&quot;,&quot;слон&quot;],[&quot;🐵&quot;,&quot;маймыл&quot;,&quot;обезьяна&quot;],[&quot;🐻&quot;,&quot;аю&quot;,&quot;медведь&quot;],[&quot;🐰&quot;,&quot;қоян&quot;,&quot;заяц&quot;],[&quot;🐟&quot;,&quot;балық&quot;,&quot;рыба&quot;],[&quot;🐦&quot;,&quot;құс&quot;,&quot;птица&quot;],[&quot;🐭&quot;,&quot;тышқан&quot;,&quot;мышь&quot;],[&quot;🦊&quot;,&quot;түлкі&quot;,&quot;лиса&quot;],[&quot;🐺&quot;,&quot;қасқыр&quot;,&quot;волк&quot;]];
+const FOOD=[[&quot;🍎&quot;,&quot;алма&quot;,&quot;яблоко&quot;],[&quot;🍌&quot;,&quot;банан&quot;,&quot;банан&quot;],[&quot;🍐&quot;,&quot;алмұрт&quot;,&quot;груша&quot;],[&quot;🍓&quot;,&quot;құлпынай&quot;,&quot;клубника&quot;],[&quot;🍇&quot;,&quot;жүзім&quot;,&quot;виноград&quot;],[&quot;🍉&quot;,&quot;қарбыз&quot;,&quot;арбуз&quot;],[&quot;🥕&quot;,&quot;сәбіз&quot;,&quot;морковь&quot;],
+ [&quot;🍅&quot;,&quot;қызанақ&quot;,&quot;помидор&quot;],[&quot;🥒&quot;,&quot;қияр&quot;,&quot;огурец&quot;],[&quot;🍞&quot;,&quot;нан&quot;,&quot;хлеб&quot;],[&quot;🥛&quot;,&quot;сүт&quot;,&quot;молоко&quot;],[&quot;🧀&quot;,&quot;ірімшік&quot;,&quot;сыр&quot;],[&quot;🥚&quot;,&quot;жұмыртқа&quot;,&quot;яйцо&quot;],[&quot;🍦&quot;,&quot;балмұздақ&quot;,&quot;мороженое&quot;],[&quot;🧃&quot;,&quot;шырын&quot;,&quot;сок&quot;],[&quot;🍯&quot;,&quot;бал&quot;,&quot;мёд&quot;]];
+const THINGS=[[&quot;⚽&quot;,&quot;доп&quot;,&quot;мяч&quot;],[&quot;🧸&quot;,&quot;ойыншық&quot;,&quot;игрушка&quot;],[&quot;🚗&quot;,&quot;көлік&quot;,&quot;машина&quot;],[&quot;🚌&quot;,&quot;автобус&quot;,&quot;автобус&quot;],[&quot;🚂&quot;,&quot;пойыз&quot;,&quot;поезд&quot;],[&quot;✈️&quot;,&quot;ұшақ&quot;,&quot;самолёт&quot;],[&quot;⛵&quot;,&quot;қайық&quot;,&quot;лодка&quot;],[&quot;🚲&quot;,&quot;велосипед&quot;,&quot;велосипед&quot;],
+ [&quot;📕&quot;,&quot;кітап&quot;,&quot;книга&quot;],[&quot;🏠&quot;,&quot;үй&quot;,&quot;дом&quot;],[&quot;🌳&quot;,&quot;ағаш&quot;,&quot;дерево&quot;],[&quot;☀️&quot;,&quot;күн&quot;,&quot;солнце&quot;],[&quot;🌙&quot;,&quot;ай&quot;,&quot;луна&quot;],[&quot;⭐&quot;,&quot;жұлдыз&quot;,&quot;звезда&quot;],[&quot;🌸&quot;,&quot;гүл&quot;,&quot;цветок&quot;],[&quot;🎈&quot;,&quot;шар&quot;,&quot;шарик&quot;]];
+const FAM=[[&quot;👩&quot;,&quot;ана&quot;,&quot;мама&quot;],[&quot;👨&quot;,&quot;әке&quot;,&quot;папа&quot;],[&quot;👵&quot;,&quot;әже&quot;,&quot;бабушка&quot;],[&quot;👴&quot;,&quot;ата&quot;,&quot;дедушка&quot;],[&quot;👦&quot;,&quot;аға&quot;,&quot;старший брат&quot;],[&quot;👧&quot;,&quot;әпке&quot;,&quot;старшая сестра&quot;],[&quot;👶&quot;,&quot;сәби&quot;,&quot;малыш&quot;],[&quot;👪&quot;,&quot;отбасы&quot;,&quot;семья&quot;]];
+const COLS=[[&quot;#FF4D4D&quot;,&quot;қызыл&quot;,&quot;красный&quot;],[&quot;#FFD21F&quot;,&quot;сары&quot;,&quot;жёлтый&quot;],[&quot;#3CC75A&quot;,&quot;жасыл&quot;,&quot;зелёный&quot;],[&quot;#3B7BFF&quot;,&quot;көк&quot;,&quot;синий&quot;],[&quot;#FF8C1A&quot;,&quot;қызғылт сары&quot;,&quot;оранжевый&quot;],[&quot;#9B5CFF&quot;,&quot;күлгін&quot;,&quot;фиолетовый&quot;],[&quot;#FF7BC0&quot;,&quot;қызғылт&quot;,&quot;розовый&quot;],[&quot;#8B5A2B&quot;,&quot;қоңыр&quot;,&quot;коричневый&quot;],[&quot;#222222&quot;,&quot;қара&quot;,&quot;чёрный&quot;],[&quot;#FFFFFF&quot;,&quot;ақ&quot;,&quot;белый&quot;]];
+const NUM=[[&quot;бір&quot;,&quot;один&quot;],[&quot;екі&quot;,&quot;два&quot;],[&quot;үш&quot;,&quot;три&quot;],[&quot;төрт&quot;,&quot;четыре&quot;],[&quot;бес&quot;,&quot;пять&quot;],[&quot;алты&quot;,&quot;шесть&quot;],[&quot;жеті&quot;,&quot;семь&quot;],[&quot;сегіз&quot;,&quot;восемь&quot;],[&quot;тоғыз&quot;,&quot;девять&quot;],[&quot;он&quot;,&quot;десять&quot;]];
+const BODY_KZ={head:&quot;бас|голова&quot;,neck:&quot;мойын|шея&quot;,body:&quot;іш|живот&quot;,arm:&quot;қол|рука&quot;,hand:&quot;алақан|ладонь&quot;,leg:&quot;аяқ|нога&quot;,knee:&quot;тізе|колено&quot;,foot:&quot;табан|стопа&quot;,shorts:&quot;шорт|шорты&quot;};
+const KZL=[[&quot;Ә&quot;,&quot;🐓&quot;,&quot;әтеш&quot;,&quot;петух&quot;],[&quot;Ғ&quot;,&quot;🚀&quot;,&quot;ғарыш&quot;,&quot;космос&quot;],[&quot;Қ&quot;,&quot;🐰&quot;,&quot;қоян&quot;,&quot;заяц&quot;],[&quot;Ң&quot;,&quot;🐞&quot;,&quot;қоңыз&quot;,&quot;жук&quot;],[&quot;Ө&quot;,&quot;🕷️&quot;,&quot;өрмекші&quot;,&quot;паук&quot;],[&quot;Ұ&quot;,&quot;✈️&quot;,&quot;ұшақ&quot;,&quot;самолёт&quot;],[&quot;Ү&quot;,&quot;🏠&quot;,&quot;үй&quot;,&quot;дом&quot;],[&quot;Һ&quot;,&quot;💎&quot;,&quot;гауһар&quot;,&quot;алмаз&quot;],[&quot;І&quot;,&quot;🧀&quot;,&quot;ірімшік&quot;,&quot;сыр&quot;]];
+const POOL=[...ANIM,...FOOD,...THINGS];
+/* ---------- тыңдап, есте сақта (слушаем и запоминаем) ---------- */
+function cards(title,list,intro){reset();
+ app.innerHTML=`&lt;h2&gt;${title}&lt;/h2&gt;&lt;div class=&quot;cards&quot;&gt;${list.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;en&quot;&gt;${a[1]}&lt;/span&gt;&lt;span class=&quot;ru&quot;&gt;${a[2]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=list[+b.dataset.i];bump(b);sfx.pop();label(`${a[1]} — ${a[2]}`);sayKZ(cap(a[1])+&#x27;.&#x27;,cap(a[2])+&#x27;.&#x27;);});
+ sayKZ(intro[0],intro[1]);}
+const wAnim=()=&gt;cards(&#x27;Жануарлар · Животные&#x27;,ANIM,[&#x27;Жануарлар!&#x27;,&#x27;Животные!&#x27;]);
+const wFood=()=&gt;cards(&#x27;Тағамдар · Еда&#x27;,FOOD,[&#x27;Тағамдар!&#x27;,&#x27;Еда!&#x27;]);
+const wThings=()=&gt;cards(&#x27;Заттар · Вещи&#x27;,THINGS,[&#x27;Заттар!&#x27;,&#x27;Вещи!&#x27;]);
+const wFam=()=&gt;cards(&#x27;Отбасы · Семья&#x27;,FAM,[&#x27;Менің отбасым!&#x27;,&#x27;Моя семья!&#x27;]);
+function wColors(){reset();
+ app.innerHTML=`&lt;h2&gt;Түстер · Цвета&lt;/h2&gt;&lt;div class=&quot;cards&quot;&gt;${COLS.map((c,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;sw&quot; style=&quot;background:${c[0]}&quot;&gt;&lt;/span&gt;&lt;span class=&quot;en&quot;&gt;${c[1]}&lt;/span&gt;&lt;span class=&quot;ru&quot;&gt;${c[2]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const c=COLS[+b.dataset.i];bump(b);sfx.pop();label(`${c[1]} — ${c[2]}`);sayKZ(cap(c[1])+&#x27;.&#x27;,cap(c[2])+&#x27;.&#x27;);});sayKZ(&#x27;Түстер!&#x27;,&#x27;Цвета!&#x27;);}
+function wNums(){reset();
+ app.innerHTML=`&lt;h2&gt;Сандар · Числа 1–10&lt;/h2&gt;&lt;div class=&quot;cards&quot;&gt;${NUM.map((x,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot; style=&quot;color:#3B7BFF&quot;&gt;${i+1}&lt;/span&gt;&lt;span class=&quot;en&quot;&gt;${x[0]}&lt;/span&gt;&lt;span class=&quot;ru&quot;&gt;${x[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const i=+b.dataset.i,x=NUM[i];bump(b);sfx.pop();label(`${i+1} — ${x[0]} — ${x[1]}`);sayKZ(cap(x[0])+&#x27;.&#x27;,cap(x[1])+&#x27;.&#x27;);});sayKZ(&#x27;Санаймыз!&#x27;,&#x27;Считаем!&#x27;);}
+function wBody(){reset();
+ app.innerHTML=`&lt;h2&gt;Дене · Тело&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;${bodySVG(BODY_KZ)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.part&#x27;).forEach(p=&gt;p.addEventListener(&#x27;pointerdown&#x27;,e=&gt;{e.stopPropagation();const [kz,r2]=p.dataset.n.split(&#x27;|&#x27;);
+  app.querySelectorAll(&#x27;.part.lit&#x27;).forEach(x=&gt;x.classList.remove(&#x27;lit&#x27;));app.querySelectorAll(`.part[data-n=&quot;${p.dataset.n}&quot;]`).forEach(x=&gt;x.classList.add(&#x27;lit&#x27;));
+  later(()=&gt;app.querySelectorAll(&#x27;.part.lit&#x27;).forEach(x=&gt;x.classList.remove(&#x27;lit&#x27;)),1300);sfx.pop();label(`${kz} — ${r2}`);sayKZ(cap(kz)+&#x27;.&#x27;,cap(r2)+&#x27;.&#x27;);}));
+ sayKZ(&#x27;Балаға басып көр!&#x27;,&#x27;Нажимай на мальчика!&#x27;);}
+function wLetters(){reset();
+ app.innerHTML=`&lt;h2&gt;Қазақ әріптері · Казахские буквы&lt;/h2&gt;&lt;p class=&quot;voice&quot; style=&quot;font-size:20px;margin-top:-6px&quot;&gt;Буквы, которых нет в русском алфавите&lt;/p&gt;
+  &lt;div class=&quot;opts&quot; style=&quot;gap:12px&quot;&gt;${KZL.map((l,i)=&gt;`&lt;button class=&quot;opt&quot; data-i=&quot;${i}&quot; style=&quot;min-width:120px;min-height:120px;font-size:84px;color:${&#x27;ӘӨҰҮІ&#x27;.includes(l[0])?&#x27;#F0435A&#x27;:&#x27;#2F6FE4&#x27;}&quot;&gt;${l[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const l=KZL[+b.dataset.i];bump(b);sfx.pop();label(`${l[0]}${l[0].toLowerCase()} — ${l[1]} ${l[2]} — ${l[3]}`);sayKZ(`${l[2]}.`,l[3]);});
+ sayKZ(&#x27;Қазақ әріптері!&#x27;,&#x27;Казахские буквы!&#x27;);}
+/* ---------- ойнайық (играем) ---------- */
+function qWhere(){reset();const o=shuffle(POOL).slice(0,3),t=rnd(o);let tries=0;
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${cap(t[1])} қайда?&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;p class=&quot;voice&quot; style=&quot;font-size:22px;margin-top:-6px&quot;&gt;Где ${t[2]}?&lt;/p&gt;
+  &lt;div class=&quot;opts&quot;&gt;${o.map(x=&gt;`&lt;button class=&quot;opt&quot; data-w=&quot;${x[1]}&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ const ask=()=&gt;sayKZ(`${cap(t[1])} қайда?`,`Где ${t[2]}?`);document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=POOL.find(z=&gt;z[1]===b.dataset.w);
+  if(x===t){bump(b);b.classList.add(&#x27;ok&#x27;);if(!tries)star();sfx.ok();confetti();label(`${t[1]} — ${t[2]}`);sayKZ(`${prk()} ${cap(t[1])}!`,`${cap(t[2])}!`);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);later(qWhere,3000);}
+  else{tries++;shake(b);sfx.bad();sayKZ(`Бұл — ${x[1]}.`,`Это ${x[2]}.`);}});}
+function qColor(){reset();const o=shuffle(COLS.slice(0,7)).slice(0,3),t=rnd(o);let tries=0;
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${cap(t[1])} қайда?&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;&lt;p class=&quot;voice&quot; style=&quot;font-size:22px;margin-top:-6px&quot;&gt;Где ${t[2]}?&lt;/p&gt;
+  &lt;div class=&quot;opts&quot;&gt;${o.map(c=&gt;`&lt;button class=&quot;dot&quot; data-c=&quot;${c[1]}&quot; style=&quot;background:${c[0]}&quot;&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ const ask=()=&gt;sayKZ(`${cap(t[1])} қайда?`,`Где ${t[2]}?`);document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+ app.querySelectorAll(&#x27;.dot&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const c=COLS.find(x=&gt;x[1]===b.dataset.c);
+  if(c===t){bump(b);if(!tries)star();sfx.ok();confetti();label(`${t[1]} — ${t[2]}`);sayKZ(`${prk()} ${cap(t[1])}!`,`${cap(t[2])}!`);app.querySelectorAll(&#x27;.dot&#x27;).forEach(x=&gt;x.onclick=null);later(qColor,2800);}
+  else{tries++;shake(b);sfx.bad();sayKZ(`Бұл — ${c[1]}.`,`Это ${c[2]}.`);}});}
+function qCount(){reset();const n=1+Math.floor(Math.random()*10),o=rnd(POOL.slice(0,30));let c=0,tries=0;
+ const opts=shuffle([n,...shuffle([1,2,3,4,5,6,7,8,9,10].filter(x=&gt;x!==n&amp;&amp;Math.abs(x-n)&lt;=3)).slice(0,2)]);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Қанша? · Сколько?&lt;/div&gt;&lt;div class=&quot;count&quot;&gt;${Array.from({length:n},()=&gt;`&lt;span class=&quot;c&quot; style=&quot;font-size:72px&quot;&gt;${o[0]}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${opts.map(x=&gt;`&lt;button class=&quot;opt num&quot; data-n=&quot;${x}&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ sayKZ(&#x27;Қанша? Санап көр!&#x27;,&#x27;Сколько? Посчитай!&#x27;);
+ app.querySelectorAll(&#x27;.c&#x27;).forEach(el=&gt;el.onclick=()=&gt;{if(el.querySelector(&#x27;i&#x27;))return;c++;el.insertAdjacentHTML(&#x27;beforeend&#x27;,`&lt;i&gt;${c}&lt;/i&gt;`);bump(el);sfx.pop();sayKZ(NUM[c-1][0],&#x27;&#x27;);});
+ app.querySelectorAll(&#x27;.num&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const v=+b.dataset.n;if(v===n){bump(b);b.classList.add(&#x27;ok&#x27;);if(!tries)star();sfx.ok();confetti();label(`${n} — ${NUM[n-1][0]} — ${NUM[n-1][1]}`);sayKZ(`${cap(NUM[n-1][0])}!`,`${cap(NUM[n-1][1])}!`);later(qCount,2600);app.querySelectorAll(&#x27;.num&#x27;).forEach(x=&gt;x.onclick=null);}
+  else{tries++;shake(b);sfx.bad();sayKZ(&#x27;Тағы байқап көр!&#x27;,&#x27;Попробуй ещё!&#x27;);}});}
+/* ---------- оқимыз (читаем) ---------- */
+function qRead(){reset();const pool=POOL.filter(w=&gt;w[1].length&lt;=6&amp;&amp;!w[1].includes(&#x27; &#x27;));const o=shuffle(pool).slice(0,3),t=rnd(o);let tries=0;
+ app.innerHTML=`&lt;h2&gt;Оқы да тап · Прочитай и найди&lt;/h2&gt;&lt;div class=&quot;enw&quot; style=&quot;color:#0A8FB0&quot;&gt;${t[1]}&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${o.map(x=&gt;`&lt;button class=&quot;opt&quot; data-w=&quot;${x[1]}&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;ask&quot; style=&quot;margin-top:16px&quot;&gt;&lt;button id=&quot;hint&quot;&gt;💡&lt;/button&gt;&lt;/div&gt;`;
+ document.getElementById(&#x27;hint&#x27;).onclick=()=&gt;{tries++;sayKZ(t[1],&#x27;&#x27;);};sayKZ(&#x27;Сөзді оқы.&#x27;,&#x27;Прочитай слово и найди картинку.&#x27;);
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=POOL.find(z=&gt;z[1]===b.dataset.w);
+  if(x===t){bump(b);b.classList.add(&#x27;ok&#x27;);if(!tries)star();sfx.ok();confetti();label(`${t[1]} — ${t[2]}`);sayKZ(`${cap(t[1])}!`,`${cap(t[2])}!`);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);later(qRead,2800);}
+  else{tries++;shake(b);sfx.bad();sayKZ(`Жоқ, бұл — ${x[1]}.`,`Нет, это ${x[2]}.`);}});}
+function qListen(){reset();const o=shuffle(POOL).slice(0,4),t=rnd(o);let tries=0;
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;Тыңда да тап · Послушай и найди&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;opts&quot;&gt;${o.map(x=&gt;`&lt;button class=&quot;opt&quot; data-w=&quot;${x[1]}&quot; style=&quot;min-width:150px;min-height:150px;font-size:100px&quot;&gt;${x[0]}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ const ask=()=&gt;sayKZ(`${cap(t[1])}.`,&#x27;&#x27;);document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+ app.querySelectorAll(&#x27;.opt&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=POOL.find(z=&gt;z[1]===b.dataset.w);
+  if(x===t){bump(b);b.classList.add(&#x27;ok&#x27;);if(!tries)star();sfx.ok();confetti();label(`${t[1]} — ${t[2]}`);sayKZ(`${prk()} ${cap(t[1])}!`,`${cap(t[2])}!`);app.querySelectorAll(&#x27;.opt&#x27;).forEach(z=&gt;z.onclick=null);later(qListen,2800);}
+  else{tries++;shake(b);sfx.bad();sayKZ(`Бұл — ${x[1]}.`,`Это ${x[2]}.`);}});}
+/* ---------- мәзір (меню) ---------- */
+const G={anim:[&quot;🐫&quot;,&quot;Жануарлар · Животные&quot;,&quot;#FF9A4D&quot;,wAnim],food:[&quot;🍎&quot;,&quot;Тағамдар · Еда&quot;,&quot;#E8505B&quot;,wFood],things:[&quot;🧸&quot;,&quot;Заттар · Вещи&quot;,&quot;#F07FB0&quot;,wThings],colors:[&quot;🌈&quot;,&quot;Түстер · Цвета&quot;,&quot;#9C7BFF&quot;,wColors],
+ nums:[&quot;🔢&quot;,&quot;Сандар · Числа&quot;,&quot;#43C26B&quot;,wNums],body:[&quot;🧍&quot;,&quot;Дене · Тело&quot;,&quot;#22B8C8&quot;,wBody],fam:[&quot;👨‍👩‍👧&quot;,&quot;Отбасы · Семья&quot;,&quot;#FF7B7B&quot;,wFam],let:[&quot;🔤&quot;,&quot;Әріптер · Буквы&quot;,&quot;#0A8FB0&quot;,wLetters],
+ where:[&quot;👀&quot;,&quot;… қайда? · Где?&quot;,&quot;#2FA37E&quot;,qWhere],qcol:[&quot;🎨&quot;,&quot;Түсті тап · Найди цвет&quot;,&quot;#FF6B6B&quot;,qColor],count:[&quot;🧮&quot;,&quot;Қанша? · Сколько?&quot;,&quot;#E8A33B&quot;,qCount],
+ read:[&quot;📗&quot;,&quot;Оқы да тап · Прочитай&quot;,&quot;#13A58A&quot;,qRead],listen:[&quot;👂&quot;,&quot;Тыңда да тап · Послушай&quot;,&quot;#8A3FE0&quot;,qListen]};
+const SECTIONS=[[&quot;👂 Тыңдап, есте сақта · Слушаем и запоминаем&quot;,[&quot;anim&quot;,&quot;food&quot;,&quot;things&quot;,&quot;colors&quot;,&quot;nums&quot;,&quot;body&quot;,&quot;fam&quot;,&quot;let&quot;]],[&quot;🎮 Ойнайық · Играем&quot;,[&quot;where&quot;,&quot;qcol&quot;,&quot;count&quot;]],[&quot;📖 Оқимыз · Читаем (5–6 лет)&quot;,[&quot;read&quot;,&quot;listen&quot;]]];
+function home(){reset();app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&quot;sec&quot;&gt;${t}&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;${ks.map(k=&gt;{const g=G[k];return `&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`}).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;);
+ app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();sfx.pop();G[b.dataset.k][3]();});}
+document.getElementById(&#x27;homeB&#x27;).onclick=home;
+home();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 "></iframe>
 <script>
-const T={"a02":"🧸 Малыши · до 2 лет","a24":"🦊 Почемучки · 3–4 года","a56":"🦉 Скоро в школу · 5–6 лет","aen":"🇬🇧 Английский язык · English"};
+const T={"a02":["🧸 Малыши · до 2 лет","🧸 Бөбектер · 2 жасқа дейін"],"a24":["🦊 Почемучки · 3–4 года","🦊 Білгіштер · 3–4 жас"],"a56":["🦉 Скоро в школу · 5–6 лет","🦉 Мектепке дайындық · 5–6 жас"],"aen":["🇬🇧 Английский язык · English","🇬🇧 Ағылшын тілі · English"],"akz":["🇰🇿 Казахский язык · Қазақ тілі","🇰🇿 Қазақ тілі · Қазақ тілі"]};
 let cur=null;
+window.APP_LANG=(()=>{try{return localStorage.getItem('app_lang')||'ru'}catch(e){return 'ru'}})();
+function applyLang(){const kz=window.APP_LANG==='kz';document.documentElement.lang=kz?'kk':'ru';
+  document.querySelectorAll('[data-ru]').forEach(el=>el.textContent=kz?el.dataset.kz:el.dataset.ru);
+  document.getElementById('lang').classList.toggle('kz',kz);document.getElementById('lr').classList.toggle('on',!kz);document.getElementById('lk').classList.toggle('on',kz);
+  document.title=kz?'Ойнай отырып үйренеміз':'Учимся играя';
+  let hasKk=false;try{hasKk=speechSynthesis.getVoices().some(v=>/^kk/i.test(v.lang));}catch(e){}
+  document.getElementById('knote').textContent=kz&&!hasKk?'Бұл құрылғыда қазақ дауысы жоқ — сөздерді орыс дауысы шамамен оқиды. На этом устройстве нет казахского голоса, слова читает русский голос примерно.':'';}
+document.getElementById('lang').onclick=()=>{window.APP_LANG=window.APP_LANG==='kz'?'ru':'kz';try{localStorage.setItem('app_lang',window.APP_LANG)}catch(e){}
+  document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});applyLang();};
+try{speechSynthesis.onvoiceschanged=applyLang;}catch(e){}
+applyLang();
 document.querySelectorAll('.age').forEach(b=>b.onclick=()=>{
   const f=document.getElementById(b.dataset.id);
-  if(!f.srcdoc) f.srcdoc=f.dataset.src;
+  if(!f.hasAttribute('srcdoc')) f.srcdoc=f.dataset.src;
   document.querySelectorAll('iframe').forEach(x=>x.style.display='none');
-  f.style.display='block';cur=f;document.getElementById('ttl').textContent=T[b.dataset.id];document.body.classList.add('inapp');
+  f.style.display='block';cur=f;document.getElementById('ttl').textContent=T[b.dataset.id][window.APP_LANG==='kz'?1:0];document.body.classList.add('inapp');
   try{f.contentWindow.focus();}catch(e){}
 });
 document.getElementById('back').onclick=()=>{
