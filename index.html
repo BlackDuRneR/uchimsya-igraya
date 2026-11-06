@@ -315,6 +315,17 @@ body[data-sex=m] .pf-cam{background:var(--boy)}body[data-sex=f] .pf-cam{backgrou
 .prow[data-sex=m] .pa{background:var(--boy-l);box-shadow:0 0 0 3px var(--boy)}.prow[data-sex=f] .pa{background:var(--girl-l);box-shadow:0 0 0 3px var(--girl)}
 /* коллекция */
 body[data-sex=m] .cl-av{border-color:var(--boy)}body[data-sex=f] .cl-av{border-color:var(--girl)}
+/* одна рамка вокруг фото (без двойной обводки) */
+.hero{overflow:visible}
+.who.hasph{box-shadow:none!important;background:transparent!important}
+body[data-sex=m] .who.hasph img{box-shadow:0 0 0 4px var(--boy),0 6px 14px rgba(40,110,200,.22)}
+body[data-sex=f] .who.hasph img{box-shadow:0 0 0 4px var(--girl),0 6px 14px rgba(220,80,140,.22)}
+/* друг из коллекции рядом с портретом */
+.hm-fr{position:absolute;left:-20px;bottom:-20px;width:52px;height:56px;z-index:3;cursor:pointer;filter:drop-shadow(0 4px 4px rgba(40,40,80,.22));animation:hmFr 3s ease-in-out infinite}
+.hm-fr .ch{width:100%;height:100%}
+.hm-fr.hop{animation:chJump .7s cubic-bezier(.2,1.5,.4,1)}
+@keyframes hmFr{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
+@media (max-width:360px){.hm-fr{width:44px;height:48px;left:-14px;bottom:-16px}}
 
 /* ===================== КАРТА ПРИКЛЮЧЕНИЙ ===================== */
 body.mpon{overflow:hidden}
@@ -486,6 +497,18 @@ body.mpon{overflow:hidden}
 .mp-soon{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#20B4C2;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
 .mp-slock.soon{background:#E6F7F9;color:#167F8A}.mp-slock.soon small{color:#4F8F96;font-size:13px}
 .mp-wme{font-style:normal;display:inline-block;width:fit-content;background:#FFE27A;color:#7A4A10;font-size:11px;padding:2px 8px;border-radius:99px;margin-bottom:4px}
+/* живая полянка 0–2 */
+.mp-pal{position:absolute;transform:translate(-50%,-50%);z-index:3;border:none;background:rgba(255,255,255,.55);border-radius:50%;width:54px;height:54px;font-size:32px;line-height:1;padding:0;cursor:pointer;box-shadow:0 4px 10px rgba(80,80,40,.15);animation:palBob 3s ease-in-out infinite;display:grid;place-items:center}
+.mp-pal.hop{animation:palHop .7s cubic-bezier(.2,1.5,.4,1)}
+@keyframes palBob{0%,100%{transform:translate(-50%,-50%) rotate(-5deg)}50%{transform:translate(-50%,-62%) rotate(5deg)}}
+@keyframes palHop{0%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-120%) scale(1.25) rotate(-10deg)}100%{transform:translate(-50%,-50%) scale(1)}}
+.mp-palsay{position:absolute;transform:translate(-50%,-150%);z-index:6;background:#fff;border-radius:16px;padding:6px 12px;font-size:14px;font-weight:800;color:#4A3A7A;white-space:nowrap;box-shadow:0 6px 14px rgba(60,40,100,.18);pointer-events:none;animation:palSay 2.2s ease forwards}
+@keyframes palSay{0%{opacity:0;transform:translate(-50%,-120%)}12%{opacity:1;transform:translate(-50%,-160%)}85%{opacity:1}100%{opacity:0}}
+.mp-bloom{position:absolute;transform:translate(-50%,-50%);z-index:1;font-size:26px;pointer-events:none;animation:bloomIn .8s cubic-bezier(.2,1.6,.4,1) both,bloomSway 4s ease-in-out infinite .8s}
+@keyframes bloomIn{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}
+@keyframes bloomSway{0%,100%{transform:translate(-50%,-50%) rotate(-6deg)}50%{transform:translate(-50%,-50%) rotate(6deg)}}
+.mp-bloomc{position:absolute;left:50%;bottom:1.2%;transform:translateX(-50%);z-index:4;background:rgba(255,255,255,.88);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:800;color:#B0477A;white-space:nowrap;box-shadow:0 4px 12px rgba(160,60,110,.15)}
+@media (prefers-reduced-motion:reduce){.mp-pal,.mp-bloom{animation:none}}
 /* ===================== МОЯ КОЛЛЕКЦИЯ ===================== */
 .ch{display:block;width:100%;height:100%;overflow:visible}
 .ch-sway{transform-origin:60px 124px;animation:chSway 3.2s ease-in-out infinite}
@@ -673,6 +696,72 @@ body.mpon{overflow:hidden}
 .aw-prev .aw-btns{grid-template-columns:1fr 1fr}
 @media print{html,body{height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important}
  body.awprinting #awPrint{height:209mm!important;overflow:hidden;page-break-after:avoid;break-after:avoid}body.awprinting #awPrint svg{height:209mm!important}}
+/* ===== Для взрослых / знакомство / PIN ===== */
+.pr-gear{display:none!important;flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:rgba(255,255,255,.8);font-size:21px;line-height:1;cursor:pointer;box-shadow:0 4px 10px rgba(60,60,120,.14);display:grid;place-items:center;padding:0;margin-right:8px}
+.pr-gear:active{transform:scale(.93)}
+.pr-layer{z-index:90}
+.pr-sheet{background:#fff;border-radius:28px;padding:22px 20px 18px;width:min(380px,calc(100vw - 32px));max-height:calc(100dvh - 40px);overflow-y:auto;box-shadow:0 20px 50px rgba(40,30,90,.3);text-align:center;color:#3A2E5C;box-sizing:border-box}
+.pr-sheet h2{margin:0 0 6px;font-size:22px;color:#5B2E5A}
+.pr-sheet p{margin:0 0 12px;font-size:15px;line-height:1.4;color:#5E5480}
+.pr-sheet .mp-go{margin-top:6px}
+.pr-sheet .aw-q{justify-content:center}
+.pr-dots{display:flex;justify-content:center;gap:14px;margin:8px 0 16px}
+.pr-dots i{width:16px;height:16px;border-radius:50%;border:2px solid #B9A8E8;background:#fff;transition:background .15s}
+.pr-dots i.on{background:#7C5CE0;border-color:#7C5CE0}
+.pr-dots.bad{animation:mpShake .4s}.pr-dots.bad i{border-color:#E8505B;background:#FFD4D8}
+.pr-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:0 auto 8px}
+.pr-keys button{min-height:58px;border:none;border-radius:18px;background:#F1ECF8;font:inherit;font-size:24px;font-weight:800;color:#4A3A7A;cursor:pointer;box-shadow:0 3px 0 #DCD2F0}
+.pr-keys button:active{transform:translateY(2px);box-shadow:0 1px 0 #DCD2F0}
+.pr-link{display:block;margin:6px auto;border:none;background:none;font:inherit;font-size:15px;color:#7C5CE0;text-decoration:underline;cursor:pointer;min-height:40px;padding:4px 12px}
+.pr-hint,.ob-hint{display:block;margin-top:10px;font-size:13px;color:#8A80A8;line-height:1.35}
+.pr-warn{background:#FFF4E0;border-radius:14px;padding:10px 12px;color:#8A5A12!important;font-size:14px!important}
+.pr-kids{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:4px 0 12px}
+.pr-kids span{background:#F4F0FB;border-radius:999px;padding:7px 12px;font-size:15px;font-weight:700;color:#4A3A7A}
+.pr-kids span[data-sex=m]{background:#E3F1FE}.pr-kids span[data-sex=f]{background:#FFE6F0}
+.pr-btn{display:block;width:100%;margin-top:10px;border:none;border-radius:18px;min-height:52px;font:inherit;font-size:16px;font-weight:700;background:#F1ECF8;color:#4A3A7A;cursor:pointer;box-shadow:0 3px 0 #DCD2F0}
+.pr-btn:active{transform:translateY(2px)}
+.pr-btn.ghost{background:#fff;border:2px solid #E6DEF6;box-shadow:none}
+.pr-btn.danger{background:#FFE9EB;color:#C2303D;box-shadow:0 3px 0 #F5C9CE}
+#prv{background:linear-gradient(#DDEEFF,#F4ECFF 60%,#FFF4EA)}
+.pr-wrap{max-width:560px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));box-sizing:border-box}
+.pr-card{background:#fff;border-radius:24px;padding:18px 16px;margin-top:14px;box-shadow:0 8px 22px rgba(60,50,120,.1);color:#3A2E5C}
+.pr-card h3{margin:0 0 6px;font-size:18px;color:#5B2E5A}
+.pr-card p{margin:0 0 10px;font-size:14.5px;line-height:1.45;color:#5E5480}
+.pr-card .pr-kids{justify-content:flex-start}
+.pr-last{font-weight:700;color:#2E9A5E!important}.pr-last.warn{color:#C27A12!important}
+.pr-row{margin-top:10px}.pr-row b{display:block;font-size:14px;margin-bottom:6px;color:#4A3A7A}
+.pr-card .chips,.ob-card .chips{display:flex;flex-wrap:wrap;gap:8px}
+.pr-card .chip,.ob-card .chip{border:2px solid #E6DEF6;background:#fff;border-radius:999px;padding:8px 13px;min-height:42px;font:inherit;font-size:15px;font-weight:700;color:#4A3A7A;cursor:pointer}
+.pr-card .chip.on,.ob-card .chip.on{background:#7C5CE0;border-color:#7C5CE0;color:#fff}
+.ob-card .chip.sx.m.on{background:var(--boy,#5AAEF5);border-color:var(--boy,#5AAEF5)}
+.ob-card .chip.sx.f.on{background:var(--girl,#FF8FB8);border-color:var(--girl,#FF8FB8)}
+.ob-card .chip.av{font-size:24px;padding:4px 8px;min-width:48px}
+/* знакомство */
+#onb{z-index:80;background:linear-gradient(#BFE3FF,#E9F5FF 55%,#FFF6E6)}
+.ob-wrap{min-height:100%;max-width:460px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+.ob-dots{display:flex;justify-content:center;gap:8px;margin-bottom:14px}
+.ob-dots i{width:10px;height:10px;border-radius:50%;background:rgba(124,92,224,.25)}.ob-dots i.on{background:#7C5CE0}
+.ob-card{background:#fff;border-radius:30px;padding:22px 18px 20px;box-shadow:0 14px 34px rgba(50,60,130,.16);text-align:center;color:#3A2E5C}.ob-card.anim{animation:obIn .35s ease}
+@keyframes obIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ob-card h1{margin:4px 0 8px;font-size:clamp(24px,7vw,30px);color:#5B2E5A}
+.ob-card h2{margin:4px 0 10px;font-size:22px;color:#5B2E5A}
+.ob-card p{margin:0 0 14px;font-size:16px;line-height:1.45;color:#5E5480}
+.ob-card .chips{justify-content:center;margin-bottom:6px}
+.ob-card .plab{margin:12px 0 6px;font-size:14px;font-weight:800;color:#7A6E9C}
+.ob-owl{display:block;width:96px;height:96px;margin:0 auto 4px;animation:hmFr 3s ease-in-out infinite}.ob-owl svg{width:100%;height:100%}
+.ob-langs{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
+.ob-langs button{flex:1;max-width:170px;min-height:52px;border-radius:18px;border:2px solid #E6DEF6;background:#fff;font:inherit;font-size:16px;font-weight:800;color:#4A3A7A;cursor:pointer}
+.ob-langs button.on{border-color:#7C5CE0;background:#F1ECFF}
+.ob-in{width:100%;box-sizing:border-box;min-height:54px;border-radius:18px;border:2px solid #E6DEF6;padding:0 16px;font:inherit;font-size:19px;text-align:center;color:#3A2E5C;margin-bottom:12px;outline:none}
+.ob-in:focus{border-color:#7C5CE0}
+.ob-card .mp-go{margin-top:14px}.ob-card .mp-go[disabled]{opacity:.45;filter:grayscale(.5);pointer-events:none}
+.ob-card .aw-cancel{margin-top:8px}
+.ob-wrap>.pr-link{margin-top:10px}
+@media (min-width:600px){.pr-gear{display:grid!important}}
+.pr-foot{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center;width:100%;margin:22px 0 0;padding:12px 16px;border:2px dashed rgba(124,92,224,.3);border-radius:20px;background:rgba(255,255,255,.65);font:inherit;text-align:left;cursor:pointer;color:#4A3A7A;box-sizing:border-box}
+.pr-foot span{grid-row:1/3;font-size:26px}.pr-foot b{font-size:16px}.pr-foot small{font-size:12.5px;color:#7A6E9C}
+.pr-foot:active{transform:scale(.98)}
+@media (max-width:360px){#prv .cl-top h1{font-size:20px}}
 
 </style></head>
 <body>
@@ -686,7 +775,7 @@ body.mpon{overflow:hidden}
   <button class="lang" id="lang" aria-label="Язык / Тіл"><b id="lr">Рус</b><b id="lk">Қаз</b></button></div>
  <div class="hero"><button class="who" id="who" aria-label="Профиль ребёнка">🦊</button>
   <div class="hcol"><div class="hi" id="hi"></div><div class="hbar"><i id="hbar"></i></div><div class="hstars" id="hst"></div></div></div>
- <h3 class="gh" data-ru="По возрасту" data-kz="Жас бойынша">По возрасту</h3><div class="ages"><button class="age" data-id="a02" data-sid="a02" data-total="15" style="--c:#FF8A65"><span class="ic" aria-hidden="true">🧸</span><span class="tx"><span class="ay" data-ru="до 2 лет" data-kz="2 жасқа дейін">до 2 лет</span><span class="an" data-ru="Малыши" data-kz="Бөбектер">Малыши</span><span class="ad" data-ru="Звуки, семья, мир вокруг" data-kz="Дыбыстар, отбасы, әлем">Звуки, семья, мир вокруг</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 15</span></span><span class="badge"></span></button><button class="age" data-id="a24" data-sid="a24" data-total="33" style="--c:#43BD79"><span class="ic" aria-hidden="true">🦊</span><span class="tx"><span class="ay" data-ru="3–4 года" data-kz="3–4 жас">3–4 года</span><span class="an" data-ru="Почемучки" data-kz="Білгіштер">Почемучки</span><span class="ad" data-ru="Логика, счёт, речь, эмоции" data-kz="Логика, санау, сөйлеу, эмоция">Логика, счёт, речь, эмоции</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 33</span></span><span class="badge"></span></button><button class="age" data-id="a56" data-sid="a56" data-total="70" style="--c:#9874F5"><span class="ic" aria-hidden="true">🦉</span><span class="tx"><span class="ay" data-ru="5–6 лет" data-kz="5–6 жас">5–6 лет</span><span class="an" data-ru="Скоро в школу" data-kz="Мектепке дайындық">Скоро в школу</span><span class="ad" data-ru="Чтение, математика, природа" data-kz="Математика, табиғат, ғарыш">Чтение, математика, природа</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 70</span></span><span class="badge"></span></button></div><h3 class="gh" data-ru="Языки" data-kz="Тілдер">Языки</h3><div class="ages two"><button class="age" data-id="aen" data-sid="en" data-total="13" style="--c:#5187F5"><span class="ic" aria-hidden="true">🇬🇧</span><span class="tx"><span class="ay" data-ru="English" data-kz="English">English</span><span class="an" data-ru="Английский" data-kz="Ағылшын тілі">Английский</span><span class="ad" data-ru="Слова, цвета, числа" data-kz="Сөздер, түстер, сандар">Слова, цвета, числа</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 13</span></span><span class="badge"></span></button><button class="age" data-id="akz" data-sid="kz" data-total="13" style="--c:#20B4C2"><span class="ic" aria-hidden="true">🇰🇿</span><span class="tx"><span class="ay" data-ru="Қазақ тілі" data-kz="Қазақ тілі">Қазақ тілі</span><span class="an" data-ru="Казахский" data-kz="Қазақ тілі">Казахский</span><span class="ad" data-ru="Слова, цвета, буквы" data-kz="Сөздер, түстер, әріптер">Слова, цвета, буквы</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 13</span></span><span class="badge"></span></button></div><div class="parwrap"><button class="age par" data-id="apar"><span class="ic" aria-hidden="true">👨‍👩‍👧</span><span class="tx"><span class="ay" data-ru="Родителям" data-kz="Ата-аналарға">Родителям</span><span class="an" data-ru="100 занятий без экрана" data-kz="Экрансыз 100 сабақ">100 занятий без экрана</span><span class="ad" data-ru="Занятия на сегодня · успехи · время у экрана" data-kz="Бүгінгі сабақтар · жетістіктер · экран уақыты">Занятия на сегодня · успехи · время у экрана</span></span><span class="arr" aria-hidden="true">›</span></button></div>
+ <h3 class="gh" data-ru="По возрасту" data-kz="Жас бойынша">По возрасту</h3><div class="ages"><button class="age" data-id="a02" data-sid="a02" data-total="18" style="--c:#FF8A65"><span class="ic" aria-hidden="true">🧸</span><span class="tx"><span class="ay" data-ru="до 2 лет" data-kz="2 жасқа дейін">до 2 лет</span><span class="an" data-ru="Малыши" data-kz="Бөбектер">Малыши</span><span class="ad" data-ru="Звуки, семья, мир вокруг" data-kz="Дыбыстар, отбасы, әлем">Звуки, семья, мир вокруг</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 18</span></span><span class="badge"></span></button><button class="age" data-id="a24" data-sid="a24" data-total="33" style="--c:#43BD79"><span class="ic" aria-hidden="true">🦊</span><span class="tx"><span class="ay" data-ru="3–4 года" data-kz="3–4 жас">3–4 года</span><span class="an" data-ru="Почемучки" data-kz="Білгіштер">Почемучки</span><span class="ad" data-ru="Логика, счёт, речь, эмоции" data-kz="Логика, санау, сөйлеу, эмоция">Логика, счёт, речь, эмоции</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 33</span></span><span class="badge"></span></button><button class="age" data-id="a56" data-sid="a56" data-total="70" style="--c:#9874F5"><span class="ic" aria-hidden="true">🦉</span><span class="tx"><span class="ay" data-ru="5–6 лет" data-kz="5–6 жас">5–6 лет</span><span class="an" data-ru="Скоро в школу" data-kz="Мектепке дайындық">Скоро в школу</span><span class="ad" data-ru="Чтение, математика, природа" data-kz="Математика, табиғат, ғарыш">Чтение, математика, природа</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 70</span></span><span class="badge"></span></button></div><h3 class="gh" data-ru="Языки" data-kz="Тілдер">Языки</h3><div class="ages two"><button class="age" data-id="aen" data-sid="en" data-total="13" style="--c:#5187F5"><span class="ic" aria-hidden="true">🇬🇧</span><span class="tx"><span class="ay" data-ru="English" data-kz="English">English</span><span class="an" data-ru="Английский" data-kz="Ағылшын тілі">Английский</span><span class="ad" data-ru="Слова, цвета, числа" data-kz="Сөздер, түстер, сандар">Слова, цвета, числа</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 13</span></span><span class="badge"></span></button><button class="age" data-id="akz" data-sid="kz" data-total="13" style="--c:#20B4C2"><span class="ic" aria-hidden="true">🇰🇿</span><span class="tx"><span class="ay" data-ru="Қазақ тілі" data-kz="Қазақ тілі">Қазақ тілі</span><span class="an" data-ru="Казахский" data-kz="Қазақ тілі">Казахский</span><span class="ad" data-ru="Слова, цвета, буквы" data-kz="Сөздер, түстер, әріптер">Слова, цвета, буквы</span></span><span class="pr"><span class="pbar"><i></i></span><span class="pnum">0 / 13</span></span><span class="badge"></span></button></div><div class="parwrap"><button class="age par" data-id="apar"><span class="ic" aria-hidden="true">👨‍👩‍👧</span><span class="tx"><span class="ay" data-ru="Родителям" data-kz="Ата-аналарға">Родителям</span><span class="an" data-ru="100 занятий без экрана" data-kz="Экрансыз 100 сабақ">100 занятий без экрана</span><span class="ad" data-ru="Занятия на сегодня · успехи · время у экрана" data-kz="Бүгінгі сабақтар · жетістіктер · экран уақыты">Занятия на сегодня · успехи · время у экрана</span></span><span class="arr" aria-hidden="true">›</span></button></div>
  <p class="knote" id="knote"></p>
  <p class="credit" data-ru="Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г." data-kz="Әзірлеушілер: Омельницкая Мария Алексеевна және Омельницкий Александр Сергеевич, 2026 ж.">Разработчики: Омельницкая Мария Алексеевна и Омельницкий Александр Сергеевич, 2026 г.</p>
 </div>
@@ -777,6 +866,28 @@ canvas#paint{flex:1;width:100%;border-radius:24px;background:#fff;border:5px das
 .photo{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:24px;display:block}
 .cam{position:absolute;top:8px;right:8px;width:46px;height:46px;border-radius:50%;border:none;background:#fff;font-size:24px;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.12)}
 .hint{text-align:center;color:var(--muted);font-size:18px;margin:12px 0 0;font-weight:400}
+/* фигуры для малышей */
+.shp{width:100%;height:100%;display:block;overflow:visible}
+.sv{display:block;width:clamp(110px,26vw,190px);aspect-ratio:1;margin:0 auto}
+.two .sv{width:clamp(120px,32vw,210px)}
+.two.three{grid-template-columns:repeat(3,1fr);gap:12px}.two.three .sv{width:min(100%,200px)}
+.houses{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:760px;margin:0 auto 22px}
+.hs{border:none;border-radius:26px 26px 22px 22px;background:#FFF0D6;padding:30px 8px 12px;cursor:pointer;box-shadow:0 7px 0 #EBCF9E;position:relative;font:inherit}
+.hs:before{content:&quot;&quot;;position:absolute;left:8%;right:8%;top:-18px;height:34px;background:#FF8A65;clip-path:polygon(50% 0,100% 100%,0 100%);border-radius:6px}
+.hs .sv{width:clamp(70px,20vw,140px)}
+.hs.full{background:#E3F7E1;box-shadow:0 7px 0 #BFE5B5}
+.hs.wob{animation:wob .45s}
+@keyframes wob{0%,100%{transform:none}25%{transform:translateX(-10px) rotate(-3deg)}75%{transform:translateX(10px) rotate(3deg)}}
+.stage{display:flex;justify-content:center;align-items:center;min-height:clamp(170px,30vh,260px)}
+.stage button{border:none;background:none;cursor:pointer;padding:0;animation:shFloat 2.4s ease-in-out infinite}
+.stage .sv{width:clamp(140px,40vw,230px)}
+@keyframes shFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+.stage button.go{animation:shGo .5s forwards}
+@keyframes shGo{to{transform:translateY(-40vh) scale(.4);opacity:0}}
+.fun{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:820px;margin:0 auto}
+.fun button{border:none;background:#F4F8FF;border-radius:28px;padding:10px;cursor:pointer;box-shadow:0 6px 0 #DCE6F7;font:inherit}
+.fun button.seen{background:#E8F9E9;box-shadow:0 6px 0 #C4EBC8}
+.fun .sv{width:100%;max-width:200px}
 canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:30}
 @media (max-width:640px){.rb{width:52px;height:52px;font-size:26px}.logo span{font-size:32px}.tile .e{font-size:76px}.tile .t{font-size:22px}.menu{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr 1fr}.card .em{font-size:90px}.label{font-size:40px}.hide{grid-template-columns:1fr 1fr}.logo{font-size:22px}}
 /* ===== ДИЗАЙН-СИСТЕМА «Учимся играя» ===== */
@@ -1096,7 +1207,7 @@ const SFX={
  lull:()=&gt;{[[392,0],[330,.45],[392,.9],[330,1.35],[349,1.8],[294,2.3]].forEach(([f,t])=&gt;osc(&#x27;sine&#x27;,f,null,t,.45,.18));},
  morning:()=&gt;{[[392,0],[523,.18],[659,.36],[784,.54]].forEach(([f,t])=&gt;osc(&#x27;triangle&#x27;,f,null,t,.3,.2));},
 };
-const play=k=&gt;{if(!soundOn)return;try{SFX[k]&amp;&amp;SFX[k]();}catch(e){}};
+let play=k=&gt;{if(!soundOn)return;try{SFX[k]&amp;&amp;SFX[k]();}catch(e){}};
 document.getElementById(&#x27;snd&#x27;).onclick=e=&gt;{soundOn=!soundOn;e.currentTarget.textContent=soundOn?&#x27;🔊&#x27;:&#x27;🔇&#x27;;try{speechSynthesis.cancel()}catch(e){}};
 
 /* ===== English voice ===== */
@@ -1154,8 +1265,9 @@ if(KZ){
 const GAMES={animals:[&quot;🐮&quot;,L(&quot;Кто как говорит&quot;,&quot;Кім қалай дыбыстайды?&quot;),&quot;#FF9A4D&quot;,animals],transport:[&quot;🚗&quot;,L(&quot;Транспорт&quot;,&quot;Көлік&quot;),&quot;#2FB5C9&quot;,transport],who:[&quot;🚪&quot;,L(&quot;Тук-тук, кто там?&quot;,&quot;Тық-тық, кім бар?&quot;),&quot;#C27C4E&quot;,whoThere],peek:[&quot;🙈&quot;,L(&quot;Ку-ку!&quot;,&quot;Кім жасырынды?&quot;),&quot;#E9A23B&quot;,peek],
  face:[&quot;👶&quot;,L(&quot;Лицо&quot;,&quot;Бет&quot;),&quot;#FF6FA0&quot;,face],body:[&quot;🧍&quot;,L(&quot;Тело&quot;,&quot;Дене&quot;),&quot;#9C7BFF&quot;,body],family:[&quot;👨‍👩‍👧&quot;,L(&quot;Моя семья&quot;,&quot;Менің отбасым&quot;),&quot;#FF7B7B&quot;,family],
  day:[&quot;🌞&quot;,L(&quot;День и ночь&quot;,&quot;Күн мен түн&quot;),&quot;#4F8BFF&quot;,daynight],food:[&quot;🍎&quot;,&quot;Ням-ням&quot;,&quot;#E8505B&quot;,food],show:[&quot;👉&quot;,L(&quot;Покажи, где&quot;,&quot;Көрсет&quot;),&quot;#7A6CF0&quot;,showme],sleep:[&quot;😴&quot;,L(&quot;Баю-бай&quot;,&quot;Әлди-әлди&quot;),&quot;#6C63C7&quot;,sleepy],moms:[&quot;🐣&quot;,L(&quot;Мамы и малыши&quot;,&quot;Аналар мен балалары&quot;),&quot;#E59A3C&quot;,moms],
+ shfind:[&quot;🔵&quot;,L(&quot;Где круг?&quot;,&quot;Шеңбер қайда?&quot;),&quot;#20B4C2&quot;,shapeFind],shsort:[&quot;🏠&quot;,L(&quot;Домики для фигур&quot;,&quot;Пішін үйшіктері&quot;),&quot;#FF8A65&quot;,shapeSort],shfun:[&quot;🔺&quot;,L(&quot;Весёлые фигуры&quot;,&quot;Көңілді пішіндер&quot;),&quot;#EF6F8E&quot;,shapeFun],
  bub:[&quot;🫧&quot;,L(&quot;Пузыри и цвета&quot;,&quot;Көпіршік пен түс&quot;),&quot;#5AB8FF&quot;,bubbles],xylo:[&quot;🎹&quot;,&quot;Ксилофон&quot;,&quot;#4CC46F&quot;,xylo],paint:[&quot;🖍️&quot;,L(&quot;Рисуем&quot;,&quot;Сурет саламыз&quot;),&quot;#F08BD8&quot;,paint]};
-const SECTIONS=[[L(&quot;🔊 Звуки и слова&quot;,&quot;🔊 Дыбыстар мен сөздер&quot;),[&quot;animals&quot;,&quot;moms&quot;,&quot;transport&quot;,&quot;who&quot;,&quot;peek&quot;]],[L(&quot;👶 Я и моя семья&quot;,&quot;👶 Мен және отбасым&quot;),[&quot;face&quot;,&quot;body&quot;,&quot;family&quot;]],[L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;day&quot;,&quot;food&quot;,&quot;show&quot;,&quot;sleep&quot;]],[L(&quot;🎨 Музыка и творчество&quot;,&quot;🎨 Музыка және шығармашылық&quot;),[&quot;bub&quot;,&quot;xylo&quot;,&quot;paint&quot;]]];
+const SECTIONS=[[L(&quot;🔊 Звуки и слова&quot;,&quot;🔊 Дыбыстар мен сөздер&quot;),[&quot;animals&quot;,&quot;moms&quot;,&quot;transport&quot;,&quot;who&quot;,&quot;peek&quot;]],[L(&quot;👶 Я и моя семья&quot;,&quot;👶 Мен және отбасым&quot;),[&quot;face&quot;,&quot;body&quot;,&quot;family&quot;]],[L(&quot;🌍 Мир вокруг&quot;,&quot;🌍 Айналадағы әлем&quot;),[&quot;day&quot;,&quot;food&quot;,&quot;show&quot;,&quot;sleep&quot;]],[L(&quot;🔷 Фигуры&quot;,&quot;🔷 Пішіндер&quot;),[&quot;shfind&quot;,&quot;shsort&quot;,&quot;shfun&quot;]],[L(&quot;🎨 Музыка и творчество&quot;,&quot;🎨 Музыка және шығармашылық&quot;),[&quot;bub&quot;,&quot;xylo&quot;,&quot;paint&quot;]]];
 function home(){reset();
  app.innerHTML=SECTIONS.map(([t,ks])=&gt;`&lt;div class=&quot;sec&quot;&gt;${t}&lt;/div&gt;&lt;div class=&quot;menu&quot;&gt;${ks.map(k=&gt;{const g=GAMES[k];return `&lt;button class=&quot;tile&quot; style=&quot;background:${g[2]}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;e&quot;&gt;${g[0]}&lt;/span&gt;&lt;span class=&quot;t&quot;&gt;${g[1]}&lt;/span&gt;&lt;/button&gt;`}).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;);
  app.querySelectorAll(&#x27;.tile&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ac();play(&#x27;pop&#x27;);GAMES[b.dataset.k][3]();});
@@ -1371,6 +1483,50 @@ function moms(){reset();
     speak(L(`Ура! Мама ${pick[i][2]} и малыш ${pick[i][3]}!`,`Ура! Анасы — ${pick[i][2]}, баласы — ${pick[i][3]}!`),200);mom=null;left--;if(!left){confetti();timers.push(setTimeout(moms,3500));}}
   else{speak(L(&#x27;Нет, это не её малыш.&#x27;,&#x27;Жоқ, бұл оның баласы емес.&#x27;));}});
  speak(L(&#x27;Нажми на маму, а потом на её малыша!&#x27;,&#x27;Анасын бас, сосын оның баласын бас!&#x27;));
+}
+/* 16–18. Фигуры для самых маленьких */
+const SHP=[
+ {k:&#x27;circle&#x27;,n:L(&#x27;Круг&#x27;,&#x27;Шеңбер&#x27;),y:52,d:&#x27;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;52&quot;/&gt;&#x27;},
+ {k:&#x27;square&#x27;,n:L(&#x27;Квадрат&#x27;,&#x27;Шаршы&#x27;),y:52,d:&#x27;&lt;rect x=&quot;10&quot; y=&quot;10&quot; width=&quot;100&quot; height=&quot;100&quot; rx=&quot;14&quot;/&gt;&#x27;},
+ {k:&#x27;tri&#x27;,n:L(&#x27;Треугольник&#x27;,&#x27;Үшбұрыш&#x27;),y:76,d:&#x27;&lt;path d=&quot;M60 6 L116 108 L4 108Z&quot; stroke-linejoin=&quot;round&quot;/&gt;&#x27;},
+ {k:&#x27;star&#x27;,n:L(&#x27;Звёздочка&#x27;,&#x27;Жұлдызша&#x27;),y:60,d:&#x27;&lt;path d=&quot;M60 4 L75 41 L115 43 L84 69 L95 110 L60 87 L25 110 L36 69 L5 43 L45 41Z&quot; stroke-linejoin=&quot;round&quot;/&gt;&#x27;},
+ {k:&#x27;heart&#x27;,n:L(&#x27;Сердечко&#x27;,&#x27;Жүрекше&#x27;),y:48,d:&#x27;&lt;path d=&quot;M60 110 C18 82 2 58 6 36 C10 12 40 4 60 30 C80 4 110 12 114 36 C118 58 102 82 60 110Z&quot;/&gt;&#x27;}];
+const shSVG=(s,c,face=true)=&gt;{const y=s.y;return `&lt;svg viewBox=&quot;0 0 120 120&quot; class=&quot;shp&quot; aria-label=&quot;${s.n}&quot;&gt;&lt;g fill=&quot;${c}&quot; stroke=&quot;rgba(0,0,0,.14)&quot; stroke-width=&quot;3&quot;&gt;${s.d}&lt;/g&gt;${face?`&lt;g&gt;&lt;circle cx=&quot;45&quot; cy=&quot;${y}&quot; r=&quot;6.5&quot; fill=&quot;#2B2340&quot;/&gt;&lt;circle cx=&quot;75&quot; cy=&quot;${y}&quot; r=&quot;6.5&quot; fill=&quot;#2B2340&quot;/&gt;&lt;circle cx=&quot;47&quot; cy=&quot;${y-2}&quot; r=&quot;2.2&quot; fill=&quot;#fff&quot;/&gt;&lt;circle cx=&quot;77&quot; cy=&quot;${y-2}&quot; r=&quot;2.2&quot; fill=&quot;#fff&quot;/&gt;&lt;circle cx=&quot;36&quot; cy=&quot;${y+12}&quot; r=&quot;5&quot; fill=&quot;#FF7BA6&quot; opacity=&quot;.55&quot;/&gt;&lt;circle cx=&quot;84&quot; cy=&quot;${y+12}&quot; r=&quot;5&quot; fill=&quot;#FF7BA6&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M50 ${y+12} Q60 ${y+21} 70 ${y+12}&quot; stroke=&quot;#2B2340&quot; stroke-width=&quot;4&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;`:&#x27;&#x27;}&lt;/svg&gt;`;};
+const holeSVG=s=&gt;`&lt;svg viewBox=&quot;0 0 120 120&quot; class=&quot;shp&quot;&gt;&lt;g fill=&quot;rgba(90,60,30,.10)&quot; stroke=&quot;rgba(90,60,30,.45)&quot; stroke-width=&quot;5&quot; stroke-dasharray=&quot;10 8&quot;&gt;${s.d}&lt;/g&gt;&lt;/svg&gt;`;
+const BRIGHT=COLORS.filter(c=&gt;!/^#FFD/.test(c[0]));
+/* 16. Где круг? */
+let sf={n:0};
+function shapeFind(){reset();sf={n:0};sfQ();}
+function sfQ(){const opts3=sf.n&gt;=4;const pick=shuffle(SHP).slice(0,opts3?3:2),t=pick[0],opts=shuffle(pick),cols=shuffle(BRIGHT);
+ const q=L(`Где ${t.n.toLowerCase()}?`,`${t.n} қайда?`);const ask=()=&gt;speak(q);
+ app.innerHTML=`&lt;div class=&quot;ask&quot;&gt;${q} &lt;button id=&quot;rep&quot; aria-label=&quot;🔊&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;two ${opts3?&#x27;three&#x27;:&#x27;&#x27;}&quot;&gt;${opts.map((x,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;sv&quot;&gt;${shSVG(x,cols[i][0])}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ document.getElementById(&#x27;rep&#x27;).onclick=ask;ask();
+ app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const x=opts[+b.dataset.i];bump(b);
+  if(x===t){sf.n++;play(&#x27;yay&#x27;);confetti();label(t.n+&#x27;!&#x27;);speak(L(`Молодец! Это ${t.n.toLowerCase()}!`,`Жарайсың! Бұл — ${t.n.toLowerCase()}!`),300);app.querySelectorAll(&#x27;.card&#x27;).forEach(c=&gt;c.onclick=null);timers.push(setTimeout(sfQ,2600));}
+  else{play(&#x27;pop&#x27;);speak(L(`Это ${x.n.toLowerCase()}. А где ${t.n.toLowerCase()}?`,`Бұл — ${x.n.toLowerCase()}. Ал ${t.n.toLowerCase()} қайда?`),300);}});
+}
+/* 17. Домики для фигур */
+function shapeSort(){reset();const H=shuffle(SHP).slice(0,3);let queue=shuffle(H),cur=null,col=null,busy=false;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Домики для фигур&#x27;,&#x27;Пішіндердің үйшіктері&#x27;)}&lt;/h2&gt;&lt;div class=&quot;houses&quot;&gt;${H.map((s,i)=&gt;`&lt;button class=&quot;hs&quot; data-i=&quot;${i}&quot; aria-label=&quot;${s.n}&quot;&gt;&lt;span class=&quot;sv&quot;&gt;${holeSVG(s)}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;stage&quot; id=&quot;stg&quot;&gt;&lt;/div&gt;`;
+ const stg=document.getElementById(&#x27;stg&#x27;);
+ const next=()=&gt;{busy=false;if(!queue.length){confetti();play(&#x27;yay&#x27;);label(L(&#x27;Все дома!&#x27;,&#x27;Бәрі үйде!&#x27;));speak(L(&#x27;Ура! Все фигуры дома!&#x27;,&#x27;Ура! Барлық пішін үйінде!&#x27;),300);timers.push(setTimeout(shapeSort,3800));return;}
+  cur=queue.shift();col=rnd(BRIGHT)[0];stg.innerHTML=`&lt;button id=&quot;shp&quot; aria-label=&quot;${cur.n}&quot;&gt;&lt;span class=&quot;sv&quot;&gt;${shSVG(cur,col)}&lt;/span&gt;&lt;/button&gt;`;
+  document.getElementById(&#x27;shp&#x27;).onclick=()=&gt;{play(&#x27;pop&#x27;);speak(L(`Это ${cur.n.toLowerCase()}. Где его домик?`,`Бұл — ${cur.n.toLowerCase()}. Оның үйшігі қайда?`));};
+  speak(L(`${cur.n}! Найди домик для фигуры!`,`${cur.n}! Пішінге үйшік тап!`),400);};
+ app.querySelectorAll(&#x27;.hs&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(busy||!cur)return;const s=H[+b.dataset.i];
+  if(s===cur){busy=true;play(&#x27;yay&#x27;);document.getElementById(&#x27;shp&#x27;).classList.add(&#x27;go&#x27;);
+   timers.push(setTimeout(()=&gt;{b.querySelector(&#x27;.sv&#x27;).innerHTML=shSVG(s,col);b.classList.add(&#x27;full&#x27;);bump(b);label(s.n+&#x27;!&#x27;);speak(L(`Молодец! ${s.n} дома!`,`Жарайсың! ${s.n} үйінде!`));timers.push(setTimeout(next,1500));},450));}
+  else{play(&#x27;pop&#x27;);b.classList.remove(&#x27;wob&#x27;);void b.offsetWidth;b.classList.add(&#x27;wob&#x27;);speak(L(&#x27;Не подходит! Посмотри на домик.&#x27;,&#x27;Сыймайды! Үйшікке қара.&#x27;));}});
+ next();
+}
+/* 18. Весёлые фигуры */
+function shapeFun(){reset();const set=shuffle([...SHP,...shuffle(SHP).slice(0,1)]),seen=new Set();const ci=set.map(()=&gt;Math.floor(Math.random()*BRIGHT.length));
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Весёлые фигуры&#x27;,&#x27;Көңілді пішіндер&#x27;)}&lt;/h2&gt;&lt;div class=&quot;fun&quot;&gt;${set.map((s,i)=&gt;`&lt;button data-i=&quot;${i}&quot; aria-label=&quot;${s.n}&quot;&gt;&lt;span class=&quot;sv&quot;&gt;${shSVG(s,BRIGHT[ci[i]][0])}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ app.querySelectorAll(&#x27;.fun button&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const i=+b.dataset.i,s=set[i];if(seen.has(i)){ci[i]=(ci[i]+1)%BRIGHT.length;b.querySelector(&#x27;.sv&#x27;).innerHTML=shSVG(s,BRIGHT[ci[i]][0]);}
+  bump(b);play(seen.has(i)?&#x27;pop&#x27;:&#x27;yay&#x27;);const c=BRIGHT[ci[i]][1];label(s.n);speak(L(`Это ${s.n.toLowerCase()}. Цвет — ${c.toLowerCase()}!`,`Бұл — ${s.n.toLowerCase()}. Түсі — ${c.toLowerCase()}!`),200);
+  if(!seen.has(i)){seen.add(i);b.classList.add(&#x27;seen&#x27;);if(seen.size===set.length){timers.push(setTimeout(()=&gt;{confetti();speak(L(&#x27;Ура! Ты поздоровался со всеми фигурами!&#x27;,&#x27;Ура! Сен барлық пішінмен амандастың!&#x27;));},1600));timers.push(setTimeout(shapeFun,6000));}}});
+ speak(L(&#x27;Нажимай на фигуры — они расскажут, кто они!&#x27;,&#x27;Пішіндерді бас — олар өздерін таныстырады!&#x27;));
 }
 home();
 
@@ -6240,7 +6396,7 @@ function profList(){const box=document.getElementById('pbox');const p=profiles()
   <button class="btn" id="padd">＋ ${TL('Добавить ребёнка','Бала қосу')}</button><button class="btn sec2" id="pclose">${TL('Готово','Дайын')}</button>`;
  box.querySelectorAll('.prow').forEach(r=>r.onclick=e=>{const t=e.target;
    if(t.dataset.ed){profForm(t.dataset.ed);return;}
-   if(t.dataset.del){if(t.dataset.arm){LS.set('profiles',profiles().filter(x=>x.id!==t.dataset.del));try{localStorage.removeItem('prof_data_'+t.dataset.del)}catch(err){}profList();}
+   if(t.dataset.del){if(t.dataset.arm){const did=t.dataset.del;const go=()=>{LS.set('profiles',profiles().filter(x=>x.id!==did));try{localStorage.removeItem('prof_data_'+did)}catch(err){}profList();};if(window.PARENT_GATE)PARENT_GATE(go,TL('Удалить профиль','Профильді жою'));else go();}
      else{t.dataset.arm=1;t.textContent=TL('Удалить?','Жою?');t.style.color='#E8505B';}return;}
    switchProf(r.dataset.id);profList();});
  document.getElementById('padd').onclick=()=>profForm();document.getElementById('pclose').onclick=closeProf;}
@@ -6283,7 +6439,9 @@ function closeSec(){if(cur){try{cur.contentWindow.speechSynthesis.cancel();}catc
  try{cur.contentWindow.NAV&&cur.contentWindow.NAV.reset();}catch(e){}cur.style.display='none';}cur=null;curId=null;document.body.classList.remove('inapp');delete document.body.dataset.sec;refresh();}
 document.querySelectorAll('.age').forEach(b=>b.onclick=()=>{history.pushState({d:1},'');openSec(b.dataset.id);});
 window.addEventListener('popstate',()=>{if(ignorePop){ignorePop--;return;}
+ if(window.PRLAY&&PRLAY())return;
  const m=document.getElementById('prof');if(m.style.display==='flex'){m.style.display='none';return;}
+ if(window.PRPOP&&PRPOP())return;
  if(window.PFPOP&&PFPOP())return;
  if(window.AWPOP&&AWPOP())return;
  if(window.COLPOP&&COLPOP())return;
@@ -6594,7 +6752,7 @@ function openPF(){if(pfOpen())return;PF.end();st=load();achieve();showAll=false;
 function hidePF(){V.classList.remove('on');V.setAttribute('aria-hidden','true');document.body.classList.remove('pfon');refresh();}
 /* назад (и кнопка «назад» телефона): закрываем верхний слой */
 window.PFPOP=()=>{const top=document.querySelector('.pf-layer');if(top){top.remove();return true;}if(pfOpen()){hidePF();return true;}return false;};
-document.querySelector('.hero').addEventListener('click',e=>{e.stopPropagation();openPF();},true);
+document.querySelector('.hero').addEventListener('click',e=>{if(e.target.closest('.hm-fr'))return;e.stopPropagation();openPF();},true);
 document.querySelector('.hero').setAttribute('role','button');document.querySelector('.hero').tabIndex=0;
 document.querySelector('.hero').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPF();}});
 
@@ -6658,7 +6816,7 @@ achieve();
    обновляется сама после любой игры — хоть с карты, хоть из обычного меню.
    Состояние карты (что уже отпраздновали, сундуки, позиция) — pf_stats.map[мир], у каждого ребёнка своё. */
 (function(){
-const GN={"a56:abc": {"e": "🔤", "ru": "Азбука", "kz": "Азбука"}, "a56:vowelGame": {"e": "🎵", "ru": "Поющие буквы", "kz": "Поющие буквы"}, "a56:findLetter": {"e": "🔍", "ru": "Найди букву", "kz": "Найди букву"}, "a56:firstLetter": {"e": "🐱", "ru": "Первая буква", "kz": "Первая буква"}, "a56:balloons": {"e": "🎈", "ru": "Лопни шарик", "kz": "Лопни шарик"}, "a56:wherePos": {"e": "📍", "ru": "Где буква?", "kz": "Где буква?"}, "a56:mergeGame": {"e": "🏃", "ru": "Бежит к букве", "kz": "Бежит к букве"}, "a56:sylGame": {"e": "👏", "ru": "Сколько слогов?", "kz": "Сколько слогов?"}, "a56:picWord": {"e": "🖼️", "ru": "Найди слово", "kz": "Найди слово"}, "a56:readMenu": {"e": "📖", "ru": "Читаем слова", "kz": "Читаем слова"}, "a56:buildWord": {"e": "🧱", "ru": "Собери слово", "kz": "Собери слово"}, "a56:rebus": {"e": "🧩", "ru": "Ребусы", "kz": "Ребусы"}, "a56:sayGame": {"e": "🎤", "ru": "Скажи слово", "kz": "Скажи слово"}, "a56:count10": {"e": "🔟", "ru": "Считаем до 10", "kz": "10-ға дейін санау"}, "a56:missing": {"e": "❔", "ru": "Пропущенное число", "kz": "Түсіп қалған сан"}, "a56:nbGame": {"e": "🏘️", "ru": "Соседи числа", "kz": "Санның көршілері"}, "a56:cmpGame": {"e": "⚖️", "ru": "Больше, меньше", "kz": "Артық, кем"}, "a56:patGame": {"e": "🔁", "ru": "Продолжи ряд", "kz": "Қатарды жалғастыр"}, "a56:corners": {"e": "🔺", "ru": "Сколько углов?", "kz": "Неше бұрыш?"}, "a56:house": {"e": "🏠", "ru": "Состав числа", "kz": "Санның құрамы"}, "a56:addSub": {"e": "➕", "ru": "Плюс и минус", "kz": "Қосу және азайту"}, "a56:frog": {"e": "🐸", "ru": "Лягушка на прямой", "kz": "Сан түзуіндегі бақа"}, "a56:tasks": {"e": "📝", "ru": "Задачки", "kz": "Есептер"}, "a56:shop": {"e": "🛒", "ru": "Магазин", "kz": "Дүкен"}, "a56:clock": {"e": "🕒", "ru": "Часы", "kz": "Сағат"}, "a56:week": {"e": "📅", "ru": "Дни недели", "kz": "Апта күндері"}, "a56:sudoku": {"e": "🔢", "ru": "Судоку", "kz": "Судоку"}, "a56:maze": {"e": "🌀", "ru": "Лабиринт", "kz": "Лабиринт"}, "a56:matrix": {"e": "🔷", "ru": "Чего не хватает?", "kz": "Не жетіспейді?"}, "a56:diff": {"e": "🔍", "ru": "Найди отличия", "kz": "Айырмашылықты тап"}, "a56:vanish": {"e": "🙈", "ru": "Кто исчез?", "kz": "Кім жоғалды?"}, "a56:routine": {"e": "⏰", "ru": "Режим дня", "kz": "Күн тәртібі"}, "a56:rightleft": {"e": "↔️", "ru": "Справа и слева", "kz": "Оң және сол"}, "a56:heavy": {"e": "⚖️", "ru": "Тяжелее или легче?", "kz": "Ауыр ма, жеңіл ме?"}, "a56:baby": {"e": "🍼", "ru": "Чей детёныш?", "kz": "Кімнің баласы?"}, "a56:home": {"e": "🏞️", "ru": "Кто где живёт?", "kz": "Кім қайда тұрады?"}, "a56:domwild": {"e": "🏡", "ru": "Домашние и дикие", "kz": "Үй және жабайы"}, "a56:pred": {"e": "🥩", "ru": "Хищник или травоядный?", "kz": "Жыртқыш па, шөпқоректі ме?"}, "a56:insect": {"e": "🐞", "ru": "Найди насекомое", "kz": "Жәндікті тап"}, "a56:bfb": {"e": "🪶", "ru": "Птицы, рыбы, звери", "kz": "Құстар, балықтар, аңдар"}, "a56:ynAnimals": {"e": "❓", "ru": "Правда или нет?", "kz": "Рас па, өтірік пе?"}, "a56:move": {"e": "🏃", "ru": "Летает, плавает, бегает", "kz": "Ұшады, жүзеді, жүгіреді"}, "a56:legs": {"e": "🦵", "ru": "Сколько ног?", "kz": "Неше аяқ?"}, "a56:give": {"e": "🥛", "ru": "Кто что даёт?", "kz": "Кім не береді?"}, "a56:winter": {"e": "💤", "ru": "Кто спит зимой?", "kz": "Қыста кім ұйықтайды?"}, "a56:kzAnimals": {"e": "🇰🇿", "ru": "Животные Казахстана", "kz": "Қазақстан жануарлары"}, "a56:parts": {"e": "🌷", "ru": "Части растения", "kz": "Өсімдік бөліктері"}, "a56:fruitveg": {"e": "🥕", "ru": "Фрукты или овощи?", "kz": "Жеміс пе, көкөніс пе?"}, "a56:grow": {"e": "🌳", "ru": "Где растёт?", "kz": "Қайда өседі?"}, "a56:flower": {"e": "🌻", "ru": "Вырасти цветок", "kz": "Гүл өсір"}, "a56:seasons": {"e": "🍂", "ru": "Времена года", "kz": "Жыл мезгілдері"}, "a56:when": {"e": "❄️", "ru": "Когда это бывает?", "kz": "Бұл қашан болады?"}, "a56:needs": {"e": "💧", "ru": "Что нужно растению?", "kz": "Өсімдікке не керек?"}, "a56:ped": {"e": "🚶", "ru": "Светофор для пешехода", "kz": "Жаяу жүргінші бағдаршамы"}, "a56:carl": {"e": "🚥", "ru": "Светофор для машин", "kz": "Көлік бағдаршамы"}, "a56:cross": {"e": "🦓", "ru": "Переведи через дорогу", "kz": "Жолдан өткіз"}, "a56:ynRoad": {"e": "✅", "ru": "Правила дороги", "kz": "Жол ережесі"}, "a56:signs": {"e": "⛔", "ru": "Дорожные знаки", "kz": "Жол белгілері"}, "a56:sos": {"e": "🚒", "ru": "101, 102, 103", "kz": "101, 102, 103"}, "a56:planets": {"e": "🪐", "ru": "Планеты", "kz": "Ғаламшарлар"}, "a56:porder": {"e": "🔢", "ru": "Планеты по порядку", "kz": "Ғаламшарлар ретімен"}, "a56:squiz": {"e": "❓", "ru": "Космическая викторина", "kz": "Ғарыш викторинасы"}, "a56:countdown": {"e": "🔟", "ru": "Обратный отсчёт", "kz": "Кері санау"}, "a56:cosmo": {"e": "🧑‍🚀", "ru": "Космонавты и Байконур", "kz": "Ғарышкерлер және Байқоңыр"}, "a56:ynSpace": {"e": "🌍", "ru": "Правда или нет?", "kz": "Рас па, өтірік пе?"}, "a56:tools": {"e": "🔦", "ru": "Что для чего?", "kz": "Не үшін керек?"}, "a56:elec": {"e": "⚡", "ru": "Электричество", "kz": "Электр"}, "a56:jobs": {"e": "🧑‍🍳", "ru": "Профессии", "kz": "Мамандықтар"}, "a56:trans": {"e": "✈️", "ru": "Земля, вода, небо", "kz": "Жер, су, аспан"}, "a56:robot": {"e": "🤖", "ru": "Робот-программист", "kz": "Робот-бағдарламашы"}, "a24:color": {"e": "🎨", "ru": "Найди цвет", "kz": "Түсті тап"}, "a24:sort": {"e": "🧺", "ru": "Разложи по цветам", "kz": "Түсіне қарай сал"}, "a24:shape": {"e": "🔺", "ru": "Фигуры", "kz": "Пішіндер"}, "a24:sorter": {"e": "🧩", "ru": "Вставь фигурку", "kz": "Пішінді орнына қой"}, "a24:circles": {"e": "🔷", "ru": "Найди фигуры", "kz": "Пішіндерді тап"}, "a24:size": {"e": "🐘", "ru": "Большой и маленький", "kz": "Үлкен және кішкентай"}, "a24:nest": {"e": "📏", "ru": "Поставь по росту", "kz": "Бойына қарай қой"}, "a24:odd": {"e": "🤔", "ru": "Что лишнее?", "kz": "Артығы қайсы?"}, "a24:opp": {"e": "🔥", "ru": "Наоборот", "kz": "Керісінше"}, "a24:next": {"e": "🐣", "ru": "Что потом?", "kz": "Сосын не болады?"}, "a24:err": {"e": "🐟", "ru": "Найди ошибку", "kz": "Қатені тап"}, "a24:puzzle": {"e": "🖼️", "ru": "Собери картинку", "kz": "Суретті құрастыр"}, "a24:mem": {"e": "🃏", "ru": "Найди пару", "kz": "Жұбын тап"}, "a24:shadow": {"e": "👤", "ru": "Найди тень", "kz": "Көлеңкесін тап"}, "a24:cups": {"e": "🥤", "ru": "Где игрушка?", "kz": "Ойыншық қайда?"}, "a24:rhythm": {"e": "🥁", "ru": "Повтори ритм", "kz": "Ырғақты қайтала"}, "a24:count": {"e": "🔢", "ru": "Считаем до 5", "kz": "5-ке дейін санау"}, "a24:dice": {"e": "🎲", "ru": "Кубик", "kz": "Текше"}, "a24:more": {"e": "⚖️", "ru": "Где больше?", "kz": "Қайда көп?"}, "a24:lack": {"e": "🥕", "ru": "Сколько не хватает?", "kz": "Нешеуі жетпейді?"}, "a24:riddle": {"e": "🔎", "ru": "Угадай по описанию", "kz": "Сипаттамасынан тап"}, "a24:finish": {"e": "💬", "ru": "Закончи фразу", "kz": "Сөйлемді аяқта"}, "a24:sound": {"e": "🐮", "ru": "Кто так говорит?", "kz": "Кім осылай дейді?"}, "a24:does": {"e": "🦋", "ru": "Кто что делает?", "kz": "Кім не істейді?"}, "a24:rhyme": {"e": "🎵", "ru": "Найди рифму", "kz": "Ұйқас (орысша)"}, "a24:emo": {"e": "😀", "ru": "Настроение", "kz": "Көңіл-күй"}, "a24:emo2": {"e": "💛", "ru": "Что он чувствует?", "kz": "Ол не сезінеді?"}, "a24:feed": {"e": "🥕", "ru": "Покорми зверюшку", "kz": "Жануарды тамақтандыр"}, "a24:weather": {"e": "☂️", "ru": "Одень по погоде", "kz": "Ауа райына қарай киін"}, "a24:cause": {"e": "🧊", "ru": "Что будет, если…?", "kz": "Не болады, егер…?"}, "a24:mix": {"e": "🦄", "ru": "Придумай зверя", "kz": "Аң ойлап тап"}, "a24:letters": {"e": "🅰️", "ru": "Первые буквы", "kz": "Алғашқы әріптер (орысша)"}, "a24:findl": {"e": "🔍", "ru": "Найди букву", "kz": "Әріпті тап (орысша)"}, "a02:animals": {"e": "🐮", "ru": "Кто как говорит", "kz": "Кім қалай дыбыстайды?"}, "a02:moms": {"e": "🐣", "ru": "Мамы и малыши", "kz": "Аналар мен балалары"}, "a02:transport": {"e": "🚗", "ru": "Транспорт", "kz": "Көлік"}, "a02:who": {"e": "🚪", "ru": "Тук-тук, кто там?", "kz": "Тық-тық, кім бар?"}, "a02:peek": {"e": "🙈", "ru": "Ку-ку!", "kz": "Кім жасырынды?"}, "a02:face": {"e": "👶", "ru": "Лицо", "kz": "Бет"}, "a02:body": {"e": "🧍", "ru": "Тело", "kz": "Дене"}, "a02:family": {"e": "👨‍👩‍👧", "ru": "Моя семья", "kz": "Менің отбасым"}, "a02:day": {"e": "🌞", "ru": "День и ночь", "kz": "Күн мен түн"}, "a02:food": {"e": "🍎", "ru": "Ням-ням", "kz": "Ням-ням"}, "a02:show": {"e": "👉", "ru": "Покажи, где", "kz": "Көрсет"}, "a02:sleep": {"e": "😴", "ru": "Баю-бай", "kz": "Әлди-әлди"}, "a02:bub": {"e": "🫧", "ru": "Пузыри и цвета", "kz": "Көпіршік пен түс"}, "a02:xylo": {"e": "🎹", "ru": "Ксилофон", "kz": "Ксилофон"}, "a02:paint": {"e": "🖍️", "ru": "Рисуем", "kz": "Сурет саламыз"}};
+const GN={"a56:abc": {"e": "🔤", "ru": "Азбука", "kz": "Азбука"}, "a56:vowelGame": {"e": "🎵", "ru": "Поющие буквы", "kz": "Поющие буквы"}, "a56:findLetter": {"e": "🔍", "ru": "Найди букву", "kz": "Найди букву"}, "a56:firstLetter": {"e": "🐱", "ru": "Первая буква", "kz": "Первая буква"}, "a56:balloons": {"e": "🎈", "ru": "Лопни шарик", "kz": "Лопни шарик"}, "a56:wherePos": {"e": "📍", "ru": "Где буква?", "kz": "Где буква?"}, "a56:mergeGame": {"e": "🏃", "ru": "Бежит к букве", "kz": "Бежит к букве"}, "a56:sylGame": {"e": "👏", "ru": "Сколько слогов?", "kz": "Сколько слогов?"}, "a56:picWord": {"e": "🖼️", "ru": "Найди слово", "kz": "Найди слово"}, "a56:readMenu": {"e": "📖", "ru": "Читаем слова", "kz": "Читаем слова"}, "a56:buildWord": {"e": "🧱", "ru": "Собери слово", "kz": "Собери слово"}, "a56:rebus": {"e": "🧩", "ru": "Ребусы", "kz": "Ребусы"}, "a56:sayGame": {"e": "🎤", "ru": "Скажи слово", "kz": "Скажи слово"}, "a56:count10": {"e": "🔟", "ru": "Считаем до 10", "kz": "10-ға дейін санау"}, "a56:missing": {"e": "❔", "ru": "Пропущенное число", "kz": "Түсіп қалған сан"}, "a56:nbGame": {"e": "🏘️", "ru": "Соседи числа", "kz": "Санның көршілері"}, "a56:cmpGame": {"e": "⚖️", "ru": "Больше, меньше", "kz": "Артық, кем"}, "a56:patGame": {"e": "🔁", "ru": "Продолжи ряд", "kz": "Қатарды жалғастыр"}, "a56:corners": {"e": "🔺", "ru": "Сколько углов?", "kz": "Неше бұрыш?"}, "a56:house": {"e": "🏠", "ru": "Состав числа", "kz": "Санның құрамы"}, "a56:addSub": {"e": "➕", "ru": "Плюс и минус", "kz": "Қосу және азайту"}, "a56:frog": {"e": "🐸", "ru": "Лягушка на прямой", "kz": "Сан түзуіндегі бақа"}, "a56:tasks": {"e": "📝", "ru": "Задачки", "kz": "Есептер"}, "a56:shop": {"e": "🛒", "ru": "Магазин", "kz": "Дүкен"}, "a56:clock": {"e": "🕒", "ru": "Часы", "kz": "Сағат"}, "a56:week": {"e": "📅", "ru": "Дни недели", "kz": "Апта күндері"}, "a56:sudoku": {"e": "🔢", "ru": "Судоку", "kz": "Судоку"}, "a56:maze": {"e": "🌀", "ru": "Лабиринт", "kz": "Лабиринт"}, "a56:matrix": {"e": "🔷", "ru": "Чего не хватает?", "kz": "Не жетіспейді?"}, "a56:diff": {"e": "🔍", "ru": "Найди отличия", "kz": "Айырмашылықты тап"}, "a56:vanish": {"e": "🙈", "ru": "Кто исчез?", "kz": "Кім жоғалды?"}, "a56:routine": {"e": "⏰", "ru": "Режим дня", "kz": "Күн тәртібі"}, "a56:rightleft": {"e": "↔️", "ru": "Справа и слева", "kz": "Оң және сол"}, "a56:heavy": {"e": "⚖️", "ru": "Тяжелее или легче?", "kz": "Ауыр ма, жеңіл ме?"}, "a56:baby": {"e": "🍼", "ru": "Чей детёныш?", "kz": "Кімнің баласы?"}, "a56:home": {"e": "🏞️", "ru": "Кто где живёт?", "kz": "Кім қайда тұрады?"}, "a56:domwild": {"e": "🏡", "ru": "Домашние и дикие", "kz": "Үй және жабайы"}, "a56:pred": {"e": "🥩", "ru": "Хищник или травоядный?", "kz": "Жыртқыш па, шөпқоректі ме?"}, "a56:insect": {"e": "🐞", "ru": "Найди насекомое", "kz": "Жәндікті тап"}, "a56:bfb": {"e": "🪶", "ru": "Птицы, рыбы, звери", "kz": "Құстар, балықтар, аңдар"}, "a56:ynAnimals": {"e": "❓", "ru": "Правда или нет?", "kz": "Рас па, өтірік пе?"}, "a56:move": {"e": "🏃", "ru": "Летает, плавает, бегает", "kz": "Ұшады, жүзеді, жүгіреді"}, "a56:legs": {"e": "🦵", "ru": "Сколько ног?", "kz": "Неше аяқ?"}, "a56:give": {"e": "🥛", "ru": "Кто что даёт?", "kz": "Кім не береді?"}, "a56:winter": {"e": "💤", "ru": "Кто спит зимой?", "kz": "Қыста кім ұйықтайды?"}, "a56:kzAnimals": {"e": "🇰🇿", "ru": "Животные Казахстана", "kz": "Қазақстан жануарлары"}, "a56:parts": {"e": "🌷", "ru": "Части растения", "kz": "Өсімдік бөліктері"}, "a56:fruitveg": {"e": "🥕", "ru": "Фрукты или овощи?", "kz": "Жеміс пе, көкөніс пе?"}, "a56:grow": {"e": "🌳", "ru": "Где растёт?", "kz": "Қайда өседі?"}, "a56:flower": {"e": "🌻", "ru": "Вырасти цветок", "kz": "Гүл өсір"}, "a56:seasons": {"e": "🍂", "ru": "Времена года", "kz": "Жыл мезгілдері"}, "a56:when": {"e": "❄️", "ru": "Когда это бывает?", "kz": "Бұл қашан болады?"}, "a56:needs": {"e": "💧", "ru": "Что нужно растению?", "kz": "Өсімдікке не керек?"}, "a56:ped": {"e": "🚶", "ru": "Светофор для пешехода", "kz": "Жаяу жүргінші бағдаршамы"}, "a56:carl": {"e": "🚥", "ru": "Светофор для машин", "kz": "Көлік бағдаршамы"}, "a56:cross": {"e": "🦓", "ru": "Переведи через дорогу", "kz": "Жолдан өткіз"}, "a56:ynRoad": {"e": "✅", "ru": "Правила дороги", "kz": "Жол ережесі"}, "a56:signs": {"e": "⛔", "ru": "Дорожные знаки", "kz": "Жол белгілері"}, "a56:sos": {"e": "🚒", "ru": "101, 102, 103", "kz": "101, 102, 103"}, "a56:planets": {"e": "🪐", "ru": "Планеты", "kz": "Ғаламшарлар"}, "a56:porder": {"e": "🔢", "ru": "Планеты по порядку", "kz": "Ғаламшарлар ретімен"}, "a56:squiz": {"e": "❓", "ru": "Космическая викторина", "kz": "Ғарыш викторинасы"}, "a56:countdown": {"e": "🔟", "ru": "Обратный отсчёт", "kz": "Кері санау"}, "a56:cosmo": {"e": "🧑‍🚀", "ru": "Космонавты и Байконур", "kz": "Ғарышкерлер және Байқоңыр"}, "a56:ynSpace": {"e": "🌍", "ru": "Правда или нет?", "kz": "Рас па, өтірік пе?"}, "a56:tools": {"e": "🔦", "ru": "Что для чего?", "kz": "Не үшін керек?"}, "a56:elec": {"e": "⚡", "ru": "Электричество", "kz": "Электр"}, "a56:jobs": {"e": "🧑‍🍳", "ru": "Профессии", "kz": "Мамандықтар"}, "a56:trans": {"e": "✈️", "ru": "Земля, вода, небо", "kz": "Жер, су, аспан"}, "a56:robot": {"e": "🤖", "ru": "Робот-программист", "kz": "Робот-бағдарламашы"}, "a24:color": {"e": "🎨", "ru": "Найди цвет", "kz": "Түсті тап"}, "a24:sort": {"e": "🧺", "ru": "Разложи по цветам", "kz": "Түсіне қарай сал"}, "a24:shape": {"e": "🔺", "ru": "Фигуры", "kz": "Пішіндер"}, "a24:sorter": {"e": "🧩", "ru": "Вставь фигурку", "kz": "Пішінді орнына қой"}, "a24:circles": {"e": "🔷", "ru": "Найди фигуры", "kz": "Пішіндерді тап"}, "a24:size": {"e": "🐘", "ru": "Большой и маленький", "kz": "Үлкен және кішкентай"}, "a24:nest": {"e": "📏", "ru": "Поставь по росту", "kz": "Бойына қарай қой"}, "a24:odd": {"e": "🤔", "ru": "Что лишнее?", "kz": "Артығы қайсы?"}, "a24:opp": {"e": "🔥", "ru": "Наоборот", "kz": "Керісінше"}, "a24:next": {"e": "🐣", "ru": "Что потом?", "kz": "Сосын не болады?"}, "a24:err": {"e": "🐟", "ru": "Найди ошибку", "kz": "Қатені тап"}, "a24:puzzle": {"e": "🖼️", "ru": "Собери картинку", "kz": "Суретті құрастыр"}, "a24:mem": {"e": "🃏", "ru": "Найди пару", "kz": "Жұбын тап"}, "a24:shadow": {"e": "👤", "ru": "Найди тень", "kz": "Көлеңкесін тап"}, "a24:cups": {"e": "🥤", "ru": "Где игрушка?", "kz": "Ойыншық қайда?"}, "a24:rhythm": {"e": "🥁", "ru": "Повтори ритм", "kz": "Ырғақты қайтала"}, "a24:count": {"e": "🔢", "ru": "Считаем до 5", "kz": "5-ке дейін санау"}, "a24:dice": {"e": "🎲", "ru": "Кубик", "kz": "Текше"}, "a24:more": {"e": "⚖️", "ru": "Где больше?", "kz": "Қайда көп?"}, "a24:lack": {"e": "🥕", "ru": "Сколько не хватает?", "kz": "Нешеуі жетпейді?"}, "a24:riddle": {"e": "🔎", "ru": "Угадай по описанию", "kz": "Сипаттамасынан тап"}, "a24:finish": {"e": "💬", "ru": "Закончи фразу", "kz": "Сөйлемді аяқта"}, "a24:sound": {"e": "🐮", "ru": "Кто так говорит?", "kz": "Кім осылай дейді?"}, "a24:does": {"e": "🦋", "ru": "Кто что делает?", "kz": "Кім не істейді?"}, "a24:rhyme": {"e": "🎵", "ru": "Найди рифму", "kz": "Ұйқас (орысша)"}, "a24:emo": {"e": "😀", "ru": "Настроение", "kz": "Көңіл-күй"}, "a24:emo2": {"e": "💛", "ru": "Что он чувствует?", "kz": "Ол не сезінеді?"}, "a24:feed": {"e": "🥕", "ru": "Покорми зверюшку", "kz": "Жануарды тамақтандыр"}, "a24:weather": {"e": "☂️", "ru": "Одень по погоде", "kz": "Ауа райына қарай киін"}, "a24:cause": {"e": "🧊", "ru": "Что будет, если…?", "kz": "Не болады, егер…?"}, "a24:mix": {"e": "🦄", "ru": "Придумай зверя", "kz": "Аң ойлап тап"}, "a24:letters": {"e": "🅰️", "ru": "Первые буквы", "kz": "Алғашқы әріптер (орысша)"}, "a24:findl": {"e": "🔍", "ru": "Найди букву", "kz": "Әріпті тап (орысша)"}, "a02:animals": {"e": "🐮", "ru": "Кто как говорит", "kz": "Кім қалай дыбыстайды?"}, "a02:moms": {"e": "🐣", "ru": "Мамы и малыши", "kz": "Аналар мен балалары"}, "a02:transport": {"e": "🚗", "ru": "Транспорт", "kz": "Көлік"}, "a02:who": {"e": "🚪", "ru": "Тук-тук, кто там?", "kz": "Тық-тық, кім бар?"}, "a02:peek": {"e": "🙈", "ru": "Ку-ку!", "kz": "Кім жасырынды?"}, "a02:face": {"e": "👶", "ru": "Лицо", "kz": "Бет"}, "a02:body": {"e": "🧍", "ru": "Тело", "kz": "Дене"}, "a02:family": {"e": "👨‍👩‍👧", "ru": "Моя семья", "kz": "Менің отбасым"}, "a02:day": {"e": "🌞", "ru": "День и ночь", "kz": "Күн мен түн"}, "a02:food": {"e": "🍎", "ru": "Ням-ням", "kz": "Ням-ням"}, "a02:show": {"e": "👉", "ru": "Покажи, где", "kz": "Көрсет"}, "a02:sleep": {"e": "😴", "ru": "Баю-бай", "kz": "Әлди-әлди"}, "a02:bub": {"e": "🫧", "ru": "Пузыри и цвета", "kz": "Көпіршік пен түс"}, "a02:xylo": {"e": "🎹", "ru": "Ксилофон", "kz": "Ксилофон"}, "a02:paint": {"e": "🖍️", "ru": "Рисуем", "kz": "Сурет саламыз"}, "a02:shfind": {"e": "🔵", "ru": "Где круг?", "kz": "Шеңбер қайда?"}, "a02:shsort": {"e": "🏠", "ru": "Домики для фигур", "kz": "Пішін үйшіктері"}, "a02:shfun": {"e": "🔺", "ru": "Весёлые фигуры", "kz": "Көңілді пішіндер"}};
 const gname=k=>{const g=GN[k];return g?(kzOn()?g.kz||g.ru:g.ru):k.split(':')[1];};
 const gemo=k=>(GN[k]||{}).e||'🎮';
 const WORLDS={
@@ -6693,13 +6851,13 @@ const WORLDS={
    {id:'emo',e:'😊',c:'#FF8A65',t:'#FFE6DC',x:200,y:250,need:2,n:['Гора эмоций','Эмоциялар тауы'],d:['Узнаём, что чувствуют друзья','Достар не сезінетінін білеміз'],g:['emo','emo2']}],
   chests:[{after:1,x:205,y:1395},{after:3,x:200,y:915},{after:5,x:205,y:425}],
   prizes:[['🐿️',['Весёлая белочка','Көңілді тиін']],['🍄',['Волшебный грибок','Сиқырлы саңырауқұлақ']],['🌈',['Радужный мостик','Кемпірқосақ көпірі']]]},
- a02:{sec:'a02',guide:'fox',art:'art02',big:1,riverY:0,short:['Полянка','Алаңқай'],fin:['Ты обошёл всю Волшебную полянку! Ура!','Сен Сиқырлы алаңқайды толық араладың! Ура!'],name:['Волшебная полянка','Сиқырлы алаңқай'],H:1700,
+ a02:{sec:'a02',guide:'fox',art:'art02',big:1,free:1,riverY:0,short:['Полянка','Алаңқай'],fin:['Ты обошёл всю Волшебную полянку! Ура!','Сен Сиқырлы алаңқайды толық араладың! Ура!'],name:['Волшебная полянка','Сиқырлы алаңқай'],H:1700,
   bg:'linear-gradient(180deg,#FFE9F2 0%,#FFF4DA 30%,#E9F8DC 65%,#D6F2C2 100%)',
   locs:[
    {id:'zoo0',e:'🐣',c:'#F6A321',t:'#FFF0D2',x:120,y:1500,need:2,n:['Домик зверят','Аңдар үйшігі'],d:['Знакомимся со зверятами и их малышами','Аңдармен және олардың балаларымен танысамыз'],g:['moms','who','peek','food']},
    {id:'sounds',e:'🔊',c:'#5187F5',t:'#E3ECFF',x:280,y:1270,need:2,n:['Полянка звуков','Дыбыстар алаңқайы'],d:['Кто как говорит, звуки машин и вокруг','Кім қалай сөйлейді, көліктер мен айналаның дыбыстары'],g:['animals','transport','show']},
    {id:'flowers',e:'🌷',c:'#EF6F8E',t:'#FFE3EC',x:120,y:1040,need:2,n:['Цветочная долина','Гүлді аңғар'],d:['Цвета, пузыри и рисование','Түстер, көпіршіктер және сурет салу'],g:['bub','paint','day']},
-   {id:'shapes0',e:'🔵',c:'#20B4C2',t:'#D7F1F6',x:280,y:820,need:0,n:['Мир фигур','Пішіндер әлемі'],d:['Круг, квадрат, треугольник — совсем скоро!','Шеңбер, шаршы, үшбұрыш — жақында!'],g:[]},
+   {id:'shapes0',e:'🔵',c:'#20B4C2',t:'#D7F1F6',x:280,y:820,need:2,n:['Мир фигур','Пішіндер әлемі'],d:['Круг, квадрат, треугольник — фигуры с глазками','Шеңбер, шаршы, үшбұрыш — көзі бар пішіндер'],g:['shfind','shsort','shfun']},
    {id:'family',e:'👨‍👩‍👧',c:'#9874F5',t:'#ECE6FF',x:120,y:590,need:2,n:['Семейная деревня','Отбасы ауылы'],d:['Мама, папа, я — и наше тело','Анам, әкем, мен — және біздің дене'],g:['face','body','family']},
    {id:'music',e:'🎵',c:'#43BD79',t:'#DDF5D3',x:220,y:330,need:1,n:['Музыкальный ручей','Музыкалық бұлақ'],d:['Ксилофон и колыбельная','Ксилофон және бесік жыры'],g:['xylo','sleep']}],
   chests:[{after:1,x:205,y:1160},{after:3,x:200,y:700},{after:5,x:330,y:240}],
@@ -6710,14 +6868,14 @@ function wstate(wid){const s=st();s.map=s.map||{};const m=s.map[wid]||(s.map[wid
 const keyOf=(w,g)=>w.sec+':'+g;
 /* ---- прогресс из реальной статистики ---- */
 function passed(w,loc){const s=st(),m=wstate(w.sec);return loc.g.filter(g=>{const d=s.done[keyOf(w,g)];if(!d||!d.n)return false;if(loc.fin){const t=m.unl[loc.id];return !!(t&&d.last&&d.last>=t);}return true;});}
-function info(w){const out=[];let open=true;w.locs.forEach((loc,i)=>{const p=passed(w,loc),n=p.length,tot=loc.g.length,empty=!tot;
+function info(w){const out=[];let open=true;const mu=wstate(w.sec).unl;w.locs.forEach((loc,i)=>{const p=passed(w,loc),n=p.length,tot=loc.g.length,empty=!tot;open=open||!!w.free||!!mu[loc.id];
   const done=empty||n>=loc.need;const half=loc.need+Math.ceil((tot-loc.need)/2);
   const stars=empty||!done?0:n>=tot?3:n>=half?2:1;const s=st();const gs=loc.g.reduce((a,g)=>a+(s.gst[keyOf(w,g)]||0),0);
   out.push({loc,i,open,done,n,tot,stars,p,gs,empty});open=open&&done;});
  const cur=out.find(x=>x.open&&!x.done)||[...out].reverse().find(x=>!x.empty)||out[out.length-1];return {L:out,cur};}
 function sync(w,I){/* отметить новые открытия, вернуть события для праздника */const m=wstate(w.sec);const ev=[];
  I.L.forEach(x=>{if(x.open&&!m.unl[x.loc.id])m.unl[x.loc.id]=Date.now();
-  if(x.done&&!x.empty&&!m.done[x.loc.id]){m.done[x.loc.id]=Date.now();if(x.i===w.locs.length-1)m.fin=1;ev.push({type:'done',x,next:I.L.slice(x.i+1).find(y=>!y.empty)});}});
+  if(x.done&&!x.empty&&!m.done[x.loc.id]){m.done[x.loc.id]=Date.now();if(w.free?I.L.every(y=>y.done):x.i===w.locs.length-1)m.fin=1;ev.push({type:'done',x,next:w.free?(I.L.slice(x.i+1).find(y=>!y.done)||I.L.find(y=>!y.done)):I.L.slice(x.i+1).find(y=>!y.empty)});}});
  return ev;}
 /* ---- общие помощники ---- */
 const OWL=`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M15 23 L20 12 L27 20 Q32 17.5 37 20 L44 12 L49 23 Q53 31 51 41 Q48 55 32 56 Q16 55 13 41 Q11 31 15 23Z" fill="#8A5A3B"/><ellipse cx="32" cy="44" rx="12" ry="10" fill="#F7D9B5"/><circle cx="24.5" cy="31" r="8.2" fill="#fff"/><circle cx="39.5" cy="31" r="8.2" fill="#fff"/><circle cx="25.5" cy="31.5" r="4.3" fill="#292944"/><circle cx="38.5" cy="31.5" r="4.3" fill="#292944"/><circle cx="26.8" cy="30" r="1.5" fill="#fff"/><circle cx="39.8" cy="30" r="1.5" fill="#fff"/><path d="M29 38 L32 43 L35 38Z" fill="#F6A321"/><path d="M18 47 Q22 44 25 48 M46 47 Q42 44 39 48" stroke="#E4B98E" stroke-width="2" fill="none"/></svg>`;
@@ -6877,6 +7035,7 @@ function renderMap(){const w=W(),I=info(w),m=wstate(w.sec),H=w.H;const s=st();
    return `<button class="mp-chest ${opened?'opened':ready?'ready':''}" data-c="${i}" style="left:${c.x/4}%;top:${c.y/H*100}%" aria-label="${TL('Сундук','Сандық')}">${chestSVG(opened)}${opened?`<span class="mp-prz">${w.prizes[i][0]}</span>`:ready?'':'<span class="mp-clk">🔒</span>'}</button>`;}).join('');
  const cur=I.cur,cl=cur.loc,guideSide=cl.x>=150&&cl.x<=250?'u':cl.x>200?'l':'r';
  const say=cur.done?TL(w.fin[0]+' 🎉',w.fin[1]+' 🎉')
+  :w.free?TL(`${name()?name()+', п':'П'}ойдём сюда: ${cl.n[0]}! Тут расцветут цветочки 🌸`,`${name()?name()+', м':'М'}ұнда барайық: ${cl.n[1]}! Мұнда гүлдер ашылады 🌸`)
   :cur.n?TL(`Ещё ${cl.need-cur.n} — и откроем новую землю!`,`Тағы ${cl.need-cur.n} — жаңа жер ашылады!`)
   :TL(`${name()?name()+', н':'Н'}ам сюда: ${cl.n[0]}!`,`${name()?name()+', б':'Б'}із мұнда барамыз: ${cl.n[1]}!`);
  const tk=Object.keys(m.chests).length;
@@ -6885,12 +7044,14 @@ function renderMap(){const w=W(),I=info(w),m=wstate(w.sec),H=w.H;const s=st();
   <div class="mp-world-wrap" style="background:${w.bg}"><div class="mp-map ${w.big?'big':''}" style="aspect-ratio:400/${H}">${ARTS[w.art](w)}
    <svg class="mp-path" viewBox="0 0 400 ${H}" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="riv"><rect x="0" y="${w.riverY}" width="400" height="${w.riverY?52:0}"/></clipPath></defs><path class="mp-road" d="${pathD(pts)}"/><path class="mp-road2" d="${pathD(pts)}"/><g clip-path="url(#riv)"><path class="mp-brg" d="${pathD(pts)}"/><path class="mp-brg2" d="${pathD(pts)}"/></g>${segs}</svg>
    <div class="mp-start" style="left:50%;top:${start[1]/H*100}%">${TL('Старт','Бастау')}</div>
-   ${nodes}${chests}
+   ${w.free?meadowLife(w,I):''}${nodes}${chests}
    <div class="mp-guide ${guideSide}" style="left:${cl.x/4}%;top:${cl.y/H*100}%"><span class="mp-owl">${GUIDE(w)}</span>${window.COL?COL.mapFriend():''}<span class="mp-say">${say}</span></div>
   </div></div>`;
  MV.querySelector('#mpBack').onclick=()=>history.back();
  MV.querySelectorAll('.mp-node').forEach(b=>b.onclick=()=>{b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');locSheet(+b.dataset.i);});
  MV.querySelectorAll('.mp-chest').forEach(b=>b.onclick=()=>chestTap(+b.dataset.c,b));
+ MV.querySelectorAll('.mp-pal').forEach(b=>b.onclick=()=>palTap(b));
+ if(w.free)MV.querySelectorAll('.mp-node').forEach(b=>b.addEventListener('click',()=>{const l=w.locs[+b.dataset.i];say02(TL(l.n[0],l.n[1])+'!');}));
  animIds=[];}
 function scrollToCur(smooth){const n=MV.querySelector('.mp-node.cur')||MV.querySelector(`.mp-node[data-i="${Math.max(0,W().locs.findIndex(l=>l.id===wstate(W().sec).pos))}"]`)||MV.querySelector('.mp-node');if(!n)return;
  const r=n.getBoundingClientRect(),mr=MV.getBoundingClientRect();MV.scrollTo({top:MV.scrollTop+r.top-mr.top-MV.clientHeight*0.45,behavior:smooth?'smooth':'auto'});}
@@ -6904,7 +7065,7 @@ function locSheet(i){const w=W(),I=info(w),x=I.L[i],l=x.loc,m=wstate(w.sec);cons
   <div class="mp-sbody"><h2>${TL(l.n[0],l.n[1])}</h2><p>${TL(l.d[0],l.d[1])}</p>
    ${x.empty?`<div class="mp-slock soon">🌱 ${TL('Скоро здесь появятся новые приключения!','Жақында мұнда жаңа шытырман оқиғалар пайда болады!')}<br><small>${TL('А пока дорожка ведёт дальше — к следующей земле.','Әзірге жол келесі жерге апарады.')}</small></div>`:x.open?`<div class="mp-sprog"><div><b>${x.n} / ${x.tot}</b> ${TL('игр пройдено','ойын өтілді')}${l.fin?` <small>${TL('(считаются игры после открытия замка)','(сарай ашылғаннан кейінгі ойындар)')}</small>`:''}</div><span class="mp-sst">${STAR(x.stars>=1)+STAR(x.stars>=2)+STAR(x.stars>=3)}</span></div>
     <div class="mp-sbar"><i style="width:${Math.min(100,x.n/l.need*100)}%"></i></div>
-    <small class="mp-shint">${x.done?(I.L[i+1]?TL(`Локация пройдена! Открыта дорога в «${I.L[i+1].loc.n[0]}». ⭐ ${x.gs} звёзд здесь`,`Орын өтілді! «${I.L[i+1].loc.n[1]}» жолы ашылды. ⭐ ${x.gs} жұлдыз`):TL(`${w.short[0]} пройден${w.sec==='a56'?'а':w.sec==='a02'?'а':''}! ⭐ ${x.gs} звёзд здесь`,`${w.short[1]} өтілді! ⭐ ${x.gs} жұлдыз`)):TL(`Пройди ${l.need} ${plural(l.need)}, чтобы ${I.L[i+1]?'открыть следующую землю':'завершить путешествие'}.`,`${I.L[i+1]?'Келесі жерді ашу':'Саяхатты аяқтау'} үшін ${l.need} ойын өт.`)}</small>`
+    <small class="mp-shint">${w.free?(x.done?TL('Здесь всё расцвело! 🌸 Можно играть ещё.','Мұнда бәрі гүлдеді! 🌸 Тағы ойнауға болады.'):TL(`Сыграй ${l.need} ${plural(l.need)} — и здесь распустятся цветы 🌷`,`${l.need} ойын ойна — мұнда гүлдер ашылады 🌷`)):x.done?(I.L[i+1]?TL(`Локация пройдена! Открыта дорога в «${I.L[i+1].loc.n[0]}». ⭐ ${x.gs} звёзд здесь`,`Орын өтілді! «${I.L[i+1].loc.n[1]}» жолы ашылды. ⭐ ${x.gs} жұлдыз`):TL(`${w.short[0]} пройден${w.sec==='a56'?'а':w.sec==='a02'?'а':''}! ⭐ ${x.gs} звёзд здесь`,`${w.short[1]} өтілді! ⭐ ${x.gs} жұлдыз`)):TL(`Пройди ${l.need} ${plural(l.need)}, чтобы ${I.L[i+1]?'открыть следующую землю':'завершить путешествие'}.`,`${I.L[i+1]?'Келесі жерді ашу':'Саяхатты аяқтау'} үшін ${l.need} ойын өт.`)}</small>`
    :`<div class="mp-slock">🔒 ${lockMsg}</div>`}
    <div class="mp-games">${l.g.map((g,j)=>{const k=keyOf(w,g),ok=pset.has(g),gs=s.gst[k]||0;return `<button class="mp-g ${ok?'ok':''} ${g===nextG&&x.open?'next':''}" data-g="${g}" ${x.open?'':'disabled'}><span class="mp-gn">${j+1}</span><span class="mp-ge">${gemo(k)}</span><b>${esc(gname(k))}</b><small>${ok?'✓ '+TL('пройдено','өтілді'):TL('ещё не пройдено','әлі өтілмеген')}${gs?` · ⭐ ${gs}`:''}</small></button>`;}).join('')}</div>
    ${x.open&&!x.empty?`<button class="mp-go" id="mpGo">▶ ${x.n?TL('Продолжить приключение','Шытырманды жалғастыру'):TL('Начать приключение','Шытырманды бастау')}</button>`:''}</div></div>`,'bottom');
@@ -6933,12 +7094,24 @@ function celebrateEvents(){const w=W(),I=info(w);evQ.push(...sync(w,I));PF.save(
  if(!evQ.length){try{PF.achieve();}catch(e){}return;}if(document.querySelector('.mp-cel'))return;const e=evQ.shift();const l=e.x.loc,nx=e.next;
  const conf=Array.from({length:30},(_,i)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#9874F5','#43BD79','#5187F5','#EF6F8E','#20B4C2'][i%6]};animation-delay:${(Math.random()*.7).toFixed(2)}s"></i>`).join('');
  const L=layer(`<div class="mp-cel" style="--c:${l.c}"><div class="pf-conf">${conf}</div><span class="mp-celowl">${GUIDE(w)}</span><div class="mp-celbig">${l.e}</div>
-  <h2>${TL('Ура! Локация пройдена!','Ура! Орын өтілді!')}</h2><b class="mp-celn">${TL(l.n[0],l.n[1])}</b>
+  <h2>${w.free?TL('Ура! Полянка расцвела!','Ура! Алаңқай гүлдеді!'):TL('Ура! Локация пройдена!','Ура! Орын өтілді!')}</h2><b class="mp-celn">${TL(l.n[0],l.n[1])}</b>
   <div class="mp-celst">${STAR(e.x.stars>=1)+STAR(e.x.stars>=2)+STAR(e.x.stars>=3)}</div><p>${TL(`Звёзд заработано здесь: ⭐ ${e.x.gs}`,`Мұнда жиналған жұлдыз: ⭐ ${e.x.gs}`)}</p>
-  <p class="mp-celsay">${GE(w)} ${nx?TL(`${name()?name()+', т':'Т'}ы молодец! Открылась новая земля — «${nx.loc.n[0]}»!`,`${name()?name()+', ж':'Ж'}арайсың! Жаңа жер ашылды — «${nx.loc.n[1]}»!`):TL(w.fin[0],w.fin[1])}</p>
-  <button class="mp-go" id="mpCelOk">${nx?TL('Вперёд!','Алға!'):TL('Ура!','Ура!')}</button></div>`,'center');
+  <p class="mp-celsay">${GE(w)} ${w.free&&nx?TL(`${name()?name()+', т':'Т'}ы молодец! Здесь всё расцвело 🌸 Пойдём в «${nx.loc.n[0]}»!`,`${name()?name()+', ж':'Ж'}арайсың! Мұнда бәрі гүлдеді 🌸 «${nx.loc.n[1]}» барайық!`):nx?TL(`${name()?name()+', т':'Т'}ы молодец! Открылась новая земля — «${nx.loc.n[0]}»!`,`${name()?name()+', ж':'Ж'}арайсың! Жаңа жер ашылды — «${nx.loc.n[1]}»!`):TL(w.fin[0],w.fin[1])}</p>
+  <button class="mp-go" id="mpCelOk">${nx?(w.free?TL('Пойдём!','Кеттік!'):TL('Вперёд!','Алға!')):TL('Ура!','Ура!')}</button></div>`,'center');
  chime(true);
  L.querySelector('#mpCelOk').onclick=()=>{history.back();if(!nx)setTimeout(()=>{try{PF.achieve();}catch(e){}},300);if(nx){animIds=[nx.loc.id];setTimeout(()=>{renderMap();scrollToCur(true);setTimeout(()=>chime(false),500);setTimeout(celebrateEvents,1400);},120);}};}
+/* ---- живая полянка для малышей ---- */
+const PALS=[['🐰',60,1380,['Прыг-скок! Я зайчик!','Секір-секір! Мен қоянмын!']],['🐥',330,1460,['Пи-пи! Я цыплёнок!','Шиқ-шиқ! Мен балапанмын!']],['🐶',120,1250,['Гав-гав! Поиграем?','Арс-арс! Ойнайық па?']],['🦋',300,1000,['Я бабочка! Лечу-лечу!','Мен көбелекпін! Ұшамын!']],
+ ['🐞',40,880,['Я божья коровка!','Мен қызыл қоңызбын!']],['🐸',210,720,['Ква-ква! Привет!','Бақ-бақ! Сәлем!']],['🐝',360,610,['Ж-ж-ж! Я пчёлка!','Ж-ж-ж! Мен арамын!']],['🐦',100,460,['Чик-чирик! Споём?','Шиқ-шиқ! Ән салайық па?']],['🐱',300,300,['Мяу! Я котик!','Мияу! Мен мысықпын!']]];
+const BLOOM=[[160,1530],[260,1560],[340,1300],[180,1180],[90,1150],[260,1100],[330,940],[150,870],[60,760],[330,790],[250,650],[60,640],[170,520],[300,470],[40,380],[260,250],[130,220],[350,180],[210,140],[80,170]];
+function meadowLife(w,I){const n=I.L.reduce((a,x)=>a+x.n,0),tot=I.L.reduce((a,x)=>a+x.tot,0);const k=Math.round(BLOOM.length*Math.min(1,n/Math.max(1,tot)));const FL=['🌼','🌸','🌷','🌻','🌺'];
+ return BLOOM.slice(0,k).map(([x,y],i)=>`<span class="mp-bloom" style="left:${x/4}%;top:${y/w.H*100}%;animation-delay:${(i%5)*.4}s">${FL[i%FL.length]}</span>`).join('')
+  +PALS.map(([e,x,y],i)=>`<button class="mp-pal" data-p="${i}" style="left:${x/4}%;top:${y/w.H*100}%;animation-delay:${(i%4)*.5}s" aria-label="${e}">${e}</button>`).join('')
+  +`<div class="mp-bloomc">🌸 ${TL(`Полянка расцветает: ${n} из ${tot}`,`Алаңқай гүлдеп жатыр: ${tot}-тен ${n}`)}</div>`;}
+let v02=null;function say02(t){try{if(!('speechSynthesis' in window))return;const kz=kzOn();const vs=speechSynthesis.getVoices();const v=vs.find(x=>kz?/^kk/i.test(x.lang):/^ru/i.test(x.lang));if(kz&&!v)return;
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=kz?'kk-KZ':'ru-RU';if(v)u.voice=v;u.rate=.9;u.pitch=1.2;speechSynthesis.speak(u);}catch(e){}}
+function palTap(b){const p=PALS[+b.dataset.p];b.classList.remove('hop');void b.offsetWidth;b.classList.add('hop');chime(true);const t=TL(p[3][0],p[3][1]);say02(t);
+ const old=MV.querySelector('.mp-palsay');if(old)old.remove();const d=document.createElement('span');d.className='mp-palsay';d.textContent=t;d.style.left=b.style.left;d.style.top=b.style.top;b.parentNode.appendChild(d);setTimeout(()=>d.remove(),2200);}
 /* ---- сундуки ---- */
 function chestTap(i,btn){const w=W(),I=info(w),m=wstate(w.sec),c=w.chests[i];
  if(m.chests[i]!==undefined){const p=w.prizes[i];toast(`${p[0]} ${TL(p[1][0],p[1][1])}`);return;}
@@ -7201,7 +7374,12 @@ function homeCard(){const ids=COL_CFG.heroes.map(h=>h.id);const opened=ids.filte
   <span class="cl-hb"><b>${openCount()} ${TL('из','/')} ${ids.length} ${TL('открыто','ашылды')}</b><small>${TL('Собирай друзей за свои успехи!','Жетістіктерің үшін достар жина!')}</small></span><span class="mp-hgo">›</span>`;}
 HC.onclick=()=>openCol();
 /* аватар на главной: друг вместо картинки, если ребёнок так выбрал */
-const _r=refresh;refresh=function(){_r();try{homeCard();const f=friend(),w=document.getElementById('who');if(f&&cs().avatar){w.innerHTML=heroSVG(f);w.classList.add('hasfr');}else w.classList.remove('hasfr');checkNew();}catch(e){}};
+function homeFriend(){const w=document.getElementById('who');let el=w.querySelector('.hm-fr');const f=friend();
+ if(!f||cs().avatar){if(el)el.remove();return;}
+ if(!el||el.dataset.id!==f){if(el)el.remove();el=document.createElement('span');el.className='hm-fr';el.dataset.id=f;el.setAttribute('role','button');el.setAttribute('aria-label',T2(H[f].n));el.innerHTML=heroSVG(f);
+  el.addEventListener('click',e=>{e.stopPropagation();e.preventDefault();el.classList.remove('hop');void el.offsetWidth;el.classList.add('hop');pop(TL(`Привет${curProf().name?', '+esc(curProf().name):''}! Я ${T2(H[f].n)}. Посмотрим коллекцию?`,`Сәлем${curProf().name?', '+esc(curProf().name):''}! Мен — ${T2(H[f].n)}. Коллекцияны қараймыз ба?`),f,2200);setTimeout(()=>openCol(),700);});}
+ w.appendChild(el);}
+const _r=refresh;refresh=function(){_r();try{homeCard();const f=friend(),w=document.getElementById('who');if(f&&cs().avatar){w.innerHTML=heroSVG(f);w.classList.add('hasfr');}else w.classList.remove('hasfr');homeFriend();checkNew();}catch(e){}};
 /* в профиле */
 window.COL={
  heroMini(){const f=friend();return f?`<span class="pf-frmini" title="${T2(H[f].n)}">${heroSVG(f)}</span>`:'';},
@@ -7235,7 +7413,7 @@ const SETS={
  letters:[...G('a56','abc vowelGame findLetter firstLetter balloons wherePos mergeGame sylGame picWord readMenu buildWord rebus sayGame'),...G('a24','letters findl'),...G('en','abc read listen'),...G('kz','let read listen')],
  logic:[...G('a24','size nest odd opp next err puzzle'),...G('a56','sudoku maze matrix diff vanish routine rightleft heavy')],
  animals:[...G('a56','baby home domwild pred insect bfb ynAnimals move legs give winter kzAnimals'),...G('a24','feed sound does'),...G('a02','animals moms who food'),'en:anim','kz:anim'],
- shapes:[...G('a24','color sort shape sorter circles'),'a56:corners',...G('a02','bub paint'),...G('en','colors qcol'),...G('kz','colors qcol')],
+ shapes:[...G('a24','color sort shape sorter circles'),'a56:corners',...G('a02','bub paint shfind shsort shfun'),...G('en','colors qcol'),...G('kz','colors qcol')],
  memory:[...G('a24','mem cups rhythm shadow'),...G('a56','vanish routine'),...G('a02','peek who')],
  attention:[...G('a24','shadow circles err odd'),...G('a56','diff matrix wherePos findLetter'),'en:where','kz:where'],
  explore:G('a56','planets porder squiz countdown cosmo ynSpace tools elec jobs trans robot ped carl cross ynRoad signs sos'),
@@ -7474,12 +7652,12 @@ function preview(id){const rec=AwardsStorage.get(id);if(!rec)return;let lang=rec
  L.querySelectorAll('.aw-lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;draw();});
  L.querySelector('#pvX').onclick=()=>history.back();L.querySelector('#pvPdf').onclick=()=>exp(rec,lang,'pdf');L.querySelector('#pvPng').onclick=()=>exp(rec,lang,'png');L.querySelector('#pvPr').onclick=()=>CG.print(rec,lang);}
 /* сброс — только с подтверждением взрослого */
-function parentReset(){const a=6+Math.floor(Math.random()*4),b=6+Math.floor(Math.random()*4);
+function parentReset(){const a=6+Math.floor(Math.random()*4),b=6+Math.floor(Math.random()*4);const pin=window.PARENT&&PARENT.hasPin();
  const L=layer(`<div class="aw-sheet"><div class="aw-shb"><h2>🔐 ${TL('Только для взрослых','Тек ересектерге')}</h2><p class="aw-desc">${TL(`Это удалит звёзды, статистику, награды, карту и коллекцию ребёнка «${esc(curProf().name||'Малыш')}». Другие дети не пострадают.`,`Бұл «${esc(curProf().name||'Бала')}» баласының жұлдыздарын, статистикасын, марапаттарын, картасы мен коллекциясын өшіреді. Басқа балаларға әсер етпейді.`)}</p>
-  <label class="aw-q">${TL(`Сколько будет ${a} × ${b}?`,`${a} × ${b} қанша болады?`)} <input id="rsA" inputmode="numeric" autocomplete="off"></label>
+  ${pin?`<label class="aw-q">${TL('PIN-код родителя','Ата-ананың PIN-коды')} <input id="rsA" type="password" maxlength="4" inputmode="numeric" autocomplete="off"></label>`:`<label class="aw-q">${TL(`Сколько будет ${a} × ${b}?`,`${a} × ${b} қанша болады?`)} <input id="rsA" inputmode="numeric" autocomplete="off"></label>`}
   <button class="aw-del" id="rsGo">${TL('Удалить прогресс','Прогресті өшіру')}</button><button class="aw-cancel" id="rsNo">${TL('Отмена','Болдырмау')}</button></div></div>`,'center');
  L.querySelector('#rsNo').onclick=()=>history.back();
- L.querySelector('#rsGo').onclick=()=>{if(+L.querySelector('#rsA').value!==a*b){L.querySelector('#rsA').classList.add('bad');return;}
+ L.querySelector('#rsGo').onclick=()=>{const av=L.querySelector('#rsA').value;if(pin?!PARENT.checkPin(av):+av!==a*b){L.querySelector('#rsA').classList.add('bad');return;}
   ['k24_stars','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','az_syl','pf_stats'].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
   document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});PF.reload();history.back();setTimeout(()=>{history.back();toast(TL('Прогресс ребёнка начат заново','Бала прогресі қайта басталды'));},120);};}
 window.AWPOP=()=>{const top=document.querySelector('.aw-layer');if(top){top.remove();return true;}if(AV.classList.contains('on')){hideAwards();return true;}return false;};
@@ -7515,6 +7693,165 @@ window.AWD={
  check,open:openAwards,catalog:CAT,engine:{evalCond,CONDS},storage:AwardsStorage,generator:CG,flush};
 const _r=refresh;refresh=function(){_r();try{check('home');setTimeout(flush,600);}catch(e){}};
 setTimeout(()=>{check('start');flush();},1200);
+})();
+
+/* ===================== ДЛЯ ВЗРОСЛЫХ: знакомство, PIN, резервная копия =====================
+   parent_pin  — хэш PIN-кода родителя (не сам код).
+   onb_done    — знакомство при первом запуске пройдено.
+   bk_last     — когда последний раз сохраняли копию. */
+(function(){
+const APP_KEYS=['profiles','prof_cur','app_lang','scr','m_photos','k24_stars','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','p_age','az_syl','pf_stats','pf_photo','parent_pin','onb_done','bk_last'];
+const raw=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const put=(k,v)=>{try{if(v===null||v===undefined)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){throw e;}};
+const hash=s=>{let h=5381;for(const c of 'uchimsya:'+s)h=((h<<5)+h+c.charCodeAt(0))>>>0;return 'h'+h.toString(36);};
+const hasPin=()=>!!raw('parent_pin');
+const YR=n=>kzOn()?n+' жас':n+' '+(n===1?'год':n<5?'года':'лет');
+function layer(html,cls){history.pushState({d:1,pr:1},'');const L=document.createElement('div');L.className='pf-layer pr-layer '+(cls||'');L.innerHTML=html;document.body.appendChild(L);L.addEventListener('click',e=>{if(e.target===L)history.back();});return L;}
+const toast=t=>{const d=document.createElement('div');d.className='mp-toast';d.textContent=t;document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'));setTimeout(()=>{d.classList.remove('on');setTimeout(()=>d.remove(),300);},2800);};
+
+/* ---------- PIN-клавиатура и «взрослый» вопрос ---------- */
+function keypad(title,sub,onDone,opts={}){let v='';
+ const L=layer(`<div class="pr-sheet pr-pin"><h2>${title}</h2><p>${sub}</p><div class="pr-dots">${[0,1,2,3].map(i=>`<i data-i="${i}"></i>`).join('')}</div>
+  <div class="pr-keys">${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>k===''?'<span></span>':`<button data-k="${k}">${k}</button>`).join('')}</div>
+  ${opts.forgot?`<button class="pr-link" id="prForgot">${TL('Забыли PIN?','PIN-ді ұмыттыңыз ба?')}</button>`:''}${opts.skip?`<button class="pr-link" id="prSkip">${opts.skip}</button>`:''}
+  <button class="aw-cancel" id="prNo">${TL('Отмена','Болдырмау')}</button></div>`,'center');
+ const dots=()=>L.querySelectorAll('.pr-dots i').forEach((d,i)=>d.classList.toggle('on',i<v.length));
+ L.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==='⌫')v=v.slice(0,-1);else if(v.length<4)v+=k;dots();
+  if(v.length===4)setTimeout(()=>{const r=onDone(v,L);if(r===false){L.querySelector('.pr-dots').classList.add('bad');setTimeout(()=>{L.querySelector('.pr-dots').classList.remove('bad');v='';dots();},500);}},120);});
+ L.querySelector('#prNo').onclick=()=>history.back();
+ const f=L.querySelector('#prForgot');if(f)f.onclick=()=>{history.back();setTimeout(()=>mathGate(TL('Сбросить PIN','PIN-ді қалпына келтіру'),()=>{put('parent_pin',null);toast(TL('PIN сброшен. Задайте новый в разделе «Для взрослых».','PIN өшірілді. «Ересектерге» бөлімінде жаңасын орнатыңыз.'));},true),120);};
+ const sk=L.querySelector('#prSkip');if(sk)sk.onclick=()=>{history.back();opts.onSkip&&setTimeout(opts.onSkip,80);};
+ return L;}
+function mathGate(title,ok,hard){const a=hard?12+Math.floor(Math.random()*7):6+Math.floor(Math.random()*4),b=hard?6+Math.floor(Math.random()*4):6+Math.floor(Math.random()*4);
+ const L=layer(`<div class="pr-sheet"><h2>🔐 ${title}</h2><p>${TL('Это для взрослых. Решите пример:','Бұл ересектерге арналған. Мысалды шешіңіз:')}</p>
+  <label class="aw-q">${a} × ${b} = <input id="mgA" inputmode="numeric" autocomplete="off"></label>
+  <button class="mp-go" id="mgGo">${TL('Продолжить','Жалғастыру')}</button><button class="aw-cancel" id="mgNo">${TL('Отмена','Болдырмау')}</button>
+  ${hasPin()?'':`<small class="pr-hint">${TL('Совет: задайте PIN-код в разделе «Для взрослых» ⚙️ внизу главного экрана — так надёжнее.','Кеңес: «Ересектерге» ⚙️ бөлімінде PIN-код орнатыңыз.')}</small>`}</div>`,'center');
+ const inp=L.querySelector('#mgA');setTimeout(()=>{try{inp.focus()}catch(e){}},200);
+ L.querySelector('#mgGo').onclick=()=>{if(+inp.value!==a*b){inp.classList.remove('bad');void inp.offsetWidth;inp.classList.add('bad');return;}history.back();setTimeout(ok,80);};
+ L.querySelector('#mgNo').onclick=()=>history.back();}
+/* общий вход для взрослых: PIN, а если его нет — пример */
+window.PARENT_GATE=(ok,title)=>{title=title||TL('Только для взрослых','Тек ересектерге');
+ if(!hasPin())return mathGate(title,ok);
+ keypad('🔐 '+title,TL('Введите PIN-код родителя','Ата-ананың PIN-кодын енгізіңіз'),(v)=>{if(hash(v)!==raw('parent_pin'))return false;history.back();setTimeout(ok,80);},{forgot:true});};
+function setPin(done){keypad(TL('Новый PIN-код','Жаңа PIN-код'),TL('Придумайте 4 цифры. Дети не будут их знать.','4 сан ойлап табыңыз. Балалар білмейді.'),(v1)=>{history.back();
+  setTimeout(()=>keypad(TL('Повторите PIN','PIN-ді қайталаңыз'),TL('Введите те же 4 цифры','Сол 4 санды енгізіңіз'),(v2)=>{if(v2!==v1)return false;put('parent_pin',hash(v1));history.back();toast(TL('PIN-код сохранён ✓','PIN-код сақталды ✓'));done&&setTimeout(done,100);}),120);});}
+
+/* ---------- резервная копия ---------- */
+function snapshot(){const data={};APP_KEYS.forEach(k=>{const v=raw(k);if(v!==null)data[k]=v;});
+ try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('prof_data_'))data[k]=raw(k);}}catch(e){}
+ return {app:'uchimsya-igraya',kind:'backup',version:1,createdAt:new Date().toISOString(),data};}
+function exportBackup(){try{try{PF.end();}catch(e){}
+  /* сохраняем и «живого» ребёнка в его prof_data_, чтобы копия была полной */
+  try{saveLive(curProf().id);}catch(e){}
+  const snap=snapshot();const kids=JSON.parse(snap.data.profiles||'[]');const d=new Date();const pad=n=>String(n).padStart(2,'0');
+  const name=`uchimsya-igraya_${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}.json`;
+  const blob=new Blob([JSON.stringify(snap)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},4000);put('bk_last',String(Date.now()));toast(TL(`Копия сохранена: ${kids.length} ${kids.length===1?'ребёнок':'детей'} ✓`,`Көшірме сақталды: ${kids.length} бала ✓`));renderHub();}
+ catch(e){console.warn(e);toast(TL('Не удалось сохранить копию','Көшірмені сақтау мүмкін болмады'));}}
+const finp=document.createElement('input');finp.type='file';finp.accept='application/json,.json';finp.style.display='none';document.body.appendChild(finp);
+function importBackup(){finp.value='';finp.click();}
+finp.onchange=()=>{const f=finp.files&&finp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{let snap=null;try{snap=JSON.parse(r.result);}catch(e){}
+  if(!snap||snap.app!=='uchimsya-igraya'||!snap.data||!snap.data.profiles){toast(TL('Это не файл копии «Учимся играя»','Бұл «Ойнай үйренеміз» көшірмесі емес'));return;}
+  let kids=[];try{kids=JSON.parse(snap.data.profiles);}catch(e){}const when=new Date(snap.createdAt);
+  const L=layer(`<div class="pr-sheet"><h2>📂 ${TL('Восстановить прогресс?','Прогресті қалпына келтіру керек пе?')}</h2>
+   <p>${TL('Копия от','Көшірме күні:')} <b>${when.toLocaleDateString(kzOn()?'kk-KZ':'ru-RU')} ${when.toLocaleTimeString(kzOn()?'kk-KZ':'ru-RU',{hour:'2-digit',minute:'2-digit'})}</b></p>
+   <div class="pr-kids">${kids.map(k=>`<span>${k.av||'🙂'} ${esc(k.name||TL('Малыш','Бала'))}</span>`).join('')}</div>
+   <p class="pr-warn">⚠️ ${TL('Текущий прогресс на этом устройстве будет заменён данными из копии.','Осы құрылғыдағы ағымдағы прогресс көшірмедегі деректермен ауыстырылады.')}</p>
+   <button class="mp-go" id="imGo">${TL('Восстановить','Қалпына келтіру')}</button><button class="aw-cancel" id="imNo">${TL('Отмена','Болдырмау')}</button></div>`,'center');
+  L.querySelector('#imNo').onclick=()=>history.back();
+  L.querySelector('#imGo').onclick=()=>{try{const keep=raw('parent_pin');
+    APP_KEYS.forEach(k=>put(k,null));try{const del=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('prof_data_'))del.push(k);}del.forEach(k=>localStorage.removeItem(k));}catch(e){}
+    Object.entries(snap.data).forEach(([k,v])=>{if(APP_KEYS.includes(k)||k.startsWith('prof_data_'))put(k,v);});if(!raw('parent_pin')&&keep)put('parent_pin',keep);put('onb_done','1');
+    toast(TL('Прогресс восстановлен ✓','Прогресс қалпына келтірілді ✓'));setTimeout(()=>location.reload(),700);}
+   catch(e){console.warn(e);toast(TL('Не хватает памяти устройства для восстановления','Қалпына келтіруге құрылғы жады жетпейді'));}};};
+ r.readAsText(f);};
+
+/* ---------- экран «Для взрослых» ---------- */
+const HV=document.createElement('div');HV.id='prv';HV.className='mp-screen';document.body.appendChild(HV);
+function renderHub(){const kids=profiles();const last=+raw('bk_last')||0;const days=last?Math.floor((Date.now()-last)/864e5):null;
+ let scr={a02:10,a24:20};try{scr=Object.assign(scr,JSON.parse(raw('scr')||'{}'));}catch(e){}
+ const lim=(sec,lbl)=>`<div class="pr-row"><b>${lbl}</b><div class="chips">${[0,10,15,20,30].map(m=>`<button class="chip ${(+scr[sec]||0)===m?'on':''}" data-sc="${sec}" data-m="${m}">${m?m+' '+TL('мин','мин'):TL('без лимита','шектеусіз')}</button>`).join('')}</div></div>`;
+ HV.innerHTML=`<div class="pr-wrap"><div class="cl-top"><button class="pf-ib" id="prBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>⚙️ ${TL('Для взрослых','Ересектерге')}</h1><span></span></div>
+  <section class="pr-card"><h3>💾 ${TL('Резервная копия прогресса','Прогрестің сақтық көшірмесі')}</h3>
+   <p>${TL('Звёзды, награды, коллекция и карта хранятся только на этом устройстве. Сохраните копию в файл — её можно восстановить после очистки браузера или на новом телефоне.','Жұлдыздар, марапаттар, коллекция және карта тек осы құрылғыда сақталады. Көшірмені файлға сақтаңыз — оны браузер тазаланғаннан кейін немесе жаңа телефонда қалпына келтіруге болады.')}</p>
+   <p class="pr-last ${days===null||days>14?'warn':''}">${last?TL(`Последняя копия: ${days===0?'сегодня':days+' дн. назад'}`,`Соңғы көшірме: ${days===0?'бүгін':days+' күн бұрын'}`):TL('Копию ещё не сохраняли','Көшірме әлі сақталмаған')}</p>
+   <button class="mp-go" id="prExp">⬇️ ${TL('Сохранить прогресс в файл','Прогресті файлға сақтау')}</button><button class="pr-btn" id="prImp">📂 ${TL('Восстановить из файла','Файлдан қалпына келтіру')}</button></section>
+  <section class="pr-card"><h3>🔐 ${TL('PIN-код родителя','Ата-ананың PIN-коды')}</h3><p>${hasPin()?TL('PIN-код установлен. Он нужен для настроек, удаления профилей и сброса прогресса.','PIN-код орнатылған. Ол баптауларға, профильдерді жоюға және прогресті тастауға керек.'):TL('Задайте 4 цифры — тогда ребёнок не сможет случайно удалить профиль или прогресс.','4 сан орнатыңыз — сонда бала профильді немесе прогресті кездейсоқ өшіре алмайды.')}</p>
+   <button class="pr-btn" id="prPin">${hasPin()?'🔁 '+TL('Сменить PIN','PIN-ді ауыстыру'):'➕ '+TL('Задать PIN','PIN орнату')}</button>${hasPin()?`<button class="pr-btn ghost" id="prPinOff">${TL('Убрать PIN','PIN-ді алып тастау')}</button>`:''}</section>
+  <section class="pr-card"><h3>👨‍👩‍👧 ${TL('Дети','Балалар')}</h3><div class="pr-kids">${kids.map(k=>`<span data-sex="${k.sex||''}">${k.av} ${esc(k.name||TL('Малыш','Бала'))}${k.years?' · '+YR(k.years):''}</span>`).join('')}</div>
+   <button class="pr-btn" id="prKids">✏️ ${TL('Профили детей','Балалар профильдері')}</button></section>
+  <section class="pr-card"><h3>⏱️ ${TL('Экранное время','Экран уақыты')}</h3><p>${TL('Через сколько минут игры предложить отдых без экрана.','Неше минут ойыннан кейін экрансыз демалысты ұсыну.')}</p>${lim('a02',TL('до 2 лет','2 жасқа дейін'))}${lim('a24',TL('3–4 года','3–4 жас'))}</section>
+  <section class="pr-card"><h3>🧹 ${TL('Другое','Басқа')}</h3><button class="pr-btn" id="prOnb">👋 ${TL('Пройти знакомство заново','Танысуды қайта өту')}</button>
+   <button class="pr-btn danger" id="prReset">🗑️ ${TL(`Начать прогресс «${esc(curProf().name||'Малыш')}» заново`,`«${esc(curProf().name||'Бала')}» прогресін қайта бастау`)}</button></section></div>`;
+ HV.querySelector('#prBack').onclick=()=>history.back();HV.querySelector('#prExp').onclick=exportBackup;HV.querySelector('#prImp').onclick=importBackup;
+ HV.querySelector('#prPin').onclick=()=>setPin(renderHub);
+ const off=HV.querySelector('#prPinOff');if(off)off.onclick=()=>{put('parent_pin',null);toast(TL('PIN убран','PIN алынып тасталды'));renderHub();};
+ HV.querySelector('#prKids').onclick=()=>{history.pushState({d:1,m:1},'');document.getElementById('prof').style.display='flex';profList();};
+ HV.querySelectorAll('[data-sc]').forEach(b=>b.onclick=()=>{let s={};try{s=JSON.parse(raw('scr')||'{}');}catch(e){}s[b.dataset.sc]=+b.dataset.m;put('scr',JSON.stringify(s));renderHub();});
+ HV.querySelector('#prOnb').onclick=()=>{history.back();setTimeout(()=>onboarding(true),150);};
+ HV.querySelector('#prReset').onclick=resetChild;}
+function resetChild(){const L=layer(`<div class="pr-sheet"><h2>🗑️ ${TL('Начать заново?','Қайта бастау керек пе?')}</h2><p>${TL(`Удалятся звёзды, статистика, награды, карта и коллекция ребёнка «${esc(curProf().name||'Малыш')}». Другие дети не пострадают. Совет: сначала сохраните копию.`,`«${esc(curProf().name||'Бала')}» баласының жұлдыздары, статистикасы, марапаттары, картасы мен коллекциясы өшеді. Алдымен көшірме сақтаңыз.`)}</p>
+  <button class="aw-del" id="rcGo">${TL('Да, начать заново','Иә, қайта бастау')}</button><button class="aw-cancel" id="rcNo">${TL('Отмена','Болдырмау')}</button></div>`,'center');
+ L.querySelector('#rcNo').onclick=()=>history.back();
+ L.querySelector('#rcGo').onclick=()=>{['k24_stars','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','az_syl','pf_stats'].forEach(k=>put(k,null));
+  document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});PF.reload();history.back();setTimeout(()=>{renderHub();refresh();toast(TL('Прогресс начат заново','Прогресс қайта басталды'));},120);};}
+function openHub(){PARENT_GATE(()=>{renderHub();history.pushState({d:1,prv:1},'');HV.classList.add('on');HV.setAttribute('aria-hidden','false');document.body.classList.add('mpon');HV.scrollTop=0;},TL('Вход для взрослых','Ересектерге кіру'));}
+function hideHub(){HV.classList.remove('on');HV.setAttribute('aria-hidden','true');if(!['mpv','mpw','clv','awv'].some(i=>{const e=document.getElementById(i);return e&&e.classList.contains('on');}))document.body.classList.remove('mpon');refresh();}
+/* кнопка ⚙️ на главной */
+const gear=document.createElement('button');gear.className='pr-gear';gear.id='prGear';gear.setAttribute('aria-label','Для взрослых');gear.textContent='⚙️';
+document.getElementById('lang').insertAdjacentElement('beforebegin',gear);gear.onclick=openHub;
+const foot=document.createElement('button');foot.className='pr-foot';foot.id='prFoot';
+const footTxt=()=>{foot.innerHTML=`<span>⚙️</span><b>${TL('Для взрослых','Ересектерге')}</b><small>${TL('копия прогресса · PIN · экранное время','прогресс көшірмесі · PIN · экран уақыты')}</small>`;};footTxt();
+document.querySelector('#start .credit').insertAdjacentElement('beforebegin',foot);foot.onclick=openHub;
+try{const _al=applyLang;applyLang=function(){const r=_al.apply(this,arguments);try{footTxt();}catch(e){}return r;};}catch(e){}
+document.getElementById('lang').addEventListener('click',()=>setTimeout(footTxt,0));
+
+/* ---------- ЗНАКОМСТВО ПРИ ПЕРВОМ ЗАПУСКЕ ---------- */
+const OB=document.createElement('div');OB.id='onb';OB.className='mp-screen';document.body.appendChild(OB);
+const AVS2=['🦊','🐻','🐰','🐱','🐶','🐼','🦁','🐸','🐧','🦄'];
+function onboarding(again){const c=curProf();let step=0,shown=-1;const d={lang:window.APP_LANG,name:again?c.name||'':'',sex:again?c.sex||'':'',yrs:again?+c.years||0:0,av:c.av||'🦊',scr:20};
+ const OWLB=`<span class="ob-owl"><svg viewBox="0 0 64 64"><path d="M15 23 L20 12 L27 20 Q32 17.5 37 20 L44 12 L49 23 Q53 31 51 41 Q48 55 32 56 Q16 55 13 41 Q11 31 15 23Z" fill="#8A5A3B"/><ellipse cx="32" cy="44" rx="12" ry="10" fill="#F7D9B5"/><circle cx="24.5" cy="31" r="8.2" fill="#fff"/><circle cx="39.5" cy="31" r="8.2" fill="#fff"/><circle cx="25.5" cy="31.5" r="4.3" fill="#292944"/><circle cx="38.5" cy="31.5" r="4.3" fill="#292944"/><path d="M29 38 L32 43 L35 38Z" fill="#F6A321"/></svg></span>`;
+ const steps=()=>{const young=d.yrs&&d.yrs<=4;return ['hi','kid',...(young?['time']:[]),'pin','done'];};
+ const draw=()=>{const S=steps(),k=S[step];const dots=`<div class="ob-dots">${S.map((_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('')}</div>`;let body='';
+  if(k==='hi')body=`${OWLB}<h1>${TL('Здравствуйте!','Сәлеметсіз бе!')}</h1><p>${TL('Я сова Умница. Давайте за минуту настроим приложение для вашего ребёнка.','Мен — Ақылды жапалақпын. Қосымшаны балаңызға бір минутта баптайық.')}</p>
+   <div class="ob-langs"><button class="${d.lang==='ru'?'on':''}" data-lg="ru">🇷🇺 Русский</button><button class="${d.lang==='kz'?'on':''}" data-lg="kz">🇰🇿 Қазақша</button></div><button class="mp-go" data-next>${TL('Начнём!','Бастайық!')}</button>`;
+  if(k==='kid')body=`<h2>${TL('Кто будет играть?','Кім ойнайды?')}</h2><input class="ob-in" id="obName" maxlength="16" placeholder="${TL('Имя ребёнка','Баланың аты')}" value="${esc(d.name)}">
+   <div class="chips sexc"><button class="chip sx m ${d.sex==='m'?'on':''}" data-sx="m">👦 ${TL('Мальчик','Ұл бала')}</button><button class="chip sx f ${d.sex==='f'?'on':''}" data-sx="f">👧 ${TL('Девочка','Қыз бала')}</button></div>
+   <div class="plab">${TL('Сколько лет?','Неше жаста?')}</div><div class="chips">${[1,2,3,4,5,6,7].map(n=>`<button class="chip ${d.yrs===n?'on':''}" data-yr="${n}">${YR(n)}</button>`).join('')}</div>
+   <div class="plab">${TL('Картинка','Сурет')}</div><div class="chips">${AVS2.map(a=>`<button class="chip av ${a===d.av?'on':''}" data-av="${a}">${a}</button>`).join('')}</div>
+   <button class="mp-go" data-next ${d.yrs?'':'disabled'}>${TL('Дальше','Әрі қарай')}</button>${d.yrs?'':`<small class="ob-hint">${TL('Выберите возраст — от него зависят игры','Жасын таңдаңыз — ойындар соған байланысты')}</small>`}`;
+  if(k==='time')body=`${OWLB}<h2>${TL('Экранное время','Экран уақыты')}</h2><p>${TL('Для малышей важно делать перерывы. Через сколько минут предложить отдохнуть и поиграть вместе без экрана?','Кішкентайларға үзіліс маңызды. Неше минуттан кейін экрансыз бірге ойнауды ұсынайық?')}</p>
+   <div class="chips">${[10,15,20,30,0].map(m=>`<button class="chip ${d.scr===m?'on':''}" data-sc="${m}">${m?m+' '+TL('минут','минут'):TL('Без ограничений','Шектеусіз')}</button>`).join('')}</div><button class="mp-go" data-next>${TL('Дальше','Әрі қарай')}</button>`;
+  if(k==='pin')body=`${OWLB}<h2>${TL('PIN-код родителя','Ата-ананың PIN-коды')}</h2><p>${TL('4 цифры защитят настройки, удаление профилей и сброс прогресса от случайных нажатий.','4 сан баптауларды, профильдерді жоюды және прогресті тастауды кездейсоқ басудан қорғайды.')}</p>
+   <button class="mp-go" id="obPin">🔐 ${hasPin()?TL('Сменить PIN','PIN-ді ауыстыру'):TL('Задать PIN','PIN орнату')}</button><button class="aw-cancel" data-next>${hasPin()?TL('Оставить как есть','Өзгертпеу'):TL('Пропустить','Өткізіп жіберу')}</button>`;
+  if(k==='done')body=`${OWLB}<h1>${TL('Всё готово!','Бәрі дайын!')}</h1><p>${TL(`${d.name?esc(d.name)+', д':'Д'}обро пожаловать! Игры подобраны по возрасту, карта приключений и коллекция друзей ждут тебя.`,`${d.name?esc(d.name)+', қ':'Қ'}ош келдің! Ойындар жасыңа қарай таңдалды, шытырман оқиғалар картасы мен достар коллекциясы сені күтуде.`)}</p>
+   <button class="mp-go" id="obFin">▶ ${TL('Начать играть!','Ойнауды бастау!')}</button><button class="pr-btn" id="obMore">➕ ${TL('Добавить ещё ребёнка','Тағы бала қосу')}</button>
+   <small class="ob-hint">${TL('Настройки для взрослых — кнопка ⚙️ внизу главного экрана.','Ересектерге арналған баптаулар — басты беттің төменгі жағындағы ⚙️ батырмасы.')}</small>`;
+  OB.innerHTML=`<div class="ob-wrap">${dots}<div class="ob-card ob-${k} ${shown!==step?'anim':''}">${body}</div>${step>0&&k!=='done'?`<button class="pr-link" id="obBack">‹ ${TL('Назад','Артқа')}</button>`:''}</div>`;
+  const nx=()=>{if(k==='kid'){d.name=OB.querySelector('#obName').value.trim().slice(0,16);}step++;draw();};
+  shown=step;OB.querySelectorAll('[data-next]').forEach(b=>b.onclick=nx);
+  const bk=OB.querySelector('#obBack');if(bk)bk.onclick=()=>{if(k==='kid')d.name=OB.querySelector('#obName').value;step--;draw();};
+  OB.querySelectorAll('[data-lg]').forEach(b=>b.onclick=()=>{d.lang=b.dataset.lg;if(window.APP_LANG!==d.lang){window.APP_LANG=d.lang;put('app_lang',d.lang);document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});applyLang();}draw();});
+  const nm=OB.querySelector('#obName');if(nm)nm.oninput=()=>{d.name=nm.value;};
+  OB.querySelectorAll('[data-sx]').forEach(b=>b.onclick=()=>{d.sex=d.sex===b.dataset.sx?'':b.dataset.sx;d.name=OB.querySelector('#obName').value;draw();});
+  OB.querySelectorAll('[data-yr]').forEach(b=>b.onclick=()=>{d.yrs=+b.dataset.yr;d.name=OB.querySelector('#obName').value;draw();});
+  OB.querySelectorAll('[data-av]').forEach(b=>b.onclick=()=>{d.av=b.dataset.av;d.name=OB.querySelector('#obName').value;draw();});
+  OB.querySelectorAll('[data-sc]').forEach(b=>b.onclick=()=>{d.scr=+b.dataset.sc;draw();});
+  const pb=OB.querySelector('#obPin');if(pb)pb.onclick=()=>setPin(()=>{step++;draw();});
+  const fin=OB.querySelector('#obFin');if(fin)fin.onclick=finish;const more=OB.querySelector('#obMore');if(more)more.onclick=()=>{finish();setTimeout(()=>{history.pushState({d:1,m:1},'');document.getElementById('prof').style.display='flex';profForm();},200);};};
+ const finish=()=>{const all=profiles();const me=all.find(x=>x.id===curProf().id);Object.assign(me,{name:d.name,sex:d.sex||undefined,years:d.yrs||undefined,age:d.yrs<=2?'a02':d.yrs<=4?'a24':'a56',av:d.av});LS.set('profiles',all);
+  if(d.yrs&&d.yrs<=4){let s={};try{s=JSON.parse(raw('scr')||'{}');}catch(e){}s[d.yrs<=2?'a02':'a24']=d.scr;put('scr',JSON.stringify(s));}
+  put('onb_done','1');OB.classList.remove('on');OB.setAttribute('aria-hidden','true');document.body.classList.remove('mpon');refresh();};
+ draw();OB.classList.add('on');OB.setAttribute('aria-hidden','false');document.body.classList.add('mpon');}
+/* показать знакомство только новому пользователю; у тех, кто уже играет, ничего не меняем */
+(function(){if(raw('onb_done'))return;const c=curProf();let st={};try{st=JSON.parse(raw('pf_stats')||'{}');}catch(e){}
+ const used=c.name||profiles().length>1||(st.games>0)||['k24_stars','az_stars','en_stars','kz_stars'].some(k=>+raw(k)>0)||raw('nav_plays');
+ if(used){put('onb_done','1');return;}setTimeout(()=>onboarding(false),300);})();
+/* назад */
+window.PRLAY=()=>{const top=document.querySelector('.pr-layer');if(top){top.remove();return true;}return false;};
+window.PRPOP=()=>{if(HV.classList.contains('on')){hideHub();return true;}return false;};
+window.PARENT={openHub,exportBackup,importBackup,onboarding,hasPin,checkPin:v=>hasPin()&&hash(String(v))===raw('parent_pin')};
 })();
 
 /* ===== круглый детский шрифт (Nunito, встроен) — для оболочки и разделов ===== */
