@@ -465,6 +465,116 @@ body.mpon{overflow:hidden}
 .mp-soon{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#20B4C2;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
 .mp-slock.soon{background:#E6F7F9;color:#167F8A}.mp-slock.soon small{color:#4F8F96;font-size:13px}
 .mp-wme{font-style:normal;display:inline-block;width:fit-content;background:#FFE27A;color:#7A4A10;font-size:11px;padding:2px 8px;border-radius:99px;margin-bottom:4px}
+/* ===================== МОЯ КОЛЛЕКЦИЯ ===================== */
+.ch{display:block;width:100%;height:100%;overflow:visible}
+.ch-sway{transform-origin:60px 124px;animation:chSway 3.2s ease-in-out infinite}
+.ch-eyes{transform-box:fill-box;transform-origin:center;animation:chBlink 4.6s infinite}
+@keyframes chSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes chBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.ch.jump{animation:chJump .9s cubic-bezier(.2,1.5,.4,1) 2}
+@keyframes chJump{0%,100%{transform:translateY(0)}40%{transform:translateY(-16%) scale(1.04)}}
+.ch.hello{animation:chHello 1s cubic-bezier(.2,1.6,.4,1) both,chJump .8s 1s 2}
+@keyframes chHello{from{transform:scale(.2) rotate(-25deg);opacity:0}to{transform:none;opacity:1}}
+.ch.wave .ch-sway{animation-duration:1.6s}
+/* карточка на главной */
+.cl-homecard{display:grid;grid-template-columns:1fr auto;grid-template-areas:"h go" "r go" "b go";align-items:center;gap:6px 8px;width:100%;border:none;cursor:pointer;text-align:left;font:inherit;color:var(--ds-ink);
+ background:linear-gradient(160deg,#FFF6E8 0%,#FFE9F1 100%);border-radius:var(--ds-r-lg);padding:14px;margin:0 0 20px;box-shadow:var(--ds-sh);border:3px solid #fff;transition:transform var(--ds-fast) var(--ds-ease);animation:dsIn .35s var(--ds-ease) both}
+.cl-homecard:active{transform:scale(.98)}
+.cl-hh{grid-area:h;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cl-hh b{font-size:clamp(18px,5vw,21px)}
+.cl-hh em{font-style:normal;font-size:12px;background:#43BD79;color:#fff;border-radius:99px;padding:3px 9px;animation:mpBob 2s ease-in-out infinite}
+.cl-hrow{grid-area:r;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.cl-hi{aspect-ratio:1;border-radius:20px;background:#fff;box-shadow:0 3px 8px rgba(120,80,40,.12);padding:4px;display:flex;align-items:center;justify-content:center}
+.cl-hi.lk .ch{filter:grayscale(1) brightness(1.1);opacity:.35}
+.cl-hi.more{flex-direction:column;background:#F1ECF8}.cl-hi.more b{font-size:clamp(20px,6vw,28px);color:#7B5CE0}.cl-hi.more small{font-size:12px;color:#8B8AA3}
+.cl-hb{grid-area:b;display:flex;flex-direction:column}.cl-hb b{font-size:16px}.cl-hb small{font-size:13px;color:var(--ds-muted)}
+.cl-homecard .mp-hgo{grid-area:go;color:#C9BEE8}
+/* экран коллекции */
+#clv{background:linear-gradient(180deg,#FFEFF6 0%,#FFF6E8 40%,#FFF8EC 100%)}
+.cl-wrap{max-width:900px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
+.cl-top{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:8px}
+.cl-top h1{margin:0;text-align:center;font-size:clamp(22px,6vw,28px);color:#5B2E5A}
+.cl-av{width:48px;height:48px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:var(--ds-sh);display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid #fff}
+.cl-av img{width:100%;height:100%;object-fit:cover}
+.cl-sum{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:#fff;border-radius:26px;padding:12px;margin:14px 0;box-shadow:var(--ds-sh)}
+.cl-fr{width:84px;height:84px;border-radius:24px;background:radial-gradient(circle at 50% 40%,#FFF6D8,#FFE3EC);display:flex;align-items:center;justify-content:center;padding:4px}
+.cl-q{font-size:40px;color:#C9BEE8;font-weight:900}
+.cl-st b{font-size:16px;line-height:1.25;display:block}
+.cl-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.cl-pills span{background:#F4F0FF;border-radius:99px;padding:5px 10px;font-size:14px}.cl-pills .fr{background:#FFF1C8}
+.cl-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.cl-tab{position:relative;border:none;border-radius:20px;padding:10px 4px;background:#fff;font:inherit;cursor:pointer;color:#5B5A75;box-shadow:var(--ds-sh);display:flex;flex-direction:column;align-items:center}
+.cl-tab b{font-size:clamp(13px,3.8vw,16px);line-height:1.1}.cl-tab small{font-size:11px;color:var(--ds-muted);margin-top:2px}
+.cl-tab.on{background:linear-gradient(180deg,#B48CFF,#8A5CF0);color:#fff}.cl-tab.on small{color:#EDE4FF}
+.cl-dot{position:absolute;right:8px;top:8px;width:10px;height:10px;border-radius:50%;background:#43BD79;box-shadow:0 0 0 3px #fff}
+.cl-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cl-card{position:relative;border:none;border-radius:26px;padding:10px 10px 12px;background:#fff;font:inherit;cursor:pointer;color:var(--ds-ink);display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:var(--ds-sh);
+ transition:transform var(--ds-fast) var(--ds-ease);animation:dsIn .35s var(--ds-ease) both}
+.cl-card.tap{animation:mpTap .35s var(--ds-ease)}
+.cl-art{position:relative;width:100%;aspect-ratio:1/.95;border-radius:20px;background:radial-gradient(circle at 50% 35%,#fff 0%,var(--bg) 70%);display:flex;align-items:center;justify-content:center;padding:8px;margin-bottom:8px}
+.cl-card b{font-size:17px}.cl-card small{font-size:12px;color:var(--ds-muted)}
+.cl-card.lock .ch{filter:grayscale(1) brightness(1.15);opacity:.4}.cl-card.lock .ch-sway,.cl-card.lock .ch-eyes{animation:none}
+.cl-card.ready{box-shadow:0 0 0 3px #43BD79,var(--ds-sh)}.cl-card.ready .cl-art{animation:clGlow 1.6s ease-in-out infinite}
+@keyframes clGlow{0%,100%{box-shadow:0 0 0 0 rgba(67,189,121,.0)}50%{box-shadow:0 0 0 8px rgba(67,189,121,.25)}}
+.cl-lk{position:absolute;right:8px;bottom:8px;width:32px;height:32px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.cl-lk.big{width:48px;height:48px;font-size:24px;right:20%;bottom:10%}
+.cl-badge{position:absolute;top:6px;font-size:11px;border-radius:99px;padding:3px 8px;z-index:1}
+.cl-badge.sp{left:6px;background:linear-gradient(90deg,#B48CFF,#FF8FB1);color:#fff}.cl-badge.fr{right:6px;background:#FFE27A;color:#7A4A10}
+.cl-badge.in{position:static;display:inline-block;margin-top:4px}
+.cl-stt{margin-top:6px;font-size:12px;border-radius:99px;padding:3px 10px}.cl-stt.o{background:#DDF5E7;color:#23855A}.cl-stt.r{background:#43BD79;color:#fff}.cl-stt.l{color:#8B8AA3;padding:0;margin-top:3px}
+.cl-pr{width:80%;height:7px;border-radius:99px;background:#F1ECF8;margin-top:6px;overflow:hidden}.cl-pr i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#B48CFF,#FF8FB1)}
+.cl-pr.big{width:100%;height:12px}
+.cl-note{text-align:center;color:var(--ds-muted);font-size:13px;margin:14px 8px 0;font-weight:600}
+/* окно героя, домик */
+.cl-sheet,.cl-house{position:relative;width:100%;max-width:520px;max-height:94dvh;overflow:auto;background:#FFF8EC;border-radius:30px;animation:dsUp .3s var(--ds-ease)}
+.cl-shart{position:relative;height:clamp(190px,30dvh,260px);display:flex;align-items:center;justify-content:center;border-radius:30px 30px 0 0;background:radial-gradient(circle at 50% 45%,#fff 0%,var(--bg) 65%)}
+.cl-shart .ch{width:auto;height:88%}
+.cl-sheet.lock .cl-shart .ch{filter:grayscale(1) brightness(1.15);opacity:.4}
+.cl-shb{padding:14px 16px calc(18px + env(safe-area-inset-bottom))}
+.cl-shb h2{margin:0;font-size:clamp(22px,6vw,28px);color:#292944}.cl-shb h2 small{font-size:16px;color:var(--ds-muted)}
+.cl-desc{margin:8px 0 12px;font-size:16px;color:#55587A;font-weight:600}
+.cl-rows{display:flex;flex-direction:column;gap:8px}
+.cl-rows div{display:grid;grid-template-columns:36px 1fr;grid-template-areas:"i b" "i s";background:#fff;border-radius:18px;padding:10px;box-shadow:var(--ds-sh);column-gap:8px}
+.cl-rows span{grid-area:i;font-size:24px;display:flex;align-items:center;justify-content:center}.cl-rows b{grid-area:b;font-size:14px}.cl-rows small{grid-area:s;font-size:13px;color:#6E7191;line-height:1.3}
+.cl-need{margin-top:12px}.cl-need small{display:block;margin-top:6px;color:#6E7191;font-size:14px;font-weight:600;text-align:center}
+.cl-open,.cl-pick{margin-top:14px}
+.cl-isfr{margin-top:14px;text-align:center;background:#FFF1C8;border-radius:18px;padding:12px;font-size:16px;color:#7A4A10}
+.cl-home{display:flex;justify-content:center;align-items:center;gap:8px;width:100%;margin-top:10px;border:none;border-radius:20px;min-height:52px;font:inherit;font-size:17px;background:#F4F0FF;color:#3B2E7A;cursor:pointer}
+.cl-home small{background:#fff;border-radius:99px;padding:2px 8px;font-size:12px}
+.cl-cel{--c:#F6A321}.cl-celart{width:170px;height:170px;margin:0 auto}
+.hs-scene{position:relative;aspect-ratio:320/230;border-radius:30px 30px 0 0;overflow:hidden;background:linear-gradient(180deg,#CFEAFF 0%,var(--bg) 70%)}
+.hs-svg{position:absolute;inset:0;width:100%;height:100%}
+.hs-hero{position:absolute;left:4%;bottom:2%;width:34%;aspect-ratio:120/130}
+.hs-dec{position:absolute;transform:translate(-50%,-50%);font-size:clamp(28px,8vw,38px);border:none;background:none;padding:0;line-height:1}
+.hs-dec.on{animation:mpPop .6s cubic-bezier(.2,1.6,.4,1) both;filter:drop-shadow(0 3px 3px rgba(0,0,0,.18))}
+.hs-dec.lk{filter:grayscale(1);opacity:.25}
+.hs-dec.add{cursor:pointer;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.75);box-shadow:0 0 0 3px #43BD79;animation:clGlow2 1.4s ease-in-out infinite;font-size:30px}
+.hs-dec.add i{position:absolute;right:-4px;top:-4px;width:22px;height:22px;border-radius:50%;background:#43BD79;color:#fff;font-style:normal;font-size:15px;display:flex;align-items:center;justify-content:center}
+@keyframes clGlow2{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
+.hs-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.hs-it{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"e b" "e s";column-gap:8px;background:#fff;border-radius:16px;padding:8px;box-shadow:var(--ds-sh);align-items:center}
+.hs-it span{grid-area:e;font-size:26px;filter:grayscale(1);opacity:.45}.hs-it.on span,.hs-it.ready span{filter:none;opacity:1}
+.hs-it b{grid-area:b;font-size:13px}.hs-it small{grid-area:s;font-size:11px;color:#8B8AA3}.hs-it.on{background:#EEF9F3}.hs-it.ready{box-shadow:0 0 0 2px #43BD79}
+.hs-hint{display:block;color:#6E7191;font-size:12.5px;font-weight:600;line-height:1.35}
+/* друг рядом (поздравления) */
+#clPop{position:fixed;left:10px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:65;display:flex;align-items:flex-end;gap:6px;pointer-events:none;
+ transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.2,1.4,.4,1),opacity .3s}
+#clPop.on{transform:none;opacity:1}
+.cl-pf{width:76px;height:82px;flex:none;filter:drop-shadow(0 6px 8px rgba(40,40,80,.25))}
+.cl-pb{background:#fff;border-radius:18px;padding:8px 12px;font-size:15px;color:#2B3A7A;box-shadow:0 8px 18px rgba(40,40,80,.2);margin-bottom:40px;max-width:min(60vw,240px);line-height:1.3}
+/* в профиле и на карте */
+.pf-frmini{position:absolute;left:-26px;bottom:-4px;width:62px;height:68px;z-index:3}
+.pf-friend{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"a t" "g g";gap:8px 12px;align-items:center;background:linear-gradient(160deg,#FFF6E8,#FFE9F1);border-radius:24px;padding:12px;margin-top:14px;box-shadow:var(--ds-sh)}
+.pf-frart{grid-area:a;width:76px;height:80px;display:flex;align-items:center;justify-content:center}
+.pf-frtx{grid-area:t;min-width:0;display:flex;flex-direction:column}.pf-frtx small{font-size:12px;color:var(--ds-muted)}.pf-frtx b{font-size:17px}.pf-frtx>span{font-size:13px;color:#6E7191;margin-top:2px}
+.pf-frav{display:flex;gap:6px;align-items:flex-start;font-size:12.5px;color:#55587A;margin-top:6px;font-weight:600;line-height:1.25}.pf-frav input{width:20px;height:20px;accent-color:#9874F5;flex:none;margin:0}
+.pf-frgo{grid-area:g;border:none;border-radius:16px;min-height:46px;font:inherit;font-size:16px;background:#fff;color:#7B5CE0;cursor:pointer;box-shadow:0 2px 6px rgba(120,80,40,.1)}
+.pf-celf{position:absolute;left:-20px;top:-34px;width:70px;height:76px}
+.mp-friend{flex:none;width:46px;height:50px;margin-bottom:-2px}
+.who.hasfr{background:radial-gradient(circle at 50% 40%,#FFF6D8,#FFE3EC);padding:2px}
+.who.hasfr .ch{width:100%;height:100%}
+@media (min-width:640px){.cl-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:900px){.cl-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media (max-width:359px){.cl-card b{font-size:15px}.cl-hrow{gap:5px}.hs-list{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.ch-sway,.ch-eyes,.ch.jump,.ch.hello,.cl-card.ready .cl-art,.hs-dec.add{animation:none!important}}
 
 </style></head>
 <body>
@@ -6076,6 +6186,7 @@ document.querySelectorAll('.age').forEach(b=>b.onclick=()=>{history.pushState({d
 window.addEventListener('popstate',()=>{if(ignorePop){ignorePop--;return;}
  const m=document.getElementById('prof');if(m.style.display==='flex'){m.style.display='none';return;}
  if(window.PFPOP&&PFPOP())return;
+ if(window.COLPOP&&COLPOP())return;
  if(window.MAPPOP&&MAPPOP())return;
  if(!cur)return;let handled=false;try{handled=cur.contentWindow.NAV&&cur.contentWindow.NAV.back();}catch(e){}
  if(!handled)closeSec();});
@@ -6240,7 +6351,7 @@ function histRow(){if(!S)return null;let h=st.hist.find(x=>x.id===S.id);
  if(h)Object.assign(h,{t:S.t,ok:S.ok,bad:S.bad,s:S.s,pass:S.pass?1:0});return h;}
 function checkPass(){if(!S||S.pass)return;
  if(S.ok>=3||S.win||(S.ok+S.bad===0&&S.t>=30)){S.pass=1;st.games++;day().g++;
-  const d=st.done[S.k]||(st.done[S.k]={n:0,sec:S.sec,c:S.c});d.n++;d.last=Date.now();if(S.c&&S.cn)st.cat[S.sec+'|'+S.c]=S.cn;}}
+  const d=st.done[S.k]||(st.done[S.k]={n:0,sec:S.sec,c:S.c});d.n++;d.last=Date.now();if(S.c&&S.cn)st.cat[S.sec+'|'+S.c]=S.cn;try{window.COL_EVT&&COL_EVT('pass',S);}catch(e){}}}
 function stars(){if(!S)return;const n=starsNow();if(n>S.ls){const d=n-S.ls;S.s+=d;day().s+=d;st.gst[S.k]=(st.gst[S.k]||0)+d;}S.ls=n;}
 function commit(){if(!S)return;stars();checkPass();if(!S.bad)st.best=Math.max(st.best,S.ok);histRow();save();achieve();dirty=0;}
 const PF=window.PF={
@@ -6248,10 +6359,11 @@ const PF=window.PF={
   S=Object.assign({id:Date.now().toString(36),d:Date.now(),t:0,ok:0,bad:0,s:0,win:0,pass:0,ls:starsNow()},info);lastTouch=Date.now();},
  sig(k){if(!S)return;const now=Date.now();if(now-lastSig[k]<450)return;lastSig[k]=now;lastTouch=now;
   if(k==='ok'){S.ok++;st.ok++;day().ok++;}else if(k==='bad'){S.bad++;st.bad++;day().bad++;}else if(k==='win')S.win=1;
-  setTimeout(commit,60);},
+  try{window.COL_EVT&&COL_EVT(k,S);}catch(e){}setTimeout(commit,60);},
  touch(){lastTouch=Date.now();},
  end(){if(!S)return;commit();S=null;},
- stats:()=>st,cur:()=>S,save(){save();},achieve(){achieve();},reload(){PF.end();st=load();}};
+ stats:()=>st,cur:()=>S,save(){save();},achieve(){achieve();},
+ ach(id){const a=ACH.find(x=>x.id===id);if(!a)return null;const [v,g]=a.p();return {v:Math.min(v,g),g,got:!!st.ach[id],n:TL(a.r[0],a.r[1]),ic:a.ic};},starsNow:()=>starsNow(),streak:()=>streak(),reload(){PF.end();st=load();}};
 /* активное время: только в открытой игре, вкладка видна, ребёнок что-то делал за последнюю минуту */
 setInterval(()=>{if(!S)return;
  let inGame=false;try{inGame=!!(cur&&cur.contentWindow.NAV&&cur.contentWindow.NAV.state()==='game');}catch(e){}
@@ -6292,6 +6404,7 @@ const ACH=[
  {id:'map4',ic:'🏕️',c:'#43BD79',r:['Отважный путешественник','Батыл саяхатшы'],d:['Пройди 4 локации на карте','Картадағы 4 орынды өт'],p:()=>[mapDone(),4]},
  {id:'chest',ic:'🎁',c:'#F6A321',r:['Кладоискатель','Қазына іздеуші'],d:['Открой сундук с сокровищами на карте','Картадағы қазына сандығын аш'],p:()=>[mapChests(),1]},
  {id:'mapfin',ic:'🏰',c:'#9874F5',r:['Покоритель карты','Карта бағындырушысы'],d:['Пройди целый мир на карте до конца','Картадағы бір әлемді толық өт'],p:()=>[mapFin(),1]},
+ {id:'col5',ic:'🧸',c:'#EF6F8E',r:['Собиратель друзей','Дос жинаушы'],d:['Открой 5 героев в коллекции','Коллекцияда 5 батыр аш'],p:()=>[Object.keys((st.col||{}).open||{}).length,5]},
  {id:'time60',ic:'⏱️',c:'#7A8CF2',r:['Усидчивый','Шыдамды'],d:['Позанимайся в сумме 1 час','Барлығы 1 сағат оқы'],p:()=>[Math.floor(st.t/60),60]}];
 const mapW=()=>Object.values(st.map||{});const mapDone=()=>mapW().reduce((a,w)=>a+Object.keys(w.done||{}).length,0);const mapChests=()=>mapW().reduce((a,w)=>a+Object.keys(w.chests||{}).length,0);const mapFin=()=>mapW().filter(w=>w.fin).length;
 let celQ=[];
@@ -6304,7 +6417,7 @@ let celBusy=false;
 function celebrate(){if(celBusy||!celQ.length)return;celBusy=true;const a=celQ.shift();
  const el=document.createElement('div');el.className='pf-cel';el.setAttribute('role','status');
  const conf=Array.from({length:26},(_,i)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#9874F5','#43BD79','#5187F5','#EF6F8E','#20B4C2'][i%6]};animation-delay:${(Math.random()*.6).toFixed(2)}s;transform:rotate(${Math.random()*360}deg)"></i>`).join('');
- el.innerHTML=`<div class="pf-conf">${conf}</div><div class="pf-celc" style="--c:${a.c}"><div class="pf-celi">${a.ic}</div><div class="pf-celt">${TL('Новое достижение!','Жаңа жетістік!')}</div><b>${TL(a.r[0],a.r[1])}</b><small>${TL(a.d[0],a.d[1])}</small></div>`;
+ el.innerHTML=`<div class="pf-conf">${conf}</div><div class="pf-celc" style="--c:${a.c}">${window.COL?COL.celFriend():''}<div class="pf-celi">${a.ic}</div><div class="pf-celt">${TL('Новое достижение!','Жаңа жетістік!')}</div><b>${TL(a.r[0],a.r[1])}</b><small>${TL(a.d[0],a.d[1])}</small></div>`;
  document.body.appendChild(el);requestAnimationFrame(()=>el.classList.add('on'));
  const close=()=>{el.classList.remove('on');setTimeout(()=>{el.remove();celBusy=false;celebrate();},350);};el.onclick=close;setTimeout(close,3800);
  try{const c=new (window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.value=f;
@@ -6341,11 +6454,12 @@ function render(){const c=curProf(),all=profiles(),s=starsNow(),lv=level(s),sk=s
   <div class="pf-top"><button class="pf-ib" id="pfBack" aria-label="${TL('На главную','Басты бетке')}">‹</button>
    <div class="pf-kids">${all.map(p=>`<button class="pf-kid ${p.id===c.id?'on':''}" data-id="${p.id}" aria-label="${esc(p.name||TL('Малыш','Бала'))}">${avHTML(p,'pf-kav')}</button>`).join('')}<button class="pf-kid add" id="pfAdd" aria-label="${TL('Добавить ребёнка','Бала қосу')}">＋</button></div>
    <button class="pf-ib" id="pfEdit" aria-label="${TL('Изменить имя и возраст','Аты мен жасын өзгерту')}">✎</button></div>
-  <div class="pf-phw"><button class="pf-ph ${st.shape==='round'?'sq':''}" id="pfPh" aria-label="${TL('Фото ребёнка','Баланың суреті')}">${avHTML(c,'pf-phi')}</button><span class="pf-cam" aria-hidden="true">📷</span></div>
+  <div class="pf-phw"><button class="pf-ph ${st.shape==='round'?'sq':''}" id="pfPh" aria-label="${TL('Фото ребёнка','Баланың суреті')}">${avHTML(c,'pf-phi')}</button><span class="pf-cam" aria-hidden="true">📷</span>${window.COL?COL.heroMini():''}</div>
   <div class="pf-fire" title="${TL('Дней подряд','Қатарынан күн')}">🔥 <b>${sk}</b> <small>${kzOn()?'күн қатарынан':(sk%10===1&&sk%100!==11?'день подряд':[2,3,4].includes(sk%10)&&![12,13,14].includes(sk%100)?'дня подряд':'дней подряд')}</small></div>
   ${HILL}<div class="pf-rib"><span>🏅</span>${esc(lv.name)}</div></div>
  <div class="pf-sheet">
   <div class="pf-hello"><h2>${TL('Привет','Сәлем')}, ${esc(name)}! 👋</h2><p>${c.years?YRS(c.years)+' · ':(c.age?AGN()[c.age]+' · ':'')}${st.start?TL('занимается с ','бастаған күні: ')+fmtStart(st.start):TL('Первая игра — впереди!','Алғашқы ойын — алда!')}</p></div>
+  ${window.COL?COL.profileCard():''}
   <section class="pf-champ"><div class="pf-cht"><b>${esc(name)} — ${esc(lv.name.toLowerCase())}!</b><small>${TL('Твой путь к большим знаниям','Үлкен білімге апарар жолың')}</small></div>
    <div class="pf-chg"><div><b>${s} ⭐</b><small>${TL('Заработано звёзд','Жиналған жұлдыз')}</small></div><div><b>${st.games}</b><small>${TL('Пройдено игр','Өтілген ойын')}</small></div>
     <div><b>${ach}</b><small>${TL('Достижений','Жетістік')}</small></div><div><b>${tp}%</b><small>${TL('Успешность','Табыс')}</small></div></div>
@@ -6372,7 +6486,7 @@ function render(){const c=curProf(),all=profiles(),s=starsNow(),lv=level(s),sk=s
  V.querySelector('#pfEdit').onclick=()=>{history.pushState({d:1,m:1},'');document.getElementById('prof').style.display='flex';profForm(curProf().id,()=>render());};
  V.querySelector('#pfAdd').onclick=()=>{history.pushState({d:1,m:1},'');document.getElementById('prof').style.display='flex';profForm(null,()=>render());};
  V.querySelectorAll('.pf-kid[data-id]').forEach(b=>b.onclick=()=>{if(b.dataset.id===curProf().id)return;PF.end();switchProf(b.dataset.id);PF.reload();showAll=false;render();V.scrollTo({top:0,behavior:'smooth'});});
- V.querySelector('#pfPh').onclick=photoMenu;
+ V.querySelector('#pfPh').onclick=photoMenu;try{window.COL&&COL.bindProfile(V);}catch(e){}
  const m=V.querySelector('#pfMore');if(m)m.onclick=()=>{showAll=true;render();};}
 function openPF(){if(pfOpen())return;PF.end();st=load();achieve();showAll=false;render();history.pushState({d:1,pf:1},'');
  V.classList.add('on');V.setAttribute('aria-hidden','false');V.scrollTop=0;document.body.classList.add('pfon');}
@@ -6671,7 +6785,7 @@ function renderMap(){const w=W(),I=info(w),m=wstate(w.sec),H=w.H;const s=st();
    <svg class="mp-path" viewBox="0 0 400 ${H}" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="riv"><rect x="0" y="${w.riverY}" width="400" height="${w.riverY?52:0}"/></clipPath></defs><path class="mp-road" d="${pathD(pts)}"/><path class="mp-road2" d="${pathD(pts)}"/><g clip-path="url(#riv)"><path class="mp-brg" d="${pathD(pts)}"/><path class="mp-brg2" d="${pathD(pts)}"/></g>${segs}</svg>
    <div class="mp-start" style="left:50%;top:${start[1]/H*100}%">${TL('Старт','Бастау')}</div>
    ${nodes}${chests}
-   <div class="mp-guide ${guideSide}" style="left:${cl.x/4}%;top:${cl.y/H*100}%"><span class="mp-owl">${GUIDE(w)}</span><span class="mp-say">${say}</span></div>
+   <div class="mp-guide ${guideSide}" style="left:${cl.x/4}%;top:${cl.y/H*100}%"><span class="mp-owl">${GUIDE(w)}</span>${window.COL?COL.mapFriend():''}<span class="mp-say">${say}</span></div>
   </div></div>`;
  MV.querySelector('#mpBack').onclick=()=>history.back();
  MV.querySelectorAll('.mp-node').forEach(b=>b.onclick=()=>{b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');locSheet(+b.dataset.i);});
@@ -6743,6 +6857,264 @@ function homeCard(){const id=ageW(),w=WORLDS[id],pr=wprog(id),fox=w.guide==='fox
   <span class="mp-hpr"><i style="width:${Math.round(pr.dn/pr.tot*100)}%"></i></span><small class="mp-hn">${TL(`${w.short[0]}: ${pr.dn} из ${pr.tot} земель`,`${w.short[1]}: ${pr.tot} жердің ${pr.dn}-і`)}</small></span><span class="mp-hgo">›</span>`;}
 HC.onclick=openPicker;
 const _r=refresh;refresh=function(){_r();try{homeCard();}catch(e){}};refresh();
+})();
+
+/* ===================== МОЯ КОЛЛЕКЦИЯ =====================
+   Настройки героев и условий — в COL_CFG ниже: их легко менять.
+   Хранение — pf_stats.col (у каждого ребёнка своё): {open:{id:{t,s}}, friend, avatar, decor:{id:[...]}, seen:{id:1}}.
+   Звёзды НЕ списываются: условия только проверяют уже заработанное. Случайной выдачи нет. */
+(function(){
+/* ---------- НАСТРОЙКИ КОЛЛЕКЦИИ ---------- */
+const COL_CFG={
+ decorStars:[5,15,30,50],          /* звёзд, заработанных ПОСЛЕ открытия героя, для 1-го…4-го украшения домика */
+ heroes:[
+  {id:'tim',   g:'a02',cond:{free:1}},
+  {id:'push',  g:'a02',cond:{stars:30}},
+  {id:'kryak', g:'a02',cond:{stars:60}},
+  {id:'tosha', g:'a02',sp:1,cond:{ach:'days3'}},
+  {id:'snezh', g:'a02',sp:1,cond:{games:['a02:day','a24:weather','a56:winter','a56:seasons']}},
+  {id:'ryzhik',g:'a24',cond:{stars:80}},
+  {id:'umka',  g:'a24',cond:{stars:120}},
+  {id:'bonya', g:'a24',cond:{stars:150}},
+  {id:'ugol',  g:'a24',sp:1,cond:{ach:'smart50'}},
+  {id:'raduga',g:'a24',sp:1,cond:{lands:3}},
+  {id:'leo',   g:'a56',cond:{stars:180}},
+  {id:'drak',  g:'a56',cond:{stars:200}},
+  {id:'pixel', g:'a56',cond:{stars:250}},
+  {id:'kosmo', g:'a56',sp:1,cond:{loc:'a56:space'}},
+  {id:'dino',  g:'a56',sp:1,cond:{ach:'steps10'}}]};
+/* тексты героев: имя, кто, характер, любимое занятие, домик, украшения */
+const H={
+ tim:{n:['Тимка','Тимка'],k:['медвежонок','аю балапаны'],d:['Добрый и немного сонный. Обожает обниматься.','Мейірімді, сәл ұйқышыл. Құшақтасқанды жақсы көреді.'],f:['Есть мёд и считать облака','Бал жеу және бұлттарды санау'],
+  h:['Берлога в малиннике','Таңқурай арасындағы апан'],hb:'den',bg:'#FFE9D2',dc:[['🍯',['бочонок мёда','бал бөшкесі']],['🌼',['ромашки','түймедақтар']],['🏮',['фонарик','шам']],['🎈',['шарик','шар']]]},
+ push:{n:['Пушок','Мамық'],k:['зайчонок','қоян баласы'],d:['Быстрый и весёлый прыгун.','Жылдам әрі көңілді секіргіш.'],f:['Прыгать по кочкам и грызть морковку','Төмпешіктерден секіру және сәбіз кеміру'],
+  h:['Норка под ромашками','Түймедақ астындағы ін'],hb:'burrow',bg:'#E4F3F2',dc:[['🥕',['морковка','сәбіз']],['🌷',['тюльпаны','қызғалдақтар']],['🦋',['бабочка','көбелек']],['🎀',['бантик','бантик']]]},
+ kryak:{n:['Кряк','Бақ-бақ'],k:['утёнок','үйрек балапаны'],d:['Любопытный и болтливый, всё хочет узнать.','Әуесқой әрі сөзшең, бәрін білгісі келеді.'],f:['Плескаться в лужах и петь песенки','Шалшықта шомылу және ән айту'],
+  h:['Домик у пруда','Тоған жағасындағы үйшік'],hb:'pond',bg:'#DDF1FF',dc:[['⛵',['кораблик','қайық']],['🐸',['лягушонок','бақа']],['🌻',['подсолнух','күнбағыс']],['🎵',['музыка','әуен']]]},
+ tosha:{n:['Тоша','Тоша'],k:['черепашка','тасбақа'],d:['Терпеливый и мудрый — никогда не сдаётся.','Шыдамды әрі дана — ешқашан берілмейді.'],f:['Не спеша гулять и всё замечать','Асықпай серуендеу және бәрін байқау'],
+  h:['Ракушка у озера','Көл жағасындағы бақалшақ'],hb:'shell',bg:'#E2F6E0',dc:[['🐚',['ракушка','бақалшақ']],['🌿',['травка','шөп']],['🐟',['рыбка','балық']],['🌺',['цветок','гүл']]]},
+ snezh:{n:['Снежок','Аққар'],k:['белый медвежонок','ақ аю балапаны'],d:['Весёлый и никогда не мёрзнет.','Көңілді, ешқашан тоңбайды.'],f:['Лепить снеговиков и узнавать про зиму','Аққала жасау және қыс туралы білу'],
+  h:['Снежный домик на горке','Төбедегі қарлы үйшік'],hb:'snow',bg:'#E6F2FF',dc:[['⛄',['снеговик','аққала']],['🧣',['шарфик','мойынорағыш']],['🎄',['ёлочка','шырша']],['❄️',['снежинка','қар ұшқыны']]]},
+ ryzhik:{n:['Рыжик','Сары'],k:['лисёнок','түлкі баласы'],d:['Любознательный и весёлый. Обожает загадки и приключения!','Білуге құмар әрі көңілді. Жұмбақтар мен шытырман оқиғаларды жақсы көреді!'],f:['Решать загадки и считать шишки','Жұмбақ шешу және бүршіктерді санау'],
+  h:['Домик в лесу','Ормандағы үйшік'],hb:'cabin',bg:'#FFE8D6',dc:[['🍄',['грибок','саңырауқұлақ']],['🌰',['жёлуди','жаңғақтар']],['🏮',['фонарик','шам']],['🎏',['флажки','жалаушалар']]]},
+ umka:{n:['Умка','Ақылды'],k:['совёнок','жапалақ балапаны'],d:['Умный и внимательный, знает много букв.','Ақылды әрі зейінді, көп әріп біледі.'],f:['Читать книжки по ночам','Түнде кітап оқу'],
+  h:['Совиное дерево с библиотекой','Кітапханасы бар жапалақ ағашы'],hb:'tree',bg:'#F3E9DF',dc:[['📚',['книжки','кітаптар']],['🕯️',['свечка','шам']],['🔭',['телескоп','телескоп']],['🌙',['месяц','ай']]]},
+ bonya:{n:['Боня','Боня'],k:['пандочка','панда балапаны'],d:['Спокойная и добрая, любит порядок.','Сабырлы әрі мейірімді, тәртіпті жақсы көреді.'],f:['Рисовать и жевать бамбук','Сурет салу және бамбук шайнау'],
+  h:['Бамбуковый домик','Бамбук үйшік'],hb:'bamboo',bg:'#E7F6E4',dc:[['🎋',['бамбук','бамбук']],['🎨',['краски','бояулар']],['🏮',['фонарик','шам']],['🌸',['сакура','сакура']]]},
+ ugol:{n:['Уголёк','Көмірше'],k:['енотик','енот'],d:['Хитрый, но честный. Всё на свете моет!','Айлакер, бірақ адал. Бәрін жуады!'],f:['Искать сокровища и решать головоломки','Қазына іздеу және басқатырғыш шешу'],
+  h:['Мастерская в пне','Түбірдегі шеберхана'],hb:'stump',bg:'#ECEAF2',dc:[['🔦',['фонарик','қол шам']],['🗝️',['ключик','кілт']],['🧩',['пазл','пазл']],['🎁',['сокровище','қазына']]]},
+ raduga:{n:['Радуга','Кемпірқосақ'],k:['единорожка','бірмүйіз'],d:['Мечтательная и немножко волшебная.','Арманшыл әрі сәл сиқырлы.'],f:['Раскрашивать небо радугой','Аспанды кемпірқосақпен бояу'],
+  h:['Облачный дворец','Бұлт сарайы'],hb:'cloud',bg:'#FFEAF4',dc:[['🌈',['радуга','кемпірқосақ']],['⭐',['звёздочка','жұлдызша']],['🦋',['бабочка','көбелек']],['💖',['сердечко','жүрекше']]]},
+ leo:{n:['Лео','Лео'],k:['львёнок','арыстан баласы'],d:['Смелый и сильный — настоящий вожак.','Батыл әрі күшті — нағыз көшбасшы.'],f:['Решать задачки и громко петь','Есеп шығару және қатты ән салу'],
+  h:['Королевский шатёр в саванне','Саваннадағы патша шатыры'],hb:'tent',bg:'#FFF1D2',dc:[['👑',['корона','тәж']],['🥁',['барабан','дабыл']],['🌴',['пальма','пальма']],['🏆',['кубок','кубок']]]},
+ drak:{n:['Дракоша','Айдаһарша'],k:['маленький дракон','кішкентай айдаһар'],d:['Озорной изобретатель с добрым сердцем.','Мейірімді жүректі ойнақы өнертапқыш.'],f:['Изобретать и греть друзьям какао','Ойлап табу және достарына какао жылыту'],
+  h:['Замок в горах','Таудағы сарай'],hb:'castle',bg:'#EEE6FF',dc:[['💎',['кристалл','кристалл']],['🧪',['колба','колба']],['⚙️',['шестерёнки','тісті дөңгелек']],['🚩',['флажок','жалауша']]]},
+ pixel:{n:['Пиксель','Пиксель'],k:['пингвинёнок','пингвин балапаны'],d:['Любит компьютеры, роботов и порядок в коде.','Компьютерлер мен роботтарды жақсы көреді.'],f:['Программировать роботов и кататься с горки','Роботтарды бағдарламалау және төбеден сырғанау'],
+  h:['Иглу-лаборатория','Иглу-зертхана'],hb:'igloo',bg:'#E3F0FF',dc:[['🤖',['робот','робот']],['💻',['компьютер','компьютер']],['🛷',['санки','шана']],['❄️',['снежинка','қар ұшқыны']]]},
+ kosmo:{n:['Космо','Космо'],k:['космический кот','ғарыш мысығы'],d:['Отважный исследователь звёзд и планет.','Жұлдыздар мен ғаламшарларды батыл зерттеуші.'],f:['Летать к планетам и считать звёзды','Ғаламшарларға ұшу және жұлдыздарды санау'],
+  h:['Ракета-домик','Зымыран-үйшік'],hb:'rocket',bg:'#E2E6FF',dc:[['🪐',['планета','ғаламшар']],['🛸',['тарелка','ұшқыш тәрелке']],['⭐',['звезда','жұлдыз']],['🌙',['луна','ай']]]},
+ dino:{n:['Дино','Дино'],k:['маленький динозавр','кішкентай динозавр'],d:['Большой знаток всего на свете!','Бәрін білетін үлкен білгір!'],f:['Копать окаменелости и узнавать новое','Қазба табу және жаңаны білу'],
+  h:['Пещера в джунглях','Джунглидегі үңгір'],hb:'cave',bg:'#E5F6D8',dc:[['🦴',['косточка','сүйек']],['🥚',['яйцо','жұмыртқа']],['🌴',['пальма','пальма']],['🌋',['вулкан','жанартау']]]}};
+const GROUPS=[['a02',['Малыши','Бөбектер'],'0–2'],['a24',['Почемучки','Неге-неге'],'2–4'],['a56',['Скоро в школу','Мектепке дайындық'],'5–6']];
+
+/* ---------- ИЛЛЮСТРАЦИИ ГЕРОЕВ (SVG; можно заменить картинкой: H[id].img='file.png') ---------- */
+function eyes(c='#292944',y=54,dx=12,big=0){const r=big?9:4.8;return `<g class="ch-eyes">${big?`<circle cx="${60-dx}" cy="${y}" r="${r+3}" fill="#fff"/><circle cx="${60+dx}" cy="${y}" r="${r+3}" fill="#fff"/>`:''}
+ <ellipse cx="${60-dx}" cy="${y}" rx="${big?6:r}" ry="${big?6.5:r+1}" fill="${c}"/><ellipse cx="${60+dx}" cy="${y}" rx="${big?6:r}" ry="${big?6.5:r+1}" fill="${c}"/>
+ <circle cx="${60-dx+1.6}" cy="${y-2}" r="${big?2.2:1.7}" fill="#fff"/><circle cx="${60+dx+1.6}" cy="${y-2}" r="${big?2.2:1.7}" fill="#fff"/></g>`;}
+const cheeks=(c='#FF9EA8',y=64)=>`<circle cx="40" cy="${y}" r="5" fill="${c}" opacity=".55"/><circle cx="80" cy="${y}" r="5" fill="${c}" opacity=".55"/>`;
+const smile=(y=67,c='#5A3A2A')=>`<path d="M54 ${y} Q60 ${y+5} 66 ${y}" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+function base(o){/* o: body, belly, head, feet, arms, shadow */return `<ellipse cx="60" cy="125" rx="30" ry="4" fill="#000" opacity=".1"/>
+ ${o.tail||''}<ellipse cx="47" cy="119" rx="10" ry="6" fill="${o.feet||o.body}"/><ellipse cx="73" cy="119" rx="10" ry="6" fill="${o.feet||o.body}"/>
+ <ellipse cx="60" cy="98" rx="25" ry="23" fill="${o.body}"/>${o.belly?`<ellipse cx="60" cy="102" rx="15" ry="15" fill="${o.belly}"/>`:''}
+ <ellipse cx="36" cy="95" rx="7" ry="11" fill="${o.arms||o.body}" transform="rotate(20 36 95)"/><ellipse cx="84" cy="95" rx="7" ry="11" fill="${o.arms||o.body}" transform="rotate(-20 84 95)"/>`;}
+const ART={
+ tim:()=>base({body:'#D99A5B',belly:'#F6D9B0'})+`<circle cx="35" cy="28" r="11" fill="#D99A5B"/><circle cx="85" cy="28" r="11" fill="#D99A5B"/><circle cx="35" cy="28" r="6" fill="#F6C9A0"/><circle cx="85" cy="28" r="6" fill="#F6C9A0"/>
+  <circle cx="60" cy="52" r="31" fill="#E2A766"/><ellipse cx="60" cy="64" rx="13" ry="10" fill="#F6D9B0"/>${eyes()}<ellipse cx="60" cy="60" rx="4" ry="3" fill="#5A3A2A"/>${smile()}${cheeks()}`,
+ push:()=>base({body:'#EADCF2',belly:'#FFFFFF',feet:'#DCC8EA'})+`<ellipse cx="46" cy="16" rx="8" ry="22" fill="#EADCF2" transform="rotate(-10 46 16)"/><ellipse cx="74" cy="16" rx="8" ry="22" fill="#EADCF2" transform="rotate(10 74 16)"/>
+  <ellipse cx="46" cy="16" rx="4" ry="16" fill="#FFC6D6" transform="rotate(-10 46 16)"/><ellipse cx="74" cy="16" rx="4" ry="16" fill="#FFC6D6" transform="rotate(10 74 16)"/>
+  <circle cx="60" cy="54" r="29" fill="#F1E6F8"/>${eyes('#3A3A6E',54,11)}<path d="M57 61 L63 61 L60 64Z" fill="#FF8FA8"/>${smile(66,'#7A5A7A')}${cheeks('#FFB0C4')}
+  <path d="M50 78 L60 83 L50 88Z M70 78 L60 83 L70 88Z" fill="#7FE0C8"/><circle cx="60" cy="83" r="3" fill="#5CC8B0"/>`,
+ kryak:()=>base({body:'#FFD84A',belly:'#FFE98A',feet:'#FF9A2E',arms:'#FFCB2E'})+`<path d="M60 18 Q54 8 62 6 Q58 14 66 12 Q60 16 60 22Z" fill="#FFC21E"/>
+  <circle cx="60" cy="50" r="30" fill="#FFDF5E"/>${eyes('#292944',47,11)}<ellipse cx="60" cy="62" rx="14" ry="7" fill="#FF9A2E"/><path d="M47 62 Q60 72 73 62" stroke="#E07A10" stroke-width="2" fill="none"/>${cheeks('#FFA07A',56)}`,
+ tosha:()=>`<ellipse cx="60" cy="125" rx="34" ry="4" fill="#000" opacity=".1"/><ellipse cx="34" cy="116" rx="9" ry="7" fill="#8FD566"/><ellipse cx="86" cy="116" rx="9" ry="7" fill="#8FD566"/>
+  <path d="M22 108 Q24 66 60 64 Q96 66 98 108Z" fill="#4FAE40"/><path d="M22 108 Q60 116 98 108 Q60 122 22 108Z" fill="#FFE27A"/>
+  ${[[44,82],[60,76],[76,82],[38,98],[60,94],[82,98]].map(([x,y])=>`<path d="M${x-7} ${y} L${x-3.5} ${y-6} L${x+3.5} ${y-6} L${x+7} ${y} L${x+3.5} ${y+6} L${x-3.5} ${y+6}Z" fill="#6CC24A" stroke="#3E8F33" stroke-width="1.2"/>`).join('')}
+  <circle cx="60" cy="46" r="24" fill="#9BDB72"/>${eyes('#292944',44,9)}${smile(56,'#2E6A28')}${cheeks('#FF9EA8',53)}`,
+ snezh:()=>base({body:'#F4F8FF',belly:'#FFFFFF',feet:'#E3ECF8'})+`<circle cx="36" cy="28" r="10" fill="#F4F8FF"/><circle cx="84" cy="28" r="10" fill="#F4F8FF"/><circle cx="36" cy="28" r="5" fill="#D9E6F6"/><circle cx="84" cy="28" r="5" fill="#D9E6F6"/>
+  <circle cx="60" cy="52" r="30" fill="#FBFDFF"/><ellipse cx="60" cy="64" rx="12" ry="9" fill="#EEF4FC"/>${eyes()}<ellipse cx="60" cy="60" rx="4" ry="3" fill="#292944"/>${smile(66,'#292944')}${cheeks('#FFB0C4')}
+  <path d="M34 80 Q60 90 86 80 L86 87 Q60 97 34 87Z" fill="#E8505B"/><rect x="70" y="84" width="9" height="20" rx="3" fill="#E8505B"/><path d="M40 82 V89 M52 85 V92 M64 86 V93" stroke="#fff" stroke-width="2.5"/>`,
+ ryzhik:()=>base({body:'#F58A3A',belly:'#FFF4E6',tail:`<path d="M80 104 Q112 96 106 70 Q100 96 82 96Z" fill="#F58A3A"/><path d="M106 70 Q112 80 104 88 Q100 78 106 70Z" fill="#FFF4E6"/>`})+
+  `<path d="M30 12 L48 32 L32 42Z" fill="#E8692A"/><path d="M90 12 L72 32 L88 42Z" fill="#E8692A"/><path d="M34 19 L45 31 L36 37Z" fill="#3B2A2A"/><path d="M86 19 L75 31 L84 37Z" fill="#3B2A2A"/>
+  <path d="M60 22 Q90 22 92 50 Q92 74 60 82 Q28 74 28 50 Q30 22 60 22Z" fill="#F7964A"/><path d="M28 52 Q42 56 60 80 Q78 56 92 52 Q88 76 60 84 Q32 76 28 52Z" fill="#FFF4E6"/>${eyes('#292944',52,13)}<ellipse cx="60" cy="64" rx="4" ry="3" fill="#292944"/>${smile(69,'#292944')}${cheeks('#FF9EA8',62)}`,
+ umka:()=>base({body:'#8A5A3B',belly:'#F7D9B5',arms:'#7A4A2E'})+`<path d="M52 92 l4 4 l4 -4 M60 100 l4 4 l4 -4 M52 106 l4 4 l4 -4" stroke="#D9B48A" stroke-width="2" fill="none"/>
+  <path d="M32 26 L40 10 L48 26Z" fill="#7A4A2E"/><path d="M88 26 L80 10 L72 26Z" fill="#7A4A2E"/><circle cx="60" cy="48" r="30" fill="#9A6A48"/><ellipse cx="60" cy="56" rx="22" ry="18" fill="#F7D9B5"/>${eyes('#292944',48,12,1)}
+  <path d="M55 60 L60 68 L65 60Z" fill="#F6A321"/><rect x="42" y="98" width="36" height="20" rx="3" fill="#E8692A"/><rect x="59" y="98" width="2" height="20" fill="#B5481A"/><rect x="45" y="101" width="11" height="2" fill="#FFE2C8"/><rect x="64" y="101" width="11" height="2" fill="#FFE2C8"/>`,
+ bonya:()=>base({body:'#FAFAFA',belly:'#FFFFFF',feet:'#2E2E3A',arms:'#2E2E3A'})+`<circle cx="36" cy="28" r="11" fill="#2E2E3A"/><circle cx="84" cy="28" r="11" fill="#2E2E3A"/>
+  <circle cx="60" cy="52" r="31" fill="#FFFFFF"/><ellipse cx="47" cy="54" rx="9" ry="11" fill="#2E2E3A" transform="rotate(-25 47 54)"/><ellipse cx="73" cy="54" rx="9" ry="11" fill="#2E2E3A" transform="rotate(25 73 54)"/>${eyes('#fff',54,12)}
+  <ellipse cx="60" cy="63" rx="4" ry="3" fill="#2E2E3A"/>${smile(68,'#2E2E3A')}${cheeks('#FFB0C4',66)}<path d="M34 80 Q60 90 86 80 L86 87 Q60 97 34 87Z" fill="#FF9A2E"/><rect x="38" y="84" width="9" height="18" rx="3" fill="#FF9A2E"/>`,
+ ugol:()=>base({body:'#9A9AA8',belly:'#E6E6EE',feet:'#4A4A58',arms:'#4A4A58',tail:`<path d="M80 108 Q108 108 108 82 Q100 70 92 84 Q96 98 80 100Z" fill="#9A9AA8"/><path d="M100 76 L108 82 L104 90 L96 86Z M96 94 L104 96 L100 104 L92 100Z" fill="#4A4A58"/>`})+
+  `<path d="M30 16 L48 30 L32 40Z" fill="#8A8A98"/><path d="M90 16 L72 30 L88 40Z" fill="#8A8A98"/><path d="M34 22 L44 30 L36 36Z" fill="#4A4A58"/><path d="M86 22 L76 30 L84 36Z" fill="#4A4A58"/>
+  <circle cx="60" cy="52" r="30" fill="#A8A8B6"/><path d="M30 52 Q60 36 90 52 Q84 62 72 60 Q60 54 48 60 Q36 62 30 52Z" fill="#3A3A48"/>${eyes('#fff',52,12)}<ellipse cx="60" cy="66" rx="12" ry="8" fill="#EDEDF4"/><ellipse cx="60" cy="63" rx="4" ry="3" fill="#2E2E3A"/>${smile(69,'#2E2E3A')}`,
+ raduga:()=>base({body:'#FBE3F0',belly:'#FFFFFF',feet:'#F2BCD6'})+`<path d="M40 30 L46 12 L54 28Z" fill="#FFF4FA"/><path d="M80 30 L74 12 L66 28Z" fill="#FFF4FA"/>
+  <path d="M38 34 Q30 60 40 86" stroke="#FF8FB1" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M44 30 Q34 58 46 84" stroke="#FFD25E" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M50 26 Q40 56 52 80" stroke="#8FC8FF" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="60" cy="52" r="28" fill="#FDEDF6"/><path d="M60 6 L66 30 L54 30Z" fill="#FFD25E"/><path d="M56 22 L64 18 M55 27 L65 23" stroke="#F6A321" stroke-width="1.6"/>${eyes('#6A3A8E',54,11)}${smile(66,'#B05A8A')}${cheeks('#FF9EC4')}`,
+ leo:()=>base({body:'#F2B24A',belly:'#FFE2A8',tail:`<path d="M80 110 Q104 112 104 92" stroke="#F2B24A" stroke-width="5" fill="none"/><circle cx="104" cy="88" r="7" fill="#C9631E"/>`})+
+  `${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return `<circle cx="${60+Math.cos(a)*30}" cy="${52+Math.sin(a)*30}" r="13" fill="${i%2?'#D9701E':'#E8862A'}"/>`;}).join('')}
+  <circle cx="40" cy="30" r="7" fill="#F7C25A"/><circle cx="80" cy="30" r="7" fill="#F7C25A"/><circle cx="60" cy="52" r="26" fill="#F7C25A"/><ellipse cx="60" cy="62" rx="12" ry="9" fill="#FFE2A8"/>${eyes('#292944',50,10)}<path d="M56 58 L64 58 L60 62Z" fill="#7A3A1A"/>${smile(66,'#7A3A1A')}${cheeks('#FF9E7A',60)}`,
+ drak:()=>`<path d="M30 80 Q4 60 14 40 Q22 58 34 62Z" fill="#8A62E0"/><path d="M90 80 Q116 60 106 40 Q98 58 86 62Z" fill="#8A62E0"/>`+base({body:'#A57BF0',belly:'#E9DDFF',tail:`<path d="M80 112 Q106 118 110 100 L104 104 Q96 110 82 104Z" fill="#A57BF0"/><path d="M110 100 L114 92 L104 98Z" fill="#FFD25E"/>`})+
+  `<path d="M52 98 H68 M50 106 H70 M53 113 H67" stroke="#C9B4FA" stroke-width="2"/><path d="M42 26 L38 8 L50 22Z" fill="#FFE9B8"/><path d="M78 26 L82 8 L70 22Z" fill="#FFE9B8"/>
+  <circle cx="60" cy="52" r="29" fill="#B48CF5"/><path d="M54 24 L60 14 L66 24Z M46 28 L50 19 L56 26Z M64 26 L70 19 L74 28Z" fill="#FFD25E"/><ellipse cx="60" cy="64" rx="14" ry="9" fill="#C9B0FA"/>${eyes('#292944',50,12)}<circle cx="55" cy="62" r="1.8" fill="#6A44C0"/><circle cx="65" cy="62" r="1.8" fill="#6A44C0"/>${smile(68,'#5A34A0')}${cheeks('#FF9EC4',60)}`,
+ pixel:()=>base({body:'#7FB8F0',belly:'#FFFFFF',feet:'#FF9A2E',arms:'#6AA6E6'})+`<circle cx="60" cy="50" r="30" fill="#8FC8FF"/><path d="M38 50 Q40 30 60 34 Q80 30 82 50 Q82 72 60 74 Q38 72 38 50Z" fill="#FFFFFF"/>
+  ${eyes('#292944',50,10)}<path d="M54 58 L66 58 L60 64Z" fill="#FF9A2E"/>${cheeks('#FFB0C4',60)}<rect x="44" y="44" width="12" height="11" rx="3" fill="none" stroke="#3B4A7A" stroke-width="2"/><rect x="64" y="44" width="12" height="11" rx="3" fill="none" stroke="#3B4A7A" stroke-width="2"/><path d="M56 49 H64" stroke="#3B4A7A" stroke-width="2"/>`,
+ kosmo:()=>base({body:'#9AA6C8',belly:'#E4E8F6',feet:'#7A86A8'})+`<circle cx="60" cy="100" r="7" fill="#FFD25E"/><path d="M60 95 l1.6 3.4 3.6.4 -2.7 2.4 .8 3.6 -3.3-1.9 -3.3 1.9 .8-3.6 -2.7-2.4 3.6-.4Z" fill="#fff"/>
+  <path d="M34 34 L40 14 L52 28Z" fill="#9AA6C8"/><path d="M86 34 L80 14 L68 28Z" fill="#9AA6C8"/><path d="M38 28 L41 19 L47 26Z" fill="#FFB0C4"/><path d="M82 28 L79 19 L73 26Z" fill="#FFB0C4"/>
+  <circle cx="60" cy="52" r="27" fill="#A9B4D4"/>${eyes('#2E7A5A',50,10)}<path d="M57 58 L63 58 L60 61Z" fill="#FF8FA8"/>${smile(64,'#3A3A5A')}<path d="M36 58 H48 M36 62 L48 60 M84 58 H72 M84 62 L72 60" stroke="#E4E8F6" stroke-width="1.5"/>
+  <circle cx="60" cy="50" r="38" fill="#BFE6FF" opacity=".18" stroke="#fff" stroke-width="3"/><path d="M36 30 Q44 20 56 18" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".9"/><rect x="58" y="6" width="4" height="8" fill="#C9D2EA"/><circle cx="60" cy="5" r="4" fill="#FF6B6B"/>`,
+ dino:()=>base({body:'#6CC24A',belly:'#D8F3B0',tail:`<path d="M38 110 Q8 116 6 96 Q18 104 38 100Z" fill="#6CC24A"/>`})+`<path d="M60 18 L66 8 L70 20Z M70 22 L80 14 L80 26Z M48 20 L50 8 L58 18Z" fill="#FF9A2E"/>
+  <ellipse cx="60" cy="52" rx="30" ry="28" fill="#7AD158"/><ellipse cx="60" cy="64" rx="18" ry="11" fill="#9BE07A"/><circle cx="54" cy="62" r="1.8" fill="#3E8F33"/><circle cx="66" cy="62" r="1.8" fill="#3E8F33"/>${eyes('#292944',48,12)}${smile(69,'#2E6A28')}${cheeks('#FF9E7A',58)}
+  <circle cx="48" cy="96" r="3" fill="#9BE07A"/><circle cx="72" cy="104" r="3.5" fill="#9BE07A"/>`};
+function heroSVG(id,cls=''){const h=H[id];if(h.img)return `<img class="ch ${cls}" src="${h.img}" alt="">`;return `<svg class="ch ${cls}" viewBox="0 0 120 130" aria-hidden="true"><g class="ch-sway">${ART[id]()}</g></svg>`;}
+
+/* ---------- ДОМИКИ (SVG-сцены) ---------- */
+function houseSVG(type){const g={
+ den:`<path d="M70 210 Q70 120 160 116 Q250 120 250 210Z" fill="#B07A4A"/><path d="M128 210 V170 a32 32 0 0 1 64 0 V210Z" fill="#5A3A22"/>${[[90,150],[230,160],[110,128],[210,130]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="9" fill="#E8505B"/><circle cx="${x+10}" cy="${y+6}" r="7" fill="#D8404B"/>`).join('')}`,
+ burrow:`<path d="M40 210 Q160 90 280 210Z" fill="#9BD77A"/><circle cx="160" cy="186" r="26" fill="#6A4A2A"/><circle cx="160" cy="186" r="20" fill="#3E2A18"/>${[90,130,190,230].map((x,i)=>`<g transform="translate(${x} ${150-(i%2)*20})"><circle r="8" fill="#fff"/><circle r="4" fill="#FFD25E"/></g>`).join('')}`,
+ pond:`<ellipse cx="160" cy="205" rx="150" ry="22" fill="#8FD0FF"/><rect x="120" y="120" width="80" height="62" rx="6" fill="#FFF1D2"/><path d="M110 124 L160 86 L210 124Z" fill="#5187F5"/><rect x="148" y="146" width="24" height="36" rx="4" fill="#A0703E"/><circle cx="135" cy="140" r="8" fill="#BFE6FF"/><circle cx="185" cy="140" r="8" fill="#BFE6FF"/><rect x="112" y="182" width="96" height="8" fill="#C99A5B"/>`,
+ shell:`<ellipse cx="160" cy="208" rx="150" ry="18" fill="#8FD0FF" opacity=".7"/><path d="M90 200 Q100 100 160 96 Q220 100 230 200Z" fill="#FFC9A8"/>${[110,135,160,185,210].map(x=>`<path d="M160 100 Q${x} 150 ${x} 200" stroke="#F39A78" stroke-width="3" fill="none"/>`).join('')}<path d="M144 200 V176 a16 16 0 0 1 32 0 V200Z" fill="#8A5A3B"/>`,
+ snow:`<path d="M20 210 Q160 120 300 210Z" fill="#FFFFFF"/><path d="M110 200 V150 a50 50 0 0 1 100 0 V200Z" fill="#E6F2FF" stroke="#BFD8F2" stroke-width="3"/><path d="M110 165 H210 M118 182 H202 M130 148 H190" stroke="#BFD8F2" stroke-width="2"/><path d="M146 200 V176 a14 14 0 0 1 28 0 V200Z" fill="#8FB8E0"/>`,
+ cabin:`<rect x="100" y="120" width="120" height="86" rx="6" fill="#C98A48"/>${[132,148,164,180,196].map(y=>`<rect x="100" y="${y}" width="120" height="3" fill="#A86E34"/>`).join('')}<path d="M88 126 L160 70 L232 126Z" fill="#E8692A"/><rect x="146" y="158" width="28" height="48" rx="4" fill="#6A3E1A"/><rect x="112" y="140" width="22" height="18" rx="3" fill="#FFE9A8"/><rect x="186" y="140" width="22" height="18" rx="3" fill="#FFE9A8"/><rect x="190" y="78" width="12" height="24" fill="#8A5A3B"/>`,
+ tree:`<rect x="136" y="110" width="48" height="100" rx="10" fill="#8A5A3B"/><circle cx="160" cy="90" r="70" fill="#5DBB4A"/><circle cx="110" cy="100" r="40" fill="#6FCB5A"/><circle cx="210" cy="100" r="40" fill="#4FAE40"/><circle cx="160" cy="150" r="16" fill="#3E2A18"/><circle cx="160" cy="150" r="12" fill="#FFE9A8"/>${[[148,186],[156,186],[164,186],[172,186]].map(([x,y],i)=>`<rect x="${x}" y="${y-14}" width="6" height="16" fill="${['#E8505B','#5187F5','#F6A321','#43BD79'][i]}"/>`).join('')}<rect x="144" y="186" width="36" height="4" fill="#5A3A22"/>`,
+ bamboo:`${[60,80,240,262].map(x=>`<rect x="${x}" y="80" width="10" height="130" rx="4" fill="#7FC85A"/><path d="M${x} 110 H${x+10} M${x} 150 H${x+10}" stroke="#5DA83A" stroke-width="2"/>`).join('')}<rect x="110" y="130" width="100" height="76" rx="6" fill="#B7E08F"/><path d="M96 134 L160 92 L224 134Z" fill="#E8505B"/><path d="M96 134 Q90 128 96 124 M224 134 Q230 128 224 124" stroke="#E8505B" stroke-width="5" fill="none"/><rect x="148" y="160" width="26" height="46" rx="12" fill="#5A3A22"/>`,
+ stump:`<path d="M90 210 V120 Q90 100 160 100 Q230 100 230 120 V210Z" fill="#A0703E"/><ellipse cx="160" cy="112" rx="70" ry="16" fill="#D9B07A"/><ellipse cx="160" cy="112" rx="50" ry="10" fill="none" stroke="#B88A50" stroke-width="2"/><path d="M140 210 V170 a20 20 0 0 1 40 0 V210Z" fill="#4A2E18"/><circle cx="196" cy="150" r="9" fill="#FFE9A8"/><path d="M90 200 Q70 206 64 212 M230 200 Q250 206 256 212" stroke="#A0703E" stroke-width="8"/>`,
+ cloud:`${[[110,170,40],[160,160,50],[215,172,40],[140,190,34],[190,192,34]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff"/>`).join('')}<rect x="120" y="96" width="80" height="64" rx="8" fill="#FFE0EE"/><path d="M110 100 L160 62 L210 100Z" fill="#B48CF5"/><path d="M160 62 V44 L176 52 L160 58" fill="#FFD25E"/><rect x="148" y="120" width="24" height="40" rx="12" fill="#FF9EC4"/>`,
+ tent:`<path d="M80 206 L160 92 L240 206Z" fill="#FFD25E"/><path d="M160 92 L190 206 H130Z" fill="#E8692A"/><path d="M160 92 V70 L182 78 L160 86" fill="#E8505B"/><path d="M80 206 L160 92 L240 206" stroke="#C9631E" stroke-width="4" fill="none"/>`,
+ castle:`<path d="M30 210 L90 120 L150 210Z M170 210 L240 100 L310 210Z" fill="#B9C9E8"/><rect x="110" y="120" width="100" height="86" rx="4" fill="#E9DDFF"/><rect x="96" y="96" width="26" height="110" rx="4" fill="#E9DDFF"/><rect x="198" y="96" width="26" height="110" rx="4" fill="#E9DDFF"/><path d="M92 98 L109 70 L126 98Z M194 98 L211 70 L228 98Z" fill="#8A62E0"/><path d="M144 206 V176 a16 16 0 0 1 32 0 V206Z" fill="#6A44C0"/><rect x="132" y="138" width="14" height="16" rx="7" fill="#FFE9A8"/><rect x="174" y="138" width="14" height="16" rx="7" fill="#FFE9A8"/>`,
+ igloo:`<path d="M90 206 Q90 110 160 110 Q230 110 230 206Z" fill="#F4F8FF" stroke="#BFD8F2" stroke-width="3"/><path d="M96 170 H224 M100 140 H220 M128 120 V140 M190 120 V140 M120 140 V170 M160 140 V170 M200 140 V170" stroke="#BFD8F2" stroke-width="2"/><path d="M140 206 V184 a20 20 0 0 1 40 0 V206Z" fill="#7FB8F0"/><rect x="204" y="150" width="20" height="16" rx="3" fill="#3B4A7A"/><rect x="207" y="153" width="14" height="10" fill="#8FE8FF"/>`,
+ rocket:`<path d="M160 50 Q196 90 196 150 V196 H124 V150 Q124 90 160 50Z" fill="#F4F6FF" stroke="#C9D2EA" stroke-width="3"/><circle cx="160" cy="120" r="16" fill="#8FC8FF" stroke="#5187F5" stroke-width="4"/><path d="M124 160 L100 200 H124Z M196 160 L220 200 H196Z" fill="#E8505B"/><path d="M144 196 Q160 230 176 196Z" fill="#FFB938"/><path d="M160 50 Q172 62 176 72 H144 Q148 62 160 50Z" fill="#E8505B"/>`,
+ cave:`<path d="M40 210 Q60 90 160 90 Q260 90 280 210Z" fill="#A9A08A"/><path d="M110 210 Q114 140 160 136 Q206 140 210 210Z" fill="#4A3A2A"/><path d="M60 210 Q50 160 70 140 M270 200 Q284 160 270 130" stroke="#5DBB4A" stroke-width="6" fill="none"/><circle cx="74" cy="132" r="14" fill="#5DBB4A"/><circle cx="266" cy="124" r="14" fill="#4FAE40"/>`}[type]||'';
+ return `<svg class="hs-svg" viewBox="0 0 320 230" aria-hidden="true">${g}</svg>`;}
+const DSPOT=[[16,72],[84,74],[22,30],[80,26]];
+
+/* ---------- ДАННЫЕ ---------- */
+const st=()=>PF.stats();
+function cs(){const s=st();const c=s.col||(s.col={});['open','decor','seen'].forEach(k=>{if(!c[k]||typeof c[k]!=='object')c[k]={};});return c;}
+const T2=a=>TL(a[0],a[1]);
+const cfg=id=>COL_CFG.heroes.find(h=>h.id===id);
+function lands(){const m=st().map||{};return Object.values(m).reduce((a,w)=>a+Object.keys(w.done||{}).length,0);}
+/* прогресс условия: {v,g,txt} */
+function prog(id){const c=cfg(id).cond,s=st();
+ if(c.free)return {v:1,g:1,txt:TL('Ждёт тебя с самого начала!','Басынан сені күтіп тұр!')};
+ if(c.stars){const v=PF.starsNow();return {v:Math.min(v,c.stars),g:c.stars,txt:TL(`Собери ${c.stars} ⭐`,`${c.stars} ⭐ жина`),star:1};}
+ if(c.ach){const a=PF.ach(c.ach)||{v:0,g:1,n:''};return {v:a.got?a.g:a.v,g:a.g,txt:TL(`Получи достижение «${a.n}»`,`«${a.n}» жетістігін ал`)};}
+ if(c.games){const ok=c.games.some(k=>s.done[k]&&s.done[k].n);return {v:ok?1:0,g:1,txt:TL('Особое задание: узнай про зиму и погоду — пройди игру «День и ночь», «Одень по погоде», «Кто спит зимой?» или «Времена года»','Арнайы тапсырма: қыс пен ауа райы туралы біл — «Күн мен түн», «Ауа райына қарай киін», «Қыста кім ұйықтайды?» немесе «Жыл мезгілдері» ойынын өт')};}
+ if(c.lands){const v=lands();return {v:Math.min(v,c.lands),g:c.lands,txt:TL(`Пройди ${c.lands} земли на карте приключений`,`Шытырман оқиғалар картасында ${c.lands} жерді өт`)};}
+ if(c.loc){const [w,l]=c.loc.split(':');const ok=!!(s.map&&s.map[w]&&s.map[w].done&&s.map[w].done[l]);return {v:ok?1:0,g:1,txt:TL('Пройди «Космическую станцию» на карте приключений','Шытырман оқиғалар картасындағы «Ғарыш станциясын» өт')};}
+ return {v:0,g:1,txt:''};}
+const isOpen=id=>!!cs().open[id];
+const canOpen=id=>{if(isOpen(id))return false;const p=prog(id);return p.v>=p.g;};
+const state=id=>isOpen(id)?'open':canOpen(id)?'ready':'lock';
+const openCount=()=>Object.keys(cs().open).length;
+const friend=()=>{const f=cs().friend;return f&&isOpen(f)?f:null;};
+function decorState(id){const o=cs().open[id];if(!o)return [];const earned=PF.starsNow()-(o.s||0);const placed=cs().decor[id]||[];
+ return COL_CFG.decorStars.map((need,i)=>({i,need,placed:placed.includes(i),ready:earned>=need,left:Math.max(0,need-earned)}));}
+function openHero(id){if(!canOpen(id))return false;const c=cs();c.open[id]={t:Date.now(),s:PF.starsNow()};if(!c.friend)c.friend=id;c.seen[id]=1;PF.save();try{PF.achieve();}catch(e){}return true;}
+
+/* ---------- ДРУГ РЯДОМ: приветствия и поздравления ---------- */
+const POP=document.createElement('div');POP.id='clPop';POP.setAttribute('aria-live','polite');document.body.appendChild(POP);
+let popT=0,lastPop=0,okN=0;
+function pop(text,id,ms=2600){id=id||friend();if(!id)return;clearTimeout(popT);POP.innerHTML=`<span class="cl-pf">${heroSVG(id,'jump')}</span><span class="cl-pb">${text}</span>`;POP.classList.remove('on');void POP.offsetWidth;POP.classList.add('on');lastPop=Date.now();
+ popT=setTimeout(()=>POP.classList.remove('on'),ms);}
+const CHEER=[['Молодец!','Жарайсың!'],['Верно! 👍','Дұрыс! 👍'],['Так держать!','Солай жалғастыр!'],['Ты умница!','Сен ақылдысың!'],['Здорово!','Керемет!']];
+window.COL_EVT=(k,S)=>{const f=friend();if(!f)return;const n=T2(H[f].n);
+ if(k==='ok'){okN++;if(Date.now()-lastPop>15000&&(okN===1||okN%4===0))pop(T2(CHEER[okN%CHEER.length]));}
+ if(k==='pass'){pop(TL(`Игра пройдена! ${n} гордится тобой!`,`Ойын өтілді! ${n} сені мақтан тұтады!`),f,3200);}};
+/* новый герой можно открыть — сообщим один раз */
+function checkNew(){const c=cs();const r=COL_CFG.heroes.map(h=>h.id).filter(id=>canOpen(id)&&!c.seen[id]);if(!r.length)return;r.forEach(id=>c.seen[id]=1);PF.save();
+ if(!document.body.classList.contains('inapp'))setTimeout(()=>pop(TL(`Новый друг ждёт тебя в коллекции: ${T2(H[r[0]].n)}!`,`Коллекцияда жаңа дос күтіп тұр: ${T2(H[r[0]].n)}!`),r[0],3600),600);}
+
+/* ---------- ЭКРАН КОЛЛЕКЦИИ ---------- */
+const CV=document.createElement('div');CV.id='clv';CV.className='mp-screen';document.body.appendChild(CV);
+let tab=null;
+function layer(html,cls){history.pushState({d:1,cl:1},'');const L=document.createElement('div');L.className='pf-layer cl-layer '+(cls||'');L.innerHTML=html;document.body.appendChild(L);L.addEventListener('click',e=>{if(e.target===L)history.back();});return L;}
+function chime(){try{const c=new (window.AudioContext||window.webkitAudioContext)();[523,659,784,1047,1319].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.value=f;const t=c.currentTime+i*.09;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.16,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.4);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.45);});setTimeout(()=>c.close(),1600);}catch(e){}}
+const confetti=n=>`<div class="pf-conf">${Array.from({length:n},(_,i)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#9874F5','#43BD79','#5187F5','#EF6F8E','#20B4C2'][i%6]};animation-delay:${(Math.random()*.6).toFixed(2)}s"></i>`).join('')}</div>`;
+function avatarHTML(){const c=curProf();let ph='';try{ph=LS.get('pf_photo','');}catch(e){}return ph?`<img src="${ph}" alt="">`:`<span>${c.av}</span>`;}
+function render(){const c=curProf();if(!tab)tab=GROUPS.some(g=>g[0]===c.age)?c.age:'a56';const f=friend();
+ CV.innerHTML=`<div class="cl-wrap"><div class="cl-top"><button class="pf-ib" id="clBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>${TL('Моя коллекция','Менің коллекциям')}</h1><span class="cl-av">${avatarHTML()}</span></div>
+  <div class="cl-sum"><div class="cl-fr">${f?heroSVG(f):'<span class="cl-q">?</span>'}</div><div class="cl-st"><b>${c.name?esc(c.name)+', '+TL('собирай друзей за свои успехи!','жетістіктерің үшін достар жина!'):TL('Собирай друзей за свои успехи!','Жетістіктерің үшін достар жина!')}</b>
+   <div class="cl-pills"><span>🧸 ${openCount()} / ${COL_CFG.heroes.length}</span><span>⭐ ${PF.starsNow()}</span>${f?`<span class="fr">💛 ${T2(H[f].n)}</span>`:''}</div></div></div>
+  <div class="cl-tabs" role="tablist">${GROUPS.map(([g,nm,age])=>{const ids=COL_CFG.heroes.filter(h=>h.g===g);const o=ids.filter(h=>isOpen(h.id)).length,r=ids.some(h=>canOpen(h.id));
+   return `<button role="tab" class="cl-tab ${g===tab?'on':''}" data-t="${g}" aria-selected="${g===tab}"><b>${T2(nm)}</b><small>${age} · ${o}/${ids.length}</small>${r?'<i class="cl-dot"></i>':''}</button>`;}).join('')}</div>
+  <div class="cl-grid">${COL_CFG.heroes.filter(h=>h.g===tab).map(h=>{const id=h.id,s=state(id),p=prog(id),fr=f===id;
+   return `<button class="cl-card ${s} ${h.sp?'sp':''}" data-id="${id}" style="--bg:${H[id].bg}"><span class="cl-art">${heroSVG(id)}${s==='lock'?'<span class="cl-lk">🔒</span>':''}</span>
+    ${h.sp?`<span class="cl-badge sp">✨ ${TL('Особый','Ерекше')}</span>`:''}${fr?`<span class="cl-badge fr">💛 ${TL('Мой друг','Досым')}</span>`:''}
+    <b>${T2(H[id].n)}</b><small>${T2(H[id].k)}</small>
+    ${s==='open'?`<span class="cl-stt o">✓ ${TL('Открыт','Ашық')}</span>`:s==='ready'?`<span class="cl-stt r">🎉 ${TL('Можно открыть!','Ашуға болады!')}</span>`:`<span class="cl-pr"><i style="width:${Math.round(p.v/p.g*100)}%"></i></span><span class="cl-stt l">${p.star?`${p.v} / ${p.g} ⭐`:h.sp?TL('Особое условие','Ерекше шарт'):''}</span>`}</button>`;}).join('')}</div>
+  <p class="cl-note">${TL('Звёзды не тратятся: герои открываются за то, что ты уже заработал.','Жұлдыздар жұмсалмайды: батырлар сен жинағанның арқасында ашылады.')}</p></div>`;
+ CV.querySelector('#clBack').onclick=()=>history.back();
+ CV.querySelectorAll('.cl-tab').forEach(b=>b.onclick=()=>{tab=b.dataset.t;render();});
+ CV.querySelectorAll('.cl-card').forEach(b=>b.onclick=()=>{b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');heroSheet(b.dataset.id);});}
+function openCol(id){tab=null;render();history.pushState({d:1,clv:1},'');CV.classList.add('on');CV.setAttribute('aria-hidden','false');document.body.classList.add('mpon');CV.scrollTop=0;if(id)setTimeout(()=>heroSheet(id),120);}
+function hideCol(){CV.classList.remove('on');CV.setAttribute('aria-hidden','true');if(!document.getElementById('mpv').classList.contains('on')&&!document.getElementById('mpw').classList.contains('on'))document.body.classList.remove('mpon');refresh();}
+/* окно героя */
+function heroSheet(id){const h=cfg(id),t=H[id],s=state(id),p=prog(id),fr=friend()===id;
+ const L=layer(`<div class="cl-sheet ${s}" style="--bg:${t.bg}"><button class="mp-x" aria-label="${TL('Закрыть','Жабу')}">✕</button>
+  <div class="cl-shart">${heroSVG(id,s==='open'?'wave':'')}${s==='lock'?'<span class="cl-lk big">🔒</span>':''}</div>
+  <div class="cl-shb"><h2>${T2(t.n)} <small>— ${T2(t.k)}</small></h2>${h.sp?`<span class="cl-badge sp in">✨ ${TL('Особый герой','Ерекше батыр')}</span>`:''}
+   <p class="cl-desc">${T2(t.d)}</p>
+   <div class="cl-rows"><div><span>🎈</span><b>${TL('Любимое занятие','Сүйікті ісі')}</b><small>${T2(t.f)}</small></div><div><span>🏠</span><b>${TL('Домик','Үйшігі')}</b><small>${T2(t.h)}</small></div>
+    <div><span>🔑</span><b>${TL('Как получить','Қалай алуға болады')}</b><small>${p.txt}</small></div></div>
+   ${s==='lock'?`<div class="cl-need"><div class="cl-pr big"><i style="width:${Math.round(p.v/p.g*100)}%"></i></div><small>${p.star?TL(`Ещё ${p.g-p.v} ⭐ — и ${T2(t.n)} станет твоим другом!`,`Тағы ${p.g-p.v} ⭐ — ${T2(t.n)} сенің досың болады!`):p.g>1?`${p.v} / ${p.g}`:TL('Выполни условие — и герой откроется!','Шартты орында — батыр ашылады!')}</small></div>`:''}
+   ${s==='ready'?`<button class="mp-go cl-open" id="clOpen">🎁 ${TL('Открыть персонажа','Кейіпкерді ашу')}</button>`:''}
+   ${s==='open'?`${fr?`<div class="cl-isfr">💛 ${TL(`${T2(t.n)} — твой главный друг!`,`${T2(t.n)} — сенің басты досың!`)}</div>`:`<button class="mp-go cl-pick" id="clPick">💛 ${TL('Выбрать другом','Дос етіп таңдау')}</button>`}
+    <button class="cl-home" id="clHome">🏠 ${TL('Мой домик','Менің үйшігім')} <small>${decorState(id).filter(d=>d.placed).length} / ${COL_CFG.decorStars.length}</small></button>`:''}</div></div>`,'bottom');
+ L.querySelector('.mp-x').onclick=()=>history.back();
+ const o=L.querySelector('#clOpen');if(o)o.onclick=()=>{if(openHero(id)){history.back();setTimeout(()=>{celebrate(id);render();},80);}};
+ const pk=L.querySelector('#clPick');if(pk)pk.onclick=()=>{cs().friend=id;PF.save();history.back();setTimeout(()=>{render();pop(TL(`Ура! Теперь мы друзья, ${curProf().name||'малыш'}!`,`Ура! Енді біз доспыз, ${curProf().name||'балақай'}!`),id,3000);},80);};
+ const hm=L.querySelector('#clHome');if(hm)hm.onclick=()=>{history.back();setTimeout(()=>houseSheet(id),80);};}
+function celebrate(id){const t=H[id];chime();
+ const L=layer(`<div class="mp-cel cl-cel" style="--c:#F6A321">${confetti(30)}<div class="cl-celart">${heroSVG(id,'hello')}</div><h2>${TL('Новый друг!','Жаңа дос!')}</h2><b class="mp-celn">${T2(t.n)} — ${T2(t.k)}</b>
+  <p class="mp-celsay">«${TL(`Привет${curProf().name?', '+esc(curProf().name):''}! Я ${T2(t.n)}. ${T2(t.d)} Давай дружить!`,`Сәлем${curProf().name?', '+esc(curProf().name):''}! Мен — ${T2(t.n)}. Дос болайық!`)}»</p>
+  <button class="mp-go" id="clCelOk">${TL('Ура!','Ура!')}</button></div>`,'center');
+ L.querySelector('#clCelOk').onclick=()=>{history.back();setTimeout(()=>heroSheet(id),120);};}
+/* домик героя */
+function houseSheet(id){const t=H[id],ds=decorState(id);const placed=ds.filter(d=>d.placed).length;
+ const L=layer(`<div class="cl-house" style="--bg:${t.bg}"><button class="mp-x" aria-label="${TL('Закрыть','Жабу')}">✕</button>
+  <div class="hs-scene">${houseSVG(t.hb)}<span class="hs-hero">${heroSVG(id)}</span>
+   ${ds.map(d=>{const [x,y]=DSPOT[d.i];const e=t.dc[d.i][0];return d.placed?`<span class="hs-dec on" style="left:${x}%;top:${y}%">${e}</span>`:d.ready?`<button class="hs-dec add" data-i="${d.i}" style="left:${x}%;top:${y}%" aria-label="${TL('Украсить','Безендіру')}">${e}<i>＋</i></button>`:`<span class="hs-dec lk" style="left:${x}%;top:${y}%">${e}</span>`;}).join('')}</div>
+  <div class="cl-shb"><h2>${T2(t.h)}</h2><p class="cl-desc">${TL(`Здесь живёт ${T2(t.n)}. Занимайся, зарабатывай звёзды — и украшай домик!`,`Мұнда ${T2(t.n)} тұрады. Оқы, жұлдыз жина — үйшікті безендір!`)}</p>
+   <div class="hs-list">${ds.map(d=>{const dc=t.dc[d.i];return `<div class="hs-it ${d.placed?'on':d.ready?'ready':''}"><span>${dc[0]}</span><b>${T2(dc[1])}</b><small>${d.placed?'✓ '+TL('украшено','безендірілді'):d.ready?TL('Нажми ＋ на картинке!','Суреттегі ＋ басы!'):TL(`ещё ${d.left} ⭐`,`тағы ${d.left} ⭐`)}</small></div>`;}).join('')}</div>
+   <small class="hs-hint">${TL(`Украшено ${placed} из ${ds.length}. Звёзды не тратятся — украшения открываются по мере того, как ты зарабатываешь новые звёзды.`,`${ds.length}-ден ${placed} безендірілді. Жұлдыздар жұмсалмайды — жаңа жұлдыз жинаған сайын безендірулер ашылады.`)}</small></div></div>`,'bottom');
+ L.querySelector('.mp-x').onclick=()=>history.back();
+ L.querySelectorAll('.hs-dec.add').forEach(b=>b.onclick=()=>{const c=cs();(c.decor[id]=c.decor[id]||[]).push(+b.dataset.i);PF.save();chime();history.back();setTimeout(()=>{houseSheet(id);pop(TL('Как красиво! Спасибо!','Қандай әдемі! Рахмет!'),id,2200);},90);});}
+/* назад */
+window.COLPOP=()=>{const top=document.querySelector('.cl-layer');if(top){top.remove();return true;}if(CV.classList.contains('on')){hideCol();return true;}return false;};
+
+/* ---------- ВСТРАИВАНИЕ: главная, профиль, карта ---------- */
+const HC=document.createElement('button');HC.className='cl-homecard';HC.id='clHomeCard';
+(document.getElementById('mpHome')||document.querySelector('.hero')).insertAdjacentElement('afterend',HC);
+function homeCard(){const ids=COL_CFG.heroes.map(h=>h.id);const opened=ids.filter(isOpen);const f=friend();const show=[...new Set([f,...opened.reverse()].filter(Boolean))].slice(0,3);
+ const pad=ids.filter(i=>!show.includes(i)).slice(0,3-show.length);const ready=ids.some(canOpen);
+ HC.innerHTML=`<span class="cl-hh"><b>🧸 ${TL('Моя коллекция','Менің коллекциям')}</b>${ready?`<em>🎉 ${TL('Новый друг ждёт!','Жаңа дос күтіп тұр!')}</em>`:''}</span>
+  <span class="cl-hrow">${show.map(i=>`<span class="cl-hi">${heroSVG(i)}</span>`).join('')}${pad.map(i=>`<span class="cl-hi lk">${heroSVG(i)}</span>`).join('')}<span class="cl-hi more"><b>+${ids.length-3}</b><small>${TL('героев','батыр')}</small></span></span>
+  <span class="cl-hb"><b>${openCount()} ${TL('из','/')} ${ids.length} ${TL('открыто','ашылды')}</b><small>${TL('Собирай друзей за свои успехи!','Жетістіктерің үшін достар жина!')}</small></span><span class="mp-hgo">›</span>`;}
+HC.onclick=()=>openCol();
+/* аватар на главной: друг вместо картинки, если ребёнок так выбрал */
+const _r=refresh;refresh=function(){_r();try{homeCard();const f=friend(),w=document.getElementById('who');if(f&&cs().avatar){w.innerHTML=heroSVG(f);w.classList.add('hasfr');}else w.classList.remove('hasfr');checkNew();}catch(e){}};
+/* в профиле */
+window.COL={
+ heroMini(){const f=friend();return f?`<span class="pf-frmini" title="${T2(H[f].n)}">${heroSVG(f)}</span>`:'';},
+ profileCard(){const f=friend();const n=openCount();
+  return `<section class="pf-friend"><span class="pf-frart">${f?heroSVG(f):'<span class="cl-q">?</span>'}</span><div class="pf-frtx"><small>${TL('Мой главный друг','Менің басты досым')}</small><b>${f?T2(H[f].n)+' — '+T2(H[f].k):TL('Пока не выбран','Әзірге таңдалмаған')}</b>
+   <span>🧸 ${n} / ${COL_CFG.heroes.length} ${TL('героев в коллекции','батыр коллекцияда')}</span>${f?`<label class="pf-frav"><input type="checkbox" id="pfFrAv" ${cs().avatar?'checked':''}> ${TL('Показывать друга вместо аватара на главной','Басты бетте аватардың орнына досты көрсету')}</label>`:''}</div>
+   <button class="pf-frgo" id="pfFrGo">${TL('Коллекция','Коллекция')} ›</button></section>`;},
+ bindProfile(V){const g=V.querySelector('#pfFrGo');if(g)g.onclick=()=>{history.back();setTimeout(()=>openCol(),120);};const a=V.querySelector('#pfFrAv');if(a)a.onchange=()=>{cs().avatar=a.checked;PF.save();refresh();};},
+ celFriend(){const f=friend();return f?`<span class="pf-celf">${heroSVG(f,'jump')}</span>`:'';},
+ mapFriend(){const f=friend();return f?`<span class="mp-friend">${heroSVG(f)}</span>`:'';},
+ open:openCol};
+/* приветствие при запуске */
+setTimeout(()=>{const f=friend();if(f&&!document.body.classList.contains('inapp'))pop(TL(`Привет${curProf().name?', '+esc(curProf().name):''}! Поиграем? 😊`,`Сәлем${curProf().name?', '+esc(curProf().name):''}! Ойнаймыз ба? 😊`),f,3200);},900);
+refresh();
 })();
 
 /* ===== круглый детский шрифт (Nunito, встроен) — для оболочки и разделов ===== */
