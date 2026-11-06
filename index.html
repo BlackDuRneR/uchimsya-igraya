@@ -1414,6 +1414,36 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 .hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
 .hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
 @media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
+/* ===== Транспорт: сцена с дорогой, рельсами и водой ===== */
+.tr-scene{position:relative;height:clamp(240px,74vw,350px);max-width:560px;margin:4px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(#BFE8FF 0 58%,#8BD36A 58% 100%);box-shadow:0 7px 0 #5FAF45}
+.tr-sun{position:absolute;right:7%;top:8%;width:15%;aspect-ratio:1;border-radius:50%;background:#FFD23F;box-shadow:0 0 0 10px rgba(255,210,63,.3)}
+.tr-cl{position:absolute;top:14%;width:22%;height:9%;border-radius:20px;background:#fff;opacity:.9;animation:trDrift 18s linear -5s infinite}.tr-cl.b{top:27%;width:16%;animation-delay:-13s}
+@keyframes trDrift{from{left:-25%}to{left:105%}}
+.tr-rails{position:absolute;left:0;right:0;bottom:33%;height:8%;background:repeating-linear-gradient(90deg,#8A5A3B 0 8px,transparent 8px 22px)}
+.tr-rails::before,.tr-rails::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;height:22%;background:#9AA3B5;border-radius:3px}.tr-rails::before{top:12%}.tr-rails::after{bottom:12%}
+.tr-road{position:absolute;left:0;right:0;bottom:12%;height:19%;background:#666}
+.tr-road::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;top:46%;height:9%;background:repeating-linear-gradient(90deg,#fff 0 22px,transparent 22px 44px)}
+.tr-water{position:absolute;left:0;right:0;bottom:0;height:12%;background:#4FB8F2}
+.tr-act{position:absolute;left:110%;bottom:14%;font-size:clamp(60px,19vw,92px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 5px 0 rgba(0,0,0,.14))}
+.tr-act.tr-road{animation:trL 2.8s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-rail{bottom:36%;animation:trL 3.2s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-sail{bottom:-8%;animation:trL 3.6s linear forwards}
+.tr-act.tr-heli{bottom:56%;animation:trL 3s ease-in-out forwards}
+.tr-act.tr-fly{bottom:52%;left:-30%;animation:trR 2.8s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes trL{0%{left:110%}45%,55%{left:36%;transform:translateY(-4px)}100%{left:-40%}}
+@keyframes trR{0%{left:-30%;transform:translateY(30px)}50%{left:36%}100%{left:110%;transform:translateY(-60px)}}
+.tr-say{position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.3);opacity:0;background:#fff;border-radius:22px;padding:8px 18px;font-weight:900;font-size:clamp(22px,6.6vw,30px);white-space:nowrap;color:#3A2E5C;box-shadow:0 5px 0 rgba(40,60,120,.14);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.tr-say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.tr-nm{text-align:center;font-weight:900;font-size:clamp(20px,6vw,26px);color:#2D4FA8;margin:10px 0 8px;min-height:1.3em}
+.tr-nm.pop{animation:wnPop .45s cubic-bezier(.3,1.6,.5,1)}
+.tr-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 8px;max-width:560px;margin:0 auto}
+@media (max-width:640px) and (min-height:700px){.tr-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 12px;padding:0 6px}}
+.tr-b{position:relative;border:none;aspect-ratio:1;border-radius:50%;background:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+ box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),inset 0 0 0 4px rgba(255,255,255,.6);transition:transform .15s}
+.tr-b span{font-size:clamp(30px,9vw,46px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.tr-b:active{transform:translateY(3px)}
+.tr-b.on{transform:scale(1.08);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),0 0 0 4px #fff,0 0 0 8px var(--c)}
+@media (prefers-reduced-motion:reduce){.tr-cl{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -1783,10 +1813,20 @@ function pickPhoto(name){const inp=document.getElementById(&#x27;file&#x27;);inp
    c.getContext(&#x27;2d&#x27;).drawImage(img,(S-w)/2,(S-h)/2,w,h);photos[name]=c.toDataURL(&#x27;image/jpeg&#x27;,.8);try{localStorage.setItem(&#x27;m_photos&#x27;,JSON.stringify(photos));}catch(e){}family();};img.src=r.result;};r.readAsDataURL(fl);};inp.click();}
 /* 6. Транспорт */
 function transport(){reset();
- app.innerHTML=`&lt;div class=&quot;cards&quot;&gt;${TRANSPORT.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
- app.querySelectorAll(&#x27;.card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=TRANSPORT[+b.dataset.i];bump(b);play(a[3]);label(a[2]);speak(`${a[1]}: ${a[2]}!`,a[3]===&#x27;plane&#x27;||a[3]===&#x27;fire&#x27;||a[3]===&#x27;amb&#x27;?1800:900);});
+ const LANE={car:&#x27;road&#x27;,bus:&#x27;road&#x27;,fire:&#x27;road&#x27;,amb:&#x27;road&#x27;,bike:&#x27;road&#x27;,tractor:&#x27;road&#x27;,train:&#x27;rail&#x27;,plane:&#x27;fly&#x27;,heli:&#x27;heli&#x27;,ship:&#x27;sail&#x27;};
+ const COL={car:&#x27;#FF6B6B&#x27;,train:&#x27;#F5A623&#x27;,plane:&#x27;#4FB8F2&#x27;,bus:&#x27;#3B7BFF&#x27;,fire:&#x27;#E8505B&#x27;,amb:&#x27;#2FBF71&#x27;,heli:&#x27;#9C6BFF&#x27;,ship:&#x27;#20B4C2&#x27;,bike:&#x27;#43BD79&#x27;,tractor:&#x27;#E8742A&#x27;};
+ app.innerHTML=`&lt;div class=&quot;tr-scene&quot; aria-hidden=&quot;true&quot;&gt;&lt;i class=&quot;tr-sun&quot;&gt;&lt;/i&gt;&lt;i class=&quot;tr-cl&quot;&gt;&lt;/i&gt;&lt;i class=&quot;tr-cl b&quot;&gt;&lt;/i&gt;&lt;i class=&quot;tr-rails&quot;&gt;&lt;/i&gt;&lt;i class=&quot;tr-road&quot;&gt;&lt;/i&gt;&lt;i class=&quot;tr-water&quot;&gt;&lt;/i&gt;&lt;span class=&quot;tr-act&quot; id=&quot;tra&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tr-say&quot; id=&quot;trs&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class=&quot;tr-nm&quot; id=&quot;trn&quot;&gt;${L(&#x27;Нажми на кнопку!&#x27;,&#x27;Батырманы бас!&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;tr-row&quot;&gt;${TRANSPORT.map((a,i)=&gt;`&lt;button class=&quot;tr-b&quot; data-i=&quot;${i}&quot; style=&quot;--c:${COL[a[3]]||&#x27;#9874F5&#x27;}&quot; aria-label=&quot;${a[1]}&quot;&gt;&lt;span&gt;${a[0]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+ const act=document.getElementById(&#x27;tra&#x27;),say=document.getElementById(&#x27;trs&#x27;),nm=document.getElementById(&#x27;trn&#x27;);let st=0;
+ app.querySelectorAll(&#x27;.tr-b&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=TRANSPORT[+b.dataset.i];app.querySelectorAll(&#x27;.tr-b&#x27;).forEach(x=&gt;x.classList.toggle(&#x27;on&#x27;,x===b));
+  act.className=&#x27;tr-act&#x27;;void act.offsetWidth;act.textContent=a[0];act.classList.add(&#x27;tr-&#x27;+(LANE[a[3]]||&#x27;road&#x27;));
+  nm.textContent=a[1];nm.classList.remove(&#x27;pop&#x27;);void nm.offsetWidth;nm.classList.add(&#x27;pop&#x27;);
+  say.textContent=cap2(a[2])+&#x27;!&#x27;;say.classList.remove(&#x27;on&#x27;);void say.offsetWidth;say.classList.add(&#x27;on&#x27;);clearTimeout(st);st=setTimeout(()=&gt;say.classList.remove(&#x27;on&#x27;),2600);
+  play(a[3]);speak(`${a[1]}: ${a[2]}!`,a[3]===&#x27;plane&#x27;||a[3]===&#x27;fire&#x27;||a[3]===&#x27;amb&#x27;?1800:900);});
  speak(L(&#x27;Нажми на машинку!&#x27;,&#x27;Көлікті бас!&#x27;));
 }
+const cap2=s=&gt;s?s[0].toUpperCase()+s.slice(1):s;
 /* 7. Пузыри и цвета */
 function bubbles(){reset();
  app.innerHTML=`&lt;div class=&quot;pond&quot; id=&quot;pond&quot;&gt;&lt;/div&gt;`;const pond=document.getElementById(&#x27;pond&#x27;);
@@ -2530,6 +2570,36 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 .hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
 .hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
 @media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
+/* ===== Транспорт: сцена с дорогой, рельсами и водой ===== */
+.tr-scene{position:relative;height:clamp(240px,74vw,350px);max-width:560px;margin:4px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(#BFE8FF 0 58%,#8BD36A 58% 100%);box-shadow:0 7px 0 #5FAF45}
+.tr-sun{position:absolute;right:7%;top:8%;width:15%;aspect-ratio:1;border-radius:50%;background:#FFD23F;box-shadow:0 0 0 10px rgba(255,210,63,.3)}
+.tr-cl{position:absolute;top:14%;width:22%;height:9%;border-radius:20px;background:#fff;opacity:.9;animation:trDrift 18s linear -5s infinite}.tr-cl.b{top:27%;width:16%;animation-delay:-13s}
+@keyframes trDrift{from{left:-25%}to{left:105%}}
+.tr-rails{position:absolute;left:0;right:0;bottom:33%;height:8%;background:repeating-linear-gradient(90deg,#8A5A3B 0 8px,transparent 8px 22px)}
+.tr-rails::before,.tr-rails::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;height:22%;background:#9AA3B5;border-radius:3px}.tr-rails::before{top:12%}.tr-rails::after{bottom:12%}
+.tr-road{position:absolute;left:0;right:0;bottom:12%;height:19%;background:#666}
+.tr-road::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;top:46%;height:9%;background:repeating-linear-gradient(90deg,#fff 0 22px,transparent 22px 44px)}
+.tr-water{position:absolute;left:0;right:0;bottom:0;height:12%;background:#4FB8F2}
+.tr-act{position:absolute;left:110%;bottom:14%;font-size:clamp(60px,19vw,92px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 5px 0 rgba(0,0,0,.14))}
+.tr-act.tr-road{animation:trL 2.8s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-rail{bottom:36%;animation:trL 3.2s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-sail{bottom:-8%;animation:trL 3.6s linear forwards}
+.tr-act.tr-heli{bottom:56%;animation:trL 3s ease-in-out forwards}
+.tr-act.tr-fly{bottom:52%;left:-30%;animation:trR 2.8s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes trL{0%{left:110%}45%,55%{left:36%;transform:translateY(-4px)}100%{left:-40%}}
+@keyframes trR{0%{left:-30%;transform:translateY(30px)}50%{left:36%}100%{left:110%;transform:translateY(-60px)}}
+.tr-say{position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.3);opacity:0;background:#fff;border-radius:22px;padding:8px 18px;font-weight:900;font-size:clamp(22px,6.6vw,30px);white-space:nowrap;color:#3A2E5C;box-shadow:0 5px 0 rgba(40,60,120,.14);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.tr-say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.tr-nm{text-align:center;font-weight:900;font-size:clamp(20px,6vw,26px);color:#2D4FA8;margin:10px 0 8px;min-height:1.3em}
+.tr-nm.pop{animation:wnPop .45s cubic-bezier(.3,1.6,.5,1)}
+.tr-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 8px;max-width:560px;margin:0 auto}
+@media (max-width:640px) and (min-height:700px){.tr-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 12px;padding:0 6px}}
+.tr-b{position:relative;border:none;aspect-ratio:1;border-radius:50%;background:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+ box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),inset 0 0 0 4px rgba(255,255,255,.6);transition:transform .15s}
+.tr-b span{font-size:clamp(30px,9vw,46px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.tr-b:active{transform:translateY(3px)}
+.tr-b.on{transform:scale(1.08);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),0 0 0 4px #fff,0 0 0 8px var(--c)}
+@media (prefers-reduced-motion:reduce){.tr-cl{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -4210,6 +4280,36 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 .hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
 .hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
 @media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
+/* ===== Транспорт: сцена с дорогой, рельсами и водой ===== */
+.tr-scene{position:relative;height:clamp(240px,74vw,350px);max-width:560px;margin:4px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(#BFE8FF 0 58%,#8BD36A 58% 100%);box-shadow:0 7px 0 #5FAF45}
+.tr-sun{position:absolute;right:7%;top:8%;width:15%;aspect-ratio:1;border-radius:50%;background:#FFD23F;box-shadow:0 0 0 10px rgba(255,210,63,.3)}
+.tr-cl{position:absolute;top:14%;width:22%;height:9%;border-radius:20px;background:#fff;opacity:.9;animation:trDrift 18s linear -5s infinite}.tr-cl.b{top:27%;width:16%;animation-delay:-13s}
+@keyframes trDrift{from{left:-25%}to{left:105%}}
+.tr-rails{position:absolute;left:0;right:0;bottom:33%;height:8%;background:repeating-linear-gradient(90deg,#8A5A3B 0 8px,transparent 8px 22px)}
+.tr-rails::before,.tr-rails::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;height:22%;background:#9AA3B5;border-radius:3px}.tr-rails::before{top:12%}.tr-rails::after{bottom:12%}
+.tr-road{position:absolute;left:0;right:0;bottom:12%;height:19%;background:#666}
+.tr-road::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;top:46%;height:9%;background:repeating-linear-gradient(90deg,#fff 0 22px,transparent 22px 44px)}
+.tr-water{position:absolute;left:0;right:0;bottom:0;height:12%;background:#4FB8F2}
+.tr-act{position:absolute;left:110%;bottom:14%;font-size:clamp(60px,19vw,92px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 5px 0 rgba(0,0,0,.14))}
+.tr-act.tr-road{animation:trL 2.8s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-rail{bottom:36%;animation:trL 3.2s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-sail{bottom:-8%;animation:trL 3.6s linear forwards}
+.tr-act.tr-heli{bottom:56%;animation:trL 3s ease-in-out forwards}
+.tr-act.tr-fly{bottom:52%;left:-30%;animation:trR 2.8s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes trL{0%{left:110%}45%,55%{left:36%;transform:translateY(-4px)}100%{left:-40%}}
+@keyframes trR{0%{left:-30%;transform:translateY(30px)}50%{left:36%}100%{left:110%;transform:translateY(-60px)}}
+.tr-say{position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.3);opacity:0;background:#fff;border-radius:22px;padding:8px 18px;font-weight:900;font-size:clamp(22px,6.6vw,30px);white-space:nowrap;color:#3A2E5C;box-shadow:0 5px 0 rgba(40,60,120,.14);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.tr-say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.tr-nm{text-align:center;font-weight:900;font-size:clamp(20px,6vw,26px);color:#2D4FA8;margin:10px 0 8px;min-height:1.3em}
+.tr-nm.pop{animation:wnPop .45s cubic-bezier(.3,1.6,.5,1)}
+.tr-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 8px;max-width:560px;margin:0 auto}
+@media (max-width:640px) and (min-height:700px){.tr-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 12px;padding:0 6px}}
+.tr-b{position:relative;border:none;aspect-ratio:1;border-radius:50%;background:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+ box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),inset 0 0 0 4px rgba(255,255,255,.6);transition:transform .15s}
+.tr-b span{font-size:clamp(30px,9vw,46px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.tr-b:active{transform:translateY(3px)}
+.tr-b.on{transform:scale(1.08);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),0 0 0 4px #fff,0 0 0 8px var(--c)}
+@media (prefers-reduced-motion:reduce){.tr-cl{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -6629,6 +6729,36 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 .hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
 .hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
 @media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
+/* ===== Транспорт: сцена с дорогой, рельсами и водой ===== */
+.tr-scene{position:relative;height:clamp(240px,74vw,350px);max-width:560px;margin:4px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(#BFE8FF 0 58%,#8BD36A 58% 100%);box-shadow:0 7px 0 #5FAF45}
+.tr-sun{position:absolute;right:7%;top:8%;width:15%;aspect-ratio:1;border-radius:50%;background:#FFD23F;box-shadow:0 0 0 10px rgba(255,210,63,.3)}
+.tr-cl{position:absolute;top:14%;width:22%;height:9%;border-radius:20px;background:#fff;opacity:.9;animation:trDrift 18s linear -5s infinite}.tr-cl.b{top:27%;width:16%;animation-delay:-13s}
+@keyframes trDrift{from{left:-25%}to{left:105%}}
+.tr-rails{position:absolute;left:0;right:0;bottom:33%;height:8%;background:repeating-linear-gradient(90deg,#8A5A3B 0 8px,transparent 8px 22px)}
+.tr-rails::before,.tr-rails::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;height:22%;background:#9AA3B5;border-radius:3px}.tr-rails::before{top:12%}.tr-rails::after{bottom:12%}
+.tr-road{position:absolute;left:0;right:0;bottom:12%;height:19%;background:#666}
+.tr-road::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;top:46%;height:9%;background:repeating-linear-gradient(90deg,#fff 0 22px,transparent 22px 44px)}
+.tr-water{position:absolute;left:0;right:0;bottom:0;height:12%;background:#4FB8F2}
+.tr-act{position:absolute;left:110%;bottom:14%;font-size:clamp(60px,19vw,92px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 5px 0 rgba(0,0,0,.14))}
+.tr-act.tr-road{animation:trL 2.8s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-rail{bottom:36%;animation:trL 3.2s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-sail{bottom:-8%;animation:trL 3.6s linear forwards}
+.tr-act.tr-heli{bottom:56%;animation:trL 3s ease-in-out forwards}
+.tr-act.tr-fly{bottom:52%;left:-30%;animation:trR 2.8s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes trL{0%{left:110%}45%,55%{left:36%;transform:translateY(-4px)}100%{left:-40%}}
+@keyframes trR{0%{left:-30%;transform:translateY(30px)}50%{left:36%}100%{left:110%;transform:translateY(-60px)}}
+.tr-say{position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.3);opacity:0;background:#fff;border-radius:22px;padding:8px 18px;font-weight:900;font-size:clamp(22px,6.6vw,30px);white-space:nowrap;color:#3A2E5C;box-shadow:0 5px 0 rgba(40,60,120,.14);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.tr-say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.tr-nm{text-align:center;font-weight:900;font-size:clamp(20px,6vw,26px);color:#2D4FA8;margin:10px 0 8px;min-height:1.3em}
+.tr-nm.pop{animation:wnPop .45s cubic-bezier(.3,1.6,.5,1)}
+.tr-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 8px;max-width:560px;margin:0 auto}
+@media (max-width:640px) and (min-height:700px){.tr-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 12px;padding:0 6px}}
+.tr-b{position:relative;border:none;aspect-ratio:1;border-radius:50%;background:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+ box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),inset 0 0 0 4px rgba(255,255,255,.6);transition:transform .15s}
+.tr-b span{font-size:clamp(30px,9vw,46px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.tr-b:active{transform:translateY(3px)}
+.tr-b.on{transform:scale(1.08);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),0 0 0 4px #fff,0 0 0 8px var(--c)}
+@media (prefers-reduced-motion:reduce){.tr-cl{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -7789,6 +7919,36 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 .hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
 .hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
 @media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
+/* ===== Транспорт: сцена с дорогой, рельсами и водой ===== */
+.tr-scene{position:relative;height:clamp(240px,74vw,350px);max-width:560px;margin:4px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(#BFE8FF 0 58%,#8BD36A 58% 100%);box-shadow:0 7px 0 #5FAF45}
+.tr-sun{position:absolute;right:7%;top:8%;width:15%;aspect-ratio:1;border-radius:50%;background:#FFD23F;box-shadow:0 0 0 10px rgba(255,210,63,.3)}
+.tr-cl{position:absolute;top:14%;width:22%;height:9%;border-radius:20px;background:#fff;opacity:.9;animation:trDrift 18s linear -5s infinite}.tr-cl.b{top:27%;width:16%;animation-delay:-13s}
+@keyframes trDrift{from{left:-25%}to{left:105%}}
+.tr-rails{position:absolute;left:0;right:0;bottom:33%;height:8%;background:repeating-linear-gradient(90deg,#8A5A3B 0 8px,transparent 8px 22px)}
+.tr-rails::before,.tr-rails::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;height:22%;background:#9AA3B5;border-radius:3px}.tr-rails::before{top:12%}.tr-rails::after{bottom:12%}
+.tr-road{position:absolute;left:0;right:0;bottom:12%;height:19%;background:#666}
+.tr-road::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;top:46%;height:9%;background:repeating-linear-gradient(90deg,#fff 0 22px,transparent 22px 44px)}
+.tr-water{position:absolute;left:0;right:0;bottom:0;height:12%;background:#4FB8F2}
+.tr-act{position:absolute;left:110%;bottom:14%;font-size:clamp(60px,19vw,92px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 5px 0 rgba(0,0,0,.14))}
+.tr-act.tr-road{animation:trL 2.8s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-rail{bottom:36%;animation:trL 3.2s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-sail{bottom:-8%;animation:trL 3.6s linear forwards}
+.tr-act.tr-heli{bottom:56%;animation:trL 3s ease-in-out forwards}
+.tr-act.tr-fly{bottom:52%;left:-30%;animation:trR 2.8s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes trL{0%{left:110%}45%,55%{left:36%;transform:translateY(-4px)}100%{left:-40%}}
+@keyframes trR{0%{left:-30%;transform:translateY(30px)}50%{left:36%}100%{left:110%;transform:translateY(-60px)}}
+.tr-say{position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.3);opacity:0;background:#fff;border-radius:22px;padding:8px 18px;font-weight:900;font-size:clamp(22px,6.6vw,30px);white-space:nowrap;color:#3A2E5C;box-shadow:0 5px 0 rgba(40,60,120,.14);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.tr-say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.tr-nm{text-align:center;font-weight:900;font-size:clamp(20px,6vw,26px);color:#2D4FA8;margin:10px 0 8px;min-height:1.3em}
+.tr-nm.pop{animation:wnPop .45s cubic-bezier(.3,1.6,.5,1)}
+.tr-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 8px;max-width:560px;margin:0 auto}
+@media (max-width:640px) and (min-height:700px){.tr-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 12px;padding:0 6px}}
+.tr-b{position:relative;border:none;aspect-ratio:1;border-radius:50%;background:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+ box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),inset 0 0 0 4px rgba(255,255,255,.6);transition:transform .15s}
+.tr-b span{font-size:clamp(30px,9vw,46px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.tr-b:active{transform:translateY(3px)}
+.tr-b.on{transform:scale(1.08);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),0 0 0 4px #fff,0 0 0 8px var(--c)}
+@media (prefers-reduced-motion:reduce){.tr-cl{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -8858,6 +9018,36 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 .hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
 .hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
 @media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
+/* ===== Транспорт: сцена с дорогой, рельсами и водой ===== */
+.tr-scene{position:relative;height:clamp(240px,74vw,350px);max-width:560px;margin:4px auto 0;border-radius:30px;overflow:hidden;background:linear-gradient(#BFE8FF 0 58%,#8BD36A 58% 100%);box-shadow:0 7px 0 #5FAF45}
+.tr-sun{position:absolute;right:7%;top:8%;width:15%;aspect-ratio:1;border-radius:50%;background:#FFD23F;box-shadow:0 0 0 10px rgba(255,210,63,.3)}
+.tr-cl{position:absolute;top:14%;width:22%;height:9%;border-radius:20px;background:#fff;opacity:.9;animation:trDrift 18s linear -5s infinite}.tr-cl.b{top:27%;width:16%;animation-delay:-13s}
+@keyframes trDrift{from{left:-25%}to{left:105%}}
+.tr-rails{position:absolute;left:0;right:0;bottom:33%;height:8%;background:repeating-linear-gradient(90deg,#8A5A3B 0 8px,transparent 8px 22px)}
+.tr-rails::before,.tr-rails::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;height:22%;background:#9AA3B5;border-radius:3px}.tr-rails::before{top:12%}.tr-rails::after{bottom:12%}
+.tr-road{position:absolute;left:0;right:0;bottom:12%;height:19%;background:#666}
+.tr-road::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;top:46%;height:9%;background:repeating-linear-gradient(90deg,#fff 0 22px,transparent 22px 44px)}
+.tr-water{position:absolute;left:0;right:0;bottom:0;height:12%;background:#4FB8F2}
+.tr-act{position:absolute;left:110%;bottom:14%;font-size:clamp(60px,19vw,92px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 5px 0 rgba(0,0,0,.14))}
+.tr-act.tr-road{animation:trL 2.8s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-rail{bottom:36%;animation:trL 3.2s cubic-bezier(.4,0,.6,1) forwards}
+.tr-act.tr-sail{bottom:-8%;animation:trL 3.6s linear forwards}
+.tr-act.tr-heli{bottom:56%;animation:trL 3s ease-in-out forwards}
+.tr-act.tr-fly{bottom:52%;left:-30%;animation:trR 2.8s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes trL{0%{left:110%}45%,55%{left:36%;transform:translateY(-4px)}100%{left:-40%}}
+@keyframes trR{0%{left:-30%;transform:translateY(30px)}50%{left:36%}100%{left:110%;transform:translateY(-60px)}}
+.tr-say{position:absolute;left:50%;top:8%;transform:translateX(-50%) scale(.3);opacity:0;background:#fff;border-radius:22px;padding:8px 18px;font-weight:900;font-size:clamp(22px,6.6vw,30px);white-space:nowrap;color:#3A2E5C;box-shadow:0 5px 0 rgba(40,60,120,.14);transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.tr-say.on{opacity:1;transform:translateX(-50%) scale(1)}
+.tr-nm{text-align:center;font-weight:900;font-size:clamp(20px,6vw,26px);color:#2D4FA8;margin:10px 0 8px;min-height:1.3em}
+.tr-nm.pop{animation:wnPop .45s cubic-bezier(.3,1.6,.5,1)}
+.tr-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 8px;max-width:560px;margin:0 auto}
+@media (max-width:640px) and (min-height:700px){.tr-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 12px;padding:0 6px}}
+.tr-b{position:relative;border:none;aspect-ratio:1;border-radius:50%;background:var(--c);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;
+ box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),inset 0 0 0 4px rgba(255,255,255,.6);transition:transform .15s}
+.tr-b span{font-size:clamp(30px,9vw,46px);line-height:1;filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)}
+.tr-b:active{transform:translateY(3px)}
+.tr-b.on{transform:scale(1.08);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 72%,#000),0 0 0 4px #fff,0 0 0 8px var(--c)}
+@media (prefers-reduced-motion:reduce){.tr-cl{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
