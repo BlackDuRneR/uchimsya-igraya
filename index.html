@@ -636,6 +636,12 @@ html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:cla
 html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
 html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
 html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
+/* ряды кружочков/предметов — в одну строку, целиком на экране */
+html.emb .pics2,html.emb .dots{letter-spacing:2px!important;max-width:100%;margin-left:auto;margin-right:auto;overflow:visible}
+/* «Пропущенное число»: двузначные числа помещаются в плитки на узких экранах */
+@media (max-width:380px){html.emb .wseq{gap:5px!important}html.emb .wseq span{font-size:clamp(26px,8.6vw,72px)!important;padding:4px 1px!important;letter-spacing:-1px}}
+html.emb .wseq{width:min(100%,560px)!important;margin-left:auto!important;margin-right:auto!important;display:flex!important;flex-wrap:nowrap!important}
+html.emb .wseq span{flex:1 1 0!important;min-width:0!important;text-align:center;white-space:nowrap}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -1048,16 +1054,17 @@ showCats();
 const EMB=window.parent&amp;&amp;window.parent!==window;
 const appEl=document.getElementById(&#x27;app&#x27;);if(!appEl)return;
 /* 1) подписи — всегда в одну строку: уменьшаем шрифт, пока не поместится */
-const FIT_SEL=&#x27;.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
+const FIT_SEL=&#x27;.pics2,.dots,.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
 function fitText(el){if(!el||!el.isConnected||el.offsetParent===null&amp;&amp;getComputedStyle(el).position!==&#x27;fixed&#x27;)return;
  if(el.dataset.fs0===undefined)el.dataset.fs0=parseFloat(getComputedStyle(el).fontSize)||20;
  const multi=el.matches(&#x27;.ask,.wq #wqt,.nh&#x27;);if(!multi)el.style.whiteSpace=&#x27;nowrap&#x27;;el.style.transitionProperty=&#x27;opacity,transform&#x27;;
- let fs=+el.dataset.fs0;el.style.fontSize=fs+&#x27;px&#x27;;const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
+ let fs=+el.dataset.fs0;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
  const textOver=()=&gt;{if(multi)return false;try{const cs=getComputedStyle(el),r=document.createRange();r.selectNodeContents(el);const k=(el.getBoundingClientRect().width/el.offsetWidth)||1;
    return r.getBoundingClientRect().width/k&gt;el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;}catch(e){return false;}};
- const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(!multi&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW));
+ const isLbl=el.matches(&#x27;.label,#lbl&#x27;);const inl=!isLbl&amp;&amp;getComputedStyle(el).display.startsWith(&#x27;inline&#x27;);const pw=()=&gt;{const pe=el.parentElement;if(!pe)return 1e9;const cs=getComputedStyle(pe);return pe.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-2;};
+ const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(isLbl&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW))||(inl&amp;&amp;!multi&amp;&amp;el.offsetWidth&gt;pw())||(!multi&amp;&amp;(()=&gt;{const r=el.getBoundingClientRect();return r.width&gt;0&amp;&amp;(r.right&gt;innerWidth-4||r.left&lt;4);})());
  if(!multi&amp;&amp;el.matches(&#x27;.label,#lbl&#x27;))el.style.maxWidth=(innerWidth-16)+&#x27;px&#x27;;
- let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.fontSize=fs+&#x27;px&#x27;;k++;}}
+ let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);k++;}}
 function fitAllText(){document.querySelectorAll(FIT_SEL).forEach(fitText);}
 /* 2) игровое задание целиком на экране: если чуть выше — аккуратно уменьшаем */
 const MIN=innerHeight&lt;640?0.64:0.7;let lastNat=0,busy=false;
@@ -1448,6 +1455,12 @@ html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:cla
 html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
 html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
 html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
+/* ряды кружочков/предметов — в одну строку, целиком на экране */
+html.emb .pics2,html.emb .dots{letter-spacing:2px!important;max-width:100%;margin-left:auto;margin-right:auto;overflow:visible}
+/* «Пропущенное число»: двузначные числа помещаются в плитки на узких экранах */
+@media (max-width:380px){html.emb .wseq{gap:5px!important}html.emb .wseq span{font-size:clamp(26px,8.6vw,72px)!important;padding:4px 1px!important;letter-spacing:-1px}}
+html.emb .wseq{width:min(100%,560px)!important;margin-left:auto!important;margin-right:auto!important;display:flex!important;flex-wrap:nowrap!important}
+html.emb .wseq span{flex:1 1 0!important;min-width:0!important;text-align:center;white-space:nowrap}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -1902,16 +1915,17 @@ showCats();
 const EMB=window.parent&amp;&amp;window.parent!==window;
 const appEl=document.getElementById(&#x27;app&#x27;);if(!appEl)return;
 /* 1) подписи — всегда в одну строку: уменьшаем шрифт, пока не поместится */
-const FIT_SEL=&#x27;.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
+const FIT_SEL=&#x27;.pics2,.dots,.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
 function fitText(el){if(!el||!el.isConnected||el.offsetParent===null&amp;&amp;getComputedStyle(el).position!==&#x27;fixed&#x27;)return;
  if(el.dataset.fs0===undefined)el.dataset.fs0=parseFloat(getComputedStyle(el).fontSize)||20;
  const multi=el.matches(&#x27;.ask,.wq #wqt,.nh&#x27;);if(!multi)el.style.whiteSpace=&#x27;nowrap&#x27;;el.style.transitionProperty=&#x27;opacity,transform&#x27;;
- let fs=+el.dataset.fs0;el.style.fontSize=fs+&#x27;px&#x27;;const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
+ let fs=+el.dataset.fs0;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
  const textOver=()=&gt;{if(multi)return false;try{const cs=getComputedStyle(el),r=document.createRange();r.selectNodeContents(el);const k=(el.getBoundingClientRect().width/el.offsetWidth)||1;
    return r.getBoundingClientRect().width/k&gt;el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;}catch(e){return false;}};
- const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(!multi&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW));
+ const isLbl=el.matches(&#x27;.label,#lbl&#x27;);const inl=!isLbl&amp;&amp;getComputedStyle(el).display.startsWith(&#x27;inline&#x27;);const pw=()=&gt;{const pe=el.parentElement;if(!pe)return 1e9;const cs=getComputedStyle(pe);return pe.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-2;};
+ const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(isLbl&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW))||(inl&amp;&amp;!multi&amp;&amp;el.offsetWidth&gt;pw())||(!multi&amp;&amp;(()=&gt;{const r=el.getBoundingClientRect();return r.width&gt;0&amp;&amp;(r.right&gt;innerWidth-4||r.left&lt;4);})());
  if(!multi&amp;&amp;el.matches(&#x27;.label,#lbl&#x27;))el.style.maxWidth=(innerWidth-16)+&#x27;px&#x27;;
- let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.fontSize=fs+&#x27;px&#x27;;k++;}}
+ let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);k++;}}
 function fitAllText(){document.querySelectorAll(FIT_SEL).forEach(fitText);}
 /* 2) игровое задание целиком на экране: если чуть выше — аккуратно уменьшаем */
 const MIN=innerHeight&lt;640?0.64:0.7;let lastNat=0,busy=false;
@@ -2460,6 +2474,12 @@ html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:cla
 html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
 html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
 html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
+/* ряды кружочков/предметов — в одну строку, целиком на экране */
+html.emb .pics2,html.emb .dots{letter-spacing:2px!important;max-width:100%;margin-left:auto;margin-right:auto;overflow:visible}
+/* «Пропущенное число»: двузначные числа помещаются в плитки на узких экранах */
+@media (max-width:380px){html.emb .wseq{gap:5px!important}html.emb .wseq span{font-size:clamp(26px,8.6vw,72px)!important;padding:4px 1px!important;letter-spacing:-1px}}
+html.emb .wseq{width:min(100%,560px)!important;margin-left:auto!important;margin-right:auto!important;display:flex!important;flex-wrap:nowrap!important}
+html.emb .wseq span{flex:1 1 0!important;min-width:0!important;text-align:center;white-space:nowrap}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -3771,16 +3791,17 @@ showCats();
 const EMB=window.parent&amp;&amp;window.parent!==window;
 const appEl=document.getElementById(&#x27;app&#x27;);if(!appEl)return;
 /* 1) подписи — всегда в одну строку: уменьшаем шрифт, пока не поместится */
-const FIT_SEL=&#x27;.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
+const FIT_SEL=&#x27;.pics2,.dots,.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
 function fitText(el){if(!el||!el.isConnected||el.offsetParent===null&amp;&amp;getComputedStyle(el).position!==&#x27;fixed&#x27;)return;
  if(el.dataset.fs0===undefined)el.dataset.fs0=parseFloat(getComputedStyle(el).fontSize)||20;
  const multi=el.matches(&#x27;.ask,.wq #wqt,.nh&#x27;);if(!multi)el.style.whiteSpace=&#x27;nowrap&#x27;;el.style.transitionProperty=&#x27;opacity,transform&#x27;;
- let fs=+el.dataset.fs0;el.style.fontSize=fs+&#x27;px&#x27;;const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
+ let fs=+el.dataset.fs0;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
  const textOver=()=&gt;{if(multi)return false;try{const cs=getComputedStyle(el),r=document.createRange();r.selectNodeContents(el);const k=(el.getBoundingClientRect().width/el.offsetWidth)||1;
    return r.getBoundingClientRect().width/k&gt;el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;}catch(e){return false;}};
- const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(!multi&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW));
+ const isLbl=el.matches(&#x27;.label,#lbl&#x27;);const inl=!isLbl&amp;&amp;getComputedStyle(el).display.startsWith(&#x27;inline&#x27;);const pw=()=&gt;{const pe=el.parentElement;if(!pe)return 1e9;const cs=getComputedStyle(pe);return pe.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-2;};
+ const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(isLbl&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW))||(inl&amp;&amp;!multi&amp;&amp;el.offsetWidth&gt;pw())||(!multi&amp;&amp;(()=&gt;{const r=el.getBoundingClientRect();return r.width&gt;0&amp;&amp;(r.right&gt;innerWidth-4||r.left&lt;4);})());
  if(!multi&amp;&amp;el.matches(&#x27;.label,#lbl&#x27;))el.style.maxWidth=(innerWidth-16)+&#x27;px&#x27;;
- let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.fontSize=fs+&#x27;px&#x27;;k++;}}
+ let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);k++;}}
 function fitAllText(){document.querySelectorAll(FIT_SEL).forEach(fitText);}
 /* 2) игровое задание целиком на экране: если чуть выше — аккуратно уменьшаем */
 const MIN=innerHeight&lt;640?0.64:0.7;let lastNat=0,busy=false;
@@ -4157,6 +4178,12 @@ html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:cla
 html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
 html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
 html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
+/* ряды кружочков/предметов — в одну строку, целиком на экране */
+html.emb .pics2,html.emb .dots{letter-spacing:2px!important;max-width:100%;margin-left:auto;margin-right:auto;overflow:visible}
+/* «Пропущенное число»: двузначные числа помещаются в плитки на узких экранах */
+@media (max-width:380px){html.emb .wseq{gap:5px!important}html.emb .wseq span{font-size:clamp(26px,8.6vw,72px)!important;padding:4px 1px!important;letter-spacing:-1px}}
+html.emb .wseq{width:min(100%,560px)!important;margin-left:auto!important;margin-right:auto!important;display:flex!important;flex-wrap:nowrap!important}
+html.emb .wseq span{flex:1 1 0!important;min-width:0!important;text-align:center;white-space:nowrap}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -4400,16 +4427,17 @@ showCats();
 const EMB=window.parent&amp;&amp;window.parent!==window;
 const appEl=document.getElementById(&#x27;app&#x27;);if(!appEl)return;
 /* 1) подписи — всегда в одну строку: уменьшаем шрифт, пока не поместится */
-const FIT_SEL=&#x27;.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
+const FIT_SEL=&#x27;.pics2,.dots,.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
 function fitText(el){if(!el||!el.isConnected||el.offsetParent===null&amp;&amp;getComputedStyle(el).position!==&#x27;fixed&#x27;)return;
  if(el.dataset.fs0===undefined)el.dataset.fs0=parseFloat(getComputedStyle(el).fontSize)||20;
  const multi=el.matches(&#x27;.ask,.wq #wqt,.nh&#x27;);if(!multi)el.style.whiteSpace=&#x27;nowrap&#x27;;el.style.transitionProperty=&#x27;opacity,transform&#x27;;
- let fs=+el.dataset.fs0;el.style.fontSize=fs+&#x27;px&#x27;;const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
+ let fs=+el.dataset.fs0;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
  const textOver=()=&gt;{if(multi)return false;try{const cs=getComputedStyle(el),r=document.createRange();r.selectNodeContents(el);const k=(el.getBoundingClientRect().width/el.offsetWidth)||1;
    return r.getBoundingClientRect().width/k&gt;el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;}catch(e){return false;}};
- const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(!multi&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW));
+ const isLbl=el.matches(&#x27;.label,#lbl&#x27;);const inl=!isLbl&amp;&amp;getComputedStyle(el).display.startsWith(&#x27;inline&#x27;);const pw=()=&gt;{const pe=el.parentElement;if(!pe)return 1e9;const cs=getComputedStyle(pe);return pe.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-2;};
+ const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(isLbl&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW))||(inl&amp;&amp;!multi&amp;&amp;el.offsetWidth&gt;pw())||(!multi&amp;&amp;(()=&gt;{const r=el.getBoundingClientRect();return r.width&gt;0&amp;&amp;(r.right&gt;innerWidth-4||r.left&lt;4);})());
  if(!multi&amp;&amp;el.matches(&#x27;.label,#lbl&#x27;))el.style.maxWidth=(innerWidth-16)+&#x27;px&#x27;;
- let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.fontSize=fs+&#x27;px&#x27;;k++;}}
+ let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);k++;}}
 function fitAllText(){document.querySelectorAll(FIT_SEL).forEach(fitText);}
 /* 2) игровое задание целиком на экране: если чуть выше — аккуратно уменьшаем */
 const MIN=innerHeight&lt;640?0.64:0.7;let lastNat=0,busy=false;
@@ -4838,6 +4866,12 @@ html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:cla
 html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
 html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
 html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
+/* ряды кружочков/предметов — в одну строку, целиком на экране */
+html.emb .pics2,html.emb .dots{letter-spacing:2px!important;max-width:100%;margin-left:auto;margin-right:auto;overflow:visible}
+/* «Пропущенное число»: двузначные числа помещаются в плитки на узких экранах */
+@media (max-width:380px){html.emb .wseq{gap:5px!important}html.emb .wseq span{font-size:clamp(26px,8.6vw,72px)!important;padding:4px 1px!important;letter-spacing:-1px}}
+html.emb .wseq{width:min(100%,560px)!important;margin-left:auto!important;margin-right:auto!important;display:flex!important;flex-wrap:nowrap!important}
+html.emb .wseq span{flex:1 1 0!important;min-width:0!important;text-align:center;white-space:nowrap}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -5090,16 +5124,17 @@ showCats();
 const EMB=window.parent&amp;&amp;window.parent!==window;
 const appEl=document.getElementById(&#x27;app&#x27;);if(!appEl)return;
 /* 1) подписи — всегда в одну строку: уменьшаем шрифт, пока не поместится */
-const FIT_SEL=&#x27;.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
+const FIT_SEL=&#x27;.pics2,.dots,.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
 function fitText(el){if(!el||!el.isConnected||el.offsetParent===null&amp;&amp;getComputedStyle(el).position!==&#x27;fixed&#x27;)return;
  if(el.dataset.fs0===undefined)el.dataset.fs0=parseFloat(getComputedStyle(el).fontSize)||20;
  const multi=el.matches(&#x27;.ask,.wq #wqt,.nh&#x27;);if(!multi)el.style.whiteSpace=&#x27;nowrap&#x27;;el.style.transitionProperty=&#x27;opacity,transform&#x27;;
- let fs=+el.dataset.fs0;el.style.fontSize=fs+&#x27;px&#x27;;const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
+ let fs=+el.dataset.fs0;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
  const textOver=()=&gt;{if(multi)return false;try{const cs=getComputedStyle(el),r=document.createRange();r.selectNodeContents(el);const k=(el.getBoundingClientRect().width/el.offsetWidth)||1;
    return r.getBoundingClientRect().width/k&gt;el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;}catch(e){return false;}};
- const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(!multi&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW));
+ const isLbl=el.matches(&#x27;.label,#lbl&#x27;);const inl=!isLbl&amp;&amp;getComputedStyle(el).display.startsWith(&#x27;inline&#x27;);const pw=()=&gt;{const pe=el.parentElement;if(!pe)return 1e9;const cs=getComputedStyle(pe);return pe.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-2;};
+ const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(isLbl&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW))||(inl&amp;&amp;!multi&amp;&amp;el.offsetWidth&gt;pw())||(!multi&amp;&amp;(()=&gt;{const r=el.getBoundingClientRect();return r.width&gt;0&amp;&amp;(r.right&gt;innerWidth-4||r.left&lt;4);})());
  if(!multi&amp;&amp;el.matches(&#x27;.label,#lbl&#x27;))el.style.maxWidth=(innerWidth-16)+&#x27;px&#x27;;
- let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.fontSize=fs+&#x27;px&#x27;;k++;}}
+ let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);k++;}}
 function fitAllText(){document.querySelectorAll(FIT_SEL).forEach(fitText);}
 /* 2) игровое задание целиком на экране: если чуть выше — аккуратно уменьшаем */
 const MIN=innerHeight&lt;640?0.64:0.7;let lastNat=0,busy=false;
@@ -5428,6 +5463,12 @@ html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:cla
 html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
 html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
 html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
+/* ряды кружочков/предметов — в одну строку, целиком на экране */
+html.emb .pics2,html.emb .dots{letter-spacing:2px!important;max-width:100%;margin-left:auto;margin-right:auto;overflow:visible}
+/* «Пропущенное число»: двузначные числа помещаются в плитки на узких экранах */
+@media (max-width:380px){html.emb .wseq{gap:5px!important}html.emb .wseq span{font-size:clamp(26px,8.6vw,72px)!important;padding:4px 1px!important;letter-spacing:-1px}}
+html.emb .wseq{width:min(100%,560px)!important;margin-left:auto!important;margin-right:auto!important;display:flex!important;flex-wrap:nowrap!important}
+html.emb .wseq span{flex:1 1 0!important;min-width:0!important;text-align:center;white-space:nowrap}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -5690,16 +5731,17 @@ showCats();
 const EMB=window.parent&amp;&amp;window.parent!==window;
 const appEl=document.getElementById(&#x27;app&#x27;);if(!appEl)return;
 /* 1) подписи — всегда в одну строку: уменьшаем шрифт, пока не поместится */
-const FIT_SEL=&#x27;.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
+const FIT_SEL=&#x27;.pics2,.dots,.label,#lbl,.wword,.enw,.readword,.kshow .kt,.wl.big,.ask,.wq #wqt,.nh&#x27;;
 function fitText(el){if(!el||!el.isConnected||el.offsetParent===null&amp;&amp;getComputedStyle(el).position!==&#x27;fixed&#x27;)return;
  if(el.dataset.fs0===undefined)el.dataset.fs0=parseFloat(getComputedStyle(el).fontSize)||20;
  const multi=el.matches(&#x27;.ask,.wq #wqt,.nh&#x27;);if(!multi)el.style.whiteSpace=&#x27;nowrap&#x27;;el.style.transitionProperty=&#x27;opacity,transform&#x27;;
- let fs=+el.dataset.fs0;el.style.fontSize=fs+&#x27;px&#x27;;const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
+ let fs=+el.dataset.fs0;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);const maxW=Math.min(innerWidth-16,(el.parentElement&amp;&amp;!el.matches(&#x27;.label,#lbl&#x27;)?el.parentElement.clientWidth:innerWidth)-4);
  const textOver=()=&gt;{if(multi)return false;try{const cs=getComputedStyle(el),r=document.createRange();r.selectNodeContents(el);const k=(el.getBoundingClientRect().width/el.offsetWidth)||1;
    return r.getBoundingClientRect().width/k&gt;el.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;}catch(e){return false;}};
- const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(!multi&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW));
+ const isLbl=el.matches(&#x27;.label,#lbl&#x27;);const inl=!isLbl&amp;&amp;getComputedStyle(el).display.startsWith(&#x27;inline&#x27;);const pw=()=&gt;{const pe=el.parentElement;if(!pe)return 1e9;const cs=getComputedStyle(pe);return pe.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-2;};
+ const too=()=&gt;el.scrollWidth&gt;el.clientWidth+1||textOver()||(isLbl&amp;&amp;(el.scrollWidth&gt;maxW||el.offsetWidth&gt;maxW))||(inl&amp;&amp;!multi&amp;&amp;el.offsetWidth&gt;pw())||(!multi&amp;&amp;(()=&gt;{const r=el.getBoundingClientRect();return r.width&gt;0&amp;&amp;(r.right&gt;innerWidth-4||r.left&lt;4);})());
  if(!multi&amp;&amp;el.matches(&#x27;.label,#lbl&#x27;))el.style.maxWidth=(innerWidth-16)+&#x27;px&#x27;;
- let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.fontSize=fs+&#x27;px&#x27;;k++;}}
+ let k=0;while(too()&amp;&amp;fs&gt;12&amp;&amp;k&lt;40){fs*=0.93;el.style.setProperty(&#x27;font-size&#x27;,fs+&#x27;px&#x27;,&#x27;important&#x27;);k++;}}
 function fitAllText(){document.querySelectorAll(FIT_SEL).forEach(fitText);}
 /* 2) игровое задание целиком на экране: если чуть выше — аккуратно уменьшаем */
 const MIN=innerHeight&lt;640?0.64:0.7;let lastNat=0,busy=false;
