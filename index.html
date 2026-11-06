@@ -456,6 +456,15 @@ body.mpon{overflow:hidden}
 .mp-guide.u .mp-say{margin-bottom:6px}
 @media (max-width:359px){.mp-games{grid-template-columns:1fr}}
 .mp-world-wrap{background-size:100% 100%}
+/* миры для малышей: крупнее точки */
+.mp-map.big .mp-ball{width:clamp(92px,26vw,118px);height:clamp(92px,26vw,118px)}
+.mp-map.big .mp-ico{font-size:clamp(46px,13vw,58px)}
+.mp-map.big .mp-lbl{font-size:14px}
+.mp-node.empty .mp-ball{background:radial-gradient(circle at 35% 28%,#fff 0%,#E8F6F8 55%,#BFE3EA 100%);box-shadow:0 6px 0 #9CCBD4,0 10px 18px rgba(40,90,120,.18)}
+.mp-node.empty .mp-ico{opacity:.55}
+.mp-soon{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);background:#20B4C2;color:#fff;font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.mp-slock.soon{background:#E6F7F9;color:#167F8A}.mp-slock.soon small{color:#4F8F96;font-size:13px}
+.mp-wme{font-style:normal;display:inline-block;width:fit-content;background:#FFE27A;color:#7A4A10;font-size:11px;padding:2px 8px;border-radius:99px;margin-bottom:4px}
 
 </style></head>
 <body>
@@ -6282,7 +6291,7 @@ const ACH=[
  {id:'map1',ic:'🗺️',c:'#3BAE9A',r:['Первая территория','Алғашқы аумақ'],d:['Пройди первую локацию на карте приключений','Шытырман оқиғалар картасындағы алғашқы орынды өт'],p:()=>[mapDone(),1]},
  {id:'map4',ic:'🏕️',c:'#43BD79',r:['Отважный путешественник','Батыл саяхатшы'],d:['Пройди 4 локации на карте','Картадағы 4 орынды өт'],p:()=>[mapDone(),4]},
  {id:'chest',ic:'🎁',c:'#F6A321',r:['Кладоискатель','Қазына іздеуші'],d:['Открой сундук с сокровищами на карте','Картадағы қазына сандығын аш'],p:()=>[mapChests(),1]},
- {id:'mapfin',ic:'🏰',c:'#9874F5',r:['Выпускник академии','Академия түлегі'],d:['Пройди Финальный замок','Соңғы сарайды өт'],p:()=>[mapFin(),1]},
+ {id:'mapfin',ic:'🏰',c:'#9874F5',r:['Покоритель карты','Карта бағындырушысы'],d:['Пройди целый мир на карте до конца','Картадағы бір әлемді толық өт'],p:()=>[mapFin(),1]},
  {id:'time60',ic:'⏱️',c:'#7A8CF2',r:['Усидчивый','Шыдамды'],d:['Позанимайся в сумме 1 час','Барлығы 1 сағат оқы'],p:()=>[Math.floor(st.t/60),60]}];
 const mapW=()=>Object.values(st.map||{});const mapDone=()=>mapW().reduce((a,w)=>a+Object.keys(w.done||{}).length,0);const mapChests=()=>mapW().reduce((a,w)=>a+Object.keys(w.chests||{}).length,0);const mapFin=()=>mapW().filter(w=>w.fin).length;
 let celQ=[];
@@ -6438,7 +6447,7 @@ const GN={"a56:abc": {"e": "🔤", "ru": "Азбука", "kz": "Азбука"}, 
 const gname=k=>{const g=GN[k];return g?(kzOn()?g.kz||g.ru:g.ru):k.split(':')[1];};
 const gemo=k=>(GN[k]||{}).e||'🎮';
 const WORLDS={
- a56:{sec:'a56',guide:'owl',name:['Академия юных исследователей','Жас зерттеушілер академиясы'],H:1960,
+ a56:{sec:'a56',guide:'owl',art:'art56',riverY:1168,short:['Академия','Академия'],fin:['Ты прошёл всю Академию юных исследователей! Ты настоящий учёный!','Сен Жас зерттеушілер академиясын толық өттің! Сен нағыз ғалымсың!'],name:['Академия юных исследователей','Жас зерттеушілер академиясы'],H:1960,
   bg:'linear-gradient(180deg,#BFE3FF 0%,#DCEFFF 22%,#EAF6FF 40%,#E6F5DF 62%,#D2EFBF 100%)',
   locs:[
    {id:'math',e:'🏰',c:'#EF6F8E',t:'#FFE0EA',x:118,y:1745,need:5,n:['Математический замок','Математика сарайы'],d:['Сложение, вычитание, сравнение чисел, задачи и часы','Қосу, азайту, сандарды салыстыру, есептер мен сағат'],
@@ -6456,24 +6465,49 @@ const WORLDS={
    {id:'final',e:'👑',c:'#F6A321',t:'#FFF3C4',x:200,y:250,need:6,fin:1,n:['Финальный замок','Соңғы сарай'],d:['Самые интересные задания из всех земель — закрепляем знания!','Барлық жерлердің ең қызықты тапсырмалары — білімді бекітеміз!'],
     g:['tasks','sudoku','rebus','ynAnimals','squiz','ynRoad']}],
   chests:[{after:1,x:205,y:1395},{after:3,x:200,y:915},{after:5,x:205,y:425}],
-  prizes:[['🦄',['Волшебный единорог','Сиқырлы бірмүйіз']],['🐉',['Дружелюбный дракончик','Мейірімді айдаһар']],['🔭',['Подзорная труба','Дүрбі']]]}};
-const W=()=>WORLDS.a56;
+  prizes:[['🦄',['Волшебный единорог','Сиқырлы бірмүйіз']],['🐉',['Дружелюбный дракончик','Мейірімді айдаһар']],['🔭',['Подзорная труба','Дүрбі']]]},
+ a24:{sec:'a24',guide:'fox',art:'art24',riverY:1150,short:['Лес','Орман'],fin:['Ты прошёл весь Лес маленьких открытий! Ты молодец!','Сен Кішкентай ашылулар орманын толық өттің! Жарайсың!'],name:['Лес маленьких открытий','Кішкентай ашылулар орманы'],H:1960,
+  bg:'linear-gradient(180deg,#CDEBFF 0%,#E3F4E6 25%,#D8F0C8 60%,#C6E9AE 100%)',
+  locs:[
+   {id:'count',e:'🔢',c:'#F6A321',t:'#FFF0D2',x:118,y:1745,need:2,n:['Лес счёта','Санау орманы'],d:['Считаем шишки, грибы и зверят','Бүршіктерді, саңырауқұлақтарды, аңдарды санаймыз'],g:['count','dice','more','lack']},
+   {id:'shapes',e:'🔺',c:'#EF6F8E',t:'#FFE3EC',x:284,y:1515,need:3,n:['Деревня фигур','Пішіндер ауылы'],d:['Цвета и фигуры: круг, квадрат, треугольник','Түстер мен пішіндер: шеңбер, шаршы, үшбұрыш'],g:['color','sort','shape','sorter','circles']},
+   {id:'river',e:'🌉',c:'#20B4C2',t:'#D7F1F6',x:150,y:1255,need:3,n:['Речная переправа','Өзен өткелі'],d:['Логика: большой и маленький, что лишнее, что потом','Логика: үлкен-кіші, артығы қайсы, кейін не болады'],g:['size','nest','odd','opp','next','err','puzzle']},
+   {id:'zoo',e:'🐻',c:'#43BD79',t:'#DDF5D3',x:288,y:1030,need:3,n:['Город животных','Жануарлар қаласы'],d:['Зверята, погода и мир вокруг','Аңдар, ауа райы және айналадағы әлем'],g:['feed','sound','does','weather','cause','mix']},
+   {id:'words',e:'💬',c:'#9874F5',t:'#ECE6FF',x:112,y:790,need:3,n:['Долина слов','Сөздер аңғары'],d:['Загадки, рифмы и первые буквы','Жұмбақтар, ұйқастар және алғашқы әріптер'],g:['riddle','finish','rhyme','letters','findl']},
+   {id:'cave',e:'🔦',c:'#7A8CF2',t:'#E4E8FF',x:288,y:560,need:2,n:['Пещера памяти','Есте сақтау үңгірі'],d:['Запоминаем, ищем пары и тени','Есте сақтаймыз, жұптар мен көлеңкелерді іздейміз'],g:['mem','shadow','cups','rhythm']},
+   {id:'emo',e:'😊',c:'#FF8A65',t:'#FFE6DC',x:200,y:250,need:2,n:['Гора эмоций','Эмоциялар тауы'],d:['Узнаём, что чувствуют друзья','Достар не сезінетінін білеміз'],g:['emo','emo2']}],
+  chests:[{after:1,x:205,y:1395},{after:3,x:200,y:915},{after:5,x:205,y:425}],
+  prizes:[['🐿️',['Весёлая белочка','Көңілді тиін']],['🍄',['Волшебный грибок','Сиқырлы саңырауқұлақ']],['🌈',['Радужный мостик','Кемпірқосақ көпірі']]]},
+ a02:{sec:'a02',guide:'fox',art:'art02',big:1,riverY:0,short:['Полянка','Алаңқай'],fin:['Ты обошёл всю Волшебную полянку! Ура!','Сен Сиқырлы алаңқайды толық араладың! Ура!'],name:['Волшебная полянка','Сиқырлы алаңқай'],H:1700,
+  bg:'linear-gradient(180deg,#FFE9F2 0%,#FFF4DA 30%,#E9F8DC 65%,#D6F2C2 100%)',
+  locs:[
+   {id:'zoo0',e:'🐣',c:'#F6A321',t:'#FFF0D2',x:120,y:1500,need:2,n:['Домик зверят','Аңдар үйшігі'],d:['Знакомимся со зверятами и их малышами','Аңдармен және олардың балаларымен танысамыз'],g:['moms','who','peek','food']},
+   {id:'sounds',e:'🔊',c:'#5187F5',t:'#E3ECFF',x:280,y:1270,need:2,n:['Полянка звуков','Дыбыстар алаңқайы'],d:['Кто как говорит, звуки машин и вокруг','Кім қалай сөйлейді, көліктер мен айналаның дыбыстары'],g:['animals','transport','show']},
+   {id:'flowers',e:'🌷',c:'#EF6F8E',t:'#FFE3EC',x:120,y:1040,need:2,n:['Цветочная долина','Гүлді аңғар'],d:['Цвета, пузыри и рисование','Түстер, көпіршіктер және сурет салу'],g:['bub','paint','day']},
+   {id:'shapes0',e:'🔵',c:'#20B4C2',t:'#D7F1F6',x:280,y:820,need:0,n:['Мир фигур','Пішіндер әлемі'],d:['Круг, квадрат, треугольник — совсем скоро!','Шеңбер, шаршы, үшбұрыш — жақында!'],g:[]},
+   {id:'family',e:'👨‍👩‍👧',c:'#9874F5',t:'#ECE6FF',x:120,y:590,need:2,n:['Семейная деревня','Отбасы ауылы'],d:['Мама, папа, я — и наше тело','Анам, әкем, мен — және біздің дене'],g:['face','body','family']},
+   {id:'music',e:'🎵',c:'#43BD79',t:'#DDF5D3',x:220,y:330,need:1,n:['Музыкальный ручей','Музыкалық бұлақ'],d:['Ксилофон и колыбельная','Ксилофон және бесік жыры'],g:['xylo','sleep']}],
+  chests:[{after:1,x:205,y:1160},{after:3,x:200,y:700},{after:5,x:330,y:240}],
+  prizes:[['🧸',['Плюшевый мишка','Жұмсақ аю']],['🎈',['Воздушный шарик','Әуе шары']],['🦋',['Волшебная бабочка','Сиқырлы көбелек']]]}};
+let CW='a56';const W=()=>WORLDS[CW];const ageW=()=>{const a=curProf().age;return WORLDS[a]?a:'a56';};
 const st=()=>PF.stats();
 function wstate(wid){const s=st();s.map=s.map||{};const m=s.map[wid]||(s.map[wid]={done:{},seen:{},unl:{},chests:{},pos:''});['done','seen','unl','chests'].forEach(k=>{if(!m[k])m[k]={};});return m;}
 const keyOf=(w,g)=>w.sec+':'+g;
 /* ---- прогресс из реальной статистики ---- */
 function passed(w,loc){const s=st(),m=wstate(w.sec);return loc.g.filter(g=>{const d=s.done[keyOf(w,g)];if(!d||!d.n)return false;if(loc.fin){const t=m.unl[loc.id];return !!(t&&d.last&&d.last>=t);}return true;});}
-function info(w){const out=[];let open=true;w.locs.forEach((loc,i)=>{const p=passed(w,loc),n=p.length,tot=loc.g.length;
-  const done=n>=loc.need;const half=loc.need+Math.ceil((tot-loc.need)/2);
-  const stars=!done?0:n>=tot?3:n>=half?2:1;const s=st();const gs=loc.g.reduce((a,g)=>a+(s.gst[keyOf(w,g)]||0),0);
-  out.push({loc,i,open,done,n,tot,stars,p,gs});open=open&&done;});
- const cur=out.find(x=>x.open&&!x.done)||out[out.length-1];return {L:out,cur};}
+function info(w){const out=[];let open=true;w.locs.forEach((loc,i)=>{const p=passed(w,loc),n=p.length,tot=loc.g.length,empty=!tot;
+  const done=empty||n>=loc.need;const half=loc.need+Math.ceil((tot-loc.need)/2);
+  const stars=empty||!done?0:n>=tot?3:n>=half?2:1;const s=st();const gs=loc.g.reduce((a,g)=>a+(s.gst[keyOf(w,g)]||0),0);
+  out.push({loc,i,open,done,n,tot,stars,p,gs,empty});open=open&&done;});
+ const cur=out.find(x=>x.open&&!x.done)||[...out].reverse().find(x=>!x.empty)||out[out.length-1];return {L:out,cur};}
 function sync(w,I){/* отметить новые открытия, вернуть события для праздника */const m=wstate(w.sec);const ev=[];
  I.L.forEach(x=>{if(x.open&&!m.unl[x.loc.id])m.unl[x.loc.id]=Date.now();
-  if(x.done&&!m.done[x.loc.id]){m.done[x.loc.id]=Date.now();if(x.loc.fin)m.fin=1;ev.push({type:'done',x,next:I.L[x.i+1]});}});
+  if(x.done&&!x.empty&&!m.done[x.loc.id]){m.done[x.loc.id]=Date.now();if(x.i===w.locs.length-1)m.fin=1;ev.push({type:'done',x,next:I.L.slice(x.i+1).find(y=>!y.empty)});}});
  return ev;}
 /* ---- общие помощники ---- */
 const OWL=`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M15 23 L20 12 L27 20 Q32 17.5 37 20 L44 12 L49 23 Q53 31 51 41 Q48 55 32 56 Q16 55 13 41 Q11 31 15 23Z" fill="#8A5A3B"/><ellipse cx="32" cy="44" rx="12" ry="10" fill="#F7D9B5"/><circle cx="24.5" cy="31" r="8.2" fill="#fff"/><circle cx="39.5" cy="31" r="8.2" fill="#fff"/><circle cx="25.5" cy="31.5" r="4.3" fill="#292944"/><circle cx="38.5" cy="31.5" r="4.3" fill="#292944"/><circle cx="26.8" cy="30" r="1.5" fill="#fff"/><circle cx="39.8" cy="30" r="1.5" fill="#fff"/><path d="M29 38 L32 43 L35 38Z" fill="#F6A321"/><path d="M18 47 Q22 44 25 48 M46 47 Q42 44 39 48" stroke="#E4B98E" stroke-width="2" fill="none"/></svg>`;
+const FOX=`<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 8 L24 22 L18 30Z" fill="#E8692A"/><path d="M54 8 L40 22 L46 30Z" fill="#E8692A"/><path d="M13 13 L22 23 L18 27Z" fill="#3B2A2A"/><path d="M51 13 L42 23 L46 27Z" fill="#3B2A2A"/><path d="M32 18 Q52 18 54 34 Q54 48 32 56 Q10 48 10 34 Q12 18 32 18Z" fill="#F58A3A"/><path d="M10 34 Q20 36 32 56 Q44 36 54 34 Q50 50 32 58 Q14 50 10 34Z" fill="#FFF4E6"/><circle cx="24" cy="33" r="4.2" fill="#292944"/><circle cx="40" cy="33" r="4.2" fill="#292944"/><circle cx="25.3" cy="31.6" r="1.4" fill="#fff"/><circle cx="41.3" cy="31.6" r="1.4" fill="#fff"/><ellipse cx="32" cy="42" rx="3.6" ry="2.6" fill="#292944"/><path d="M28 46 Q32 49 36 46" stroke="#292944" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="18" cy="41" r="3" fill="#FF9EA8" opacity=".7"/><circle cx="46" cy="41" r="3" fill="#FF9EA8" opacity=".7"/></svg>`;
+const GUIDE=w=>w.guide==='fox'?FOX:OWL;const GE=w=>w.guide==='fox'?'🦊':'🦉';
 const STAR=on=>`<i class="mp-st ${on?'on':''}">★</i>`;
 function chime(up=true){try{const c=new (window.AudioContext||window.webkitAudioContext)();(up?[523,659,784,1047,1319]:[392,523,659]).forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.value=f;
  const t=c.currentTime+i*.1;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.16,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.4);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.45);});setTimeout(()=>c.close(),1800);}catch(e){}}
@@ -6485,16 +6519,17 @@ const MV=document.createElement('div');MV.id='mpv';MV.className='mp-screen';docu
 let fromMap=false;
 function showScreen(el,on){el.classList.toggle('on',on);el.setAttribute('aria-hidden',on?'false':'true');document.body.classList.toggle('mpon',PK.classList.contains('on')||MV.classList.contains('on'));}
 /* выбор мира */
-function renderPicker(){const c=curProf(),w=W(),I=info(w),dn=I.L.filter(x=>x.done).length;
- const card=(id,cls,emo,ttl,sub,extra,lock)=>`<button class="mp-world ${cls}" data-w="${id}" ${lock?'aria-disabled="true"':''}><span class="mp-wart">${emo}</span><span class="mp-wtx"><b>${ttl}</b><small>${sub}</small>${extra}</span>${lock?'<span class="mp-wlock">🔒</span>':'<span class="mp-wgo">›</span>'}</button>`;
+function wprog(id){const w=WORLDS[id],I=info(w),real=I.L.filter(x=>!x.empty);return {dn:real.filter(x=>x.done).length,tot:real.length};}
+function renderPicker(){const c=curProf(),mine=ageW();
+ const card=(id,cls,emo,sub)=>{const w=WORLDS[id],pr=wprog(id);return `<button class="mp-world ${cls} ${id===mine?'mine':''}" data-w="${id}"><span class="mp-wart">${emo}</span><span class="mp-wtx">${id===mine?`<em class="mp-wme">${TL('Твой мир','Сенің әлемің')}</em>`:''}<b>${TL(w.name[0],w.name[1])}</b><small>${sub}</small><span class="mp-wpr"><i style="width:${Math.round(pr.dn/pr.tot*100)}%"></i></span><small class="mp-wn">${TL(`Пройдено ${pr.dn} из ${pr.tot} земель`,`${pr.tot} жердің ${pr.dn}-і өтілді`)}</small></span><span class="mp-wgo">›</span></button>`;};
  PK.innerHTML=`<div class="mp-pk"><div class="mp-pktop"><button class="pf-ib" id="mpPkBack" aria-label="${TL('На главную','Басты бетке')}">‹</button><h1>${TL('Карта приключений','Шытырман оқиғалар картасы')}</h1><span></span></div>
-  <div class="mp-pkhi"><span class="mp-owlb">${OWL}</span><p>${TL(`${name()?name()+', в':'В'}ыбирай свой мир — и отправимся в путь!`,`${name()?name()+', ө':'Ө'}з әлеміңді таңда — жолға шығайық!`)}</p></div>
-  ${card('a56','w56 '+(c.age==='a56'?'mine':''),'🏰🦉🚀',TL('Академия юных исследователей','Жас зерттеушілер академиясы'),TL('5–6 лет · с мудрой совой','5–6 жас · дана жапалақпен'),`<span class="mp-wpr"><i style="width:${Math.round(dn/w.locs.length*100)}%"></i></span><small class="mp-wn">${TL(`Пройдено ${dn} из ${w.locs.length} земель`,`${w.locs.length} жердің ${dn}-і өтілді`)}</small>`,false)}
-  ${card('a24','w24','🌲🦊🌉',TL('Лес маленьких открытий','Кішкентай ашылулар орманы'),TL('2–4 года · с лисёнком','2–4 жас · түлкі баламен'),`<small class="mp-wn soon">${TL('Скоро откроется','Жақында ашылады')}</small>`,true)}
-  ${card('a02','w02','🌼🦊🏡',TL('Волшебная полянка','Сиқырлы алаңқай'),TL('0–2 года · с лисёнком','0–2 жас · түлкі баламен'),`<small class="mp-wn soon">${TL('Скоро откроется','Жақында ашылады')}</small>`,true)}
+  <div class="mp-pkhi"><span class="mp-owlb">${mine==='a56'?OWL:FOX}</span><p>${TL(`${name()?name()+', в':'В'}ыбирай свой мир — и отправимся в путь!`,`${name()?name()+', ө':'Ө'}з әлеміңді таңда — жолға шығайық!`)}</p></div>
+  ${card('a02','w02','🌼🦊🏡',TL('0–2 года · с лисёнком','0–2 жас · түлкі баламен'))}
+  ${card('a24','w24','🌲🦊🌉',TL('2–4 года · с лисёнком','2–4 жас · түлкі баламен'))}
+  ${card('a56','w56','🏰🦉🚀',TL('5–6 лет · с мудрой совой','5–6 жас · дана жапалақпен'))}
   <p class="mp-note">${TL('Карта — ещё один путь к тем же играм. Все игры по-прежнему доступны и в обычном меню.','Карта — сол ойындарға апаратын тағы бір жол. Барлық ойын әдеттегі мәзірде де бар.')}</p></div>`;
  PK.querySelector('#mpPkBack').onclick=()=>history.back();
- PK.querySelectorAll('.mp-world').forEach(b=>b.onclick=()=>{if(b.getAttribute('aria-disabled')){b.classList.remove('shk');void b.offsetWidth;b.classList.add('shk');return;}openWorld(b.dataset.w);});}
+ PK.querySelectorAll('.mp-world').forEach(b=>b.onclick=()=>openWorld(b.dataset.w));}
 function openPicker(){renderPicker();history.pushState({d:1,mp:1},'');showScreen(PK,true);PK.scrollTop=0;}
 /* ---- иллюстрация мира 5–6 (SVG) ---- */
 function cloud(x,y,s,o=.9){return `<g opacity="${o}" fill="#fff"><circle cx="${x}" cy="${y}" r="${16*s}"/><circle cx="${x+18*s}" cy="${y-9*s}" r="${20*s}"/><circle cx="${x+40*s}" cy="${y-2*s}" r="${16*s}"/><rect x="${x-14*s}" y="${y}" width="${68*s}" height="${14*s}" rx="${7*s}"/></g>`;}
@@ -6547,42 +6582,104 @@ function art56(w){const H=w.H;let s=`<svg class="mp-svg" viewBox="0 0 400 ${H}" 
  /* старт: луг */
  s+=`<path d="M-10 1890 Q100 1850 200 1880 T410 1870 V${H+10} H-10Z" fill="#9EDB7A"/>`+tree(30,1905,.8)+tree(370,1900,.9)+E(300,1925,20,'🌼')+E(90,1935,18,'🌷');
  s+=`</svg>`;return s;}
+/* ---- иллюстрация мира 2–4: «Лес маленьких открытий» ---- */
+function pine(x,y,s,c='#3FA45A',c2='#57B86E'){return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="10" width="8" height="14" rx="2" fill="#8A5A2B"/><path d="M0 -34 L18 -6 H-18Z" fill="${c2}"/><path d="M0 -22 L22 12 H-22Z" fill="${c}"/></g>`;}
+function mush(x,y,s){return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-5" y="-2" width="10" height="14" rx="4" fill="#FFF4E0"/><path d="M-16 0 Q0 -24 16 0Z" fill="#EF5B5B"/><circle cx="-6" cy="-7" r="2.5" fill="#fff"/><circle cx="5" cy="-10" r="2" fill="#fff"/></g>`;}
+function art24(w){const H=w.H;let s=`<svg class="mp-svg" viewBox="0 0 400 ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="sun24" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF6C8"/><stop offset="1" stop-color="#FFF6C8" stop-opacity="0"/></radialGradient></defs>`;
+ s+=cloud(20,80,1.1)+cloud(300,120,.9)+cloud(320,420,.7,.7)+cloud(10,640,.7,.6);
+ /* гора эмоций */
+ s+=`<circle cx="200" cy="200" r="160" fill="url(#sun24)"/><path d="M40 420 L200 120 L360 420Z" fill="#B9C9E8"/><path d="M200 120 L240 195 L215 185 L200 205 L182 185 L160 195Z" fill="#fff"/><path d="M-20 440 L90 300 L180 440Z" fill="#A7C3A0"/><path d="M240 440 L330 320 L430 440Z" fill="#A7C3A0"/>`;
+ s+=`<g transform="translate(320 90)"><circle r="26" fill="#FFD25E"/><circle cx="-8" cy="-4" r="3" fill="#7A4A10"/><circle cx="8" cy="-4" r="3" fill="#7A4A10"/><path d="M-9 6 Q0 14 9 6" stroke="#7A4A10" stroke-width="3" fill="none" stroke-linecap="round"/></g>`;
+ s+=E(90,250,24,'😊')+E(310,280,22,'😮')+E(120,340,20,'😢')+E(282,360,20,'😄');
+ /* пещера памяти */
+ s+=`<path d="M210 470 Q380 440 392 560 Q392 680 270 670 Q196 660 200 570 Q200 500 210 470Z" fill="#E4E8FF"/><path d="M300 470 Q350 440 392 470 V600 H300Z" fill="#A9AFC8"/><path d="M322 600 V545 a22 26 0 0 1 44 0 V600Z" fill="#3B3F6E"/>`;
+ s+=E(240,640,22,'💎')+E(372,640,20,'💎')+E(250,520,22,'🦇')+E(344,520,18,'✨');
+ /* долина слов */
+ s+=`<path d="M10 700 Q120 660 220 700 Q240 780 190 840 Q120 890 30 860 Q-10 800 10 700Z" fill="#ECE6FF"/>`;
+ [['А',40,720,'#EF6F8E'],['Б',196,736,'#5187F5'],['В',178,836,'#43BD79']].forEach(([l,x,y,c])=>{s+=`<g transform="translate(${x} ${y})"><ellipse rx="18" ry="15" fill="#fff" stroke="#D4CBF2" stroke-width="2"/><text y="1" font-size="17" font-weight="900" fill="${c}" text-anchor="middle" dominant-baseline="central">${l}</text></g>`;});
+ s+=E(40,846,22,'💬')+E(214,790,18,'🎵');
+ /* город животных */
+ s+=`<path d="M190 950 Q300 910 392 950 Q404 1060 360 1110 Q270 1140 200 1095 Q160 1030 190 950Z" fill="#DDF5D3"/>`;
+ s+=house(222,985,.9,'#FFB27A','#C96A3A','🐰')+house(360,960,.85,'#FFD37A','#D99A2A','🐻')+house(370,1090,.8,'#9BD3F0','#4E8DB5','🦔');
+ s+=`<path d="M210 1110 H300" stroke="#C99A5B" stroke-width="4"/>${[214,232,250,268,286].map(x=>`<rect x="${x-2}" y="1098" width="5" height="18" rx="2" fill="#E0B57A"/>`).join('')}`+E(240,1060,20,'🥕')+E(318,1110,20,'☂️');
+ /* речка */
+ s+=`<path d="M-10 1158 C80 1132 140 1188 220 1162 S340 1132 410 1166 L410 1198 C330 1172 260 1208 210 1194 S80 1162 -10 1188Z" fill="#8FD0FF"/><path d="M20 1172 q12 -6 24 0 M300 1162 q12 -6 24 0" stroke="#fff" stroke-width="2.5" fill="none" opacity=".8"/>`+E(60,1182,18,'🐟')+E(352,1180,18,'🐸');
+ /* речная переправа */
+ s+=`<path d="M20 1210 Q140 1200 250 1240 Q270 1300 210 1330 Q110 1350 30 1320 Q0 1270 20 1210Z" fill="#D7F1F6"/>`+E(240,1300,22,'🦆')+E(40,1300,20,'🪨')+E(230,1225,18,'🌾');
+ /* деревня фигур */
+ s+=`<path d="M190 1430 Q300 1400 392 1440 Q404 1540 360 1590 Q270 1620 210 1580 Q170 1500 190 1430Z" fill="#FFE3EC"/>`;
+ s+=`<g transform="translate(218 1470)"><rect x="-20" y="-16" width="40" height="32" rx="4" fill="#FFC9D6"/><path d="M-26 -14 L0 -40 L26 -14Z" fill="#EF6F8E"/><circle cx="0" cy="0" r="8" fill="#fff"/></g>`;
+ s+=`<g transform="translate(362 1452) scale(.9)"><rect x="-20" y="-16" width="40" height="32" rx="4" fill="#BFE0FF"/><rect x="-24" y="-30" width="48" height="16" rx="3" fill="#5187F5"/><rect x="-7" y="-6" width="14" height="14" fill="#fff"/></g>`;
+ s+=`<g transform="translate(366 1580) scale(.85)"><rect x="-20" y="-16" width="40" height="32" rx="4" fill="#CFF0B8"/><path d="M-26 -14 L0 -40 L26 -14Z" fill="#43BD79"/><path d="M0 -8 L9 8 H-9Z" fill="#fff"/></g>`+E(230,1575,22,'🔺')+E(300,1605,20,'🟦');
+ /* лес счёта */
+ s+=`<path d="M8 1680 Q130 1650 220 1700 Q240 1790 170 1825 Q70 1850 16 1810 Q-6 1750 8 1680Z" fill="#FFF0D2"/>`;
+ s+=pine(220,1700,.9)+pine(40,1690,.8)+mush(30,1800,1)+mush(196,1812,.8)+E(230,1770,20,'🌰')+E(70,1835,18,'🐿️');
+ [['1',190,1660],['2',60,1760]].forEach(([n,x,y])=>{s+=`<g transform="translate(${x} ${y})"><rect x="-2" y="0" width="4" height="16" fill="#8A5A2B"/><rect x="-12" y="-12" width="24" height="16" rx="3" fill="#E0B57A"/><text y="-4" font-size="12" font-weight="900" fill="#6A3E14" text-anchor="middle" dominant-baseline="central">${n}</text></g>`;});
+ /* опушка */
+ s+=pine(20,520,.9,'#5DAA6B','#74C080')+pine(380,760,.8,'#5DAA6B','#74C080')+pine(370,1290,.9)+pine(18,1430,.8)+pine(386,1640,.9)+pine(14,1000,.8,'#5DAA6B','#74C080');
+ s+=`<path d="M-10 1890 Q100 1850 200 1880 T410 1870 V${H+10} H-10Z" fill="#9EDB7A"/>`+pine(40,1905,.8)+pine(360,1900,.9)+mush(300,1930,.8)+E(100,1935,18,'🌼');
+ return s+`</svg>`;}
+/* ---- иллюстрация мира 0–2: «Волшебная полянка» ---- */
+function flower(x,y,s,c){return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-1.5" y="0" width="3" height="16" fill="#5DBB4A"/>${[0,72,144,216,288].map(a=>`<circle cx="${Math.cos(a*Math.PI/180)*7}" cy="${Math.sin(a*Math.PI/180)*7}" r="6" fill="${c}"/>`).join('')}<circle r="5" fill="#FFD25E"/></g>`;}
+function art02(w){const H=w.H;let s=`<svg class="mp-svg" viewBox="0 0 400 ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">`;
+ /* солнышко, радуга, облака */
+ s+=`<g transform="translate(70 90)">${Array.from({length:12},(_,i)=>`<rect x="-3" y="-58" width="6" height="16" rx="3" fill="#FFC94A" transform="rotate(${i*30})"/>`).join('')}<circle r="38" fill="#FFD25E"/><circle cx="-12" cy="-6" r="4.5" fill="#7A4A10"/><circle cx="12" cy="-6" r="4.5" fill="#7A4A10"/><path d="M-13 9 Q0 21 13 9" stroke="#7A4A10" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="-22" cy="6" r="5" fill="#FF9E8A" opacity=".6"/><circle cx="22" cy="6" r="5" fill="#FF9E8A" opacity=".6"/></g>`;
+ s+=`<g opacity=".6" fill="none" stroke-width="10"><path d="M150 230 A120 120 0 0 1 390 230" stroke="#FF9E9E"/><path d="M162 230 A108 108 0 0 1 378 230" stroke="#FFD27A"/><path d="M174 230 A96 96 0 0 1 366 230" stroke="#A8E07A"/><path d="M186 230 A84 84 0 0 1 354 230" stroke="#8FC8FF"/></g>`;
+ s+=cloud(170,70,1)+cloud(320,140,.9)+cloud(20,300,.8,.8)+cloud(330,560,.7,.7)+cloud(10,980,.7,.6)+cloud(330,1400,.7,.6);
+ /* музыкальный ручей */
+ s+=`<path d="M-10 380 C80 350 160 420 240 390 S360 350 410 380 L410 420 C350 395 280 440 220 425 S80 380 -10 410Z" fill="#9FD8FF"/>`+E(70,365,22,'🎵')+E(320,350,20,'🎶')+E(150,440,20,'🎹')+E(360,430,18,'🎼');
+ /* семейная деревня */
+ s+=`<path d="M10 520 Q120 490 230 530 Q250 610 190 650 Q100 680 30 650 Q-10 590 10 520Z" fill="#ECE6FF"/>`+house(214,560,1,'#FFC9A8','#E8693A','♥')+house(40,520,.9,'#BFE0FF','#5187F5','★')+E(200,640,24,'🏠');
+ /* мир фигур */
+ s+=`<path d="M190 760 Q300 730 392 760 Q404 850 360 890 Q270 920 210 880 Q170 820 190 760Z" fill="#D7F1F6"/><circle cx="220" cy="780" r="16" fill="#FF9EB5"/><rect x="350" y="760" width="30" height="30" rx="5" fill="#8FC8FF"/><path d="M372 860 L390 890 H354Z" fill="#A8E07A"/><path d="M216 880 l8 -16 l8 16Z" fill="#FFD27A"/>`;
+ /* цветочная долина */
+ s+=`<path d="M10 980 Q120 950 230 990 Q250 1070 190 1110 Q100 1140 30 1110 Q-10 1050 10 980Z" fill="#FFE3EC"/>`+flower(40,990,1.2,'#FF9EB5')+flower(214,1000,1.1,'#B9A6F2')+flower(200,1090,1,'#FFB27A')+flower(46,1100,1,'#8FC8FF')+E(170,960,22,'🦋')+E(240,1050,20,'🫧');
+ /* полянка звуков */
+ s+=`<path d="M190 1210 Q300 1180 392 1210 Q404 1300 360 1340 Q270 1370 210 1330 Q170 1270 190 1210Z" fill="#E3ECFF"/>`+E(220,1230,24,'🔔')+E(370,1220,24,'🚗')+E(372,1330,22,'🐶')+E(230,1330,20,'🥁');
+ /* домик зверят */
+ s+=`<path d="M8 1440 Q130 1410 230 1450 Q250 1540 180 1575 Q70 1600 16 1560 Q-6 1500 8 1440Z" fill="#FFF0D2"/>`;
+ s+=`<g transform="translate(220 1470)"><rect x="-26" y="-20" width="52" height="40" rx="4" fill="#E8505B"/><path d="M-32 -18 L0 -48 L32 -18Z" fill="#B83A44"/><rect x="-10" y="0" width="20" height="20" fill="#fff"/><path d="M-10 0 L10 20 M10 0 L-10 20" stroke="#E8505B" stroke-width="3"/></g>`+E(40,1460,24,'🐮')+E(36,1560,22,'🐔')+E(200,1560,22,'🐱');
+ /* цветы по всей поляне */
+ [[350,1440,'#FF9EB5'],[372,1520,'#FFD27A'],[300,1120,'#B9A6F2'],[360,1060,'#8FC8FF'],[24,1240,'#FFB27A'],[40,1330,'#FF9EB5'],[360,690,'#B9A6F2'],[20,840,'#FFD27A'],[380,480,'#FF9EB5'],[300,640,'#A8E07A']].forEach(([x,y,c])=>{s+=flower(x,y,.9,c);});
+ s+=`<path d="M-10 ${H-110} Q100 ${H-150} 200 ${H-120} T410 ${H-130} V${H+10} H-10Z" fill="#A8E07A"/>`+flower(40,H-80,1.1,'#FF9EB5')+flower(360,H-90,1.1,'#FFD27A')+E(300,H-60,22,'🐞')+E(100,H-50,20,'🌷');
+ return s+`</svg>`;}
+const ARTS={art56,art24,art02};
 /* дорожка через все точки */
 function pathD(pts){let d=`M${pts[0][0]} ${pts[0][1]}`;for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x1,y1]=pts[i];const my=(y0+y1)/2;d+=` C${x0} ${my} ${x1} ${my} ${x1} ${y1}`;}return d;}
 function segD(a,b){const my=(a[1]+b[1])/2;return `M${a[0]} ${a[1]} C${a[0]} ${my} ${b[0]} ${my} ${b[0]} ${b[1]}`;}
 /* ---- карта ---- */
-let animIds=[];
+let animIds=[],evQ=[];
 function renderMap(){const w=W(),I=info(w),m=wstate(w.sec),H=w.H;const s=st();
- const start=[200,1880];const pts=[start,...w.locs.map(l=>[l.x,l.y])];
+ const start=[200,w.H-80];const pts=[start,...w.locs.map(l=>[l.x,l.y])];
  const wStars=w.locs.reduce((a,l)=>a+l.g.reduce((b,g)=>b+(s.gst[keyOf(w,g)]||0),0),0);
  const segs=pts.slice(1).map((p,i)=>{const open=I.L[i].open;return `<path class="mp-seg ${open?'open':''} ${animIds.includes(w.locs[i].id)?'draw':''}" d="${segD(pts[i],p)}"/>`;}).join('');
- const nodes=I.L.map(x=>{const l=x.loc,isCur=x===I.cur&&x.open&&!x.done;const cls=['mp-node',x.open?'':'lock',x.done?'done':'',isCur?'cur':'',animIds.includes(l.id)?'pop':''].join(' ');
+ const nodes=I.L.map(x=>{const l=x.loc,isCur=x===I.cur&&x.open&&!x.done;const cls=['mp-node',x.open?'':'lock',x.empty?'empty':x.done?'done':'',isCur?'cur':'',animIds.includes(l.id)?'pop':''].join(' ');
    return `<button class="${cls}" data-i="${x.i}" style="left:${l.x/4}%;top:${l.y/H*100}%;--c:${l.c}" aria-label="${TL(l.n[0],l.n[1])}">
-    <span class="mp-stars">${x.done?STAR(x.stars>=1)+STAR(x.stars>=2)+STAR(x.stars>=3):''}</span>
-    <span class="mp-ball"><span class="mp-ico">${l.e}</span>${x.open?'':'<span class="mp-lock">🔒</span>'}${x.done?'<span class="mp-ok">✓</span>':''}</span>
+    <span class="mp-stars">${x.done&&!x.empty?STAR(x.stars>=1)+STAR(x.stars>=2)+STAR(x.stars>=3):''}</span>
+    <span class="mp-ball"><span class="mp-ico">${l.e}</span>${x.open?'':'<span class="mp-lock">🔒</span>'}${x.done&&!x.empty?'<span class="mp-ok">✓</span>':''}${x.empty&&x.open?'<span class="mp-soon">'+TL('скоро','жақында')+'</span>':''}</span>
     <span class="mp-lbl">${TL(l.n[0],l.n[1])}${x.open&&!x.done?`<small>${x.n}/${l.need}</small>`:''}</span></button>`;}).join('');
- const chests=w.chests.map((c,i)=>{const ready=I.L[c.after].done,opened=m.chests[i]!==undefined;
+ const chests=w.chests.map((c,i)=>{const ready=I.L[c.after].done&&I.L[c.after].open,opened=m.chests[i]!==undefined;
    return `<button class="mp-chest ${opened?'opened':ready?'ready':''}" data-c="${i}" style="left:${c.x/4}%;top:${c.y/H*100}%" aria-label="${TL('Сундук','Сандық')}">${chestSVG(opened)}${opened?`<span class="mp-prz">${w.prizes[i][0]}</span>`:ready?'':'<span class="mp-clk">🔒</span>'}</button>`;}).join('');
  const cur=I.cur,cl=cur.loc,guideSide=cl.x>=150&&cl.x<=250?'u':cl.x>200?'l':'r';
- const say=cur.done?TL(`${name()?name()+', ты':'Ты'} прошёл всю академию! Можно играть снова 🎉`,`${name()?name()+', сен':'Сен'} бүкіл академияны өттің! Қайта ойнауға болады 🎉`)
+ const say=cur.done?TL(w.fin[0]+' 🎉',w.fin[1]+' 🎉')
   :cur.n?TL(`Ещё ${cl.need-cur.n} — и откроем новую землю!`,`Тағы ${cl.need-cur.n} — жаңа жер ашылады!`)
   :TL(`${name()?name()+', н':'Н'}ам сюда: ${cl.n[0]}!`,`${name()?name()+', б':'Б'}із мұнда барамыз: ${cl.n[1]}!`);
  const tk=Object.keys(m.chests).length;
- MV.innerHTML=`<div class="mp-top"><button class="pf-ib" id="mpBack" aria-label="${TL('Назад','Артқа')}">‹</button><div class="mp-ttl"><b>${TL(w.name[0],w.name[1])}</b><small>${I.L.filter(x=>x.done).length} / ${w.locs.length} ${TL('земель','жер')}</small></div>
+ MV.innerHTML=`<div class="mp-top"><button class="pf-ib" id="mpBack" aria-label="${TL('Назад','Артқа')}">‹</button><div class="mp-ttl"><b>${TL(w.name[0],w.name[1])}</b><small>${wprog(w.sec).dn} / ${wprog(w.sec).tot} ${TL('земель','жер')}</small></div>
   <span class="mp-pill">⭐ ${wStars}</span><span class="mp-pill">🎁 ${tk}/${w.chests.length}</span></div>
-  <div class="mp-world-wrap" style="background:${w.bg}"><div class="mp-map" style="aspect-ratio:400/${H}">${art56(w)}
-   <svg class="mp-path" viewBox="0 0 400 ${H}" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="riv"><rect x="0" y="1168" width="400" height="52"/></clipPath></defs><path class="mp-road" d="${pathD(pts)}"/><path class="mp-road2" d="${pathD(pts)}"/><g clip-path="url(#riv)"><path class="mp-brg" d="${pathD(pts)}"/><path class="mp-brg2" d="${pathD(pts)}"/></g>${segs}</svg>
+  <div class="mp-world-wrap" style="background:${w.bg}"><div class="mp-map ${w.big?'big':''}" style="aspect-ratio:400/${H}">${ARTS[w.art](w)}
+   <svg class="mp-path" viewBox="0 0 400 ${H}" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="riv"><rect x="0" y="${w.riverY}" width="400" height="${w.riverY?52:0}"/></clipPath></defs><path class="mp-road" d="${pathD(pts)}"/><path class="mp-road2" d="${pathD(pts)}"/><g clip-path="url(#riv)"><path class="mp-brg" d="${pathD(pts)}"/><path class="mp-brg2" d="${pathD(pts)}"/></g>${segs}</svg>
    <div class="mp-start" style="left:50%;top:${start[1]/H*100}%">${TL('Старт','Бастау')}</div>
    ${nodes}${chests}
-   <div class="mp-guide ${guideSide}" style="left:${cl.x/4}%;top:${cl.y/H*100}%"><span class="mp-owl">${OWL}</span><span class="mp-say">${say}</span></div>
+   <div class="mp-guide ${guideSide}" style="left:${cl.x/4}%;top:${cl.y/H*100}%"><span class="mp-owl">${GUIDE(w)}</span><span class="mp-say">${say}</span></div>
   </div></div>`;
  MV.querySelector('#mpBack').onclick=()=>history.back();
  MV.querySelectorAll('.mp-node').forEach(b=>b.onclick=()=>{b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');locSheet(+b.dataset.i);});
  MV.querySelectorAll('.mp-chest').forEach(b=>b.onclick=()=>chestTap(+b.dataset.c,b));
  animIds=[];}
-function scrollToCur(smooth){const n=MV.querySelector('.mp-node.cur')||MV.querySelector(`.mp-node[data-i="${Math.max(0,W().locs.findIndex(l=>l.id===wstate('a56').pos))}"]`)||MV.querySelector('.mp-node');if(!n)return;
+function scrollToCur(smooth){const n=MV.querySelector('.mp-node.cur')||MV.querySelector(`.mp-node[data-i="${Math.max(0,W().locs.findIndex(l=>l.id===wstate(W().sec).pos))}"]`)||MV.querySelector('.mp-node');if(!n)return;
  const r=n.getBoundingClientRect(),mr=MV.getBoundingClientRect();MV.scrollTo({top:MV.scrollTop+r.top-mr.top-MV.clientHeight*0.45,behavior:smooth?'smooth':'auto'});}
-function openWorld(wid){renderMap();history.pushState({d:1,mp:2},'');showScreen(MV,true);requestAnimationFrame(()=>{scrollToCur(false);celebrateEvents();});}
+function openWorld(wid){CW=WORLDS[wid]?wid:'a56';evQ=[];renderMap();history.pushState({d:1,mp:2},'');showScreen(MV,true);requestAnimationFrame(()=>{scrollToCur(false);celebrateEvents();});}
 /* ---- экран локации ---- */
 function locSheet(i){const w=W(),I=info(w),x=I.L[i],l=x.loc,m=wstate(w.sec);const s=st();
  if(x.open){m.pos=l.id;PF.save();}
@@ -6590,18 +6687,18 @@ function locSheet(i){const w=W(),I=info(w),x=I.L[i],l=x.loc,m=wstate(w.sec);cons
  const lockMsg=prev?TL(`Чтобы открыть, пройди ещё ${Math.max(0,prev.loc.need-prev.n)} ${plural(prev.loc.need-prev.n)} в локации «${prev.loc.n[0]}».`,`Ашу үшін «${prev.loc.n[1]}» орнында тағы ${Math.max(0,prev.loc.need-prev.n)} ойын өт.`):'';
  const L=layer(`<div class="mp-sheet" style="--c:${l.c};--t:${l.t}"><div class="mp-shead ${l.id}"><span class="mp-sbig">${l.e}</span><span class="mp-sdeco">${DECO[l.id]||''}</span><button class="mp-x" aria-label="${TL('Закрыть','Жабу')}">✕</button></div>
   <div class="mp-sbody"><h2>${TL(l.n[0],l.n[1])}</h2><p>${TL(l.d[0],l.d[1])}</p>
-   ${x.open?`<div class="mp-sprog"><div><b>${x.n} / ${x.tot}</b> ${TL('игр пройдено','ойын өтілді')}${l.fin?` <small>${TL('(считаются игры после открытия замка)','(сарай ашылғаннан кейінгі ойындар)')}</small>`:''}</div><span class="mp-sst">${STAR(x.stars>=1)+STAR(x.stars>=2)+STAR(x.stars>=3)}</span></div>
+   ${x.empty?`<div class="mp-slock soon">🌱 ${TL('Скоро здесь появятся новые приключения!','Жақында мұнда жаңа шытырман оқиғалар пайда болады!')}<br><small>${TL('А пока дорожка ведёт дальше — к следующей земле.','Әзірге жол келесі жерге апарады.')}</small></div>`:x.open?`<div class="mp-sprog"><div><b>${x.n} / ${x.tot}</b> ${TL('игр пройдено','ойын өтілді')}${l.fin?` <small>${TL('(считаются игры после открытия замка)','(сарай ашылғаннан кейінгі ойындар)')}</small>`:''}</div><span class="mp-sst">${STAR(x.stars>=1)+STAR(x.stars>=2)+STAR(x.stars>=3)}</span></div>
     <div class="mp-sbar"><i style="width:${Math.min(100,x.n/l.need*100)}%"></i></div>
-    <small class="mp-shint">${x.done?(I.L[i+1]?TL(`Локация пройдена! Открыта дорога в «${I.L[i+1].loc.n[0]}». ⭐ ${x.gs} звёзд здесь`,`Орын өтілді! «${I.L[i+1].loc.n[1]}» жолы ашылды. ⭐ ${x.gs} жұлдыз`):TL(`Академия пройдена! ⭐ ${x.gs} звёзд здесь`,`Академия өтілді! ⭐ ${x.gs} жұлдыз`)):TL(`Пройди ${l.need} ${plural(l.need)}, чтобы ${I.L[i+1]?'открыть следующую землю':'завершить академию'}.`,`${I.L[i+1]?'Келесі жерді ашу':'Академияны аяқтау'} үшін ${l.need} ойын өт.`)}</small>`
+    <small class="mp-shint">${x.done?(I.L[i+1]?TL(`Локация пройдена! Открыта дорога в «${I.L[i+1].loc.n[0]}». ⭐ ${x.gs} звёзд здесь`,`Орын өтілді! «${I.L[i+1].loc.n[1]}» жолы ашылды. ⭐ ${x.gs} жұлдыз`):TL(`${w.short[0]} пройден${w.sec==='a56'?'а':w.sec==='a02'?'а':''}! ⭐ ${x.gs} звёзд здесь`,`${w.short[1]} өтілді! ⭐ ${x.gs} жұлдыз`)):TL(`Пройди ${l.need} ${plural(l.need)}, чтобы ${I.L[i+1]?'открыть следующую землю':'завершить путешествие'}.`,`${I.L[i+1]?'Келесі жерді ашу':'Саяхатты аяқтау'} үшін ${l.need} ойын өт.`)}</small>`
    :`<div class="mp-slock">🔒 ${lockMsg}</div>`}
    <div class="mp-games">${l.g.map((g,j)=>{const k=keyOf(w,g),ok=pset.has(g),gs=s.gst[k]||0;return `<button class="mp-g ${ok?'ok':''} ${g===nextG&&x.open?'next':''}" data-g="${g}" ${x.open?'':'disabled'}><span class="mp-gn">${j+1}</span><span class="mp-ge">${gemo(k)}</span><b>${esc(gname(k))}</b><small>${ok?'✓ '+TL('пройдено','өтілді'):TL('ещё не пройдено','әлі өтілмеген')}${gs?` · ⭐ ${gs}`:''}</small></button>`;}).join('')}</div>
-   ${x.open?`<button class="mp-go" id="mpGo">▶ ${x.n?TL('Продолжить приключение','Шытырманды жалғастыру'):TL('Начать приключение','Шытырманды бастау')}</button>`:''}</div></div>`,'bottom');
+   ${x.open&&!x.empty?`<button class="mp-go" id="mpGo">▶ ${x.n?TL('Продолжить приключение','Шытырманды жалғастыру'):TL('Начать приключение','Шытырманды бастау')}</button>`:''}</div></div>`,'bottom');
  L.querySelector('.mp-x').onclick=()=>history.back();
  const go=g=>{history.back();setTimeout(()=>launch(keyOf(w,g)),80);};
  const b=L.querySelector('#mpGo');if(b)b.onclick=()=>go(nextG);
  L.querySelectorAll('.mp-g:not([disabled])').forEach(e=>e.onclick=()=>go(e.dataset.g));}
 const plural=n=>kzOn()?'ойын':(n%10===1&&n%100!==11?'игру':[2,3,4].includes(n%10)&&![12,13,14].includes(n%100)?'игры':'игр');
-const DECO={math:'➕ 🔢 ➖',abc:'А Б В',logic:'⚙️ 🧩',nature:'🦊 🌻 🦋',space:'🪐 ⭐ 🛰️',city:'🚦 🚌 🚒',final:'✨ 🏆 ✨'};
+const DECO={math:'➕ 🔢 ➖',abc:'А Б В',logic:'⚙️ 🧩',nature:'🦊 🌻 🦋',space:'🪐 ⭐ 🛰️',city:'🚦 🚌 🚒',final:'✨ 🏆 ✨',count:'🍄 🌰 🍄',shapes:'🔴 🟦 🔺',river:'🐟 🌊 🐸',zoo:'🐰 🐻 🦔',words:'💬 🔤 🎵',cave:'💎 🦇 💎',emo:'😊 😮 😢',zoo0:'🐥 🐮 🐱',sounds:'🔔 🚗 🐶',flowers:'🌼 🫧 🎨',shapes0:'🔵 🟥 🔺',family:'👩 👨 👶',music:'🎵 🎹 🎶'};
 /* ---- запуск настоящей игры ---- */
 function launch(k){const w=W();const sec=k.split(':')[0];fromMap=true;showScreen(MV,false);showScreen(PK,false);
  openSec(sec);let tries=0;const t=setInterval(()=>{tries++;let ok=false;try{const N=cur&&cur.contentWindow.NAV;if(N&&N.openGame){N.reset();ok=N.openGame(k);}}catch(e){}
@@ -6617,34 +6714,33 @@ window.MAPPOP=()=>{
  if(PK.classList.contains('on')){showScreen(PK,false);refresh();return true;}
  return false;};
 /* ---- праздник: локация пройдена → открывается следующая ---- */
-let evQ=[];
 function celebrateEvents(){const w=W(),I=info(w);evQ.push(...sync(w,I));PF.save();
  if(!evQ.length){try{PF.achieve();}catch(e){}return;}if(document.querySelector('.mp-cel'))return;const e=evQ.shift();const l=e.x.loc,nx=e.next;
  const conf=Array.from({length:30},(_,i)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#9874F5','#43BD79','#5187F5','#EF6F8E','#20B4C2'][i%6]};animation-delay:${(Math.random()*.7).toFixed(2)}s"></i>`).join('');
- const L=layer(`<div class="mp-cel" style="--c:${l.c}"><div class="pf-conf">${conf}</div><span class="mp-celowl">${OWL}</span><div class="mp-celbig">${l.e}</div>
+ const L=layer(`<div class="mp-cel" style="--c:${l.c}"><div class="pf-conf">${conf}</div><span class="mp-celowl">${GUIDE(w)}</span><div class="mp-celbig">${l.e}</div>
   <h2>${TL('Ура! Локация пройдена!','Ура! Орын өтілді!')}</h2><b class="mp-celn">${TL(l.n[0],l.n[1])}</b>
   <div class="mp-celst">${STAR(e.x.stars>=1)+STAR(e.x.stars>=2)+STAR(e.x.stars>=3)}</div><p>${TL(`Звёзд заработано здесь: ⭐ ${e.x.gs}`,`Мұнда жиналған жұлдыз: ⭐ ${e.x.gs}`)}</p>
-  <p class="mp-celsay">🦉 ${nx?TL(`${name()?name()+', т':'Т'}ы молодец! Открылась новая земля — «${nx.loc.n[0]}»!`,`${name()?name()+', ж':'Ж'}арайсың! Жаңа жер ашылды — «${nx.loc.n[1]}»!`):TL('Ты прошёл всю Академию юных исследователей! Ты настоящий учёный!','Сен Жас зерттеушілер академиясын толық өттің! Сен нағыз ғалымсың!')}</p>
+  <p class="mp-celsay">${GE(w)} ${nx?TL(`${name()?name()+', т':'Т'}ы молодец! Открылась новая земля — «${nx.loc.n[0]}»!`,`${name()?name()+', ж':'Ж'}арайсың! Жаңа жер ашылды — «${nx.loc.n[1]}»!`):TL(w.fin[0],w.fin[1])}</p>
   <button class="mp-go" id="mpCelOk">${nx?TL('Вперёд!','Алға!'):TL('Ура!','Ура!')}</button></div>`,'center');
  chime(true);
  L.querySelector('#mpCelOk').onclick=()=>{history.back();if(!nx)setTimeout(()=>{try{PF.achieve();}catch(e){}},300);if(nx){animIds=[nx.loc.id];setTimeout(()=>{renderMap();scrollToCur(true);setTimeout(()=>chime(false),500);setTimeout(celebrateEvents,1400);},120);}};}
 /* ---- сундуки ---- */
 function chestTap(i,btn){const w=W(),I=info(w),m=wstate(w.sec),c=w.chests[i];
  if(m.chests[i]!==undefined){const p=w.prizes[i];toast(`${p[0]} ${TL(p[1][0],p[1][1])}`);return;}
- if(!I.L[c.after].done){btn.classList.remove('shk');void btn.offsetWidth;btn.classList.add('shk');toast(TL(`Сундук откроется, когда пройдёшь «${I.L[c.after].loc.n[0]}»`,`«${I.L[c.after].loc.n[1]}» өткенде сандық ашылады`));return;}
+ if(!(I.L[c.after].done&&I.L[c.after].open)){btn.classList.remove('shk');void btn.offsetWidth;btn.classList.add('shk');toast(TL(`Сундук откроется, когда пройдёшь «${I.L[c.after].loc.n[0]}»`,`«${I.L[c.after].loc.n[1]}» өткенде сандық ашылады`));return;}
  m.chests[i]=Date.now();PF.save();const p=w.prizes[i];chime(true);
  const L=layer(`<div class="mp-cel chest"><div class="pf-conf">${Array.from({length:24},(_,j)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#FFD25E','#9874F5','#43BD79'][j%4]};animation-delay:${(Math.random()*.6).toFixed(2)}s"></i>`).join('')}</div>
   <div class="mp-chbig">${chestSVG(true)}<span class="mp-prbig">${p[0]}</span></div><h2>${TL('Сокровище найдено!','Қазына табылды!')}</h2><b class="mp-celn">${TL(p[1][0],p[1][1])}</b>
-  <p class="mp-celsay">🦉 ${TL('Теперь оно хранится в твоём сундучке на карте. Загляни в профиль — там новая награда!','Енді ол картадағы сандықшаңда сақталады. Профиліңе қара — жаңа марапат бар!')}</p><button class="mp-go" id="mpCh">${TL('Здорово!','Керемет!')}</button></div>`,'center');
+  <p class="mp-celsay">${GE(w)} ${TL('Теперь оно хранится в твоём сундучке на карте. Загляни в профиль — там новая награда!','Енді ол картадағы сандықшаңда сақталады. Профиліңе қара — жаңа марапат бар!')}</p><button class="mp-go" id="mpCh">${TL('Здорово!','Керемет!')}</button></div>`,'center');
  L.querySelector('#mpCh').onclick=()=>{history.back();setTimeout(()=>{renderMap();try{PF.achieve();}catch(e){}},80);};}
 function toast(t){const d=document.createElement('div');d.className='mp-toast';d.textContent=t;document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'));setTimeout(()=>{d.classList.remove('on');setTimeout(()=>d.remove(),300);},2600);}
 /* ---- карточка на главной ---- */
 const HC=document.createElement('button');HC.className='mp-home';HC.id='mpHome';
 document.querySelector('.hero').insertAdjacentElement('afterend',HC);
-function homeCard(){const I=info(W()),dn=I.L.filter(x=>x.done).length;
- HC.innerHTML=`<span class="mp-hart" aria-hidden="true"><i class="d1"></i><i class="d2"></i><span class="e1">🏰</span><span class="e2">🚀</span><span class="e3">🌳</span><span class="e4">🔤</span><span class="e5">${OWL}</span></span>
-  <span class="mp-htx"><b>🗺️ ${TL('Карта приключений','Шытырман оқиғалар картасы')}</b><small>${TL('Открывай новые земли вместе с совой!','Жапалақпен бірге жаңа жерлерді аш!')}</small>
-  <span class="mp-hpr"><i style="width:${Math.round(dn/W().locs.length*100)}%"></i></span><small class="mp-hn">${TL(`Академия: ${dn} из ${W().locs.length} земель`,`Академия: ${W().locs.length} жердің ${dn}-і`)}</small></span><span class="mp-hgo">›</span>`;}
+function homeCard(){const id=ageW(),w=WORLDS[id],pr=wprog(id),fox=w.guide==='fox';
+ HC.innerHTML=`<span class="mp-hart" aria-hidden="true"><i class="d1"></i><i class="d2"></i><span class="e1">${id==='a02'?'🏡':id==='a24'?'🌲':'🏰'}</span><span class="e2">${id==='a02'?'🌈':id==='a24'?'🌉':'🚀'}</span><span class="e3">${id==='a02'?'🌷':id==='a24'?'🍄':'🌳'}</span><span class="e4">${id==='a02'?'🎵':id==='a24'?'🔢':'🔤'}</span><span class="e5">${fox?FOX:OWL}</span></span>
+  <span class="mp-htx"><b>🗺️ ${TL('Карта приключений','Шытырман оқиғалар картасы')}</b><small>${fox?TL('Открывай новые земли вместе с лисёнком!','Түлкі баламен бірге жаңа жерлерді аш!'):TL('Открывай новые земли вместе с совой!','Жапалақпен бірге жаңа жерлерді аш!')}</small>
+  <span class="mp-hpr"><i style="width:${Math.round(pr.dn/pr.tot*100)}%"></i></span><small class="mp-hn">${TL(`${w.short[0]}: ${pr.dn} из ${pr.tot} земель`,`${w.short[1]}: ${pr.tot} жердің ${pr.dn}-і`)}</small></span><span class="mp-hgo">›</span>`;}
 HC.onclick=openPicker;
 const _r=refresh;refresh=function(){_r();try{homeCard();}catch(e){}};refresh();
 })();
