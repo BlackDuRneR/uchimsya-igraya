@@ -798,7 +798,31 @@ body.mpon{overflow:hidden}
 .hb-flash{animation:hbFlash 1.2s ease}@keyframes hbFlash{0%,100%{box-shadow:0 8px 22px rgba(60,50,120,.1)}30%{box-shadow:0 0 0 4px #F6A321,0 8px 22px rgba(60,50,120,.1)}}
 .hb-ver{text-align:center;font-size:12.5px;color:#9A90B8;margin:18px 0 0}
 @media (max-width:360px){.hb-nums b{font-size:17px}.hb-q{min-height:108px;padding:12px 10px}.hb-q b{font-size:15px}}
-body:has(#prv.on) #clPop,body:has(#rpv.on) #clPop,body:has(#ptv.on) #clPop,body:has(#encv.on) #clPop{display:none!important}
+body:has(#prv.on) #clPop,body:has(#rpv.on) #clPop,body:has(#ptv.on) #clPop,body:has(#encv.on) #clPop,body:has(#stv.on) #clPop,body:has(#evv.on) #clPop{display:none!important}
+.hb-q.q5{grid-column:1/-1;min-height:0;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center;background:linear-gradient(135deg,#FFF1D6,#fff)}.hb-q.q5 span{grid-row:1/3}
+/* ===== Чек-лист «Готов ли к школе?» ===== */
+#rdv{background:linear-gradient(#FFF6E6,#F4ECFF 60%,#E9F5FF)}
+.rd-intro{text-align:center}.rd-big{font-size:72px;line-height:1.1}.rd-note{background:#EEF5FF;border-radius:14px;padding:10px 12px;font-size:13.5px!important;color:#2C4F7A!important;text-align:left}
+.rd-n{font-weight:900;color:#7C5CE0;font-size:15px;text-align:right}
+.rd-bar{height:10px;border-radius:999px;background:#EEE7FA;overflow:hidden;margin:10px 0 0}.rd-bar i{display:block;height:100%;background:linear-gradient(90deg,#FFC83D,#43BD79);transition:width .3s}
+.rd-q{text-align:center}.rd-q p{margin:0;color:#8A80A8!important}.rd-q h2{margin:6px 0 16px;font-size:clamp(20px,5.4vw,26px);color:#3A2E5C;line-height:1.3}
+.rd-ans{display:grid;gap:10px}.rd-ans button{border:none;border-radius:18px;min-height:58px;font:inherit;font-size:18px;font-weight:800;cursor:pointer}
+.rd-ans .y{background:#E3F7E9;color:#1F7A47;box-shadow:0 4px 0 #BFE5C9}.rd-ans .s{background:#FFF4DE;color:#9A6512;box-shadow:0 4px 0 #F2D9A8}.rd-ans .n{background:#F1ECF8;color:#5B4A9A;box-shadow:0 4px 0 #DCD2F0}
+.rd-ans button:active{transform:translateY(2px)}
+.rd-sum{text-align:center}.rd-ring{--p:50;width:130px;height:130px;margin:4px auto 10px;border-radius:50%;background:conic-gradient(#43BD79 calc(var(--p)*1%),#EEE7FA 0);display:grid;place-items:center}
+.rd-ring b{width:100px;height:100px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:28px;color:#3A2E5C}
+.rd-area .rd-ah{display:flex;align-items:center;gap:10px}.rd-ah span{font-size:28px}.rd-ah b{flex:1;font-size:16.5px}.rd-ah em{font-style:normal;font-size:13px;font-weight:800;border-radius:999px;padding:3px 10px}
+.rd-area.ok .rd-ah em{background:#E3F7E9;color:#1F7A47}.rd-area.mid .rd-ah em{background:#FFF4DE;color:#9A6512}.rd-area.low .rd-ah em{background:#FFE9EB;color:#C2303D}
+.rd-meter{height:10px;border-radius:999px;background:#F1ECF8;overflow:hidden;margin:10px 0 6px}.rd-meter i{display:block;height:100%;background:#43BD79}.rd-area.mid .rd-meter i{background:#F6A321}.rd-area.low .rd-meter i{background:#EF6F8E}
+.rd-area ul{margin:6px 0 4px;padding-left:20px;font-size:14px;color:#5E5480;line-height:1.45}.rd-trend{display:block;font-size:12.5px;color:#7A6E9C}
+/* ===== Голос родителя ===== */
+.pv-sw{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px;color:#4A3A7A;margin:0 0 8px}.pv-sw input{width:22px;height:22px;accent-color:#7C5CE0}
+.pv-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid #F1ECF8}
+.pv-e{font-size:26px}.pv-t b{display:block;font-size:15px}.pv-t small{display:block;font-size:13px;color:#5E5480;line-height:1.35}.pv-t .pv-w{color:#9A90B8;font-size:12px}
+.pv-ok{font-style:normal;color:#2E9A5E}
+.pv-b{display:flex;gap:6px}.pv-b button{width:42px;height:42px;border:none;border-radius:50%;background:#F1ECF8;font-size:17px;cursor:pointer}
+.pv-b .pv-rec{background:#FFE9EB;color:#E8505B}.pv-b .pv-rec.on{background:#E8505B;color:#fff;animation:hmPulse 1s ease-in-out infinite}
+.pv-row.recording .pv-t b:after{content:" ●";color:#E8505B;font-weight:800}
 /* ===== Энциклопедия для родителей ===== */
 #encv{z-index:45;background:linear-gradient(#E3F1FF,#F6F0FF 55%,#FFF6EC)}
 body.enon{overflow:hidden}
@@ -936,6 +960,82 @@ body.enon #clPop{display:none}
 #ptPrint{display:none}
 @media print{body.ptprinting>*:not(#ptPrint){display:none!important}body.ptprinting #ptPrint{display:block!important}
  body.ptprinting #ptPrint img{display:block;width:210mm;height:296mm;page-break-after:always;break-after:page}body.ptprinting #ptPrint img:last-child{page-break-after:auto;break-after:auto}body.ptprinting{background:#fff!important;margin:0}}
+/* ===== Главная: детский вид ===== */
+.hm-hidden{display:none!important}
+.hm-h{margin:4px 4px 10px;font-size:15px;font-weight:900;letter-spacing:.04em;color:#7A6E9C;text-transform:uppercase}
+.hm-fun{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 20px}
+.hm-t{position:relative;border:none;border-radius:24px;padding:14px 8px 12px;font:inherit;cursor:pointer;color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:124px;box-shadow:0 8px 18px rgba(60,50,140,.18);overflow:hidden}
+.hm-t:active{transform:scale(.97)}
+.hm-t .hm-ti{font-size:clamp(36px,10vw,48px);line-height:1.1;filter:drop-shadow(0 4px 4px rgba(0,0,0,.15))}
+.hm-t b{font-size:clamp(15px,4.2vw,19px);line-height:1.15;text-align:center}.hm-t small{font-size:clamp(11px,3vw,13px);opacity:.92;text-align:center;line-height:1.2}
+.hm-t.t-map{background:linear-gradient(150deg,#5B8DEF,#8B6CF0)}.hm-t.t-col{background:linear-gradient(150deg,#FF9A4D,#FF6FA0)}.hm-t.t-st{background:linear-gradient(150deg,#2C3E8F,#6A4FD8)}
+.hm-t.t-st:after{content:"✦  ✧ ✦";position:absolute;top:8px;right:10px;font-size:11px;opacity:.7;letter-spacing:3px}
+.hm-t.new:before{content:"";position:absolute;top:10px;right:10px;width:12px;height:12px;border-radius:50%;background:#FFE14D;box-shadow:0 0 0 3px rgba(255,255,255,.6);animation:hmPulse 1.4s ease-in-out infinite}
+@keyframes hmPulse{50%{transform:scale(1.35)}}
+.hm-my{margin-bottom:12px}.hm-my .ages.two{margin-bottom:14px}
+.hm-my .age.hm-own{display:grid;width:100%;margin-bottom:12px;box-shadow:0 10px 22px rgba(60,50,140,.16);border:3px solid color-mix(in srgb,var(--c) 45%,#fff)}
+.hm-my .age.hm-own .ic{width:76px;height:76px;font-size:44px}
+.hm-other{margin:0 0 20px;background:rgba(255,255,255,.6);border-radius:20px;padding:4px 12px}
+.hm-other summary{cursor:pointer;font-weight:800;color:#6B5AA8;font-size:15px;padding:10px 2px;list-style:none}.hm-other summary::-webkit-details-marker{display:none}
+.hm-other summary:after{content:" ›";}.hm-other[open] summary:after{content:" ⌄"}
+.hm-other .ages{margin:4px 0 12px}
+.hm-par{margin-top:8px}
+.hm-par{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.hm-par .hm-h{grid-column:1/-1;margin-bottom:2px}
+.hm-p{border:none;border-radius:18px;background:rgba(255,255,255,.85);padding:10px 6px;font:inherit;cursor:pointer;color:#3A2E5C;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 4px 12px rgba(60,50,120,.08)}
+.hm-p span{font-size:26px}.hm-p b{font-size:13.5px;text-align:center}.hm-p small{font-size:11px;color:#7A6E9C;text-align:center;line-height:1.2}
+@media (max-width:360px){.hm-fun{gap:8px}.hm-t{min-height:110px;padding:12px 4px}.hm-p b{font-size:12.5px}}
+/* ===== Сезонные события ===== */
+.ev-snow{position:fixed;inset:0;pointer-events:none;z-index:4;display:none;overflow:hidden}
+body.ev-ny:not(.inapp) .ev-snow{display:block}
+.ev-snow i{position:absolute;top:-24px;color:#fff;font-style:normal;text-shadow:0 0 4px rgba(90,140,220,.7);animation:evFall linear infinite;opacity:.9}
+@keyframes evFall{to{transform:translate(30px,105vh) rotate(200deg)}}
+@media (prefers-reduced-motion:reduce){.ev-snow{display:none!important}}
+.ev-bn{display:flex;align-items:center;gap:12px;width:100%;border:none;border-radius:24px;padding:14px;margin:-6px 0 16px;font:inherit;text-align:left;cursor:pointer;color:#3A2E5C;box-shadow:0 10px 22px rgba(40,60,140,.2);position:relative;overflow:hidden}
+.ev-bn.dark{color:#fff}.ev-be{font-size:44px;line-height:1;flex:none}.ev-bt{flex:1;min-width:0}.ev-bt b{display:block;font-size:18px}.ev-bt small{font-size:13.5px;opacity:.92}
+.ev-bgo{font-size:24px;flex:none}.ev-bn.ready .ev-bgo{animation:evWig 1.2s ease-in-out infinite}
+@keyframes evWig{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg) scale(1.1)}75%{transform:rotate(14deg) scale(1.1)}}
+#evv{z-index:44}
+.ev-wrap{min-height:100%;padding:calc(14px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));box-sizing:border-box}
+.ev-wrap.ny .cl-top h1{color:#fff}.ev-wrap>*{max-width:600px;margin-left:auto;margin-right:auto}
+.ev-hero{text-align:center;margin:8px auto 10px}.ev-hero p{margin:6px 0 0;font-weight:800;font-size:15px;color:#3A2E5C;background:rgba(255,255,255,.85);border-radius:16px;padding:8px 12px;display:inline-block}
+.ev-hint{display:block!important;margin-top:8px!important;background:#FFF1C9!important}
+.ev-tree{width:min(70vw,300px);height:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25))}
+.ev-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ev-w{aspect-ratio:1;border:none;border-radius:16px;background:rgba(255,255,255,.9);font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 4px 0 rgba(0,0,0,.12);padding:2px}
+.ev-wn{font-size:12px;font-weight:900;color:#6B5AA8}.ev-we{font-size:clamp(20px,6vw,30px);line-height:1}
+.ev-w.open{background:#fff}.ev-w.fut{opacity:.55;cursor:default}.ev-w.today{outline:4px solid #FFD21F}.ev-w.can .ev-we{animation:evWig 1.4s ease-in-out infinite}
+.ev-gift{position:relative;overflow:hidden}.ev-big{font-size:84px;line-height:1.1}
+.ev-kz{display:flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,.85);border-radius:24px;padding:14px}.ev-pot{font-size:80px;line-height:1}
+.ev-kz div{display:flex;gap:6px}.ev-kz div span{font-size:30px;opacity:.25;filter:grayscale(1)}.ev-kz div span.in{opacity:1;filter:none;animation:jump .5s}
+body.ev-ny #mpv .mp-map:before{content:"🎄";position:absolute;left:6%;top:3%;font-size:54px;z-index:2;filter:drop-shadow(0 4px 4px rgba(0,0,0,.2))}
+body.ev-ny #mpv .mp-world-wrap{background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.7) 0 2px,transparent 3px),radial-gradient(circle at 70% 40%,rgba(255,255,255,.7) 0 2px,transparent 3px)!important;background-size:60px 60px,90px 90px!important}
+@media (max-width:360px){.ev-grid{gap:6px}.ev-be{font-size:36px}}
+/* ===== Сказки на ночь ===== */
+#stv{z-index:46;background:linear-gradient(#141C4A,#2A2F7A 55%,#3E3A8F)}
+.st-wrap{position:relative;min-height:100%;max-width:620px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));box-sizing:border-box;color:#EDEBFF}
+.st-wrap .cl-top{position:relative;z-index:1}.st-wrap .cl-top h1{color:#fff;font-size:clamp(18px,5vw,24px)}
+.st-wrap .pf-ib{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff}
+.st-sky{position:absolute;inset:0;pointer-events:none;overflow:hidden}.st-sky i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:.6;animation:stTw 3s ease-in-out infinite}
+@keyframes stTw{50%{opacity:.15;transform:scale(.6)}}
+.st-intro{position:relative;margin:12px 4px;font-size:15.5px;line-height:1.5;color:#CFCBFF}
+.st-list{position:relative;display:grid;gap:10px}
+.st-card{display:flex;align-items:center;gap:12px;border:none;border-radius:22px;background:rgba(255,255,255,.1);padding:14px;font:inherit;text-align:left;color:#fff;cursor:pointer;border:2px solid rgba(255,255,255,.12)}
+.st-card.mine{background:rgba(255,255,255,.18);border-color:#FFD86B}.st-card:active{transform:scale(.98)}
+.st-ce{font-size:40px;flex:none}.st-ct b{display:block;font-size:17px}.st-ct small{font-size:13px;color:#CFCBFF}
+.st-scene{position:relative;text-align:center;margin-top:10px}
+.st-art{font-size:clamp(90px,24vw,150px);line-height:1.15;animation:stFloat 4s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}
+@keyframes stFloat{50%{transform:translateY(-10px)}}
+.st-txt{font-size:clamp(19px,4.8vw,24px);line-height:1.5;margin:10px 4px;color:#fff;text-align:left}
+.st-again{border:none;background:none;color:#CFCBFF;font:inherit;font-size:14px;text-decoration:underline;cursor:pointer;min-height:40px}
+.st-ch,.st-task,.st-btns{position:relative;display:grid;gap:10px;margin-top:10px}
+.st-ch button{display:flex;align-items:center;gap:12px;border:none;border-radius:20px;background:#FFF6E3;color:#3A2E5C;font:inherit;font-size:clamp(17px,4.4vw,21px);font-weight:800;padding:12px 16px;cursor:pointer;text-align:left;box-shadow:0 5px 0 #E6CF9C}
+.st-ch button span{font-size:34px}
+.st-task{grid-template-columns:repeat(auto-fit,minmax(90px,1fr))}.st-task button{border:none;border-radius:22px;background:#fff;min-height:110px;font:inherit;font-size:clamp(40px,10vw,56px);font-weight:900;color:#3A2E5C;cursor:pointer;box-shadow:0 5px 0 #C9C2EE;display:grid;place-items:center}
+.st-task button.ok{background:#D9F7E3;box-shadow:0 5px 0 #9FDDB3}.st-task button.no{animation:mpShake .4s}
+.st-show{position:relative;text-align:center;font-size:clamp(40px,10vw,56px);letter-spacing:4px;margin-top:6px}
+.st-end{position:relative;text-align:center;margin-top:8px}.st-moon{font-size:72px;animation:stFloat 4s ease-in-out infinite}.st-end h2{color:#FFD86B;margin:4px 0 12px;font-size:clamp(22px,6vw,28px)}
+.st-btns .mp-go{margin:0}.st-btns .pr-btn{margin:0}
+.st-task button{overflow:hidden}
 
 </style></head>
 <body>
@@ -3060,6 +3160,7 @@ canvas#conf{position:fixed;inset:0;pointer-events:none;z-index:15}
 .kzNote{text-align:center;font-size:clamp(13px,3vw,16px);color:#8A80A8;margin:8px 0 0;font-weight:600}
 .wops.wcol{flex-direction:column;align-items:stretch;max-width:620px;margin-left:auto;margin-right:auto}.wops.wcol .wo{min-height:0;padding:14px 18px;text-align:left}
 .wtxt{display:block;font-size:clamp(18px,4.2vw,26px)!important;line-height:1.3;white-space:normal}
+.lvl{font-size:.55em;letter-spacing:1px;color:#F5A623;vertical-align:middle;white-space:nowrap}
 /* ===== ДИЗАЙН-СИСТЕМА «Учимся играя» ===== */
 :root{
  --ds-bg:#FFF8EC;--ds-card:#FFFFFF;--ds-ink:#292944;--ds-muted:#8B8AA3;--ds-line:#F0E8DA;
@@ -3812,15 +3913,23 @@ function c10Q(){
 /* ===== МАТЕМАТИКА ===== */
 const N20=[&quot;ноль&quot;,&quot;один&quot;,&quot;два&quot;,&quot;три&quot;,&quot;четыре&quot;,&quot;пять&quot;,&quot;шесть&quot;,&quot;семь&quot;,&quot;восемь&quot;,&quot;девять&quot;,&quot;десять&quot;,&quot;одиннадцать&quot;,&quot;двенадцать&quot;,&quot;тринадцать&quot;,&quot;четырнадцать&quot;,&quot;пятнадцать&quot;,&quot;шестнадцать&quot;,&quot;семнадцать&quot;,&quot;восемнадцать&quot;,&quot;девятнадцать&quot;,&quot;двадцать&quot;];
 if(KZ)N20.splice(0,N20.length,&quot;нөл&quot;,&quot;бір&quot;,&quot;екі&quot;,&quot;үш&quot;,&quot;төрт&quot;,&quot;бес&quot;,&quot;алты&quot;,&quot;жеті&quot;,&quot;сегіз&quot;,&quot;тоғыз&quot;,&quot;он&quot;,&quot;он бір&quot;,&quot;он екі&quot;,&quot;он үш&quot;,&quot;он төрт&quot;,&quot;он бес&quot;,&quot;он алты&quot;,&quot;он жеті&quot;,&quot;он сегіз&quot;,&quot;он тоғыз&quot;,&quot;жиырма&quot;);
+/* подстройка сложности: 3 верных ответа подряд с первой попытки — сложнее, 2 ошибки подряд — проще */
+const ADL=(()=&gt;{let L={};try{L=JSON.parse(localStorage.getItem(&#x27;az_lvl&#x27;)||&#x27;{}&#x27;)}catch(e){}const run={};
+ const lv=k=&gt;Math.min(3,Math.max(1,L[k]||2));
+ function res(k,first){const r=run[k]||(run[k]={ok:0,bad:0});if(first){r.ok++;r.bad=0;}else{r.bad++;r.ok=0;}
+  let ch=0;if(r.ok&gt;=3&amp;&amp;lv(k)&lt;3){L[k]=lv(k)+1;ch=1;r.ok=0;}else if(r.bad&gt;=2&amp;&amp;lv(k)&gt;1){L[k]=lv(k)-1;ch=-1;r.bad=0;}
+  if(ch){try{localStorage.setItem(&#x27;az_lvl&#x27;,JSON.stringify(L))}catch(e){}timers.push(setTimeout(()=&gt;speak(ch&gt;0?TT(&#x27;Отлично! Теперь задания будут чуть сложнее.&#x27;,&#x27;Керемет! Енді тапсырмалар сәл қиындайды.&#x27;):TT(&#x27;Давай попробуем полегче.&#x27;,&#x27;Жеңілірек байқап көрейік.&#x27;)),1500));}}
+ const badge=k=&gt;`&lt;small class=&quot;lvl&quot; title=&quot;${TT(&#x27;Уровень&#x27;,&#x27;Деңгей&#x27;)}&quot;&gt;${&#x27;⭐&#x27;.repeat(lv(k))}${&#x27;☆&#x27;.repeat(3-lv(k))}&lt;/small&gt;`;
+ return {lv,res,badge};})();
 function mathRound(st,q,again){if(st.n&gt;=8)return finish(st.ok,8,again);q();}
-function mathOK(st,b,say,next){if(b){b.classList.add(&#x27;ok&#x27;);}app.querySelectorAll(&#x27;.ch,.opt&#x27;).forEach(x=&gt;x.onclick=null);if(!st.tries){st.ok++;star();}tone(&#x27;ok&#x27;);speak(say);st.n++;timers.push(setTimeout(next,2300));}
+function mathOK(st,b,say,next){if(st.key)ADL.res(st.key,!st.tries);if(b){b.classList.add(&#x27;ok&#x27;);}app.querySelectorAll(&#x27;.ch,.opt&#x27;).forEach(x=&gt;x.onclick=null);if(!st.tries){st.ok++;star();}tone(&#x27;ok&#x27;);speak(say);st.n++;timers.push(setTimeout(next,2300));}
 function mathBad(st,b,say){st.tries++;if(b){b.classList.add(&#x27;no&#x27;);b.classList.remove(&#x27;shake&#x27;);void b.offsetWidth;b.classList.add(&#x27;shake&#x27;);}tone(&#x27;bad&#x27;);speak(say||TT(&#x27;Подумай ещё!&#x27;,&#x27;Тағы ойлан!&#x27;));}
 /* Больше, меньше, равно */
 let cm={n:0,ok:0};
-function cmpGame(){clearT();cm={n:0,ok:0};mathRound(cm,cmQ,cmpGame);}
-function cmQ(){cm.tries=0;const max=cm.n&lt;4?10:20;let a=Math.floor(Math.random()*(max+1)),b=Math.random()&lt;.2?a:Math.floor(Math.random()*(max+1));
+function cmpGame(){clearT();cm={n:0,ok:0,key:&#x27;cmpGame&#x27;};mathRound(cm,cmQ,cmpGame);}
+function cmQ(){cm.tries=0;const LV=ADL.lv(&#x27;cmpGame&#x27;);const max=LV===1?5:LV===3?20:(cm.n&lt;4?10:20);let a=Math.floor(Math.random()*(max+1)),b=Math.random()&lt;.2?a:Math.floor(Math.random()*(max+1));
   const sign=a&gt;b?&#x27;&gt;&#x27;:a&lt;b?&#x27;&lt;&#x27;:&#x27;=&#x27;;const e=rnd([&quot;🍎&quot;,&quot;⭐&quot;,&quot;🐟&quot;,&quot;🌸&quot;,&quot;🍓&quot;]);
-  app.innerHTML=`&lt;h2&gt;${TT(&#x27;Поставь знак: больше, меньше или равно&#x27;,&#x27;Белгі қой: артық, кем немесе тең&#x27;)}&lt;/h2&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(&#x27;Поставь знак: больше, меньше или равно&#x27;,&#x27;Белгі қой: артық, кем немесе тең&#x27;)} ${ADL.badge(&#x27;cmpGame&#x27;)}&lt;/h2&gt;
    &lt;div class=&quot;cmp&quot;&gt;&lt;div class=&quot;grp&quot;&gt;&lt;div class=&quot;n&quot;&gt;${a}&lt;/div&gt;${max===10?`&lt;div class=&quot;o&quot;&gt;${e.repeat(a)||&#x27;—&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;div class=&quot;sign&quot; id=&quot;sg&quot;&gt;?&lt;/div&gt;&lt;div class=&quot;grp&quot;&gt;&lt;div class=&quot;n&quot;&gt;${b}&lt;/div&gt;${max===10?`&lt;div class=&quot;o&quot;&gt;${e.repeat(b)||&#x27;—&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${[&#x27;&lt;&#x27;,&#x27;=&#x27;,&#x27;&gt;&#x27;].map(s=&gt;`&lt;button class=&quot;ch c&quot; data-s=&quot;${s}&quot; style=&quot;color:var(--violet)&quot;&gt;${s}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(cm.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
@@ -3860,13 +3969,13 @@ function nbQ(){nb.tries=0;const max=nb.n&lt;4?10:20;const x=1+Math.floor(Math.ra
     else mathBad(nb,b,step===0?TT(&#x27;Это число не стоит прямо перед ним. Посчитай назад!&#x27;,&#x27;Бұл сан тура алдында тұрған жоқ. Кері сана!&#x27;):TT(&#x27;Посчитай вперёд на один!&#x27;,&#x27;Бір сан алға сана!&#x27;));});}
 /* Плюс и минус в пределах 10 */
 let as={n:0,ok:0};
-function addSub(){clearT();as={n:0,ok:0};mathRound(as,asQ,addSub);}
-function asQ(){as.tries=0;const plus=Math.random()&lt;.5;let a,b,r;
-  if(plus){a=Math.floor(Math.random()*10);b=Math.floor(Math.random()*(11-a));r=a+b;}else{a=1+Math.floor(Math.random()*10);b=Math.floor(Math.random()*(a+1));r=a-b;}
+function addSub(){clearT();as={n:0,ok:0,key:&#x27;addSub&#x27;};mathRound(as,asQ,addSub);}
+function asQ(){as.tries=0;const plus=Math.random()&lt;.5;let a,b,r;const LV=ADL.lv(&#x27;addSub&#x27;),M=LV===1?5:LV===3?20:10;
+  if(plus){a=Math.floor(Math.random()*(LV===3?11:M));b=Math.floor(Math.random()*(Math.min(LV===3?10:M,M-a)+1));r=a+b;}else{a=1+Math.floor(Math.random()*M);b=Math.floor(Math.random()*(Math.min(a,LV===3?10:a)+1));r=a-b;}
   const e=rnd([&quot;🍎&quot;,&quot;🐥&quot;,&quot;⭐&quot;,&quot;🍬&quot;,&quot;🐞&quot;,&quot;🎈&quot;]);
   const pics=plus?`${e.repeat(a)}${a&amp;&amp;b?&#x27; ➕ &#x27;:&#x27;&#x27;}${e.repeat(b)}`:`${e.repeat(a-b)}${`&lt;s&gt;${e}&lt;/s&gt;`.repeat(b)}`;
   const opts=shuffle([...new Set([r,r+1,Math.max(0,r-1),r+2])]).slice(0,3);if(!opts.includes(r))opts[0]=r;
-  app.innerHTML=`&lt;h2&gt;${plus?TT(&#x27;Сложи&#x27;,&#x27;Қос&#x27;):TT(&#x27;Вычти&#x27;,&#x27;Азайт&#x27;)}&lt;/h2&gt;&lt;div class=&quot;pics2&quot;&gt;${pics||&#x27;—&#x27;}&lt;/div&gt;
+  app.innerHTML=`&lt;h2&gt;${plus?TT(&#x27;Сложи&#x27;,&#x27;Қос&#x27;):TT(&#x27;Вычти&#x27;,&#x27;Азайт&#x27;)} ${ADL.badge(&#x27;addSub&#x27;)}&lt;/h2&gt;&lt;div class=&quot;pics2&quot;&gt;${pics||&#x27;—&#x27;}&lt;/div&gt;
    &lt;div class=&quot;ex&quot;&gt;${a} ${plus?&#x27;+&#x27;:&#x27;−&#x27;} ${b} = &lt;span class=&quot;q&quot; id=&quot;qq&quot;&gt;${r}&lt;/span&gt;&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${shuffle(opts).map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(as.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
@@ -3945,10 +4054,10 @@ function rbQ(){rbs.tries=0;const w=rnd(RB_WORDS);
 }
 /* ===== Состав числа (домики) ===== */
 let hs={n:0,ok:0};
-function house(){clearT();hs={n:0,ok:0};mathRound(hs,hsQ,house);}
-function hsQ(){hs.tries=0;const n=2+Math.floor(Math.random()*9),a=Math.floor(Math.random()*(n+1)),b=n-a,left=Math.random()&lt;.5;
+function house(){clearT();hs={n:0,ok:0,key:&#x27;house&#x27;};mathRound(hs,hsQ,house);}
+function hsQ(){hs.tries=0;const LV=ADL.lv(&#x27;house&#x27;);const n=LV===1?2+Math.floor(Math.random()*4):LV===3?6+Math.floor(Math.random()*5):2+Math.floor(Math.random()*9),a=Math.floor(Math.random()*(n+1)),b=n-a,left=Math.random()&lt;.5;
   const opts=shuffle([...new Set([b,Math.max(0,b-1),b+1,b+2].filter(x=&gt;x&lt;=10))]).slice(0,3);if(!opts.includes(b))opts[0]=b;
-  app.innerHTML=`&lt;h2&gt;${TT(`Состав числа ${n}`,`${n} санының құрамы`)}&lt;/h2&gt;&lt;div class=&quot;hs&quot;&gt;&lt;div class=&quot;roof&quot;&gt;&lt;span&gt;${n}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;flo&quot;&gt;${left?`&lt;div&gt;${a}&lt;/div&gt;&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;`:`&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;&lt;div&gt;${a}&lt;/div&gt;`}&lt;/div&gt;&lt;/div&gt;
+  app.innerHTML=`&lt;h2&gt;${TT(`Состав числа ${n}`,`${n} санының құрамы`)} ${ADL.badge(&#x27;house&#x27;)}&lt;/h2&gt;&lt;div class=&quot;hs&quot;&gt;&lt;div class=&quot;roof&quot;&gt;&lt;span&gt;${n}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;flo&quot;&gt;${left?`&lt;div&gt;${a}&lt;/div&gt;&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;`:`&lt;div class=&quot;q&quot; id=&quot;qq&quot;&gt;?&lt;/div&gt;&lt;div&gt;${a}&lt;/div&gt;`}&lt;/div&gt;&lt;/div&gt;
    &lt;div class=&quot;pics2&quot;&gt;${&#x27;🔵&#x27;.repeat(a)}${&#x27;⚪&#x27;.repeat(b)}&lt;/div&gt;
    &lt;div class=&quot;choices&quot;&gt;${shuffle(opts).map(o=&gt;`&lt;button class=&quot;ch c&quot; data-o=&quot;${o}&quot; style=&quot;color:var(--cons)&quot;&gt;${o}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div class=&quot;stars&quot;&gt;${&quot;⭐&quot;.repeat(hs.ok)}&lt;/div&gt;&lt;div class=&quot;navrow&quot;&gt;${back()}&lt;/div&gt;`;
@@ -7289,7 +7398,7 @@ let curId=null,ignorePop=0,secT='';
    Прогресс активного ребёнка лежит под прежними ключами (k24_stars, nav_plays …),
    поэтому всё, что уже накоплено, сохраняется. При смене профиля данные
    переносятся в prof_data_<id> и обратно. */
-const PKEYS=['k24_stars','k24_gallery','az_trace','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','p_age','az_syl','pf_stats','pf_photo'];
+const PKEYS=['k24_stars','k24_gallery','az_trace','az_lvl','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','p_age','az_syl','pf_stats','pf_photo'];
 function profiles(){let p=LS.get('profiles',null);if(!p||!p.length){p=[{id:'p1',name:'',av:'🦊',age:''}];LS.set('profiles',p);LS.set('prof_cur','p1');}return p;}
 function curProf(){const p=profiles();const id=LS.get('prof_cur',p[0].id);return p.find(x=>x.id===id)||p[0];}
 function saveLive(id){const d={};PKEYS.forEach(k=>{try{const v=localStorage.getItem(k);if(v!==null)d[k]=v;}catch(e){}});LS.set('prof_data_'+id,d);}
@@ -7330,7 +7439,7 @@ document.getElementById('prof').addEventListener('click',e=>{if(e.target.id==='p
 /* ---------- прогресс на главном экране ---------- */
 function refresh(){const c=curProf();document.body.dataset.sex=c.sex||'';const pl=LS.get('nav_plays',{});let done=0,total=0;
  document.querySelectorAll('.age[data-sid]').forEach(b=>{const sid=b.dataset.sid,tot=+((kzOn()&&b.dataset.totalKz)||b.dataset.total);if(!tot)return;
-   const d=Math.min(Object.keys(pl).filter(k=>k.startsWith(sid+':')).length,tot);done+=d;total+=tot;
+   const d=Math.min(Object.keys(pl).filter(k=>k.startsWith(sid+':')).length,tot);const mine=!['a02','a24','a56'].includes(b.dataset.id)||b.dataset.id===(['a02','a24','a56'].includes(c.age)?c.age:'a56');if(mine){done+=d;total+=tot;}
    b.querySelector('.pbar i').style.width=Math.round(d/tot*100)+'%';b.querySelector('.pnum').textContent=`${d} / ${tot}`;
    const bd=b.querySelector('.badge');bd.classList.toggle('on',c.age===b.dataset.id);bd.textContent=c.name?TL('Для: ','Үшін: ')+c.name:TL('Подходит по возрасту','Жасына сай');});
  const st=['k24_stars','az_stars','en_stars','kz_stars'].reduce((s,k)=>s+(+LS.get(k,0)||0),0);
@@ -7366,6 +7475,9 @@ window.addEventListener('popstate',()=>{if(ignorePop){ignorePop--;return;}
  if(window.PRLAY&&PRLAY())return;
  const m=document.getElementById('prof');if(m.style.display==='flex'){m.style.display='none';return;}
  if(window.PTPOP&&PTPOP())return;
+ if(window.EVPOP&&EVPOP())return;
+ if(window.STPOP&&STPOP())return;
+ if(window.RDPOP&&RDPOP())return;
  if(window.RPPOP&&RPPOP())return;
  if(window.PRPOP&&PRPOP())return;
  if(window.ENCPOP&&ENCPOP())return;
@@ -7508,7 +7620,7 @@ function showRest(){const kz=kzOn();const young=curId==='a02';const pool=ACTS.fi
  document.getElementById('rWarm').textContent=kz?'🤸 Жаттығу — 1 минут':'🤸 Разминка — 1 минута';
  document.getElementById('rA').innerHTML=`<b>${ADIR[x.d][0]} ${x.t}</b><br>${x.s}${x.w?'<br>⚠️ '+x.w:''}`;
  document.getElementById('rGo').textContent=kz?'Жарайды, ойнаймыз!':'Хорошо, играем вместе!';const rm=document.getElementById('rMore');rm.disabled=true;rm.textContent=kz?'Тағы 5 минут — жаттығудан кейін':'Ещё 5 минут — после разминки';
- document.getElementById('rest').style.display='flex';}
+ document.getElementById('rest').style.display='flex';try{window.PVOICE&&PVOICE.play('rest');}catch(e){}}
 document.getElementById('rGo').onclick=()=>{document.getElementById('rest').style.display='none';secTime=0;extra=0;closeSec();};
 document.getElementById('rMore').onclick=()=>{if(!restWarm)return;document.getElementById('rest').style.display='none';extra=secTime-curLimit()*60+300;};
 let restWarm=false;
@@ -7831,9 +7943,9 @@ function renderPicker(){const c=curProf(),mine=ageW();
  const card=(id,cls,emo,sub)=>{const w=WORLDS[id],pr=wprog(id);return `<button class="mp-world ${cls} ${id===mine?'mine':''}" data-w="${id}"><span class="mp-wart">${emo}</span><span class="mp-wtx">${id===mine?`<em class="mp-wme">${TL('Твой мир','Сенің әлемің')}</em>`:''}<b>${TL(w.name[0],w.name[1])}</b><small>${sub}</small><span class="mp-wpr"><i style="width:${Math.round(pr.dn/pr.tot*100)}%"></i></span><small class="mp-wn">${TL(`Пройдено ${pr.dn} из ${pr.tot} земель`,`${pr.tot} жердің ${pr.dn}-і өтілді`)}</small></span><span class="mp-wgo">›</span></button>`;};
  PK.innerHTML=`<div class="mp-pk"><div class="mp-pktop"><button class="pf-ib" id="mpPkBack" aria-label="${TL('На главную','Басты бетке')}">‹</button><h1>${TL('Карта приключений','Шытырман оқиғалар картасы')}</h1><span></span></div>
   <div class="mp-pkhi"><span class="mp-owlb">${mine==='a56'?OWL:FOX}</span><p>${TL(`${name()?name()+', в':'В'}ыбирай свой мир — и отправимся в путь!`,`${name()?name()+', ө':'Ө'}з әлеміңді таңда — жолға шығайық!`)}</p></div>
-  ${card('a02','w02','🌼🦊🏡',TL('0–2 года · с лисёнком','0–2 жас · түлкі баламен'))}
-  ${card('a24','w24','🌲🦊🌉',TL('2–4 года · с лисёнком','2–4 жас · түлкі баламен'))}
-  ${card('a56','w56','🏰🦉🚀',TL('5–6 лет · с мудрой совой','5–6 жас · дана жапалақпен'))}
+  ${c.lock&&mine!=='a02'?'':card('a02','w02','🌼🦊🏡',TL('0–2 года · с лисёнком','0–2 жас · түлкі баламен'))}
+  ${c.lock&&mine!=='a24'?'':card('a24','w24','🌲🦊🌉',TL('2–4 года · с лисёнком','2–4 жас · түлкі баламен'))}
+  ${c.lock&&mine!=='a56'?'':card('a56','w56','🏰🦉🚀',TL('5–6 лет · с мудрой совой','5–6 жас · дана жапалақпен'))}
   <p class="mp-note">${TL('Карта — ещё один путь к тем же играм. Все игры по-прежнему доступны и в обычном меню.','Карта — сол ойындарға апаратын тағы бір жол. Барлық ойын әдеттегі мәзірде де бар.')}</p></div>`;
  PK.querySelector('#mpPkBack').onclick=()=>history.back();
  PK.querySelectorAll('.mp-world').forEach(b=>b.onclick=()=>openWorld(b.dataset.w));}
@@ -8635,7 +8747,7 @@ setTimeout(()=>{check('start');flush();},1200);
    onb_done    — знакомство при первом запуске пройдено.
    bk_last     — когда последний раз сохраняли копию. */
 (function(){
-const APP_KEYS=['k24_gallery','az_trace','profiles','prof_cur','app_lang','scr','m_photos','k24_stars','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','p_age','az_syl','pf_stats','pf_photo','parent_pin','onb_done','bk_last','enc_read'];
+const APP_KEYS=['k24_gallery','az_trace','az_lvl','profiles','prof_cur','app_lang','scr','m_photos','k24_stars','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','p_age','az_syl','pf_stats','pf_photo','parent_pin','onb_done','bk_last','enc_read'];
 const raw=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
 const put=(k,v)=>{try{if(v===null||v===undefined)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){throw e;}};
 const hash=s=>{let h=5381;for(const c of 'uchimsya:'+s)h=((h<<5)+h+c.charCodeAt(0))>>>0;return 'h'+h.toString(36);};
@@ -8731,13 +8843,17 @@ function renderHub(){const kids=profiles(),c=curProf();const last=+raw('bk_last'
   <div class="hb-quick"><button class="hb-q q1" id="prEnc"><span>📖</span><b>${TL('Энциклопедия','Энциклопедия')}</b><small>${TL(`Как объяснить ребёнку · прочитано ${encN}/${encT}`,`Балаға қалай түсіндіру · ${encT}-тен ${encN} оқылды`)}</small></button>
    <button class="hb-q q2" id="prPrint"><span>🖨️</span><b>${TL('Распечатки','Басып шығару')}</b><small>${TL('Прописи, дорожки, карточки, раскраски','Жазу, жолдар, карточкалар, бояулар')}</small></button>
    <button class="hb-q q3" id="prWarm"><span>🤸</span><b>${TL('Разминка с совой','Жапалақпен жаттығу')}</b><small>${TL('1 минута движения прямо сейчас','Дәл қазір 1 минут қимыл')}</small></button>
-   <button class="hb-q q4" id="prRep2"><span>📊</span><b>${TL('Отчёт за неделю','Апталық есеп')}</b><small>${TL('Что получается и что повторить','Не шығып жатыр, нені қайталау керек')}</small></button></div>
+   <button class="hb-q q4" id="prRep2"><span>📊</span><b>${TL('Отчёт за неделю','Апталық есеп')}</b><small>${TL('Что получается и что повторить','Не шығып жатыр, нені қайталау керек')}</small></button>
+   <button class="hb-q q5" id="prReady"><span>🎒</span><b>${TL('Готов ли к школе?','Мектепке дайын ба?')}</b><small>${TL('Чек-лист для родителей: 6 областей, 3 минуты','Ата-аналарға чек-парақ: 6 сала, 3 минут')}</small></button></div>
   <h4 class="hb-lbl">${TL('Дети','Балалар')}</h4>
   <section class="pr-card hb-kids">${kids.map(k=>`<div class="hb-k ${k.id===c.id?'on':''}" data-sex="${k.sex||''}"><span class="hb-kav">${k.av}</span><b>${esc(k.name||TL('Малыш','Бала'))}</b><small>${k.years?YR(k.years):AGL[k.age]||''}${k.id===c.id?' · '+TL('сейчас играет','қазір ойнайды'):''}</small></div>`).join('')}
    <button class="pr-btn" id="prKids">✏️ ${TL('Профили детей: добавить, изменить, удалить','Балалар профильдері: қосу, өзгерту, жою')}</button></section>
+  <h4 class="hb-lbl">${TL('Голос','Дауыс')}</h4>${window.PVOICE?PVOICE.card():''}
   <h4 class="hb-lbl">${TL('Время и правила','Уақыт және ережелер')}</h4>
   <section class="pr-card" id="hbLim"><h3>⏱️ ${TL('Экранное время','Экран уақыты')}</h3><p>${TL('Через сколько минут игры предложить отдых и разминку с совой. «Ещё 5 минут» открывается только после разминки.','Неше минут ойыннан кейін демалыс пен жапалақпен жаттығуды ұсыну. «Тағы 5 минут» тек жаттығудан кейін ашылады.')}</p>
    ${lim(myAge,'⭐ '+AGL[myAge]+' — '+TL('возраст ребёнка','баланың жасы'))}<details class="hb-more"><summary>${TL('Другие возрасты','Басқа жастар')}</summary>${['a02','a24','a56'].filter(a=>a!==myAge).map(a=>lim(a,AGL[a])).join('')}</details></section>
+  <section class="pr-card" id="hbLock"><h3>🔒 ${TL('Только игры своего возраста','Тек өз жасының ойындары')}</h3><p>${c.lock?TL(`Включено для «${esc(c.name||'Малыш')}»: на главной и на карте видны только игры для ${AGL[myAge]}.`,`«${esc(c.name||'Бала')}» үшін қосулы: басты бетте және картада тек ${AGL[myAge]} ойындары көрінеді.`):TL('Ребёнок видит свои игры, а другие возрасты свёрнуты. Можно скрыть их совсем.','Бала өз ойындарын көреді, басқа жастар жиналған. Оларды мүлдем жасыруға болады.')}</p>
+   <button class="pr-btn" id="prLock">${c.lock?'🔓 '+TL('Показывать все возрасты','Барлық жасты көрсету'):'🔒 '+TL('Скрыть другие возрасты','Басқа жастарды жасыру')}</button></section>
   <section class="pr-card" id="hbPin"><h3>🔐 ${TL('PIN-код родителя','Ата-ананың PIN-коды')}</h3><p>${pinOk?TL('PIN-код установлен. Он защищает этот раздел, удаление профилей и сброс прогресса.','PIN-код орнатылған. Ол осы бөлімді, профильдерді жоюды және прогресті тастауды қорғайды.'):TL('Задайте 4 цифры — тогда ребёнок не сможет случайно удалить профиль или прогресс. Пока вход защищён примером на умножение.','4 сан орнатыңыз — сонда бала профильді немесе прогресті кездейсоқ өшіре алмайды. Әзірге кіру көбейту мысалымен қорғалған.')}</p>
    <div class="hb-2"><button class="pr-btn" id="prPin">${pinOk?'🔁 '+TL('Сменить PIN','PIN-ді ауыстыру'):'➕ '+TL('Задать PIN','PIN орнату')}</button>${pinOk?`<button class="pr-btn ghost" id="prPinOff">${TL('Убрать PIN','PIN-ді алып тастау')}</button>`:''}</div></section>
   <h4 class="hb-lbl">${TL('Данные','Деректер')}</h4>
@@ -8752,12 +8868,15 @@ function renderHub(){const kids=profiles(),c=curProf();const last=+raw('bk_last'
  on('prBack',()=>history.back());on('prExp',exportBackup);on('prImp',importBackup);on('prPin',()=>setPin(renderHub));
  on('prRep',()=>window.DAILY&&DAILY.openReport());on('prRep2',()=>window.DAILY&&DAILY.openReport());
  on('prEnc',()=>{history.back();setTimeout(()=>window.ENC&&ENC.open(),150);});
+ if(window.PVOICE)PVOICE.bind(HV,()=>{const y=HV.scrollTop;renderHub();HV.scrollTop=y;});
+ on('prReady',()=>window.READY&&READY.open());
  on('prPrint',()=>window.PRINTS&&PRINTS.open());
  on('prWarm',()=>window.WARMUP&&WARMUP.start(()=>renderHub()));
  on('prPinOff',()=>{put('parent_pin',null);toast(TL('PIN убран','PIN алынып тасталды'));renderHub();});
  const kp=()=>{history.pushState({d:1,m:1},'');document.getElementById('prof').style.display='flex';profList();};on('prKids',kp);on('prKids2',kp);
  HV.querySelectorAll('[data-sc]').forEach(b=>b.onclick=()=>{let s={};try{s=JSON.parse(raw('scr')||'{}');}catch(e){}s[b.dataset.sc]=+b.dataset.m;put('scr',JSON.stringify(s));const op=HV.querySelector('.hb-more')&&HV.querySelector('.hb-more').open;const y=HV.scrollTop;renderHub();if(op)HV.querySelector('.hb-more').open=true;HV.scrollTop=y;});
- HV.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{const t={bk:'hbBk',pin:'hbPin',lim:'hbLim'}[b.dataset.act];const el=$(t);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('hb-flash');void el.offsetWidth;el.classList.add('hb-flash');}});
+ HV.querySelectorAll('.hb-st[data-act]').forEach(b=>b.onclick=()=>{const t={bk:'hbBk',pin:'hbPin',lim:'hbLim'}[b.dataset.act];const el=$(t);if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('hb-flash');void el.offsetWidth;el.classList.add('hb-flash');}});
+ on('prLock',()=>{const all=profiles();const me=all.find(x=>x.id===c.id);me.lock=!me.lock;LS.set('profiles',all);refresh();const y=HV.scrollTop;renderHub();HV.scrollTop=y;toast(me.lock?TL('Другие возрасты скрыты','Басқа жастар жасырылды'):TL('Все возрасты снова видны','Барлық жас қайта көрінеді'));});
  on('prOnb',()=>{history.back();setTimeout(()=>onboarding(true),150);});
  on('prReset',resetChild);}
 function resetChild(){const L=layer(`<div class="pr-sheet"><h2>🗑️ ${TL('Начать заново?','Қайта бастау керек пе?')}</h2><p>${TL(`Удалятся звёзды, статистика, награды, карта и коллекция ребёнка «${esc(curProf().name||'Малыш')}». Другие дети не пострадают. Совет: сначала сохраните копию.`,`«${esc(curProf().name||'Бала')}» баласының жұлдыздары, статистикасы, марапаттары, картасы мен коллекциясы өшеді. Алдымен көшірме сақтаңыз.`)}</p>
@@ -8765,7 +8884,7 @@ function resetChild(){const L=layer(`<div class="pr-sheet"><h2>🗑️ ${TL('Н�
  L.querySelector('#rcNo').onclick=()=>history.back();
  L.querySelector('#rcGo').onclick=()=>{['k24_stars','az_stars','en_stars','kz_stars','az_learned','k24_lv','nav_plays','p_done','az_syl','pf_stats'].forEach(k=>put(k,null));
   document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});PF.reload();history.back();setTimeout(()=>{renderHub();refresh();toast(TL('Прогресс начат заново','Прогресс қайта басталды'));},120);};}
-function openHub(){PARENT_GATE(()=>{renderHub();history.pushState({d:1,prv:1},'');HV.classList.add('on');HV.setAttribute('aria-hidden','false');document.body.classList.add('mpon');HV.scrollTop=0;},TL('Вход для взрослых','Ересектерге кіру'));}
+function openHub(){PARENT_GATE(()=>{if(window.PVOICE)PVOICE.refresh().then(()=>{if(HV.classList.contains('on')){const y=HV.scrollTop;renderHub();HV.scrollTop=y;}});renderHub();history.pushState({d:1,prv:1},'');HV.classList.add('on');HV.setAttribute('aria-hidden','false');document.body.classList.add('mpon');HV.scrollTop=0;},TL('Вход для взрослых','Ересектерге кіру'));}
 function hideHub(){HV.classList.remove('on');HV.setAttribute('aria-hidden','true');if(!['mpv','mpw','clv','awv'].some(i=>{const e=document.getElementById(i);return e&&e.classList.contains('on');}))document.body.classList.remove('mpon');refresh();}
 /* кнопка ⚙️ на главной */
 const gear=document.createElement('button');gear.className='pr-gear';gear.id='prGear';gear.setAttribute('aria-label','Для взрослых');gear.textContent='⚙️';
@@ -9176,7 +9295,7 @@ function start(cb){onDone=cb||null;running=true;clr();const list=[...EX].sort(()
   const conf=Array.from({length:28},(_,j)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#9874F5','#43BD79','#5187F5','#EF6F8E','#20B4C2'][j%6]};animation-delay:${(Math.random()*.6).toFixed(2)}s"></i>`).join('');
   WV.innerHTML=`<div class="wm-card wm-fin"><div class="pf-conf">${conf}</div><span class="wm-owl">${OWL}</span><h2>${TL('Ура! Разминка сделана!','Ура! Жаттығу жасалды!')}</h2><p>${TL('Ты сильный и ловкий! Глазки отдохнули, тело размялось.','Сен күштісің және епті! Көздер демалды, дене сергіді.')}</p>
    <button class="mp-go" id="wmOk">${TL('Готово!','Дайын!')}</button></div>`;
-  say(TL('Ура! Молодец! Разминка сделана!','Ура! Жарайсың! Жаттығу жасалды!'));beep(660,.15);setTimeout(()=>beep(880,.25),160);
+  if(window.PVOICE&&PVOICE.has('praise'))PVOICE.play('praise');else say(TL('Ура! Молодец! Разминка сделана!','Ура! Жарайсың! Жаттығу жасалды!'));beep(660,.15);setTimeout(()=>beep(880,.25),160);
   try{const s=PF.stats();s.warm=s.warm||{};const n=new Date(),d=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');s.warm[d]=(s.warm[d]||0)+1;s.warmN=(s.warmN||0)+1;PF.save();}catch(e){}
   WV.querySelector('#wmOk').onclick=()=>stop(true);}}
 function stop(done){running=false;clr();try{speechSynthesis.cancel();}catch(e){}WV.classList.remove('on');WV.setAttribute('aria-hidden','true');WV.innerHTML='';const cb=onDone;onDone=null;cb&&cb(!!done);}
@@ -9233,7 +9352,7 @@ function celebrate(n,tries=0){if(document.body.classList.contains('inapp'))retur
  const L=document.createElement('div');L.className='pf-layer pr-layer center';L.innerHTML=`<div class="pr-sheet dt-cel"><div class="pf-conf">${conf}</div><div class="dt-big">🎯</div>
   <h2>${TL('Задание дня выполнено!','Күн тапсырмасы орындалды!')}</h2><p class="dt-fireb">🔥 ${n} ${kzOn()?'күн қатарынан':(n%10===1&&n%100!==11?'день':[2,3,4].includes(n%10)&&![12,13,14].includes(n%100)?'дня':'дней')+' подряд'}</p>
   <p>${n>=3?TL('Вот это упорство! Так держать!','Міне, табандылық! Осылай жалғастыр!'):TL('Возвращайся завтра — серия станет длиннее!','Ертең қайта кел — серия ұзарады!')}</p><button class="mp-go" id="dtOk">${TL('Ура!','Ура!')}</button></div>`;
- document.body.appendChild(L);L.querySelector('#dtOk').onclick=()=>history.back();L.addEventListener('click',e=>{if(e.target===L)history.back();});}
+ document.body.appendChild(L);try{window.PVOICE&&PVOICE.play('praise');}catch(e){}L.querySelector('#dtOk').onclick=()=>history.back();L.addEventListener('click',e=>{if(e.target===L)history.back();});}
 try{const _r=refresh;refresh=function(){const r=_r.apply(this,arguments);try{render();}catch(e){}return r;};}catch(e){}
 render();
 
@@ -9405,6 +9524,325 @@ async function render(){PV.innerHTML=`<div class="pr-wrap"><div class="cl-top"><
 function open(){history.pushState({d:1,pt:1},'');render();PV.classList.add('on');PV.setAttribute('aria-hidden','false');document.body.classList.add('mpon');PV.scrollTop=0;}
 window.PTPOP=()=>{if(PV.classList.contains('on')){PV.classList.remove('on');PV.setAttribute('aria-hidden','true');if(!document.querySelector('.mp-screen.on'))document.body.classList.remove('mpon');return true;}return false;};
 window.PRINTS={open,build:id=>build(KINDS.find(k=>k.id===id)),pdfPages};
+})();
+
+/* ===================== ГЛАВНЫЙ ЭКРАН: ДЕТСКИЙ ВИД =====================
+   Ребёнку — крупно и просто: задание дня, карта, коллекция, сказки, свои игры и языки.
+   Другие возрасты свёрнуты (или скрыты замком), всё для взрослых собрано внизу. */
+(function(){
+const ST=document.getElementById('start');
+const $=id=>document.getElementById(id);
+/* контейнеры */
+const FUN=document.createElement('section');FUN.className='hm-fun';FUN.id='hmFun';
+const MY=document.createElement('section');MY.className='hm-my';MY.id='hmMy';
+const OTH=document.createElement('details');OTH.className='hm-other';OTH.id='hmOther';
+const PAR=document.createElement('section');PAR.className='hm-par';PAR.id='hmPar';
+const anchor=$('dtCard')||ST.querySelector('.hero');anchor.insertAdjacentElement('afterend',FUN);FUN.insertAdjacentElement('afterend',MY);MY.insertAdjacentElement('afterend',OTH);
+ST.querySelector('.credit').insertAdjacentElement('beforebegin',PAR);
+const ages=ST.querySelector('.ages:not(.two)'),langs=ST.querySelector('.ages.two');
+const AG={};['a02','a24','a56'].forEach(k=>AG[k]=ST.querySelector(`.age[data-id="${k}"]`));
+ST.querySelectorAll('h3.gh').forEach(h=>h.style.display='none');
+['mpHome','clHomeCard'].forEach(id=>{const e=$(id);if(e)e.classList.add('hm-hidden');});
+function tile(id,ic,cls){const b=document.createElement('button');b.className='hm-t '+cls;b.id=id;b.innerHTML=`<span class="hm-ti">${ic}</span><b></b><small></small>`;FUN.appendChild(b);return b;}
+const tMap=tile('hmMap','🗺️','t-map'),tCol=tile('hmCol','🧸','t-col'),tSt=tile('hmSt','🌙','t-st');
+tMap.onclick=()=>{const e=$('mpHome');e&&e.click();};tCol.onclick=()=>{const e=$('clHomeCard');e&&e.click();};tSt.onclick=()=>{window.STORIES&&STORIES.open();};
+/* для родителей */
+function ptile(id,ic,src){const b=document.createElement('button');b.className='hm-p';b.id=id;b.innerHTML=`<span>${ic}</span><b></b><small></small>`;PAR.appendChild(b);b.onclick=()=>{const e=typeof src==='function'?src():$(src);e&&e.click();};return b;}
+PAR.innerHTML=`<h3 class="hm-h"></h3>`;
+const pPar=ptile('hmPPar','👨‍👩‍👧',()=>ST.querySelector('.age.par')),pEnc=ptile('hmPEnc','📖','encHome'),pAd=ptile('hmPAd','⚙️','prFoot');
+[ST.querySelector('.parwrap'),$('encHome'),$('prFoot')].forEach(e=>e&&e.classList.add('hm-hidden'));
+const txt=(sel,root=document)=>{const e=root.querySelector(sel);return e?e.textContent.trim():'';};
+function layout(){const c=curProf();const my=['a02','a24','a56'].includes(c.age)?c.age:'a56';
+ MY.innerHTML=`<h3 class="hm-h">🎮 ${TL('Мои игры','Менің ойындарым')}</h3>`;const own=AG[my];
+ if(own){own.classList.add('hm-own');MY.appendChild(own);}
+ if(langs){MY.appendChild(langs);}
+ OTH.innerHTML=`<summary>👀 ${TL('Другие возрасты','Басқа жастар')}</summary>`;const box=document.createElement('div');box.className='ages hm-oages';
+ ['a02','a24','a56'].filter(a=>a!==my).forEach(a=>{const e=AG[a];if(e){e.classList.remove('hm-own');box.appendChild(e);}});OTH.appendChild(box);
+ OTH.style.display=c.lock?'none':'';
+ if(ages)ages.style.display='none';
+ /* плитки */
+ tMap.querySelector('b').textContent=TL('Карта','Карта');tMap.querySelector('small').textContent=txt('.mp-hn',$('mpHome')).replace(/^[^:]*:\s*/,'')||TL('приключений','шытырман');
+ tCol.querySelector('b').textContent=TL('Коллекция','Коллекция');const ch=txt('.cl-hb b',$('clHomeCard'));tCol.querySelector('small').textContent=ch||'';tCol.classList.toggle('new',!!$('clHomeCard')&&!!$('clHomeCard').querySelector('.cl-hh em'));
+ tSt.querySelector('b').textContent=TL('Сказки','Ертегілер');tSt.querySelector('small').textContent=TL('на ночь','ұйқы алдында');
+ PAR.querySelector('.hm-h').textContent='👨‍👩‍👧 '+TL('Для родителей','Ата-аналарға');
+ pPar.querySelector('b').textContent=TL('Родителям','Ата-аналарға');pPar.querySelector('small').textContent=TL('100 занятий без экрана','Экрансыз 100 сабақ');
+ pEnc.querySelector('b').textContent=TL('Энциклопедия','Энциклопедия');pEnc.querySelector('small').textContent=TL('как объяснить','қалай түсіндіру')+' · '+txt('.en-hc-n',$('encHome'));
+ pAd.querySelector('b').textContent=TL('Для взрослых','Ересектерге');pAd.querySelector('small').textContent=TL('отчёт · печать · PIN','есеп · басып шығару · PIN');}
+try{const _r=refresh;refresh=function(){const r=_r.apply(this,arguments);try{layout();}catch(e){console.warn(e);}return r;};}catch(e){}
+try{const _al=applyLang;applyLang=function(){const r=_al.apply(this,arguments);try{layout();}catch(e){}return r;};}catch(e){}
+layout();
+window.HOME={layout};
+})();
+
+/* ===================== СЕЗОННЫЕ СОБЫТИЯ =====================
+   Новый год (1–31 декабря): адвент-календарь, каждый день — окошко с подарком.
+   Наурыз (14–23 марта): собираем 7 продуктов для наурыз-коже.
+   Окошко «сегодня» открывается, когда ребёнок сыграл хотя бы одну игру за день.
+   Пропущенные дни можно открыть потом. Хранится в pf_stats.ev. */
+(function(){
+const pad=n=>String(n).padStart(2,'0');
+const NOW=()=>{try{const q=new URLSearchParams(location.search).get('date')||localStorage.getItem('dbg_date');if(q){const d=new Date(q+'T12:00:00');if(!isNaN(d))return d;}}catch(e){}return new Date();};
+const dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const NY=[['⛄','Снеговик — первый гость праздника! Слепи снеговика из ваты или пластилина.','Аққала — мерекенің алғашқы қонағы! Мақтадан немесе ермексаздан аққала жаса.'],
+ ['❄️','Каждая снежинка — с шестью лучиками. Вырежьте снежинку из бумаги вместе.','Әр қар ұшқынында алты сәуле бар. Қағаздан бірге қар ұшқынын қиыңыз.'],['🧤','Варежки на одном пальце, перчатки — на пяти. Посчитай пальчики!','Биялай бір саусақты, қолғап — бес саусақты. Саусақтарыңды сана!'],
+ ['🦌','Олень — помощник Деда Мороза. Попрыгай как олень 5 раз!','Бұғы — Аяз атаның көмекшісі. Бұғы сияқты 5 рет секір!'],['🍊','Мандарин пахнет праздником. Сколько долек в мандарине? Посчитайте вместе.','Мандарин мереке иісін береді. Мандаринде неше бөлік бар? Бірге санаңыз.'],
+ ['🎁','Придумай подарок для мамы или папы и нарисуй его.','Анаңа немесе әкеңе сыйлық ойлап тауып, оны сал.'],['🔔','Колокольчик звенит: дзинь! Похлопай в ладоши три раза.','Қоңырау сыңғырлайды: сыңғыр! Үш рет шапалақ ұр.'],
+ ['🧣','Шарф греет шею. Какие ещё вещи мы надеваем зимой?','Шарф мойынды жылытады. Қыста тағы не киеміз?'],['🐧','Пингвины живут там, где очень холодно. Пройдись как пингвин!','Пингвиндер өте суық жерде тұрады. Пингвин сияқты жүріп көр!'],
+ ['⭐','Звезда на верхушке ёлки. Нарисуй звезду в воздухе пальчиком!','Шыршаның ұшындағы жұлдыз. Ауада саусағыңмен жұлдыз сал!'],['🍪','Испеките вместе печенье в форме ёлочек.','Шырша пішінді печеньені бірге пісіріңіз.'],
+ ['🛷','На санках весело кататься с горки. Покажи, как ты едешь на санках!','Шанамен төбеден сырғанау көңілді. Шанамен қалай сырғанайтыныңды көрсет!'],['🕯️','Свечи — только со взрослыми! Огонь опасен.','Шамдар — тек ересектермен! От қауіпті.'],
+ ['🐻‍❄️','Белый медведь не мёрзнет: у него тёплая шуба. Кто ещё не боится холода?','Ақ аю тоңбайды: оның жылы тоны бар. Суықтан тағы кім қорықпайды?'],['🎨','Нарисуй зимнюю картинку белым карандашом на синей бумаге.','Көк қағазға ақ қарындашпен қысқы сурет сал.'],
+ ['🧊','Положите лёд в тарелку. Через сколько минут он растает?','Тәрелкеге мұз салыңыз. Ол неше минутта ериді?'],['🎶','Спой новогоднюю песенку вместе с семьёй.','Отбасыңмен бірге жаңажылдық ән айт.'],
+ ['🧸','Подари игрушку тому, кто её ждёт: добрые дела — лучший подарок.','Ойыншықты күтіп жүрген адамға сыйла: жақсылық — ең жақсы сыйлық.'],['📮','Напиши или нарисуй письмо Деду Морозу.','Аяз атаға хат жаз немесе сал.'],
+ ['🌲','Ёлка зелёная и зимой, и летом. Найди дома что-нибудь зелёное!','Шырша қыста да, жазда да жасыл. Үйден жасыл бір нәрсе тап!'],['🦊','Лиса зимой мышкует: прыгает в снег. Прыгни как лиса!','Түлкі қыста тышқан аулайды: қарға секіреді. Түлкі сияқты секір!'],
+ ['🧦','Повесьте носок для подарков. Сколько носков у тебя дома?','Сыйлыққа шұлық іліңіз. Үйіңде неше шұлық бар?'],['🎄','Укрась ёлку: сколько шариков ты повесишь сегодня?','Шыршаны безендір: бүгін неше шар ілесің?'],
+ ['🌟','Загадай доброе желание для всей семьи.','Бүкіл отбасыңа жақсы тілек тіле.'],['⛸️','Коньки скользят по льду. Покажи, как катаются на коньках!','Коньки мұзда сырғанайды. Конькимен қалай сырғанайтынын көрсет!'],
+ ['🍫','Поделись сладким с другом — так вкуснее!','Тәттіні досыңмен бөліс — солай дәмдірек!'],['🏔️','В горах выпадает много снега. Назови горы рядом с Алматы!','Тауда қар көп жауады. Алматының жанындағы тауларды ата!'],
+ ['🧩','Соберите вместе зимний пазл или нарисуйте свой.','Бірге қысқы пазл құрастырыңыз немесе өзіңіз салыңыз.'],['🎆','Салют красивый, но громкий. Закрой ушки ладошками — вот так!','Салют әдемі, бірақ қатты. Құлағыңды алақаныңмен жап — міне, солай!'],
+ ['🥳','Завтра праздник! Помоги взрослым накрыть стол.','Ертең мереке! Ересектерге дастарқан жаюға көмектес.'],['🎅','С Новым годом! Ты украсил всю ёлку — ты настоящий волшебник!','Жаңа жылың құтты болсын! Сен бүкіл шыршаны безендірдің — сен нағыз сиқыршысың!']];
+const NAU=[['💧','Су — вода. Без воды не сваришь коже!','Су. Сусыз көже пісірмейсің!',1],['🥩','Ет — мясо. Сытный кусочек для коже.','Ет. Көжеге тойымды бөлік.',1],['🧂','Тұз — соль. Чуть-чуть, чтобы было вкусно.','Тұз. Дәмді болу үшін аздап.',1],
+ ['🧈','Май — масло. Для блеска и вкуса.','Май. Жылтыры мен дәмі үшін.',1],['🌾','Ұн — мука. Из неё и баурсаки, и коже.','Ұн. Одан бауырсақ та, көже де болады.',1],['🍚','Тары — просо, крупа для коже.','Тары. Көжеге арналған жарма.',1],['🥛','Сүт — молоко. Последний, седьмой продукт!','Сүт. Соңғы, жетінші өнім!',1],
+ ['🍩','Баурсаки к празднику! Угощай гостей.','Мерекеге бауырсақ! Қонақтарды сыйла.',0],['🪕','Домбра звучит на Наурыз. Похлопай в такт!','Наурызда домбыра шертіледі. Ырғақпен шапалақ ұр!',0],['🌷','Пришла весна! Поздравь родных: «Наурыз құтты болсын!»','Көктем келді! Туыстарыңды құттықта: «Наурыз құтты болсын!»',0]];
+const EV=[{id:'ny',m:12,d0:1,d1:31,list:NY,e:'🎄',t:['Новогодний календарь','Жаңажылдық күнтізбе'],sub:['Каждый день — окошко с подарком','Күн сайын — сыйлығы бар терезе'],bg:'linear-gradient(#1E3A7A,#3B5BC8 55%,#7DA2F5)'},
+ {id:'nau',m:3,d0:14,d1:23,list:NAU,e:'🌷',t:['Наурыз: собираем коже','Наурыз: көже жинаймыз'],sub:['Собери 7 продуктов для наурыз-коже','Наурыз көжеге 7 өнім жина'],bg:'linear-gradient(#FFE6C9,#FFD1E0 50%,#C9F2D6)'}];
+function active(){const n=NOW(),m=n.getMonth()+1,d=n.getDate();const e=EV.find(x=>x.m===m&&d>=x.d0&&d<=x.d1);return e?{ev:e,day:d-e.d0,today:d,key:e.id+n.getFullYear()}:null;}
+const st=()=>PF.stats();
+function state(A){const s=st();s.ev=s.ev||{};return s.ev[A.key]||(s.ev[A.key]={open:{}});}
+const playedToday=()=>{const x=st().days&&st().days[dk(NOW())];return !!(x&&(x.g||x.t>=60));};
+/* ---------- снег ---------- */
+const SNOW=document.createElement('div');SNOW.className='ev-snow';SNOW.setAttribute('aria-hidden','true');SNOW.innerHTML=Array.from({length:18},(_,i)=>`<i style="left:${(i*5.7+Math.random()*4)%100}%;animation-delay:${(Math.random()*8).toFixed(1)}s;animation-duration:${(7+Math.random()*6).toFixed(1)}s;font-size:${10+Math.round(Math.random()*12)}px">${i%3?'❄':'✦'}</i>`).join('');
+document.body.appendChild(SNOW);
+/* ---------- баннер на главной ---------- */
+const BN=document.createElement('button');BN.className='ev-bn';BN.id='evBn';
+const fun=document.getElementById('hmFun')||document.getElementById('dtCard');(fun||document.querySelector('#start .hero')).insertAdjacentElement('beforebegin',BN);
+function banner(){const A=active();document.body.classList.toggle('ev-ny',!!A&&A.ev.id==='ny');document.body.classList.toggle('ev-nau',!!A&&A.ev.id==='nau');
+ if(!A){BN.style.display='none';return;}BN.style.display='';const S=state(A),n=Object.keys(S.open).length,tot=A.ev.d1-A.ev.d0+1,todayOpen=!!S.open[A.day];
+ BN.style.background=A.ev.bg;BN.classList.toggle('dark',A.ev.id==='ny');BN.classList.toggle('ready',!todayOpen);
+ BN.innerHTML=`<span class="ev-be">${A.ev.e}</span><span class="ev-bt"><b>${TL(A.ev.t[0],A.ev.t[1])}</b><small>${todayOpen?TL(`Окошек открыто: ${n} из ${tot}`,`Ашылған терезе: ${tot}-тен ${n}`):TL(`Окошко ${A.today} ждёт тебя!`,`${A.today}-терезе сені күтуде!`)}</small></span><span class="ev-bgo">${todayOpen?'›':'🎁'}</span>`;}
+BN.onclick=()=>open();
+/* ---------- экран события ---------- */
+const V=document.createElement('div');V.id='evv';V.className='mp-screen';V.setAttribute('aria-hidden','true');document.body.appendChild(V);
+function render(){const A=active();if(!A){V.innerHTML='';return;}const S=state(A),E=A.ev,tot=E.d1-E.d0+1,n=Object.keys(S.open).length,pt=playedToday();
+ const tree=E.id==='ny'?treeSVG(n,tot):kozheSVG(Object.keys(S.open).map(Number).filter(i=>E.list[i][3]).length);
+ V.innerHTML=`<div class="ev-wrap ${E.id}" style="background:${E.bg}"><div class="cl-top"><button class="pf-ib" id="evBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>${E.e} ${TL(E.t[0],E.t[1])}</h1><span></span></div>
+  <div class="ev-hero">${tree}<p>${E.id==='ny'?TL(`Открыто окошек: ${n} из ${tot}. Каждое окошко — шарик на ёлке!`,`Ашылған терезе: ${tot}-тен ${n}. Әр терезе — шыршадағы шар!`):TL(`Собрано продуктов: ${Object.keys(S.open).map(Number).filter(i=>E.list[i][3]).length} из 7`,`Жиналған өнім: 7-ден ${Object.keys(S.open).map(Number).filter(i=>E.list[i][3]).length}`)}</p>
+   ${!S.open[A.day]&&!pt?`<p class="ev-hint">🎮 ${TL('Сыграй сегодня в любую игру — и окошко дня откроется!','Бүгін кез келген ойынды ойна — күн терезесі ашылады!')}</p>`:''}</div>
+  <div class="ev-grid">${Array.from({length:tot},(_,i)=>{const o=S.open[i],isT=i===A.day,fut=i>A.day,can=!o&&!fut&&(i<A.day||pt);
+   return `<button class="ev-w ${o?'open':''} ${isT?'today':''} ${fut?'fut':''} ${can?'can':''}" data-i="${i}" ${fut?'disabled':''}><span class="ev-wn">${E.d0+i}</span><span class="ev-we">${o?E.list[i][0]:fut?'🔒':can?'🎁':'⏳'}</span></button>`;}).join('')}</div></div>`;
+ V.querySelector('#evBack').onclick=()=>history.back();
+ V.querySelectorAll('.ev-w:not([disabled])').forEach(b=>b.onclick=()=>tap(+b.dataset.i));}
+function tap(i){const A=active();if(!A)return;const S=state(A),E=A.ev,x=E.list[i];const pt=playedToday();
+ if(S.open[i]){show(x,E,false);return;}
+ if(i===A.day&&!pt){toast(TL('Сначала сыграй в любую игру сегодня!','Алдымен бүгін бір ойын ойна!'));return;}
+ S.open[i]=Date.now();PF.save();render();banner();show(x,E,true);
+ const n=Object.keys(S.open).length,tot=E.d1-E.d0+1;
+ if(E.id==='nau'&&Object.keys(S.open).map(Number).filter(k=>E.list[k][3]).length===7&&x[3])setTimeout(()=>toast(TL('🎉 Наурыз-коже готово! Наурыз құтты болсын!','🎉 Наурыз көже дайын! Наурыз құтты болсын!')),2200);
+ if(n===tot)setTimeout(()=>toast(TL('🎉 Все окошки открыты! Ты настоящий волшебник!','🎉 Барлық терезе ашылды! Сен нағыз сиқыршысың!')),2200);}
+function show(x,E,fresh){history.pushState({d:1,pr:1},'');const L=document.createElement('div');L.className='pf-layer pr-layer center';
+ const conf=fresh?`<div class="pf-conf">${Array.from({length:24},(_,i)=>`<i style="left:${Math.random()*100}%;background:${['#F6A321','#9874F5','#43BD79','#5187F5','#EF6F8E','#20B4C2'][i%6]};animation-delay:${(Math.random()*.6).toFixed(2)}s"></i>`).join('')}</div>`:'';
+ L.innerHTML=`<div class="pr-sheet ev-gift">${conf}<div class="ev-big">${x[0]}</div><h2>${fresh?TL('Подарок дня!','Күн сыйлығы!'):TL('Твой подарок','Сенің сыйлығың')}</h2><p>${TL(x[1],x[2])}</p><button class="mp-go" id="evOk">${TL('Ура!','Ура!')}</button></div>`;
+ document.body.appendChild(L);L.querySelector('#evOk').onclick=()=>history.back();L.addEventListener('click',e=>{if(e.target===L)history.back();});
+ try{if(fresh&&window.PVOICE&&PVOICE.has('praise')){PVOICE.play('praise');throw 0;}const u=new SpeechSynthesisUtterance(TL(x[1],x[2]));if(!kzOn()){u.lang='ru-RU';speechSynthesis.cancel();speechSynthesis.speak(u);}}catch(e){}}
+function treeSVG(n,tot){const balls=[[200,95],[170,140],[232,138],[150,185],[200,180],[252,186],[132,232],[178,228],[226,232],[272,230],[118,280],[160,276],[204,282],[248,276],[290,282],[110,322],[150,326],[192,322],[234,328],[276,322],[306,326],[140,170],[262,160],[186,250],[220,206],[166,300],[240,304],[124,250],[282,256],[206,140],[200,60]];
+ const C=['#FF4D4D','#FFD21F','#3BB2FF','#FF7BC0','#9B5CFF','#FF8C1A'];
+ return `<svg class="ev-tree" viewBox="0 0 400 380" aria-hidden="true"><path d="M200 40 L300 170 H260 L330 260 H285 L350 345 H50 L115 260 H70 L140 170 H100Z" fill="#2FA866" stroke="#1E7A48" stroke-width="6" stroke-linejoin="round"/><rect x="180" y="345" width="40" height="30" fill="#8B5A2B"/>
+  ${balls.slice(0,Math.min(n,tot)).map(([x,y],i)=>i===30?`<text x="${x}" y="${y}" font-size="46" text-anchor="middle" dominant-baseline="central">⭐</text>`:`<circle cx="${x}" cy="${y}" r="11" fill="${C[i%C.length]}" stroke="#fff" stroke-width="3"/>`).join('')}</svg>`;}
+function kozheSVG(k){const items=['💧','🥩','🧂','🧈','🌾','🍚','🥛'];return `<div class="ev-kz"><span class="ev-pot">🍲</span><div>${items.map((e,i)=>`<span class="${i<k?'in':''}">${e}</span>`).join('')}</div></div>`;}
+const toast=t=>{const d=document.createElement('div');d.className='mp-toast';d.textContent=t;document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'));setTimeout(()=>{d.classList.remove('on');setTimeout(()=>d.remove(),300);},2600);};
+function open(){if(!active())return;render();history.pushState({d:1,ev:1},'');V.classList.add('on');V.setAttribute('aria-hidden','false');document.body.classList.add('mpon');V.scrollTop=0;}
+window.EVPOP=()=>{if(V.classList.contains('on')){V.classList.remove('on');V.setAttribute('aria-hidden','true');if(!document.querySelector('.mp-screen.on'))document.body.classList.remove('mpon');banner();return true;}return false;};
+try{const _r=refresh;refresh=function(){const r=_r.apply(this,arguments);try{banner();}catch(e){}return r;};}catch(e){}
+banner();
+window.EVENTS={active,open,banner,NOW};
+})();
+
+/* ===================== СКАЗКИ С ВЫБОРОМ НА НОЧЬ =====================
+   Сцена: {e, t:[ru,kz], ch:[{e,t,go}] | task:{...}, go, end}.
+   Задание: opts:[[подпись ru, подпись kz, верно]] или size:1/0 (самый большой / маленький).
+   pf_stats.stories = {id: сколько раз дослушали}. */
+(function(){
+const S=[
+{id:'chick',age:'a02',e:'🐥',t:['Где мама?','Анасы қайда?'],sc:{
+ s1:{e:'🐥',t:['Жил-был маленький цыплёнок. Он гулял по двору и потерял маму. «Пи-пи! Где моя мама?»','Бір кішкентай балапан болыпты. Ол аулада серуендеп жүріп, анасын жоғалтып алыпты. «Шиқ-шиқ! Анам қайда?»'],ch:[{e:'🐮',t:['Спросить корову','Сиырдан сұрау'],go:'s2'},{e:'🐶',t:['Спросить собачку','Иттен сұрау'],go:'s3'}]},
+ s2:{e:'🐮',t:['«Му-у! Я не твоя мама, я корова. Твоя мама говорит „ко-ко-ко“. Поищи у сарая!»','«Мө-ө! Мен сенің анаң емеспін, мен сиырмын. Сенің анаң „ко-ко-ко“ дейді. Қораның жанынан ізде!»'],ch:[{e:'🏠',t:['Пойти к сараю','Қораға бару'],go:'s4'}]},
+ s3:{e:'🐶',t:['«Гав-гав! Я собачка. Твоя мама — курочка. Я слышал её у сарая!»','«Арс-арс! Мен итпін. Сенің анаң — тауық. Мен оны қораның жанынан естідім!»'],ch:[{e:'🏠',t:['Пойти к сараю','Қораға бару'],go:'s4'}]},
+ s4:{e:'🏠',t:['У сарая гуляют разные птицы. Помоги цыплёнку найти маму-курочку!','Қораның жанында түрлі құстар жүр. Балапанға анасы — тауықты табуға көмектес!'],task:{opts:[['🐔','🐔',1],['🦆','🦆',0],['🦉','🦉',0]]},go:'s5'},
+ s5:{e:'🐔🐥',end:1,t:['«Ко-ко-ко! Вот ты где, мой малыш!» Мама обняла цыплёнка крылышками. Им тепло и уютно.','«Ко-ко-ко! Міне, қайдасың, балапаным!» Анасы балапанды қанатымен құшақтады. Оларға жылы әрі жайлы.']}}},
+{id:'sleepy',age:'a02',e:'🌙',t:['Спокойной ночи, зверята','Қайырлы түн, жануарлар'],sc:{
+ s1:{e:'🌙',t:['Наступил вечер. Луна зажгла звёздочки. Пора всем зверятам спать. Поможешь их уложить?','Кеш түсті. Ай жұлдыздарды жақты. Барлық жануарларға ұйықтайтын уақыт. Оларды жатқызуға көмектесесің бе?'],ch:[{e:'💛',t:['Да, помогу!','Иә, көмектесемін!'],go:'s2'}]},
+ s2:{e:'🐱',t:['Котёнок зевает: «Мяу…» Погладь его — нажми на котёнка!','Мысық есінейді: «Мияу…» Оны сипа — мысықты бас!'],task:{opts:[['🐱','🐱',1]]},go:'s3'},
+ s3:{e:'🐶',t:['Щенок ещё играет. Положи мячик в корзинку!','Күшік әлі ойнап жүр. Допты себетке сал!'],task:{opts:[['⚽','⚽',1],['🍎','🍎',0]]},go:'s4'},
+ s4:{e:'🐰',t:['Зайчик хочет пить перед сном. Дай ему молоко!','Қоян ұйқы алдында су ішкісі келеді. Оған сүт бер!'],task:{opts:[['🥛','🥛',1],['🍭','🍭',0]]},go:'s5'},
+ s5:{e:'😴',end:1,t:['Котёнок, щенок и зайчик сладко спят. И тебе пора закрывать глазки.','Мысық, күшік және қоян тәтті ұйықтап жатыр. Саған да көзіңді жұматын уақыт.']}}},
+{id:'star',age:'a24',e:'⭐',t:['Лисёнок и потерянная звёздочка','Түлкі бала және жоғалған жұлдызша'],sc:{
+ s1:{e:'🦊⭐',t:['Однажды ночью с неба упала маленькая звёздочка. Лисёнок увидел, как она блеснула за лесом. «Надо вернуть её на небо!» Куда пойдём?','Бір түні аспаннан кішкентай жұлдызша құлап түсті. Түлкі бала оның орманның ар жағында жарқ еткенін көрді. «Оны аспанға қайтару керек!» Қайда барамыз?'],ch:[{e:'🌲',t:['Через лес','Орман арқылы'],go:'s2'},{e:'🌊',t:['Вдоль речки','Өзеннің бойымен'],go:'s3'}]},
+ s2:{e:'🦔',t:['В лесу лисёнок встретил ёжика. «Помоги собрать грибы, а я покажу дорогу». Сколько грибов на полянке?','Орманда түлкі бала кірпіні кездестірді. «Саңырауқұлақ жинауға көмектес, мен жол көрсетемін». Алаңда неше саңырауқұлақ бар?'],task:{show:'🍄🍄🍄',opts:[['2','2',0],['3','3',1],['4','4',0]]},go:'s4'},
+ s3:{e:'🐸',t:['У речки сидит лягушонок. «Перепрыгни по камушкам! Наступай только на синие». Какой камушек синий?','Өзен жағасында бақа отыр. «Тастардың үстімен секір! Тек көк тастарға бас». Қай тас көк?'],task:{opts:[['🟦','🟦',1],['🟥','🟥',0],['🟨','🟨',0]]},go:'s4'},
+ s4:{e:'⭐',t:['И вот она — звёздочка! Она лежит в траве и тихо плачет: «Я хочу домой, на небо…» Как ей помочь?','Міне, жұлдызша! Ол шөптің арасында ақырын жылап жатыр: «Мен үйге, аспанға қайтқым келеді…» Оған қалай көмектесеміз?'],ch:[{e:'🎈',t:['Привязать к шарику','Шарға байлау'],go:'s5'},{e:'🦉',t:['Позвать сову','Жапалақты шақыру'],go:'s6'}]},
+ s5:{e:'🎈',t:['Лисёнок нашёл красный шарик. Звёздочка взялась за ниточку, и шарик понёс её высоко-высоко!','Түлкі бала қызыл шар тапты. Жұлдызша жіптен ұстады, шар оны биік-биікке көтерді!'],go:'s7'},
+ s6:{e:'🦉',t:['Прилетела мудрая сова. «Садись мне на спинку, звёздочка!» И сова полетела к самой луне.','Дана жапалақ ұшып келді. «Арқама отыр, жұлдызша!» Жапалақ айға дейін ұшты.'],go:'s7'},
+ s7:{e:'🌙✨',end:1,t:['Звёздочка снова засияла на небе и подмигнула лисёнку: «Спасибо, друг!» А лисёнок пошёл домой и сладко уснул.','Жұлдызша аспанда қайта жарқырап, түлкі балаға көз қысты: «Рахмет, досым!» Ал түлкі бала үйіне барып, тәтті ұйықтады.']}}},
+{id:'garden',age:'a24',e:'🥕',t:['Зайчик и волшебный огород','Қоян және сиқырлы бақша'],sc:{
+ s1:{e:'🐰🥕',t:['Зайчик посадил в огороде волшебные семена. Утром выросли огромные овощи! «Устрою праздник для друзей», — решил зайчик. Кого позовём первым?','Қоян бақшаға сиқырлы тұқым екті. Таңертең үп-үлкен көкөністер өсіп шықты! «Достарыма мереке жасаймын», — деді қоян. Алдымен кімді шақырамыз?'],ch:[{e:'🐻',t:['Медвежонка','Аю баланы'],go:'s2'},{e:'🐿️',t:['Бельчонка','Тиінді'],go:'s3'}]},
+ s2:{e:'🐻',t:['Медвежонок любит всё большое. Выбери самую большую морковку!','Аю бала үлкенді жақсы көреді. Ең үлкен сәбізді таңда!'],task:{size:1,emo:'🥕'},go:'s4'},
+ s3:{e:'🐿️',t:['Бельчонок маленький, ему нужна маленькая тыковка. Какая самая маленькая?','Тиін кішкентай, оған кішкентай асқабақ керек. Ең кішісі қайсы?'],task:{size:0,emo:'🎃'},go:'s4'},
+ s4:{e:'🧺',t:['Друзья принесли корзинку для овощей. Что здесь лишнее?','Достар көкөніске себет әкелді. Мұнда не артық?'],task:{opts:[['🥕','🥕',0],['🥒','🥒',0],['🧸','🧸',1]]},go:'s5'},
+ s5:{e:'🎉',end:1,t:['Праздник удался! Друзья ели овощной суп, пели песни и смеялись. А потом все разошлись по домикам спать.','Мереке керемет өтті! Достар көкөніс сорпасын ішіп, ән салып, күлді. Сосын бәрі үйлеріне ұйықтауға тарады.']}}},
+{id:'library',age:'a56',e:'📚',t:['Сова и лунная библиотека','Жапалақ және ай кітапханасы'],sc:{
+ s1:{e:'🦉📚',t:['На верхушке старого дуба у совы есть лунная библиотека. Ночью ветер разбросал буквы из книжек! Поможешь собрать?','Кәрі еменнің ұшында жапалақтың ай кітапханасы бар. Түнде жел кітаптардағы әріптерді шашып жіберді! Жинауға көмектесесің бе?'],ch:[{e:'🌬️',t:['Догнать ветер','Желді қуып жету'],go:'s2'},{e:'🔦',t:['Искать с фонариком','Шаммен іздеу'],go:'s3'}]},
+ s2:{e:'🍎',t:['Ветер принёс первую букву к яблоне. С какой буквы начинается слово «яблоко»?','Жел бірінші әріпті алма ағашына әкелді. «Алма» сөзі қай әріптен басталады?'],task:{opts:[['Я','А',1],['А','Ә',0],['О','О',0]]},go:'s4'},
+ s3:{e:'🐭',t:['Фонарик осветил мышонка. Он сложил из букв слово М-А-М-А. Какое слово получилось?','Шам тышқанды жарықтандырды. Ол әріптерден А-Н-А сөзін құрады. Қандай сөз шықты?'],task:{opts:[['мама','ана',1],['каша','ата',0],['рама','апа',0]]},go:'s4'},
+ s4:{e:'📖',t:['Все буквы вернулись в книжки! Сова открыла самую большую книгу: «Почитать тебе про звёзды или про море?»','Барлық әріп кітаптарға оралды! Жапалақ ең үлкен кітапты ашты: «Саған жұлдыздар туралы оқып берейін бе, әлде теңіз туралы ма?»'],ch:[{e:'⭐',t:['Про звёзды','Жұлдыздар туралы'],go:'s5'},{e:'🌊',t:['Про море','Теңіз туралы'],go:'s6'}]},
+ s5:{e:'✨',t:['«Каждая звезда — это солнце, только очень-очень далёкое. Ночью они светят, и в темноте не так страшно».','«Әр жұлдыз — күн, тек өте-өте алыстағы. Түнде олар жарқырайды, қараңғыда онша қорқынышты емес»'],go:'s7'},
+ s6:{e:'🐳',t:['«В море живёт синий кит — самый большой зверь на Земле. Он поёт песни, и их слышат другие киты далеко-далеко».','«Теңізде көк кит тұрады — Жердегі ең үлкен жануар. Ол ән салады, оны алыс-алыстағы басқа киттер естиді»'],go:'s7'},
+ s7:{e:'🌙',end:1,t:['Сова закрыла книгу и погасила лунную лампу: «Спасибо за помощь! Теперь и тебе пора спать. Пусть приснится что-то доброе».','Жапалақ кітапты жауып, ай шамын сөндірді: «Көмегің үшін рахмет! Енді саған да ұйықтайтын уақыт. Түсіңе жақсы нәрсе кірсін»']}}},
+{id:'moon',age:'a56',e:'🚀',t:['Ракета на Луну','Айға сапар'],sc:{
+ s1:{e:'🚀',t:['Сегодня ночью ты — космонавт! Ракета стоит на старте. Нужно проверить приборы. Сколько кнопок на пульте?','Бүгін түнде сен — ғарышкерсің! Зымыран ұшу алаңында тұр. Құралдарды тексеру керек. Пультте неше түйме бар?'],task:{show:'🔴🟢🔵🟡🟣',opts:[['4','4',0],['5','5',1],['6','6',0]]},go:'s2'},
+ s2:{e:'🔟',t:['Всё готово! Обратный отсчёт: пять, четыре, три, два, один… Пуск! Какое число было последним?','Бәрі дайын! Кері санақ: бес, төрт, үш, екі, бір… Ұштық! Соңғы сан қандай болды?'],task:{opts:[['1','1',1],['5','5',0],['3','3',0]]},go:'s3'},
+ s3:{e:'🌍',t:['Ракета летит в космосе. В окошке видно Землю — голубую и круглую. Куда полетим?','Зымыран ғарышта ұшып барады. Терезеден көгілдір әрі дөңгелек Жер көрінеді. Қайда ұшамыз?'],ch:[{e:'🌙',t:['На Луну','Айға'],go:'s4'},{e:'🪐',t:['К Сатурну','Сатурнға'],go:'s5'}]},
+ s4:{e:'🌙',t:['Ракета мягко села на Луну. Здесь нет воздуха, поэтому космонавт в скафандре. Прыг! На Луне прыгать очень легко!','Зымыран Айға жайлап қонды. Мұнда ауа жоқ, сондықтан ғарышкер скафандрда. Секір! Айда секіру өте жеңіл!'],go:'s6'},
+ s5:{e:'🪐',t:['Вот Сатурн. Его кольца сделаны из льда и камушков. Помаши ему рукой! А теперь — домой.','Міне, Сатурн. Оның сақиналары мұз бен ұсақ тастардан тұрады. Оған қол бұлға! Ал енді — үйге.'],go:'s6'},
+ s6:{e:'🏠',end:1,t:['Ракета вернулась на Землю. Космонавт снял шлем, выпил тёплого молока и лёг в кроватку. А звёзды за окном шепчут: «Спокойной ночи!»','Зымыран Жерге оралды. Ғарышкер дулығасын шешіп, жылы сүт ішіп, төсегіне жатты. Ал терезенің сыртындағы жұлдыздар сыбырлайды: «Тыныш ұйықта!»']}}}];
+const AGL=()=>({a02:TL('до 2 лет','2 жасқа дейін'),a24:TL('3–4 года','3–4 жас'),a56:TL('5–6 лет','5–6 жас')});
+let vRu=null,vKz=null;const pv=()=>{try{const v=speechSynthesis.getVoices();vRu=v.find(x=>/^ru/i.test(x.lang))||null;vKz=v.find(x=>/^kk/i.test(x.lang))||null;}catch(e){}};try{pv();speechSynthesis.addEventListener('voiceschanged',pv);}catch(e){}
+let voiceOn=true;
+function read(t){try{speechSynthesis.cancel();if(!voiceOn)return;const kz=kzOn();if(kz&&!vKz)return;const u=new SpeechSynthesisUtterance(t.replace(/[«»„“]/g,''));u.lang=kz?'kk-KZ':'ru-RU';const v=kz?vKz:vRu;if(v)u.voice=v;u.rate=.86;u.pitch=1;speechSynthesis.speak(u);}catch(e){}}
+const V=document.createElement('div');V.id='stv';V.className='mp-screen';V.setAttribute('aria-hidden','true');document.body.appendChild(V);
+const STARS=`<div class="st-sky" aria-hidden="true">${Array.from({length:26},(_,i)=>`<i style="left:${(i*37)%100}%;top:${(i*53)%90}%;animation-delay:${(i%7)*.5}s"></i>`).join('')}</div>`;
+let cur=null,scene=null,depth=0;
+const done=()=>{try{return PF.stats().stories||{}}catch(e){return {}}};
+function list(){cur=null;speechSynthesis&&speechSynthesis.cancel();const my=['a02','a24','a56'].includes(curProf().age)?curProf().age:'a56';const D=done();const lock=curProf().lock;
+ const ord=[...S].sort((a,b)=>(a.age===my?0:1)-(b.age===my?0:1)).filter(s=>!lock||s.age===my);
+ V.innerHTML=`<div class="st-wrap">${STARS}<div class="cl-top"><button class="pf-ib" id="stBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>🌙 ${TL('Сказки на ночь','Ұйқы алдындағы ертегілер')}</h1><span></span></div>
+  <p class="st-intro">${TL('Устройтесь поудобнее. Сова расскажет сказку, а ты будешь выбирать, что случится дальше.','Жайғасып отырыңыз. Жапалақ ертегі айтады, ал сен әрі қарай не болатынын таңдайсың.')}</p>
+  <div class="st-list">${ord.map(s=>`<button class="st-card ${s.age===my?'mine':''}" data-id="${s.id}"><span class="st-ce">${s.e}</span><span class="st-ct"><b>${TL(s.t[0],s.t[1])}</b><small>${AGL()[s.age]}${D[s.id]?' · ✓ '+TL('прочитано','оқылды'):''}</small></span></button>`).join('')}</div></div>`;
+ V.querySelector('#stBack').onclick=()=>history.back();V.querySelectorAll('.st-card').forEach(b=>b.onclick=()=>start(b.dataset.id));}
+function start(id){cur=S.find(s=>s.id===id);depth=0;history.pushState({d:1,st:2},'');go('s1');}
+function go(sid){scene=sid;depth++;const s=cur.sc[sid];const txt=TL(s.t[0],s.t[1]);const nm=(curProf().name||'').trim();
+ let act='';
+ if(s.ch)act=`<div class="st-ch">${s.ch.map((c,i)=>`<button data-c="${i}"><span>${c.e}</span>${TL(c.t[0],c.t[1])}</button>`).join('')}</div>`;
+ else if(s.task){const T=s.task;if('size'in T){const sz=['clamp(28px,8vw,48px)','clamp(44px,13vw,76px)','clamp(62px,19vw,110px)'];const ord=[0,1,2].sort(()=>Math.random()-.5);act=`<div class="st-task">${ord.map(k=>`<button data-k="${k}" data-ok="${(T.size?k===2:k===0)?1:0}"><span style="font-size:${sz[k]};line-height:1">${T.emo}</span></button>`).join('')}</div>`;}
+  else act=`${T.show?`<div class="st-show">${T.show}</div>`:''}<div class="st-task">${[...T.opts].sort(()=>Math.random()-.5).map(o=>`<button data-ok="${o[2]}"><span>${TL(o[0],o[1])}</span></button>`).join('')}</div>`;}
+ else if(s.end)act=`<div class="st-end"><div class="st-moon">🌙</div><h2>${TL(`Спокойной ночи${nm?', '+esc(nm):''}!`,`Тыныш ұйықта${nm?', '+esc(nm):''}!`)}</h2><div class="st-btns"><button class="mp-go" id="stMore">📖 ${TL('Другая сказка','Басқа ертегі')}</button><button class="pr-btn" id="stHome">🏠 ${TL('На главную','Басты бетке')}</button></div></div>`;
+ else act=`<div class="st-btns"><button class="mp-go" id="stNext">${TL('Дальше','Әрі қарай')} ›</button></div>`;
+ V.innerHTML=`<div class="st-wrap">${STARS}<div class="cl-top"><button class="pf-ib" id="stBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>${cur.e} ${TL(cur.t[0],cur.t[1])}</h1><button class="pf-ib" id="stVoice" aria-label="voice">${voiceOn?'🔊':'🔇'}</button></div>
+  <div class="st-scene"><div class="st-art">${s.e}</div><p class="st-txt">${esc(txt)}</p><button class="st-again" id="stRead">🔊 ${TL('Прочитать ещё раз','Қайта оқу')}</button></div>${act}</div>`;
+ V.scrollTop=0;read(txt);
+ V.querySelector('#stBack').onclick=()=>history.back();V.querySelector('#stRead').onclick=()=>read(txt);
+ V.querySelector('#stVoice').onclick=()=>{voiceOn=!voiceOn;if(!voiceOn)try{speechSynthesis.cancel()}catch(e){};V.querySelector('#stVoice').textContent=voiceOn?'🔊':'🔇';};
+ V.querySelectorAll('.st-ch button').forEach(b=>b.onclick=()=>go(s.ch[+b.dataset.c].go));
+ V.querySelectorAll('.st-task button').forEach(b=>b.onclick=()=>{if(b.dataset.ok==='1'){b.classList.add('ok');V.querySelectorAll('.st-task button').forEach(x=>x.onclick=null);read(TL('Правильно! Молодец!','Дұрыс! Жарайсың!'));setTimeout(()=>go(s.go),1400);}
+  else{b.classList.remove('no');void b.offsetWidth;b.classList.add('no');read(TL('Попробуй ещё!','Тағы байқап көр!'));}});
+ const n=V.querySelector('#stNext');if(n)n.onclick=()=>go(s.go);
+ if(s.end){try{const st=PF.stats();st.stories=st.stories||{};st.stories[cur.id]=(st.stories[cur.id]||0)+1;PF.save();}catch(e){}
+  setTimeout(()=>{if(window.PVOICE&&PVOICE.has('night'))PVOICE.play('night');else read(TL(`Спокойной ночи${nm?', '+nm:''}!`,`Тыныш ұйықта${nm?', '+nm:''}!`));},Math.min(9000,txt.length*75));
+  V.querySelector('#stMore').onclick=()=>{history.back();};V.querySelector('#stHome').onclick=()=>{history.back();setTimeout(()=>history.back(),80);};}}
+function show(on){V.classList.toggle('on',on);V.setAttribute('aria-hidden',on?'false':'true');if(on)document.body.classList.add('mpon');else if(!document.querySelector('.mp-screen.on'))document.body.classList.remove('mpon');}
+function open(){history.pushState({d:1,st:1},'');list();show(true);V.scrollTop=0;}
+window.STPOP=()=>{if(!V.classList.contains('on'))return false;try{speechSynthesis.cancel()}catch(e){}if(cur){list();return true;}show(false);refresh();return true;};
+window.STORIES={open,list:()=>S.map(s=>s.id)};
+})();
+
+/* ===================== ЧЕК-ЛИСТ «ГОТОВ ЛИ К ШКОЛЕ?» =====================
+   20 вопросов родителю в 6 областях. Ответ: да (2), иногда (1), пока нет (0).
+   Итог по областям со ссылками на статьи энциклопедии и игры.
+   pf_stats.ready = [{d, a:{qid:0..2}}] — последние результаты, чтобы видеть рост. */
+(function(){
+const AR=[
+ {id:'hand',e:'✍️',t:['Рука и письмо','Қол және жазу'],enc:'write',q:[['Держит карандаш тремя пальцами, не сжимая кулачком','Қарындашты жұдырықпен емес, үш саусақпен ұстайды'],['Обводит по контуру, почти не выходя за линию','Сызықтан шықпай дерлік контурмен сызады'],['Рисует человека с головой, туловищем, руками и ногами','Басы, денесі, қолы мен аяғы бар адамды салады'],['Пишет печатными буквами своё имя (можно с ошибками)','Өз атын баспа әріптерімен жазады (қатемен болса да)']]},
+ {id:'read',e:'📖',t:['Звуки и чтение','Дыбыстар және оқу'],enc:'sounds',q:[['Слышит первый звук в слове: «мак» — [м]','Сөздегі бірінші дыбысты естиді: «мысық» — [м]'],['Делит слова на слоги хлопками','Сөздерді алақан соғып буынға бөледі'],['Знает большинство букв','Әріптердің көбін біледі'],['Читает слоги или короткие слова','Буындарды немесе қысқа сөздерді оқиды']]},
+ {id:'math',e:'🔢',t:['Счёт','Санау'],enc:'compose',q:[['Считает до 10 и обратно','10-ға дейін және кері санайды'],['Знает, из каких двух чисел состоят числа до 5','5-ке дейінгі сандардың қандай екі саннан тұратынын біледі'],['Решает простую задачу: «было 3, дали ещё 2»','Қарапайым есеп шығарады: «3 болды, тағы 2 берді»'],['Сравнивает: больше, меньше, поровну','Салыстырады: артық, кем, тең']]},
+ {id:'focus',e:'🧠',t:['Внимание и память','Зейін және есте сақтау'],enc:'memory',q:[['Может спокойно заниматься одним делом 15 минут','Бір іспен 15 минут тыныш айналыса алады'],['Выполняет инструкцию из 2–3 шагов','2–3 қадамнан тұратын нұсқауды орындайды'],['Находит отличия и продолжает закономерность','Айырмашылықты тауып, заңдылықты жалғастырады']]},
+ {id:'speech',e:'💬',t:['Речь','Сөйлеу'],enc:'speech',q:[['Рассказывает по картинке 4–5 предложениями','Сурет бойынша 4–5 сөйлеммен әңгімелейді'],['Отвечает на вопросы полным предложением','Сұрақтарға толық сөйлеммен жауап береді'],['Чётко произносит все звуки родного языка','Ана тілінің барлық дыбысын анық айтады']]},
+ {id:'self',e:'🙋',t:['Самостоятельность и общение','Дербестік және қарым-қатынас'],enc:'safety',q:[['Сам одевается, застёгивает пуговицы и молнию','Өзі киінеді, түймесі мен сыдырмасын салады'],['Знает своё имя, фамилию и адрес','Өз атын, тегін және мекенжайын біледі'],['Играет с детьми по правилам и умеет ждать очереди','Балалармен ереже бойынша ойнайды және кезегін күте алады']]}];
+const ALLQ=AR.flatMap(a=>a.q.map((q,i)=>({a:a.id,id:a.id+i,q})));
+const V=document.createElement('div');V.id='rdv';V.className='mp-screen';V.setAttribute('aria-hidden','true');document.body.appendChild(V);
+let ans={},step=0;
+const hist=()=>{try{return PF.stats().ready||[]}catch(e){return []}};
+function intro(){const h=hist(),last=h[h.length-1];
+ V.innerHTML=`<div class="pr-wrap"><div class="cl-top"><button class="pf-ib" id="rdBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>🎒 ${TL('Готов ли к школе?','Мектепке дайын ба?')}</h1><span></span></div>
+  <section class="pr-card rd-intro"><div class="rd-big">🎒</div><p>${TL(`${ALLQ.length} коротких вопросов о том, что ребёнок уже умеет. Отвечайте честно: «да», «иногда» или «пока нет». В конце — картина по 6 областям и подсказки, что потренировать.`,`Бала не істей алатыны туралы ${ALLQ.length} қысқа сұрақ. Шын жауап беріңіз: «иә», «кейде» немесе «әзірге жоқ». Соңында — 6 сала бойынша қорытынды және нені жаттықтыру керегі.`)}</p>
+   <p class="rd-note">ℹ️ ${TL('Это не тест и не диагноз, а ориентир для родителей. Все дети развиваются в своём темпе. Если что-то беспокоит — обсудите с воспитателем, логопедом или педиатром.','Бұл тест те, диагноз да емес, ата-аналарға арналған бағдар. Барлық бала өз қарқынымен дамиды. Бірдеңе мазаласа — тәрбиешімен, логопедпен немесе педиатрмен ақылдасыңыз.')}</p>
+   <button class="mp-go" id="rdGo">▶ ${TL('Начать','Бастау')} · ${TL('около 3 минут','шамамен 3 минут')}</button>
+   ${last?`<button class="pr-btn" id="rdLast">📋 ${TL('Последний результат','Соңғы нәтиже')} · ${new Date(last.d).toLocaleDateString(kzOn()?'kk-KZ':'ru-RU')}</button>`:''}</section></div>`;
+ V.querySelector('#rdBack').onclick=()=>history.back();V.querySelector('#rdGo').onclick=()=>{ans={};step=0;quest();};
+ const l=V.querySelector('#rdLast');if(l)l.onclick=()=>result(last.a,true);}
+function quest(){const x=ALLQ[step],A=AR.find(a=>a.id===x.a);
+ V.innerHTML=`<div class="pr-wrap"><div class="cl-top"><button class="pf-ib" id="rdBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>${A.e} ${TL(A.t[0],A.t[1])}</h1><span class="rd-n">${step+1}/${ALLQ.length}</span></div>
+  <div class="rd-bar"><i style="width:${Math.round(step/ALLQ.length*100)}%"></i></div>
+  <section class="pr-card rd-q"><p>${TL('Ребёнок…','Бала…')}</p><h2>${TL(x.q[0],x.q[1])}</h2>
+   <div class="rd-ans"><button data-v="2" class="y">✅ ${TL('Да, умеет','Иә, біледі')}</button><button data-v="1" class="s">🌤️ ${TL('Иногда','Кейде')}</button><button data-v="0" class="n">🌱 ${TL('Пока нет','Әзірге жоқ')}</button></div>
+   ${step?`<button class="pr-link" id="rdPrev">‹ ${TL('Предыдущий вопрос','Алдыңғы сұрақ')}</button>`:''}</section></div>`;
+ V.querySelector('#rdBack').onclick=()=>history.back();
+ V.querySelectorAll('.rd-ans button').forEach(b=>b.onclick=()=>{ans[x.id]=+b.dataset.v;step++;if(step>=ALLQ.length){try{const s=PF.stats();s.ready=s.ready||[];s.ready.push({d:Date.now(),a:{...ans}});while(s.ready.length>6)s.ready.shift();PF.save();}catch(e){}result(ans,false);}else quest();});
+ const pv=V.querySelector('#rdPrev');if(pv)pv.onclick=()=>{step--;quest();};}
+function score(a,id){const qs=ALLQ.filter(x=>x.a===id);return qs.reduce((s,x)=>s+(a[x.id]||0),0)/(qs.length*2);}
+function result(a,old){const h=hist();const prev=h.length>1?h[h.length-2]:null;const tot=ALLQ.reduce((s,x)=>s+(a[x.id]||0),0)/(ALLQ.length*2);
+ const lvl=v=>v>=.8?['ok','✅',TL('Готово','Дайын')]:v>=.5?['mid','🌤️',TL('Почти','Дерлік')]:['low','🌱',TL('Потренировать','Жаттығу керек')];
+ const arts=window.ENC?ENC.list():[];
+ V.innerHTML=`<div class="pr-wrap"><div class="cl-top"><button class="pf-ib" id="rdBack" aria-label="${TL('Назад','Артқа')}">‹</button><h1>🎒 ${TL('Результат','Нәтиже')}</h1><span></span></div>
+  <section class="pr-card rd-sum"><div class="rd-ring" style="--p:${Math.round(tot*100)}"><b>${Math.round(tot*100)}%</b></div><p>${tot>=.8?TL('Отличная подготовка! Ребёнок уверенно идёт к школе.','Тамаша дайындық! Бала мектепке сенімді қадам басып келеді.'):tot>=.5?TL('Хорошая база. Немного потренируйте отмеченные области — и всё получится.','Жақсы негіз. Белгіленген салаларды аздап жаттықтырыңыз — бәрі шығады.'):TL('Впереди интересная работа. Занимайтесь понемногу каждый день — в игре это легко.','Алда қызықты жұмыс бар. Күн сайын аз-аздан айналысыңыз — ойында бұл оңай.')}</p></section>
+  ${AR.map(A=>{const v=score(a,A.id),[c,ic,lb]=lvl(v);const pv=prev?score(prev.a,A.id):null;const art=arts.includes(A.enc)?A.enc:null;
+   return `<section class="pr-card rd-area ${c}"><div class="rd-ah"><span>${A.e}</span><b>${TL(A.t[0],A.t[1])}</b><em>${ic} ${lb}</em></div><div class="rd-meter"><i style="width:${Math.round(v*100)}%"></i></div>
+    ${pv!==null&&!old&&Math.round(v*100)!==Math.round(pv*100)?`<small class="rd-trend">${v>pv?'▲':'▼'} ${TL('с прошлого раза','өткен жолдан бері')}: ${Math.round(pv*100)}% → ${Math.round(v*100)}%</small>`:''}
+    ${c!=='ok'?`<ul>${A.q.map((q,i)=>({q,v:a[A.id+i]})).filter(x=>(x.v||0)<2).map(x=>`<li>${TL(x.q[0],x.q[1])}</li>`).join('')}</ul>${art?`<button class="pr-btn" data-enc="${art}">📖 ${TL('Как потренировать','Қалай жаттықтыру')}</button>`:''}`:''}</section>`;}).join('')}
+  <button class="pr-btn" id="rdAgain">🔁 ${TL('Пройти заново','Қайта өту')}</button><p class="hb-ver">${TL('Пройдите чек-лист снова через месяц, чтобы увидеть рост.','Өсуді көру үшін чек-парақты бір айдан кейін қайта өтіңіз.')}</p></div>`;
+ V.scrollTop=0;V.querySelector('#rdBack').onclick=()=>history.back();V.querySelector('#rdAgain').onclick=()=>{ans={};step=0;quest();};
+ V.querySelectorAll('[data-enc]').forEach(b=>b.onclick=()=>{const id=b.dataset.enc;history.back();setTimeout(()=>{if(document.getElementById('prv').classList.contains('on'))history.back();setTimeout(()=>ENC.open(id),150);},120);});}
+function open(){history.pushState({d:1,rd:1},'');intro();V.classList.add('on');V.setAttribute('aria-hidden','false');document.body.classList.add('mpon');V.scrollTop=0;}
+window.RDPOP=()=>{if(V.classList.contains('on')){V.classList.remove('on');V.setAttribute('aria-hidden','true');if(!document.querySelector('.mp-screen.on'))document.body.classList.remove('mpon');return true;}return false;};
+window.READY={open};
+})();
+
+/* ===================== ГОЛОС РОДИТЕЛЯ =====================
+   Мама или папа записывают несколько фраз своим голосом (микрофон, до 8 секунд).
+   Записи хранятся только на этом устройстве (IndexedDB) и звучат вместо синтеза:
+   приветствие (раз в день), похвала (задание дня, разминка, окошко события),
+   «пора отдохнуть» (экран отдыха), «спокойной ночи» (конец сказки). */
+(function(){
+const PH=[{id:'hello',e:'👋',t:['Приветствие','Сәлемдесу'],s:['«Привет, солнышко! Я так рада, что ты здесь!»','«Сәлем, күнім! Сенің мұнда болғаның қандай жақсы!»'],w:['раз в день при входе','күніне бір рет кіргенде']},
+ {id:'praise',e:'🌟',t:['Похвала','Мақтау'],s:['«Молодец! Я тобой горжусь!»','«Жарайсың! Мен сені мақтан тұтамын!»'],w:['задание дня, разминка, подарок дня','күн тапсырмасы, жаттығу, күн сыйлығы']},
+ {id:'praise2',e:'🎉',t:['Ещё похвала','Тағы мақтау'],s:['«Умница! Так держать!»','«Ақылдым! Осылай жалғастыр!»'],w:['чередуется с первой','біріншісімен кезектеседі']},
+ {id:'rest',e:'😴',t:['Пора отдохнуть','Демалу уақыты'],s:['«Глазки устали. Давай отдохнём и поиграем вместе!»','«Көздерің шаршады. Демалып, бірге ойнайық!»'],w:['экран отдыха','демалыс экраны']},
+ {id:'night',e:'🌙',t:['Спокойной ночи','Тыныш ұйықта'],s:['«Спокойной ночи, мой хороший. Я тебя люблю!»','«Тыныш ұйықта, жаным. Мен сені жақсы көремін!»'],w:['конец сказки','ертегінің соңы']}];
+const DB='uchimsya_voice';let dbp=null;
+const db=()=>dbp||(dbp=new Promise((res,rej)=>{try{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore('rec');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}catch(e){rej(e);}}));
+const tx=(mode,f)=>db().then(d=>new Promise((res,rej)=>{const t=d.transaction('rec',mode);const st=t.objectStore('rec');const r=f(st);t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error);}));
+const put=(k,v)=>tx('readwrite',s=>s.put(v,k));const get=k=>tx('readonly',s=>s.get(k));const del=k=>tx('readwrite',s=>s.delete(k));
+let have={};const refreshHave=()=>Promise.all(PH.map(p=>get(p.id).then(b=>{have[p.id]=!!b;}).catch(()=>{have[p.id]=false;}))).then(()=>have);
+refreshHave();
+const on=()=>{try{return localStorage.getItem('pv_on')!=='0'}catch(e){return true}};
+let cur=null;
+function play(id){if(!on())return Promise.resolve(false);let k=id;if(id==='praise'&&have.praise2&&Math.random()<.5)k='praise2';if(!have[k]&&k==='praise2')k='praise';if(!have[k])return Promise.resolve(false);
+ return get(k).then(b=>{if(!b)return false;try{speechSynthesis.cancel();}catch(e){}try{if(cur){cur.pause();}cur=new Audio(URL.createObjectURL(b));cur.play().catch(()=>{});}catch(e){return false;}return true;}).catch(()=>false);}
+const has=id=>on()&&(have[id]||(id==='praise'&&have.praise2));
+/* приветствие — один раз в день после первого касания (браузеры не дают звуку играть без касания) */
+const pad=n=>String(n).padStart(2,'0');const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+document.addEventListener('pointerdown',function hi(){try{if(localStorage.getItem('pv_hello')===today())return;}catch(e){}
+ if(!has('hello'))return;try{localStorage.setItem('pv_hello',today());}catch(e){}setTimeout(()=>play('hello'),250);},{capture:true});
+/* запись */
+let rec=null,chunks=[],timer=null,recId=null;
+async function startRec(id,onState){if(rec)stopRec();try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];recId=id;
+  rec=new MediaRecorder(stream);rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
+  rec.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());const blob=new Blob(chunks,{type:rec.mimeType||'audio/webm'});rec=null;clearTimeout(timer);
+   if(blob.size>800){await put(recId,blob);have[recId]=true;}onState&&onState('done',recId);};
+  rec.start();onState&&onState('rec',id);timer=setTimeout(stopRec,8000);return true;}
+ catch(e){console.warn(e);onState&&onState('err',id);return false;}}
+function stopRec(){try{if(rec&&rec.state!=='inactive')rec.stop();}catch(e){}}
+async function remove(id){await del(id);have[id]=false;}
+/* блок для экрана «Для взрослых» */
+function card(){return `<section class="pr-card pv-card" id="hbVoice"><h3>🎙️ ${TL('Голос мамы или папы','Ананың немесе әкенің дауысы')}</h3>
+ <p>${TL('Запишите несколько фраз своим голосом — ребёнок услышит вас вместо голоса робота. Каждая запись до 8 секунд. Записи хранятся только на этом устройстве.','Бірнеше сөйлемді өз дауысыңызбен жазыңыз — бала робот дауысының орнына сізді естиді. Әр жазба 8 секундқа дейін. Жазбалар тек осы құрылғыда сақталады.')}</p>
+ <label class="pv-sw"><input type="checkbox" id="pvOn" ${on()?'checked':''}> ${TL('Использовать мой голос','Менің дауысымды қолдану')}</label>
+ ${PH.map(p=>`<div class="pv-row" data-id="${p.id}"><span class="pv-e">${p.e}</span><div class="pv-t"><b>${TL(p.t[0],p.t[1])} ${have[p.id]?'<i class="pv-ok">✓</i>':''}</b><small>${TL(p.s[0],p.s[1])}</small><small class="pv-w">${TL('Звучит:','Қашан:')} ${TL(p.w[0],p.w[1])}</small></div>
+  <div class="pv-b"><button class="pv-rec" data-act="rec" aria-label="rec">⏺</button>${have[p.id]?`<button data-act="play" aria-label="play">▶</button><button data-act="del" aria-label="del">🗑</button>`:''}</div></div>`).join('')}
+ ${typeof MediaRecorder==='undefined'?`<p class="pr-warn">${TL('На этом устройстве запись звука недоступна.','Бұл құрылғыда дыбыс жазу қолжетімсіз.')}</p>`:''}</section>`;}
+function bind(root,rerender){const sw=root.querySelector('#pvOn');if(sw)sw.onchange=()=>{try{localStorage.setItem('pv_on',sw.checked?'1':'0')}catch(e){}};
+ root.querySelectorAll('.pv-row').forEach(r=>{const id=r.dataset.id;r.querySelectorAll('[data-act]').forEach(b=>b.onclick=async()=>{const a=b.dataset.act;
+  if(a==='rec'){if(rec&&recId===id){stopRec();return;}const ok=await startRec(id,(s)=>{if(s==='rec'){b.textContent='⏹';b.classList.add('on');r.classList.add('recording');}if(s==='done'||s==='err'){if(s==='err')alertBox();rerender();}});}
+  if(a==='play'){const bl=await get(id);if(bl){try{new Audio(URL.createObjectURL(bl)).play();}catch(e){}}}
+  if(a==='del'){await remove(id);rerender();}});});}
+function alertBox(){const d=document.createElement('div');d.className='mp-toast on';d.textContent=TL('Нет доступа к микрофону. Разрешите его в настройках браузера.','Микрофонға рұқсат жоқ. Браузер баптауларында рұқсат беріңіз.');document.body.appendChild(d);setTimeout(()=>d.remove(),3200);}
+window.PVOICE={play,has,card,bind,refresh:refreshHave,PH};
 })();
 
 /* ===== круглый детский шрифт (Nunito, встроен) — для оболочки и разделов ===== */
