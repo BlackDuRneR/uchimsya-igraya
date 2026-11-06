@@ -294,6 +294,27 @@ body.pfon{overflow:hidden}
 .pf-fire{margin-bottom:6px}
 .pf-hill{margin-top:-22px}
 @media (max-width:379px){.pf-chg{grid-template-columns:repeat(2,minmax(0,1fr))}.pf-chg small{font-size:11px}.pf-hill{height:120px}}
+/* ===== пол ребёнка: цвет рамки вокруг аватара ===== */
+:root{--boy:#5AAEF5;--boy-l:#E3F1FF;--girl:#FF8FB8;--girl-l:#FFE6F0}
+.chips.sexc{gap:10px}.chip.sx{min-height:48px;padding:0 18px;font-size:16px;border:3px solid transparent}
+.chip.sx.m.on{background:var(--boy);color:#fff}.chip.sx.f.on{background:var(--girl);color:#fff}
+.chip.sx.m:not(.on){border-color:var(--boy-l)}.chip.sx.f:not(.on){border-color:var(--girl-l)}
+/* главная */
+body[data-sex=m] .who{box-shadow:0 0 0 4px var(--boy),inset 0 -4px 0 rgba(90,174,245,.25);background:var(--boy-l)}
+body[data-sex=f] .who{box-shadow:0 0 0 4px var(--girl),inset 0 -4px 0 rgba(255,143,184,.25);background:var(--girl-l)}
+body[data-sex=m] .who img{box-shadow:0 0 0 4px var(--boy)}body[data-sex=f] .who img{box-shadow:0 0 0 4px var(--girl)}
+body[data-sex=m] .who::after{background:var(--boy)}body[data-sex=f] .who::after{background:var(--girl)}
+/* профиль: большое фото и переключатель детей */
+body[data-sex=m] .pf-ph{border-color:var(--boy);background:linear-gradient(160deg,#E3F1FF,#BFDFFF);box-shadow:0 0 0 5px #fff,0 10px 26px rgba(40,110,200,.25)}
+body[data-sex=f] .pf-ph{border-color:var(--girl);background:linear-gradient(160deg,#FFE6F0,#FFC9DE);box-shadow:0 0 0 5px #fff,0 10px 26px rgba(220,80,140,.25)}
+body[data-sex=m] .pf-cam{background:var(--boy)}body[data-sex=f] .pf-cam{background:var(--girl)}
+.pf-kid[data-sex=m]{border-color:var(--boy);background:var(--boy-l)}.pf-kid[data-sex=f]{border-color:var(--girl);background:var(--girl-l)}
+.pf-kid[data-sex=m].on{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--boy)}.pf-kid[data-sex=f].on{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--girl)}
+/* «Кто играет?» */
+.prow[data-sex=m] .pa,.prow[data-sex=f] .pa{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;flex:none}
+.prow[data-sex=m] .pa{background:var(--boy-l);box-shadow:0 0 0 3px var(--boy)}.prow[data-sex=f] .pa{background:var(--girl-l);box-shadow:0 0 0 3px var(--girl)}
+/* коллекция */
+body[data-sex=m] .cl-av{border-color:var(--boy)}body[data-sex=f] .cl-av{border-color:var(--girl)}
 
 /* ===================== КАРТА ПРИКЛЮЧЕНИЙ ===================== */
 body.mpon{overflow:hidden}
@@ -6120,22 +6141,23 @@ function loadLive(id){const d=LS.get('prof_data_'+id,{});PKEYS.forEach(k=>{try{i
 function switchProf(id){const c=curProf();if(c.id===id)return;try{window.PF&&PF.end();}catch(e){}saveLive(c.id);loadLive(id);LS.set('prof_cur',id);try{window.PF&&PF.reload();}catch(e){}
  document.querySelectorAll('iframe').forEach(f=>{if(f.hasAttribute('srcdoc'))f.removeAttribute('srcdoc');});refresh();}
 function profForm(editId,onDone){const box=document.getElementById('pbox');const p=profiles();const e=editId?p.find(x=>x.id===editId):{name:'',av:AVS[p.length%AVS.length],age:'a24'};
- let av=e.av,age=e.age||'a24',name=e.name||'',yrs=+e.years||0;
+ let av=e.av,age=e.age||'a24',name=e.name||'',yrs=+e.years||0,sex=e.sex||'';
  const draw=()=>{const AG=AGN();box.innerHTML=`<h2>${editId?TL('Профиль ребёнка','Бала профилі'):TL('Новый ребёнок','Жаңа бала')}</h2>
   <div class="pform"><input id="pnm" maxlength="16" placeholder="${TL('Имя ребёнка','Баланың аты')}" value="${esc(name)}">
+  <div class="plab">${TL('Кто это?','Бұл кім?')}</div><div class="chips sexc"><button class="chip sx m ${sex==='m'?'on':''}" data-sx="m">👦 ${TL('Мальчик','Ұл бала')}</button><button class="chip sx f ${sex==='f'?'on':''}" data-sx="f">👧 ${TL('Девочка','Қыз бала')}</button></div>
   <div class="plab">${TL('Картинка','Сурет')}</div><div class="chips">${AVS.map(a=>`<button class="chip av ${a===av?'on':''}" data-av="${a}">${a}</button>`).join('')}</div>
   <div class="plab">${TL('Возраст','Жасы')}</div><div class="chips">${[1,2,3,4,5,6,7].map(n=>`<button class="chip ${n===yrs?'on':''}" data-yr="${n}">${kzOn()?n+' жас':n+' '+(n===1?'год':n<5?'года':'лет')}</button>`).join('')}</div>
   <div class="plab">${TL('Игры для возраста','Жасына арналған ойындар')}</div><div class="chips">${Object.entries(AG).map(([k,v])=>`<button class="chip ${k===age?'on':''}" data-ag="${k}">${v}</button>`).join('')}</div></div>
   <button class="btn" id="psave">${TL('Сохранить','Сақтау')}</button><button class="btn sec2" id="pcancel">${TL('Отмена','Болдырмау')}</button>`;
   const inp=document.getElementById('pnm');inp.oninput=()=>{name=inp.value;};
-  box.querySelectorAll('[data-av]').forEach(b=>b.onclick=()=>{av=b.dataset.av;draw();});box.querySelectorAll('[data-ag]').forEach(b=>b.onclick=()=>{age=b.dataset.ag;draw();});box.querySelectorAll('[data-yr]').forEach(b=>b.onclick=()=>{yrs=+b.dataset.yr;age=yrs<=2?'a02':yrs<=4?'a24':'a56';draw();});
+  box.querySelectorAll('[data-av]').forEach(b=>b.onclick=()=>{av=b.dataset.av;draw();});box.querySelectorAll('[data-sx]').forEach(b=>b.onclick=()=>{sex=sex===b.dataset.sx?'':b.dataset.sx;draw();});box.querySelectorAll('[data-ag]').forEach(b=>b.onclick=()=>{age=b.dataset.ag;draw();});box.querySelectorAll('[data-yr]').forEach(b=>b.onclick=()=>{yrs=+b.dataset.yr;age=yrs<=2?'a02':yrs<=4?'a24':'a56';draw();});
   document.getElementById('pcancel').onclick=onDone?closeProf:profList;
   document.getElementById('psave').onclick=()=>{const nm=name.trim().slice(0,16);const all=profiles();
-   if(editId){Object.assign(all.find(x=>x.id===editId),{name:nm,av,age,years:yrs||undefined});LS.set('profiles',all);refresh();if(onDone){closeProf();onDone();}else profList();}
-   else{const id='p'+Date.now().toString(36);all.push({id,name:nm,av,age,years:yrs||undefined});LS.set('profiles',all);switchProf(id);closeProf();if(onDone)onDone();}};};
+   if(editId){Object.assign(all.find(x=>x.id===editId),{name:nm,av,age,years:yrs||undefined,sex:sex||undefined});LS.set('profiles',all);refresh();if(onDone){closeProf();onDone();}else profList();}
+   else{const id='p'+Date.now().toString(36);all.push({id,name:nm,av,age,years:yrs||undefined,sex:sex||undefined});LS.set('profiles',all);switchProf(id);closeProf();if(onDone)onDone();}};};
  draw();}
 function profList(){const box=document.getElementById('pbox');const p=profiles(),c=curProf(),AG=AGN();
- box.innerHTML=`<h2>${TL('Кто играет?','Кім ойнайды?')}</h2><div class="plist">${p.map(x=>`<div class="prow ${x.id===c.id?'on':''}" data-id="${x.id}" role="button" tabindex="0"><span class="pa">${x.av}</span>
+ box.innerHTML=`<h2>${TL('Кто играет?','Кім ойнайды?')}</h2><div class="plist">${p.map(x=>`<div class="prow ${x.id===c.id?'on':''}" data-sex="${x.sex||''}" data-id="${x.id}" role="button" tabindex="0"><span class="pa">${x.av}</span>
    <span class="pn">${esc(x.name||TL('Малыш','Бала'))}<small>${x.years?(kzOn()?x.years+' жас':x.years+' '+(x.years===1?'год':x.years<5?'года':'лет')):x.age?AG[x.age]:''}${x.id===c.id?' · '+TL('сейчас играет','қазір ойнайды'):''}</small></span>
    <button class="pdel" data-ed="${x.id}" aria-label="${TL('Изменить','Өзгерту')}">✎</button>${x.id!==c.id?`<button class="pdel" data-del="${x.id}" aria-label="${TL('Удалить','Жою')}">✕</button>`:''}</div>`).join('')}</div>
   <button class="btn" id="padd">＋ ${TL('Добавить ребёнка','Бала қосу')}</button><button class="btn sec2" id="pclose">${TL('Готово','Дайын')}</button>`;
@@ -6150,7 +6172,7 @@ function closeProf(){const m=document.getElementById('prof');if(m.style.display=
 document.getElementById('who').onclick=openProf;
 document.getElementById('prof').addEventListener('click',e=>{if(e.target.id==='prof')closeProf();});
 /* ---------- прогресс на главном экране ---------- */
-function refresh(){const c=curProf();const pl=LS.get('nav_plays',{});let done=0,total=0;
+function refresh(){const c=curProf();document.body.dataset.sex=c.sex||'';const pl=LS.get('nav_plays',{});let done=0,total=0;
  document.querySelectorAll('.age[data-sid]').forEach(b=>{const sid=b.dataset.sid,tot=+b.dataset.total;if(!tot)return;
    const d=Math.min(Object.keys(pl).filter(k=>k.startsWith(sid+':')).length,tot);done+=d;total+=tot;
    b.querySelector('.pbar i').style.width=Math.round(d/tot*100)+'%';b.querySelector('.pnum').textContent=`${d} / ${tot}`;
@@ -6452,7 +6474,7 @@ function render(){const c=curProf(),all=profiles(),s=starsNow(),lv=level(s),sk=s
  const hist=st.hist.filter(h=>h.t>=5||h.ok||h.bad);const H=showAll?hist.slice(0,40):hist.slice(0,8);
  V.innerHTML=`<div class="pf-hero">
   <div class="pf-top"><button class="pf-ib" id="pfBack" aria-label="${TL('На главную','Басты бетке')}">‹</button>
-   <div class="pf-kids">${all.map(p=>`<button class="pf-kid ${p.id===c.id?'on':''}" data-id="${p.id}" aria-label="${esc(p.name||TL('Малыш','Бала'))}">${avHTML(p,'pf-kav')}</button>`).join('')}<button class="pf-kid add" id="pfAdd" aria-label="${TL('Добавить ребёнка','Бала қосу')}">＋</button></div>
+   <div class="pf-kids">${all.map(p=>`<button class="pf-kid ${p.id===c.id?'on':''}" data-sex="${p.sex||''}" data-id="${p.id}" aria-label="${esc(p.name||TL('Малыш','Бала'))}">${avHTML(p,'pf-kav')}</button>`).join('')}<button class="pf-kid add" id="pfAdd" aria-label="${TL('Добавить ребёнка','Бала қосу')}">＋</button></div>
    <button class="pf-ib" id="pfEdit" aria-label="${TL('Изменить имя и возраст','Аты мен жасын өзгерту')}">✎</button></div>
   <div class="pf-phw"><button class="pf-ph ${st.shape==='round'?'sq':''}" id="pfPh" aria-label="${TL('Фото ребёнка','Баланың суреті')}">${avHTML(c,'pf-phi')}</button><span class="pf-cam" aria-hidden="true">📷</span>${window.COL?COL.heroMini():''}</div>
   <div class="pf-fire" title="${TL('Дней подряд','Қатарынан күн')}">🔥 <b>${sk}</b> <small>${kzOn()?'күн қатарынан':(sk%10===1&&sk%100!==11?'день подряд':[2,3,4].includes(sk%10)&&![12,13,14].includes(sk%100)?'дня подряд':'дней подряд')}</small></div>
