@@ -1348,6 +1348,33 @@ html .menu .tile.nt .t{color:#fff!important;font-weight:900;text-shadow:0 2px 0 
 html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
 @media (max-width:360px){html .ncats .ncat.nb{padding:80px 9px 12px;min-height:160px}.ncat.nb .nn{font-size:15px}.ncat.nb .nring{width:44px;height:44px}html .menu .tile.nt .e{font-size:58px!important}}
 @media (prefers-reduced-motion:reduce){.ncat.nb .nhero,html .menu .tile.nt .e{animation:none}}
+/* ===== экран победы: кубок-наклейка ===== */
+.wn{position:relative;padding:150px 6px 10px;max-width:420px;margin:0 auto}
+.wn-rays{position:absolute;left:50%;top:-60px;width:460px;height:460px;margin-left:-230px;opacity:.4;animation:wnSpin 16s linear infinite;pointer-events:none;z-index:0}
+@keyframes wnSpin{to{transform:rotate(360deg)}}
+.wn-card{position:relative;z-index:1;background:var(--wc);border-radius:34px;padding:84px 16px 22px;text-align:center;color:#fff;
+ box-shadow:0 8px 0 color-mix(in srgb,var(--wc) 70%,#000),0 16px 30px color-mix(in srgb,var(--wc) 30%,transparent);
+ background-image:radial-gradient(circle at 8% 108%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 95% 6%,rgba(255,255,255,.16) 0 18%,transparent 19%);animation:wnUp .5s ease both}
+.wn-cup{position:absolute;left:50%;top:-142px;width:226px;margin-left:-113px;animation:wnPop .7s cubic-bezier(.3,1.6,.5,1) .1s both}
+.wn-bob{position:relative;animation:wnBob 2.6s ease-in-out .8s infinite}.wn-bob svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.wn-plate{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-weight:900;font-size:clamp(12px,3.9vw,16px);white-space:nowrap;color:#fff;letter-spacing:.5px}
+.wn-shine{animation:wnShine 2.6s ease-in-out infinite}
+.wn-t{font-size:clamp(28px,8vw,36px);font-weight:900;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.wn-s{font-size:16px;font-weight:800;margin-top:4px;opacity:.95}
+.wn-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.wn-slots span{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.wn-slots.sm span{width:32px;height:32px}
+.wn-slots span svg{width:84%;height:84%;animation:wnPop .5s cubic-bezier(.3,1.6,.5,1) both}
+.wn-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.wn-btns .wn-b{border:none;font:inherit;font-weight:900;font-size:19px!important;border-radius:22px!important;padding:13px 20px!important;color:#fff;cursor:pointer;min-height:54px;margin:0!important}
+.wn-b.g{background:#2FBF71!important;box-shadow:0 6px 0 #1E9152!important}.wn-b.y{background:#FFC93C!important;color:#3A2E5C!important;box-shadow:0 6px 0 #D9A21A!important}
+.wn-b:active{transform:translateY(4px)}
+@keyframes wnPop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-2deg)}}
+@keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
+@media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
+@media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -2073,6 +2100,32 @@ new MutationObserver(ms=&gt;{let i=0;ms.forEach(m=&gt;m.addedNodes.forEach(n=&gt
  n.style.setProperty(&#x27;--fxd&#x27;,(i++*55)+&#x27;ms&#x27;);n.classList.add(&#x27;fx-in&#x27;);n.addEventListener(&#x27;animationend&#x27;,function f(e){if(e.target!==n)return;n.classList.remove(&#x27;fx-in&#x27;);n.removeEventListener(&#x27;animationend&#x27;,f);});}));}).observe(app,{childList:true});
 })();
 
+/* ===== ЭКРАН ПОБЕДЫ: кубок-наклейка (общий для всех разделов) ===== */
+(function(){
+let uid=0;
+function cup(kind){const id=&#x27;wc&#x27;+(++uid);const G=kind===&#x27;gold&#x27;?[&#x27;#FFB703&#x27;,&#x27;#FFE066&#x27;,&#x27;#F59E0B&#x27;,&#x27;#FFC93C&#x27;,&#x27;#F59E0B&#x27;]:kind===&#x27;silver&#x27;?[&#x27;#9AA8C2&#x27;,&#x27;#EEF2FA&#x27;,&#x27;#8593B0&#x27;,&#x27;#D4DCEB&#x27;,&#x27;#8593B0&#x27;]:[&#x27;#C9773A&#x27;,&#x27;#F6C08E&#x27;,&#x27;#A85E2A&#x27;,&#x27;#E39A5E&#x27;,&#x27;#A85E2A&#x27;];
+ return `&lt;svg viewBox=&quot;0 0 230 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;${id}g&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;${G[0]}&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;${G[1]}&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;${G[2]}&quot;/&gt;&lt;/linearGradient&gt;
+ &lt;clipPath id=&quot;${id}c&quot;&gt;&lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot;/&gt;&lt;/clipPath&gt;&lt;/defs&gt;
+ &lt;g stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;&lt;path d=&quot;M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;
+ &lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot; fill=&quot;url(#${id}g)&quot;/&gt;&lt;rect x=&quot;100&quot; y=&quot;132&quot; width=&quot;30&quot; height=&quot;24&quot; fill=&quot;${G[4]}&quot;/&gt;&lt;rect x=&quot;72&quot; y=&quot;154&quot; width=&quot;86&quot; height=&quot;22&quot; rx=&quot;8&quot; fill=&quot;${G[3]}&quot;/&gt;&lt;rect x=&quot;58&quot; y=&quot;174&quot; width=&quot;114&quot; height=&quot;30&quot; rx=&quot;10&quot; fill=&quot;#FF6B6B&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104 M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[3]}&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+ &lt;g clip-path=&quot;url(#${id}c)&quot;&gt;&lt;rect class=&quot;wn-shine&quot; x=&quot;70&quot; y=&quot;10&quot; width=&quot;26&quot; height=&quot;140&quot; fill=&quot;#fff&quot; opacity=&quot;.55&quot; transform=&quot;skewX(-18)&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M115 50 l9 19 21 2 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -2z&quot; fill=&quot;#fff&quot; opacity=&quot;.95&quot;/&gt;&lt;/svg&gt;`;}
+const STAR=&#x27;&lt;svg viewBox=&quot;0 0 100 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M50 4 l13 28 31 3 -23 21 7 31 -28 -16 -28 16 7 -31 -23 -21 31 -3z&quot; fill=&quot;#FFE45C&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+const rays=()=&gt;`&lt;svg class=&quot;wn-rays&quot; viewBox=&quot;-100 -100 200 200&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;#fff&quot;&gt;${Array.from({length:12},(_,i)=&gt;`&lt;path d=&quot;M0 0 L-9 -100 L9 -100Z&quot; transform=&quot;rotate(${i*30})&quot;/&gt;`).join(&#x27;&#x27;)}&lt;/g&gt;&lt;/svg&gt;`;
+/* o: {ok,n,title,sub,plate,again:fn,againLabel,backHtml|onBack,backLabel} */
+window.WINCARD=function(host,o){const ok=Math.max(0,o.ok|0),n=Math.max(1,o.n|0);const kind=ok&gt;=n-1?&#x27;gold&#x27;:ok&gt;=n/2?&#x27;silver&#x27;:&#x27;bronze&#x27;;
+ const col=kind===&#x27;gold&#x27;?&#x27;#9C6BFF&#x27;:kind===&#x27;silver&#x27;?&#x27;#4F8DF5&#x27;:&#x27;#F08A3C&#x27;;
+ host.innerHTML=`&lt;div class=&quot;wn&quot; style=&quot;--wc:${col}&quot;&gt;${rays()}&lt;div class=&quot;wn-card&quot;&gt;&lt;div class=&quot;wn-cup&quot;&gt;&lt;div class=&quot;wn-bob&quot;&gt;${cup(kind)}&lt;span class=&quot;wn-plate&quot;&gt;${o.plate||&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;wn-t&quot;&gt;${o.title||&#x27;&#x27;}&lt;/div&gt;${o.sub?`&lt;div class=&quot;wn-s&quot;&gt;${o.sub}&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;div class=&quot;wn-slots${n&gt;6?&#x27; sm&#x27;:&#x27;&#x27;}&quot;&gt;${Array.from({length:n},()=&gt;&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;wn-btns&quot;&gt;&lt;button class=&quot;wn-b g&quot; id=&quot;wnAgain&quot;&gt;↻ ${o.againLabel||&#x27;Ещё раз&#x27;}&lt;/button&gt;${o.backHtml||`&lt;button class=&quot;wn-b y&quot; id=&quot;wnBack&quot;&gt;${o.backLabel||&#x27;К играм&#x27;} ›&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const sl=[...host.querySelectorAll(&#x27;.wn-slots span&#x27;)];const T=[];sl.forEach((el,i)=&gt;{if(i&lt;ok)T.push(setTimeout(()=&gt;{if(!document.body.contains(el))return;el.classList.add(&#x27;on&#x27;);el.innerHTML=STAR;try{typeof tone===&#x27;function&#x27;&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}},650+i*230));});
+ const a=host.querySelector(&#x27;#wnAgain&#x27;);if(a)a.onclick=()=&gt;{T.forEach(clearTimeout);o.again&amp;&amp;o.again();};
+ const b=host.querySelector(&#x27;#wnBack&#x27;);if(b)b.onclick=()=&gt;{T.forEach(clearTimeout);o.onBack&amp;&amp;o.onBack();};
+ const yb=host.querySelector(&#x27;.wn-btns .big-btn&#x27;);if(yb)yb.classList.add(&#x27;wn-b&#x27;,&#x27;y&#x27;);};
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -2360,6 +2413,33 @@ html .menu .tile.nt .t{color:#fff!important;font-weight:900;text-shadow:0 2px 0 
 html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
 @media (max-width:360px){html .ncats .ncat.nb{padding:80px 9px 12px;min-height:160px}.ncat.nb .nn{font-size:15px}.ncat.nb .nring{width:44px;height:44px}html .menu .tile.nt .e{font-size:58px!important}}
 @media (prefers-reduced-motion:reduce){.ncat.nb .nhero,html .menu .tile.nt .e{animation:none}}
+/* ===== экран победы: кубок-наклейка ===== */
+.wn{position:relative;padding:150px 6px 10px;max-width:420px;margin:0 auto}
+.wn-rays{position:absolute;left:50%;top:-60px;width:460px;height:460px;margin-left:-230px;opacity:.4;animation:wnSpin 16s linear infinite;pointer-events:none;z-index:0}
+@keyframes wnSpin{to{transform:rotate(360deg)}}
+.wn-card{position:relative;z-index:1;background:var(--wc);border-radius:34px;padding:84px 16px 22px;text-align:center;color:#fff;
+ box-shadow:0 8px 0 color-mix(in srgb,var(--wc) 70%,#000),0 16px 30px color-mix(in srgb,var(--wc) 30%,transparent);
+ background-image:radial-gradient(circle at 8% 108%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 95% 6%,rgba(255,255,255,.16) 0 18%,transparent 19%);animation:wnUp .5s ease both}
+.wn-cup{position:absolute;left:50%;top:-142px;width:226px;margin-left:-113px;animation:wnPop .7s cubic-bezier(.3,1.6,.5,1) .1s both}
+.wn-bob{position:relative;animation:wnBob 2.6s ease-in-out .8s infinite}.wn-bob svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.wn-plate{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-weight:900;font-size:clamp(12px,3.9vw,16px);white-space:nowrap;color:#fff;letter-spacing:.5px}
+.wn-shine{animation:wnShine 2.6s ease-in-out infinite}
+.wn-t{font-size:clamp(28px,8vw,36px);font-weight:900;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.wn-s{font-size:16px;font-weight:800;margin-top:4px;opacity:.95}
+.wn-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.wn-slots span{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.wn-slots.sm span{width:32px;height:32px}
+.wn-slots span svg{width:84%;height:84%;animation:wnPop .5s cubic-bezier(.3,1.6,.5,1) both}
+.wn-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.wn-btns .wn-b{border:none;font:inherit;font-weight:900;font-size:19px!important;border-radius:22px!important;padding:13px 20px!important;color:#fff;cursor:pointer;min-height:54px;margin:0!important}
+.wn-b.g{background:#2FBF71!important;box-shadow:0 6px 0 #1E9152!important}.wn-b.y{background:#FFC93C!important;color:#3A2E5C!important;box-shadow:0 6px 0 #D9A21A!important}
+.wn-b:active{transform:translateY(4px)}
+@keyframes wnPop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-2deg)}}
+@keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
+@media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
+@media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -3465,6 +3545,32 @@ new MutationObserver(ms=&gt;{let i=0;ms.forEach(m=&gt;m.addedNodes.forEach(n=&gt
  n.style.setProperty(&#x27;--fxd&#x27;,(i++*55)+&#x27;ms&#x27;);n.classList.add(&#x27;fx-in&#x27;);n.addEventListener(&#x27;animationend&#x27;,function f(e){if(e.target!==n)return;n.classList.remove(&#x27;fx-in&#x27;);n.removeEventListener(&#x27;animationend&#x27;,f);});}));}).observe(app,{childList:true});
 })();
 
+/* ===== ЭКРАН ПОБЕДЫ: кубок-наклейка (общий для всех разделов) ===== */
+(function(){
+let uid=0;
+function cup(kind){const id=&#x27;wc&#x27;+(++uid);const G=kind===&#x27;gold&#x27;?[&#x27;#FFB703&#x27;,&#x27;#FFE066&#x27;,&#x27;#F59E0B&#x27;,&#x27;#FFC93C&#x27;,&#x27;#F59E0B&#x27;]:kind===&#x27;silver&#x27;?[&#x27;#9AA8C2&#x27;,&#x27;#EEF2FA&#x27;,&#x27;#8593B0&#x27;,&#x27;#D4DCEB&#x27;,&#x27;#8593B0&#x27;]:[&#x27;#C9773A&#x27;,&#x27;#F6C08E&#x27;,&#x27;#A85E2A&#x27;,&#x27;#E39A5E&#x27;,&#x27;#A85E2A&#x27;];
+ return `&lt;svg viewBox=&quot;0 0 230 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;${id}g&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;${G[0]}&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;${G[1]}&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;${G[2]}&quot;/&gt;&lt;/linearGradient&gt;
+ &lt;clipPath id=&quot;${id}c&quot;&gt;&lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot;/&gt;&lt;/clipPath&gt;&lt;/defs&gt;
+ &lt;g stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;&lt;path d=&quot;M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;
+ &lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot; fill=&quot;url(#${id}g)&quot;/&gt;&lt;rect x=&quot;100&quot; y=&quot;132&quot; width=&quot;30&quot; height=&quot;24&quot; fill=&quot;${G[4]}&quot;/&gt;&lt;rect x=&quot;72&quot; y=&quot;154&quot; width=&quot;86&quot; height=&quot;22&quot; rx=&quot;8&quot; fill=&quot;${G[3]}&quot;/&gt;&lt;rect x=&quot;58&quot; y=&quot;174&quot; width=&quot;114&quot; height=&quot;30&quot; rx=&quot;10&quot; fill=&quot;#FF6B6B&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104 M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[3]}&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+ &lt;g clip-path=&quot;url(#${id}c)&quot;&gt;&lt;rect class=&quot;wn-shine&quot; x=&quot;70&quot; y=&quot;10&quot; width=&quot;26&quot; height=&quot;140&quot; fill=&quot;#fff&quot; opacity=&quot;.55&quot; transform=&quot;skewX(-18)&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M115 50 l9 19 21 2 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -2z&quot; fill=&quot;#fff&quot; opacity=&quot;.95&quot;/&gt;&lt;/svg&gt;`;}
+const STAR=&#x27;&lt;svg viewBox=&quot;0 0 100 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M50 4 l13 28 31 3 -23 21 7 31 -28 -16 -28 16 7 -31 -23 -21 31 -3z&quot; fill=&quot;#FFE45C&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+const rays=()=&gt;`&lt;svg class=&quot;wn-rays&quot; viewBox=&quot;-100 -100 200 200&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;#fff&quot;&gt;${Array.from({length:12},(_,i)=&gt;`&lt;path d=&quot;M0 0 L-9 -100 L9 -100Z&quot; transform=&quot;rotate(${i*30})&quot;/&gt;`).join(&#x27;&#x27;)}&lt;/g&gt;&lt;/svg&gt;`;
+/* o: {ok,n,title,sub,plate,again:fn,againLabel,backHtml|onBack,backLabel} */
+window.WINCARD=function(host,o){const ok=Math.max(0,o.ok|0),n=Math.max(1,o.n|0);const kind=ok&gt;=n-1?&#x27;gold&#x27;:ok&gt;=n/2?&#x27;silver&#x27;:&#x27;bronze&#x27;;
+ const col=kind===&#x27;gold&#x27;?&#x27;#9C6BFF&#x27;:kind===&#x27;silver&#x27;?&#x27;#4F8DF5&#x27;:&#x27;#F08A3C&#x27;;
+ host.innerHTML=`&lt;div class=&quot;wn&quot; style=&quot;--wc:${col}&quot;&gt;${rays()}&lt;div class=&quot;wn-card&quot;&gt;&lt;div class=&quot;wn-cup&quot;&gt;&lt;div class=&quot;wn-bob&quot;&gt;${cup(kind)}&lt;span class=&quot;wn-plate&quot;&gt;${o.plate||&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;wn-t&quot;&gt;${o.title||&#x27;&#x27;}&lt;/div&gt;${o.sub?`&lt;div class=&quot;wn-s&quot;&gt;${o.sub}&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;div class=&quot;wn-slots${n&gt;6?&#x27; sm&#x27;:&#x27;&#x27;}&quot;&gt;${Array.from({length:n},()=&gt;&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;wn-btns&quot;&gt;&lt;button class=&quot;wn-b g&quot; id=&quot;wnAgain&quot;&gt;↻ ${o.againLabel||&#x27;Ещё раз&#x27;}&lt;/button&gt;${o.backHtml||`&lt;button class=&quot;wn-b y&quot; id=&quot;wnBack&quot;&gt;${o.backLabel||&#x27;К играм&#x27;} ›&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const sl=[...host.querySelectorAll(&#x27;.wn-slots span&#x27;)];const T=[];sl.forEach((el,i)=&gt;{if(i&lt;ok)T.push(setTimeout(()=&gt;{if(!document.body.contains(el))return;el.classList.add(&#x27;on&#x27;);el.innerHTML=STAR;try{typeof tone===&#x27;function&#x27;&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}},650+i*230));});
+ const a=host.querySelector(&#x27;#wnAgain&#x27;);if(a)a.onclick=()=&gt;{T.forEach(clearTimeout);o.again&amp;&amp;o.again();};
+ const b=host.querySelector(&#x27;#wnBack&#x27;);if(b)b.onclick=()=&gt;{T.forEach(clearTimeout);o.onBack&amp;&amp;o.onBack();};
+ const yb=host.querySelector(&#x27;.wn-btns .big-btn&#x27;);if(yb)yb.classList.add(&#x27;wn-b&#x27;,&#x27;y&#x27;);};
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -3675,15 +3781,16 @@ h2{font-size:44px;text-align:center;margin:4px 0 18px;color:var(--ink)}
 .wcard svg{max-width:120px;height:auto}
 .wpart{cursor:pointer;transition:filter .2s}.wpart.lit{filter:drop-shadow(0 0 10px #FFD400) drop-shadow(0 0 4px #FFB000)}
 .wsign{font-size:120px;line-height:1}
-.wroad{position:relative;height:260px;border-radius:24px;background:#BFE8FF;overflow:hidden;margin-bottom:14px}
-.wlight{position:absolute;left:14px;top:14px;transform:scale(.6);transform-origin:top left}
-.wstreet{position:absolute;left:0;right:0;bottom:40px;height:110px;background:#555}
+.wroad{position:relative;height:300px;border-radius:24px;background:#BFE8FF;overflow:hidden;margin-bottom:14px}
+.wlight{position:absolute;left:12px;top:8px;z-index:4;transform:scale(.56);transform-origin:top left;filter:drop-shadow(0 4px 0 rgba(0,0,0,.18))}.wlight::after{content:&#x27;&#x27;;position:absolute;left:58px;top:216px;width:14px;height:40px;background:#6B7088;border-radius:0 0 6px 6px}
+.wsig{display:inline-flex;align-items:center;gap:8px;margin:0 auto 10px;padding:8px 16px;border-radius:999px;font-weight:900;font-size:clamp(15px,4.6vw,20px);color:#fff;transition:background .3s}.wsig.r{background:#E8505B}.wsig.g{background:#2FBF71}.wsigw{text-align:center}
+.wstreet{position:absolute;left:0;right:0;bottom:40px;height:110px;background:#555;z-index:1}
 .wzebra{position:absolute;left:46%;width:120px;top:0;bottom:0;background:repeating-linear-gradient(90deg,#fff 0 18px,transparent 18px 34px);transform:rotate(90deg) scale(1.1);transform-origin:center}
 .wcar{position:absolute;top:22px;left:-100px;font-size:70px;transform:scaleX(-1)}
 .wcar.drive{animation:wdrive 3s linear infinite}
 @keyframes wdrive{from{left:-120px}to{left:110%}}
-.wman{position:absolute;left:52%;bottom:-6px;font-size:60px;transition:bottom 2s linear}
-.wman.walk{bottom:150px}
+.wman{position:absolute;left:52%;bottom:-6px;z-index:3;font-size:60px;transition:bottom 2s linear}
+.wman.walk{bottom:156px}
 .wsky{position:relative;border-radius:26px;background:linear-gradient(#0E1A4A,#3B3F96);padding:20px;min-height:340px;overflow:hidden}
 .wrocket{position:absolute;right:30px;bottom:20px;font-size:110px;transition:transform 2s ease-in;transform:rotate(-45deg)}
 .wrocket.fly{transform:translateY(-500px) rotate(-45deg)}
@@ -3708,8 +3815,9 @@ h2{font-size:44px;text-align:center;margin:4px 0 18px;color:var(--ink)}
 .wg3 button{cursor:pointer}.wg3 button.ok{background:#D5F7E4;box-shadow:0 0 0 4px #2FBF71}
 .wmem{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font-size:clamp(70px,11vw,100px);margin:10px 0}
 .wmem .q{color:#FFC83D;border:6px dashed #FFC83D;border-radius:20px;padding:0 20px}
-.wrl{display:flex;align-items:center;justify-content:center;gap:12px;font-size:20px;color:var(--muted);flex-wrap:wrap}
-.wrl b{font-size:clamp(70px,11vw,100px);display:flex;flex-direction:column;align-items:center;line-height:1}.wrl small{font-size:16px;color:var(--ink)}
+.wrl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:4px;font-size:15px;font-weight:800;color:var(--muted);width:min(100%,560px);box-sizing:border-box;margin:0 auto;background:#fff;border-radius:24px;padding:12px 8px 10px;box-shadow:0 5px 0 #E3DDF5}
+.wrlh{grid-column:1/-1;display:flex;justify-content:space-between;padding:0 6px 4px;color:#8A7FB0}
+.wrl b{font-size:clamp(56px,17vw,100px);display:flex;flex-direction:column;align-items:center;line-height:1;min-width:0}.wrl small{font-size:clamp(12px,3.4vw,16px);color:var(--ink);margin-top:4px;text-align:center;line-height:1.1}
 .wshop{display:flex;justify-content:center;align-items:center;gap:20px}.wprice{font-size:64px;background:#FFF2C4;border-radius:20px;padding:4px 20px;color:#B5651D}
 .wpurse{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;min-height:56px}
 .wcm{width:52px;height:52px;border-radius:50%;background:radial-gradient(#FFE27A,#E8B21D);display:flex;align-items:center;justify-content:center;font-size:22px;color:#6B4A00;box-shadow:0 3px 0 #B88A10}
@@ -3929,6 +4037,33 @@ html .menu .tile.nt .t{color:#fff!important;font-weight:900;text-shadow:0 2px 0 
 html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
 @media (max-width:360px){html .ncats .ncat.nb{padding:80px 9px 12px;min-height:160px}.ncat.nb .nn{font-size:15px}.ncat.nb .nring{width:44px;height:44px}html .menu .tile.nt .e{font-size:58px!important}}
 @media (prefers-reduced-motion:reduce){.ncat.nb .nhero,html .menu .tile.nt .e{animation:none}}
+/* ===== экран победы: кубок-наклейка ===== */
+.wn{position:relative;padding:150px 6px 10px;max-width:420px;margin:0 auto}
+.wn-rays{position:absolute;left:50%;top:-60px;width:460px;height:460px;margin-left:-230px;opacity:.4;animation:wnSpin 16s linear infinite;pointer-events:none;z-index:0}
+@keyframes wnSpin{to{transform:rotate(360deg)}}
+.wn-card{position:relative;z-index:1;background:var(--wc);border-radius:34px;padding:84px 16px 22px;text-align:center;color:#fff;
+ box-shadow:0 8px 0 color-mix(in srgb,var(--wc) 70%,#000),0 16px 30px color-mix(in srgb,var(--wc) 30%,transparent);
+ background-image:radial-gradient(circle at 8% 108%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 95% 6%,rgba(255,255,255,.16) 0 18%,transparent 19%);animation:wnUp .5s ease both}
+.wn-cup{position:absolute;left:50%;top:-142px;width:226px;margin-left:-113px;animation:wnPop .7s cubic-bezier(.3,1.6,.5,1) .1s both}
+.wn-bob{position:relative;animation:wnBob 2.6s ease-in-out .8s infinite}.wn-bob svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.wn-plate{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-weight:900;font-size:clamp(12px,3.9vw,16px);white-space:nowrap;color:#fff;letter-spacing:.5px}
+.wn-shine{animation:wnShine 2.6s ease-in-out infinite}
+.wn-t{font-size:clamp(28px,8vw,36px);font-weight:900;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.wn-s{font-size:16px;font-weight:800;margin-top:4px;opacity:.95}
+.wn-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.wn-slots span{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.wn-slots.sm span{width:32px;height:32px}
+.wn-slots span svg{width:84%;height:84%;animation:wnPop .5s cubic-bezier(.3,1.6,.5,1) both}
+.wn-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.wn-btns .wn-b{border:none;font:inherit;font-weight:900;font-size:19px!important;border-radius:22px!important;padding:13px 20px!important;color:#fff;cursor:pointer;min-height:54px;margin:0!important}
+.wn-b.g{background:#2FBF71!important;box-shadow:0 6px 0 #1E9152!important}.wn-b.y{background:#FFC93C!important;color:#3A2E5C!important;box-shadow:0 6px 0 #D9A21A!important}
+.wn-b:active{transform:translateY(4px)}
+@keyframes wnPop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-2deg)}}
+@keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
+@media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
+@media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -4748,11 +4883,12 @@ function tkQ(){tk.tries=0;const f=NOUN[rnd(NOUN_OK)],plus=Math.random()&lt;.5,wh
 
 /* ===== Итог ===== */
 function finish(ok,n,again){clearT();
-  app.innerHTML=`&lt;div style=&quot;text-align:center&quot;&gt;&lt;div style=&quot;font-size:150px;line-height:1.1&quot;&gt;${ok&gt;=n-1?&#x27;🏆&#x27;:ok&gt;=n/2?&#x27;🥳&#x27;:&#x27;🦉&#x27;}&lt;/div&gt;
-   &lt;h2&gt;${ok&gt;=n-1?TT(&#x27;Ты супер!&#x27;,&#x27;Керемет!&#x27;):ok&gt;=n/2?TT(&#x27;Молодец!&#x27;,&#x27;Жарайсың!&#x27;):TT(&#x27;Хорошо! Сыграем ещё?&#x27;,&#x27;Жақсы! Тағы ойнаймыз ба?&#x27;)}&lt;/h2&gt;
-   &lt;div class=&quot;stars&quot; style=&quot;font-size:60px&quot;&gt;${&quot;⭐&quot;.repeat(ok)}&lt;/div&gt;
-   &lt;div class=&quot;row&quot; style=&quot;margin-top:20px&quot;&gt;&lt;button class=&quot;big-btn g&quot; id=&quot;ag&quot;&gt;🔁 ${TT(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;)}&lt;/button&gt;${back()}&lt;/div&gt;&lt;/div&gt;`;
-  document.getElementById(&#x27;ag&#x27;).onclick=again;tone(&#x27;win&#x27;);if(ok&gt;=n/2)confetti();speak(KZ?(ok&gt;=n/2?`Жарайсың! Сен ${ok} жұлдыз жинадың!`:&quot;Жақсы! Тағы ойнайық!&quot;):(ok&gt;=n/2?&quot;Молодец! Ты собрал &quot;+ok+&quot; звёзд!&quot;:&quot;Хорошо! Давай сыграем ещё!&quot;));
+  const top=ok&gt;=n-1,mid=ok&gt;=n/2;
+  WINCARD(app,{ok,n,title:top?TT(&#x27;Ты супер!&#x27;,&#x27;Керемет!&#x27;):mid?TT(&#x27;Молодец!&#x27;,&#x27;Жарайсың!&#x27;):TT(&#x27;Хорошо!&#x27;,&#x27;Жақсы!&#x27;),
+   sub:top?(ok===n?TT(`${ok} из ${n} — без единой ошибки`,`${n}/${ok} — бірде-бір қатесіз`):TT(`${ok} из ${n} — почти без ошибок`,`${n}/${ok} — қатесіз дерлік`)):mid?TT(`${ok} из ${n} звёзд`,`${n}/${ok} жұлдыз`):TT(&#x27;Сыграем ещё раз?&#x27;,&#x27;Тағы ойнаймыз ба?&#x27;),
+   plate:top?TT(&#x27;МОЛОДЕЦ!&#x27;,&#x27;ЖАРАЙСЫҢ!&#x27;):mid?TT(&#x27;ХОРОШО!&#x27;,&#x27;ЖАҚСЫ!&#x27;):TT(&#x27;СТАРАЙСЯ!&#x27;,&#x27;ТЫРЫС!&#x27;),
+   again,againLabel:TT(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;),onBack:()=&gt;home(),backLabel:TT(&#x27;К играм&#x27;,&#x27;Ойындарға&#x27;)});
+  tone(&#x27;win&#x27;);if(mid)confetti();speak(KZ?(mid?`Жарайсың! Сен ${ok} жұлдыз жинадың!`:&quot;Жақсы! Тағы ойнайық!&quot;):(mid?&quot;Молодец! Ты собрал &quot;+ok+&quot; звёзд!&quot;:&quot;Хорошо! Давай сыграем ещё!&quot;));
 }
 
 /* ================================================================
@@ -5006,10 +5142,10 @@ WG.carl=()=&gt;pick({title:[&#x27;Светофор для машин&#x27;,&#x27
 WG.cross=()=&gt;{clearT();let red=true,ok=0,busy=false,fails=0;
  app.innerHTML=`&lt;h2&gt;${tx([&#x27;Переведи человечка через дорогу&#x27;,&#x27;Адамшаны жолдан өткіз&#x27;])}&lt;/h2&gt;
   &lt;div class=&quot;wroad&quot;&gt;&lt;div class=&quot;wlight&quot; id=&quot;lt&quot;&gt;&lt;/div&gt;&lt;div class=&quot;wstreet&quot;&gt;&lt;div class=&quot;wzebra&quot;&gt;&lt;/div&gt;&lt;div class=&quot;wcar&quot; id=&quot;car&quot;&gt;🚗&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;wman&quot; id=&quot;man&quot;&gt;🚶&lt;/div&gt;&lt;/div&gt;
-  &lt;div class=&quot;wops&quot;&gt;&lt;button class=&quot;wo&quot; id=&quot;go&quot;&gt;&lt;span class=&quot;we&quot;&gt;🚶&lt;/span&gt;&lt;span class=&quot;wl&quot;&gt;${tx([&#x27;Переходим!&#x27;,&#x27;Өтеміз!&#x27;])}&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;wsigw&quot;&gt;&lt;span class=&quot;wsig r&quot; id=&quot;sig&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;wops&quot;&gt;&lt;button class=&quot;wo&quot; id=&quot;go&quot;&gt;&lt;span class=&quot;we&quot;&gt;🚶&lt;/span&gt;&lt;span class=&quot;wl&quot;&gt;${tx([&#x27;Переходим!&#x27;,&#x27;Өтеміз!&#x27;])}&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
   &lt;div class=&quot;stars&quot; id=&quot;st&quot;&gt;&lt;/div&gt;${W.foot(null)}`;
  const lt=document.getElementById(&#x27;lt&#x27;),man=document.getElementById(&#x27;man&#x27;),car=document.getElementById(&#x27;car&#x27;);
- const draw=()=&gt;{lt.innerHTML=pedLight(red);car.classList.toggle(&#x27;drive&#x27;,red);};
+ const sig=document.getElementById(&#x27;sig&#x27;);const draw=()=&gt;{lt.innerHTML=pedLight(red);car.classList.toggle(&#x27;drive&#x27;,red);sig.className=&#x27;wsig &#x27;+(red?&#x27;r&#x27;:&#x27;g&#x27;);sig.textContent=red?tx([&#x27;✋ Красный — стоим&#x27;,&#x27;✋ Қызыл — тұрамыз&#x27;]):tx([&#x27;🚶 Зелёный — можно идти&#x27;,&#x27;🚶 Жасыл — жүруге болады&#x27;]);};
  const cycle=()=&gt;{red=!red;draw();timers.push(setTimeout(cycle,red?3200+Math.random()*1500:3600));};
  draw();timers.push(setTimeout(cycle,2500));
  document.getElementById(&#x27;go&#x27;).onclick=()=&gt;{if(busy)return;
@@ -5222,7 +5358,7 @@ WG.routine=()=&gt;order([&#x27;Режим дня&#x27;,&#x27;Күн тәртіб
 WG.rightleft=()=&gt;pick({title:[&#x27;Справа, слева, посередине&#x27;,&#x27;Оң жақта, сол жақта, ортада&#x27;],gen:()=&gt;{const row=shuffle(Object.keys(W.N).filter(e=&gt;/[\u{1F400}-\u{1F43F}]/u.test(e))).slice(0,3);const ty=rnd([&#x27;R&#x27;,&#x27;L&#x27;,&#x27;M&#x27;]);
  let q,ans;if(ty===&#x27;M&#x27;){ans=row[1];q=[&#x27;Кто стоит посередине?&#x27;,&#x27;Ортада кім тұр?&#x27;];}
  else{const i=ty===&#x27;R&#x27;?rnd([0,1]):rnd([1,2]);const x=row[i];ans=row[ty===&#x27;R&#x27;?i+1:i-1];q=ty===&#x27;R&#x27;?[`Кто справа от: ${W.N[x][0]}?`,`${cap(W.N[x][1])} — оның оң жағында кім?`]:[`Кто слева от: ${W.N[x][0]}?`,`${cap(W.N[x][1])} — оның сол жағында кім?`];}
- return {q,show:`&lt;div class=&quot;wrl&quot;&gt;&lt;span&gt;⬅️ ${tx([&#x27;слева&#x27;,&#x27;сол&#x27;])}&lt;/span&gt;${row.map(e=&gt;`&lt;b&gt;${e}&lt;small&gt;${nm(e)}&lt;/small&gt;&lt;/b&gt;`).join(&#x27;&#x27;)}&lt;span&gt;${tx([&#x27;справа&#x27;,&#x27;оң&#x27;])} ➡️&lt;/span&gt;&lt;/div&gt;`,
+ return {q,show:`&lt;div class=&quot;wrl&quot;&gt;&lt;div class=&quot;wrlh&quot;&gt;&lt;span&gt;${tx([&#x27;← слева&#x27;,&#x27;← сол жақ&#x27;])}&lt;/span&gt;&lt;span&gt;${tx([&#x27;справа →&#x27;,&#x27;оң жақ →&#x27;])}&lt;/span&gt;&lt;/div&gt;${row.map(e=&gt;`&lt;b&gt;${e}&lt;small&gt;${nm(e)}&lt;/small&gt;&lt;/b&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`,
   opts:shuffle(row).map(e=&gt;opt(picH(e,nm(e)),e===ans)),why:[`${cap(W.N[ans][0])}!`,`${cap(W.N[ans][1])}!`]};}});
 /* 44. Что тяжелее? */
 const HV=[[&quot;🐘&quot;,&quot;🐭&quot;],[&quot;🍉&quot;,&quot;🍒&quot;],[&quot;🚗&quot;,&quot;🚲&quot;],[&quot;🐻&quot;,&quot;🐝&quot;],[&quot;🎃&quot;,&quot;🍓&quot;],[&quot;🚌&quot;,&quot;⚽&quot;],[&quot;🐎&quot;,&quot;🐈&quot;],[&quot;🐳&quot;,&quot;🐟&quot;]];
@@ -5967,6 +6103,32 @@ new MutationObserver(ms=&gt;{let i=0;ms.forEach(m=&gt;m.addedNodes.forEach(n=&gt
  n.style.setProperty(&#x27;--fxd&#x27;,(i++*55)+&#x27;ms&#x27;);n.classList.add(&#x27;fx-in&#x27;);n.addEventListener(&#x27;animationend&#x27;,function f(e){if(e.target!==n)return;n.classList.remove(&#x27;fx-in&#x27;);n.removeEventListener(&#x27;animationend&#x27;,f);});}));}).observe(app,{childList:true});
 })();
 
+/* ===== ЭКРАН ПОБЕДЫ: кубок-наклейка (общий для всех разделов) ===== */
+(function(){
+let uid=0;
+function cup(kind){const id=&#x27;wc&#x27;+(++uid);const G=kind===&#x27;gold&#x27;?[&#x27;#FFB703&#x27;,&#x27;#FFE066&#x27;,&#x27;#F59E0B&#x27;,&#x27;#FFC93C&#x27;,&#x27;#F59E0B&#x27;]:kind===&#x27;silver&#x27;?[&#x27;#9AA8C2&#x27;,&#x27;#EEF2FA&#x27;,&#x27;#8593B0&#x27;,&#x27;#D4DCEB&#x27;,&#x27;#8593B0&#x27;]:[&#x27;#C9773A&#x27;,&#x27;#F6C08E&#x27;,&#x27;#A85E2A&#x27;,&#x27;#E39A5E&#x27;,&#x27;#A85E2A&#x27;];
+ return `&lt;svg viewBox=&quot;0 0 230 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;${id}g&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;${G[0]}&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;${G[1]}&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;${G[2]}&quot;/&gt;&lt;/linearGradient&gt;
+ &lt;clipPath id=&quot;${id}c&quot;&gt;&lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot;/&gt;&lt;/clipPath&gt;&lt;/defs&gt;
+ &lt;g stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;&lt;path d=&quot;M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;
+ &lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot; fill=&quot;url(#${id}g)&quot;/&gt;&lt;rect x=&quot;100&quot; y=&quot;132&quot; width=&quot;30&quot; height=&quot;24&quot; fill=&quot;${G[4]}&quot;/&gt;&lt;rect x=&quot;72&quot; y=&quot;154&quot; width=&quot;86&quot; height=&quot;22&quot; rx=&quot;8&quot; fill=&quot;${G[3]}&quot;/&gt;&lt;rect x=&quot;58&quot; y=&quot;174&quot; width=&quot;114&quot; height=&quot;30&quot; rx=&quot;10&quot; fill=&quot;#FF6B6B&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104 M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[3]}&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+ &lt;g clip-path=&quot;url(#${id}c)&quot;&gt;&lt;rect class=&quot;wn-shine&quot; x=&quot;70&quot; y=&quot;10&quot; width=&quot;26&quot; height=&quot;140&quot; fill=&quot;#fff&quot; opacity=&quot;.55&quot; transform=&quot;skewX(-18)&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M115 50 l9 19 21 2 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -2z&quot; fill=&quot;#fff&quot; opacity=&quot;.95&quot;/&gt;&lt;/svg&gt;`;}
+const STAR=&#x27;&lt;svg viewBox=&quot;0 0 100 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M50 4 l13 28 31 3 -23 21 7 31 -28 -16 -28 16 7 -31 -23 -21 31 -3z&quot; fill=&quot;#FFE45C&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+const rays=()=&gt;`&lt;svg class=&quot;wn-rays&quot; viewBox=&quot;-100 -100 200 200&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;#fff&quot;&gt;${Array.from({length:12},(_,i)=&gt;`&lt;path d=&quot;M0 0 L-9 -100 L9 -100Z&quot; transform=&quot;rotate(${i*30})&quot;/&gt;`).join(&#x27;&#x27;)}&lt;/g&gt;&lt;/svg&gt;`;
+/* o: {ok,n,title,sub,plate,again:fn,againLabel,backHtml|onBack,backLabel} */
+window.WINCARD=function(host,o){const ok=Math.max(0,o.ok|0),n=Math.max(1,o.n|0);const kind=ok&gt;=n-1?&#x27;gold&#x27;:ok&gt;=n/2?&#x27;silver&#x27;:&#x27;bronze&#x27;;
+ const col=kind===&#x27;gold&#x27;?&#x27;#9C6BFF&#x27;:kind===&#x27;silver&#x27;?&#x27;#4F8DF5&#x27;:&#x27;#F08A3C&#x27;;
+ host.innerHTML=`&lt;div class=&quot;wn&quot; style=&quot;--wc:${col}&quot;&gt;${rays()}&lt;div class=&quot;wn-card&quot;&gt;&lt;div class=&quot;wn-cup&quot;&gt;&lt;div class=&quot;wn-bob&quot;&gt;${cup(kind)}&lt;span class=&quot;wn-plate&quot;&gt;${o.plate||&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;wn-t&quot;&gt;${o.title||&#x27;&#x27;}&lt;/div&gt;${o.sub?`&lt;div class=&quot;wn-s&quot;&gt;${o.sub}&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;div class=&quot;wn-slots${n&gt;6?&#x27; sm&#x27;:&#x27;&#x27;}&quot;&gt;${Array.from({length:n},()=&gt;&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;wn-btns&quot;&gt;&lt;button class=&quot;wn-b g&quot; id=&quot;wnAgain&quot;&gt;↻ ${o.againLabel||&#x27;Ещё раз&#x27;}&lt;/button&gt;${o.backHtml||`&lt;button class=&quot;wn-b y&quot; id=&quot;wnBack&quot;&gt;${o.backLabel||&#x27;К играм&#x27;} ›&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const sl=[...host.querySelectorAll(&#x27;.wn-slots span&#x27;)];const T=[];sl.forEach((el,i)=&gt;{if(i&lt;ok)T.push(setTimeout(()=&gt;{if(!document.body.contains(el))return;el.classList.add(&#x27;on&#x27;);el.innerHTML=STAR;try{typeof tone===&#x27;function&#x27;&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}},650+i*230));});
+ const a=host.querySelector(&#x27;#wnAgain&#x27;);if(a)a.onclick=()=&gt;{T.forEach(clearTimeout);o.again&amp;&amp;o.again();};
+ const b=host.querySelector(&#x27;#wnBack&#x27;);if(b)b.onclick=()=&gt;{T.forEach(clearTimeout);o.onBack&amp;&amp;o.onBack();};
+ const yb=host.querySelector(&#x27;.wn-btns .big-btn&#x27;);if(yb)yb.classList.add(&#x27;wn-b&#x27;,&#x27;y&#x27;);};
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -6240,6 +6402,33 @@ html .menu .tile.nt .t{color:#fff!important;font-weight:900;text-shadow:0 2px 0 
 html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
 @media (max-width:360px){html .ncats .ncat.nb{padding:80px 9px 12px;min-height:160px}.ncat.nb .nn{font-size:15px}.ncat.nb .nring{width:44px;height:44px}html .menu .tile.nt .e{font-size:58px!important}}
 @media (prefers-reduced-motion:reduce){.ncat.nb .nhero,html .menu .tile.nt .e{animation:none}}
+/* ===== экран победы: кубок-наклейка ===== */
+.wn{position:relative;padding:150px 6px 10px;max-width:420px;margin:0 auto}
+.wn-rays{position:absolute;left:50%;top:-60px;width:460px;height:460px;margin-left:-230px;opacity:.4;animation:wnSpin 16s linear infinite;pointer-events:none;z-index:0}
+@keyframes wnSpin{to{transform:rotate(360deg)}}
+.wn-card{position:relative;z-index:1;background:var(--wc);border-radius:34px;padding:84px 16px 22px;text-align:center;color:#fff;
+ box-shadow:0 8px 0 color-mix(in srgb,var(--wc) 70%,#000),0 16px 30px color-mix(in srgb,var(--wc) 30%,transparent);
+ background-image:radial-gradient(circle at 8% 108%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 95% 6%,rgba(255,255,255,.16) 0 18%,transparent 19%);animation:wnUp .5s ease both}
+.wn-cup{position:absolute;left:50%;top:-142px;width:226px;margin-left:-113px;animation:wnPop .7s cubic-bezier(.3,1.6,.5,1) .1s both}
+.wn-bob{position:relative;animation:wnBob 2.6s ease-in-out .8s infinite}.wn-bob svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.wn-plate{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-weight:900;font-size:clamp(12px,3.9vw,16px);white-space:nowrap;color:#fff;letter-spacing:.5px}
+.wn-shine{animation:wnShine 2.6s ease-in-out infinite}
+.wn-t{font-size:clamp(28px,8vw,36px);font-weight:900;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.wn-s{font-size:16px;font-weight:800;margin-top:4px;opacity:.95}
+.wn-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.wn-slots span{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.wn-slots.sm span{width:32px;height:32px}
+.wn-slots span svg{width:84%;height:84%;animation:wnPop .5s cubic-bezier(.3,1.6,.5,1) both}
+.wn-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.wn-btns .wn-b{border:none;font:inherit;font-weight:900;font-size:19px!important;border-radius:22px!important;padding:13px 20px!important;color:#fff;cursor:pointer;min-height:54px;margin:0!important}
+.wn-b.g{background:#2FBF71!important;box-shadow:0 6px 0 #1E9152!important}.wn-b.y{background:#FFC93C!important;color:#3A2E5C!important;box-shadow:0 6px 0 #D9A21A!important}
+.wn-b:active{transform:translateY(4px)}
+@keyframes wnPop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-2deg)}}
+@keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
+@media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
+@media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -6624,8 +6813,9 @@ const css=document.createElement(&#x27;style&#x27;);css.textContent=`
 @media (max-width:640px){.lx-grid{gap:8px}.lx-owl span{font-size:48px}}
 @media (prefers-reduced-motion:reduce){.lx-cmd .e{animation:none}}`;
 document.head.appendChild(css);
-function fin(again){reset();sfx.win();confetti();app.innerHTML=`&lt;div class=&quot;lx-fin&quot;&gt;&lt;div class=&quot;big&quot;&gt;🏆&lt;/div&gt;&lt;h2&gt;${PRT()} ${N(&#x27;Ты молодец!&#x27;,&#x27;Жарайсың!&#x27;)}&lt;/h2&gt;&lt;div class=&quot;row&quot;&gt;&lt;button id=&quot;lxA&quot;&gt;🔁 ${N(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;)}&lt;/button&gt;&lt;button class=&quot;y&quot; id=&quot;lxH&quot;&gt;🏠 ${N(&#x27;Меню&#x27;,&#x27;Мәзір&#x27;)}&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
- sayT(PRT(),N(&#x27;Ты молодец!&#x27;,&#x27;&#x27;));document.getElementById(&#x27;lxA&#x27;).onclick=again;document.getElementById(&#x27;lxH&#x27;).onclick=home;}
+function fin(again,ok,n){reset();sfx.win();confetti();const N2=n||5,O=ok==null?N2:ok;
+ WINCARD(app,{ok:O,n:N2,title:PRT(),sub:N(&#x27;Ты молодец!&#x27;,&#x27;Жарайсың!&#x27;),plate:LT===&#x27;en&#x27;?&#x27;GREAT!&#x27;:&#x27;КЕРЕМЕТ!&#x27;,again,againLabel:N(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;),onBack:home,backLabel:N(&#x27;Меню&#x27;,&#x27;Мәзір&#x27;)});
+ sayT(PRT(),N(&#x27;Ты молодец!&#x27;,&#x27;&#x27;));}
 const qhead=(q,nat)=&gt;`&lt;div class=&quot;ask&quot;&gt;${q}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;${nat?`&lt;p class=&quot;voice&quot; style=&quot;font-size:20px;margin-top:-6px&quot;&gt;${nat}&lt;/p&gt;`:&#x27;&#x27;}`;
 /* ---------- карточки новых тем ---------- */
 function topicCards(k){const T=TOP[k];cards(`${TT(T.t[0],T.t[1])} · ${N(T.n[0],T.n[1])}`,T.it.map(it=&gt;[it[0],W(it),TR(it)]),[TT(T.t[0],T.t[1])+&#x27;!&#x27;,N(T.n[0],T.n[1])+&#x27;!&#x27;]);}
@@ -6970,6 +7160,32 @@ new MutationObserver(ms=&gt;{let i=0;ms.forEach(m=&gt;m.addedNodes.forEach(n=&gt
  n.style.setProperty(&#x27;--fxd&#x27;,(i++*55)+&#x27;ms&#x27;);n.classList.add(&#x27;fx-in&#x27;);n.addEventListener(&#x27;animationend&#x27;,function f(e){if(e.target!==n)return;n.classList.remove(&#x27;fx-in&#x27;);n.removeEventListener(&#x27;animationend&#x27;,f);});}));}).observe(app,{childList:true});
 })();
 
+/* ===== ЭКРАН ПОБЕДЫ: кубок-наклейка (общий для всех разделов) ===== */
+(function(){
+let uid=0;
+function cup(kind){const id=&#x27;wc&#x27;+(++uid);const G=kind===&#x27;gold&#x27;?[&#x27;#FFB703&#x27;,&#x27;#FFE066&#x27;,&#x27;#F59E0B&#x27;,&#x27;#FFC93C&#x27;,&#x27;#F59E0B&#x27;]:kind===&#x27;silver&#x27;?[&#x27;#9AA8C2&#x27;,&#x27;#EEF2FA&#x27;,&#x27;#8593B0&#x27;,&#x27;#D4DCEB&#x27;,&#x27;#8593B0&#x27;]:[&#x27;#C9773A&#x27;,&#x27;#F6C08E&#x27;,&#x27;#A85E2A&#x27;,&#x27;#E39A5E&#x27;,&#x27;#A85E2A&#x27;];
+ return `&lt;svg viewBox=&quot;0 0 230 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;${id}g&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;${G[0]}&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;${G[1]}&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;${G[2]}&quot;/&gt;&lt;/linearGradient&gt;
+ &lt;clipPath id=&quot;${id}c&quot;&gt;&lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot;/&gt;&lt;/clipPath&gt;&lt;/defs&gt;
+ &lt;g stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;&lt;path d=&quot;M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;
+ &lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot; fill=&quot;url(#${id}g)&quot;/&gt;&lt;rect x=&quot;100&quot; y=&quot;132&quot; width=&quot;30&quot; height=&quot;24&quot; fill=&quot;${G[4]}&quot;/&gt;&lt;rect x=&quot;72&quot; y=&quot;154&quot; width=&quot;86&quot; height=&quot;22&quot; rx=&quot;8&quot; fill=&quot;${G[3]}&quot;/&gt;&lt;rect x=&quot;58&quot; y=&quot;174&quot; width=&quot;114&quot; height=&quot;30&quot; rx=&quot;10&quot; fill=&quot;#FF6B6B&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104 M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[3]}&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+ &lt;g clip-path=&quot;url(#${id}c)&quot;&gt;&lt;rect class=&quot;wn-shine&quot; x=&quot;70&quot; y=&quot;10&quot; width=&quot;26&quot; height=&quot;140&quot; fill=&quot;#fff&quot; opacity=&quot;.55&quot; transform=&quot;skewX(-18)&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M115 50 l9 19 21 2 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -2z&quot; fill=&quot;#fff&quot; opacity=&quot;.95&quot;/&gt;&lt;/svg&gt;`;}
+const STAR=&#x27;&lt;svg viewBox=&quot;0 0 100 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M50 4 l13 28 31 3 -23 21 7 31 -28 -16 -28 16 7 -31 -23 -21 31 -3z&quot; fill=&quot;#FFE45C&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+const rays=()=&gt;`&lt;svg class=&quot;wn-rays&quot; viewBox=&quot;-100 -100 200 200&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;#fff&quot;&gt;${Array.from({length:12},(_,i)=&gt;`&lt;path d=&quot;M0 0 L-9 -100 L9 -100Z&quot; transform=&quot;rotate(${i*30})&quot;/&gt;`).join(&#x27;&#x27;)}&lt;/g&gt;&lt;/svg&gt;`;
+/* o: {ok,n,title,sub,plate,again:fn,againLabel,backHtml|onBack,backLabel} */
+window.WINCARD=function(host,o){const ok=Math.max(0,o.ok|0),n=Math.max(1,o.n|0);const kind=ok&gt;=n-1?&#x27;gold&#x27;:ok&gt;=n/2?&#x27;silver&#x27;:&#x27;bronze&#x27;;
+ const col=kind===&#x27;gold&#x27;?&#x27;#9C6BFF&#x27;:kind===&#x27;silver&#x27;?&#x27;#4F8DF5&#x27;:&#x27;#F08A3C&#x27;;
+ host.innerHTML=`&lt;div class=&quot;wn&quot; style=&quot;--wc:${col}&quot;&gt;${rays()}&lt;div class=&quot;wn-card&quot;&gt;&lt;div class=&quot;wn-cup&quot;&gt;&lt;div class=&quot;wn-bob&quot;&gt;${cup(kind)}&lt;span class=&quot;wn-plate&quot;&gt;${o.plate||&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;wn-t&quot;&gt;${o.title||&#x27;&#x27;}&lt;/div&gt;${o.sub?`&lt;div class=&quot;wn-s&quot;&gt;${o.sub}&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;div class=&quot;wn-slots${n&gt;6?&#x27; sm&#x27;:&#x27;&#x27;}&quot;&gt;${Array.from({length:n},()=&gt;&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;wn-btns&quot;&gt;&lt;button class=&quot;wn-b g&quot; id=&quot;wnAgain&quot;&gt;↻ ${o.againLabel||&#x27;Ещё раз&#x27;}&lt;/button&gt;${o.backHtml||`&lt;button class=&quot;wn-b y&quot; id=&quot;wnBack&quot;&gt;${o.backLabel||&#x27;К играм&#x27;} ›&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const sl=[...host.querySelectorAll(&#x27;.wn-slots span&#x27;)];const T=[];sl.forEach((el,i)=&gt;{if(i&lt;ok)T.push(setTimeout(()=&gt;{if(!document.body.contains(el))return;el.classList.add(&#x27;on&#x27;);el.innerHTML=STAR;try{typeof tone===&#x27;function&#x27;&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}},650+i*230));});
+ const a=host.querySelector(&#x27;#wnAgain&#x27;);if(a)a.onclick=()=&gt;{T.forEach(clearTimeout);o.again&amp;&amp;o.again();};
+ const b=host.querySelector(&#x27;#wnBack&#x27;);if(b)b.onclick=()=&gt;{T.forEach(clearTimeout);o.onBack&amp;&amp;o.onBack();};
+ const yb=host.querySelector(&#x27;.wn-btns .big-btn&#x27;);if(yb)yb.classList.add(&#x27;wn-b&#x27;,&#x27;y&#x27;);};
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -7295,6 +7511,33 @@ html .menu .tile.nt .t{color:#fff!important;font-weight:900;text-shadow:0 2px 0 
 html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
 @media (max-width:360px){html .ncats .ncat.nb{padding:80px 9px 12px;min-height:160px}.ncat.nb .nn{font-size:15px}.ncat.nb .nring{width:44px;height:44px}html .menu .tile.nt .e{font-size:58px!important}}
 @media (prefers-reduced-motion:reduce){.ncat.nb .nhero,html .menu .tile.nt .e{animation:none}}
+/* ===== экран победы: кубок-наклейка ===== */
+.wn{position:relative;padding:150px 6px 10px;max-width:420px;margin:0 auto}
+.wn-rays{position:absolute;left:50%;top:-60px;width:460px;height:460px;margin-left:-230px;opacity:.4;animation:wnSpin 16s linear infinite;pointer-events:none;z-index:0}
+@keyframes wnSpin{to{transform:rotate(360deg)}}
+.wn-card{position:relative;z-index:1;background:var(--wc);border-radius:34px;padding:84px 16px 22px;text-align:center;color:#fff;
+ box-shadow:0 8px 0 color-mix(in srgb,var(--wc) 70%,#000),0 16px 30px color-mix(in srgb,var(--wc) 30%,transparent);
+ background-image:radial-gradient(circle at 8% 108%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 95% 6%,rgba(255,255,255,.16) 0 18%,transparent 19%);animation:wnUp .5s ease both}
+.wn-cup{position:absolute;left:50%;top:-142px;width:226px;margin-left:-113px;animation:wnPop .7s cubic-bezier(.3,1.6,.5,1) .1s both}
+.wn-bob{position:relative;animation:wnBob 2.6s ease-in-out .8s infinite}.wn-bob svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.wn-plate{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-weight:900;font-size:clamp(12px,3.9vw,16px);white-space:nowrap;color:#fff;letter-spacing:.5px}
+.wn-shine{animation:wnShine 2.6s ease-in-out infinite}
+.wn-t{font-size:clamp(28px,8vw,36px);font-weight:900;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.wn-s{font-size:16px;font-weight:800;margin-top:4px;opacity:.95}
+.wn-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.wn-slots span{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.wn-slots.sm span{width:32px;height:32px}
+.wn-slots span svg{width:84%;height:84%;animation:wnPop .5s cubic-bezier(.3,1.6,.5,1) both}
+.wn-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.wn-btns .wn-b{border:none;font:inherit;font-weight:900;font-size:19px!important;border-radius:22px!important;padding:13px 20px!important;color:#fff;cursor:pointer;min-height:54px;margin:0!important}
+.wn-b.g{background:#2FBF71!important;box-shadow:0 6px 0 #1E9152!important}.wn-b.y{background:#FFC93C!important;color:#3A2E5C!important;box-shadow:0 6px 0 #D9A21A!important}
+.wn-b:active{transform:translateY(4px)}
+@keyframes wnPop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-2deg)}}
+@keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
+@media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
+@media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -7688,8 +7931,9 @@ const css=document.createElement(&#x27;style&#x27;);css.textContent=`
 @media (max-width:640px){.lx-grid{gap:8px}.lx-owl span{font-size:48px}}
 @media (prefers-reduced-motion:reduce){.lx-cmd .e{animation:none}}`;
 document.head.appendChild(css);
-function fin(again){reset();sfx.win();confetti();app.innerHTML=`&lt;div class=&quot;lx-fin&quot;&gt;&lt;div class=&quot;big&quot;&gt;🏆&lt;/div&gt;&lt;h2&gt;${PRT()} ${N(&#x27;Ты молодец!&#x27;,&#x27;Жарайсың!&#x27;)}&lt;/h2&gt;&lt;div class=&quot;row&quot;&gt;&lt;button id=&quot;lxA&quot;&gt;🔁 ${N(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;)}&lt;/button&gt;&lt;button class=&quot;y&quot; id=&quot;lxH&quot;&gt;🏠 ${N(&#x27;Меню&#x27;,&#x27;Мәзір&#x27;)}&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
- sayT(PRT(),N(&#x27;Ты молодец!&#x27;,&#x27;&#x27;));document.getElementById(&#x27;lxA&#x27;).onclick=again;document.getElementById(&#x27;lxH&#x27;).onclick=home;}
+function fin(again,ok,n){reset();sfx.win();confetti();const N2=n||5,O=ok==null?N2:ok;
+ WINCARD(app,{ok:O,n:N2,title:PRT(),sub:N(&#x27;Ты молодец!&#x27;,&#x27;Жарайсың!&#x27;),plate:LT===&#x27;en&#x27;?&#x27;GREAT!&#x27;:&#x27;КЕРЕМЕТ!&#x27;,again,againLabel:N(&#x27;Ещё раз&#x27;,&#x27;Тағы&#x27;),onBack:home,backLabel:N(&#x27;Меню&#x27;,&#x27;Мәзір&#x27;)});
+ sayT(PRT(),N(&#x27;Ты молодец!&#x27;,&#x27;&#x27;));}
 const qhead=(q,nat)=&gt;`&lt;div class=&quot;ask&quot;&gt;${q}&lt;button id=&quot;rep&quot;&gt;🔊&lt;/button&gt;&lt;/div&gt;${nat?`&lt;p class=&quot;voice&quot; style=&quot;font-size:20px;margin-top:-6px&quot;&gt;${nat}&lt;/p&gt;`:&#x27;&#x27;}`;
 /* ---------- карточки новых тем ---------- */
 function topicCards(k){const T=TOP[k];cards(`${TT(T.t[0],T.t[1])} · ${N(T.n[0],T.n[1])}`,T.it.map(it=&gt;[it[0],W(it),TR(it)]),[TT(T.t[0],T.t[1])+&#x27;!&#x27;,N(T.n[0],T.n[1])+&#x27;!&#x27;]);}
@@ -8034,6 +8278,32 @@ new MutationObserver(ms=&gt;{let i=0;ms.forEach(m=&gt;m.addedNodes.forEach(n=&gt
  n.style.setProperty(&#x27;--fxd&#x27;,(i++*55)+&#x27;ms&#x27;);n.classList.add(&#x27;fx-in&#x27;);n.addEventListener(&#x27;animationend&#x27;,function f(e){if(e.target!==n)return;n.classList.remove(&#x27;fx-in&#x27;);n.removeEventListener(&#x27;animationend&#x27;,f);});}));}).observe(app,{childList:true});
 })();
 
+/* ===== ЭКРАН ПОБЕДЫ: кубок-наклейка (общий для всех разделов) ===== */
+(function(){
+let uid=0;
+function cup(kind){const id=&#x27;wc&#x27;+(++uid);const G=kind===&#x27;gold&#x27;?[&#x27;#FFB703&#x27;,&#x27;#FFE066&#x27;,&#x27;#F59E0B&#x27;,&#x27;#FFC93C&#x27;,&#x27;#F59E0B&#x27;]:kind===&#x27;silver&#x27;?[&#x27;#9AA8C2&#x27;,&#x27;#EEF2FA&#x27;,&#x27;#8593B0&#x27;,&#x27;#D4DCEB&#x27;,&#x27;#8593B0&#x27;]:[&#x27;#C9773A&#x27;,&#x27;#F6C08E&#x27;,&#x27;#A85E2A&#x27;,&#x27;#E39A5E&#x27;,&#x27;#A85E2A&#x27;];
+ return `&lt;svg viewBox=&quot;0 0 230 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;${id}g&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;${G[0]}&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;${G[1]}&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;${G[2]}&quot;/&gt;&lt;/linearGradient&gt;
+ &lt;clipPath id=&quot;${id}c&quot;&gt;&lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot;/&gt;&lt;/clipPath&gt;&lt;/defs&gt;
+ &lt;g stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;&lt;path d=&quot;M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;
+ &lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot; fill=&quot;url(#${id}g)&quot;/&gt;&lt;rect x=&quot;100&quot; y=&quot;132&quot; width=&quot;30&quot; height=&quot;24&quot; fill=&quot;${G[4]}&quot;/&gt;&lt;rect x=&quot;72&quot; y=&quot;154&quot; width=&quot;86&quot; height=&quot;22&quot; rx=&quot;8&quot; fill=&quot;${G[3]}&quot;/&gt;&lt;rect x=&quot;58&quot; y=&quot;174&quot; width=&quot;114&quot; height=&quot;30&quot; rx=&quot;10&quot; fill=&quot;#FF6B6B&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104 M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[3]}&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+ &lt;g clip-path=&quot;url(#${id}c)&quot;&gt;&lt;rect class=&quot;wn-shine&quot; x=&quot;70&quot; y=&quot;10&quot; width=&quot;26&quot; height=&quot;140&quot; fill=&quot;#fff&quot; opacity=&quot;.55&quot; transform=&quot;skewX(-18)&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M115 50 l9 19 21 2 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -2z&quot; fill=&quot;#fff&quot; opacity=&quot;.95&quot;/&gt;&lt;/svg&gt;`;}
+const STAR=&#x27;&lt;svg viewBox=&quot;0 0 100 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M50 4 l13 28 31 3 -23 21 7 31 -28 -16 -28 16 7 -31 -23 -21 31 -3z&quot; fill=&quot;#FFE45C&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+const rays=()=&gt;`&lt;svg class=&quot;wn-rays&quot; viewBox=&quot;-100 -100 200 200&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;#fff&quot;&gt;${Array.from({length:12},(_,i)=&gt;`&lt;path d=&quot;M0 0 L-9 -100 L9 -100Z&quot; transform=&quot;rotate(${i*30})&quot;/&gt;`).join(&#x27;&#x27;)}&lt;/g&gt;&lt;/svg&gt;`;
+/* o: {ok,n,title,sub,plate,again:fn,againLabel,backHtml|onBack,backLabel} */
+window.WINCARD=function(host,o){const ok=Math.max(0,o.ok|0),n=Math.max(1,o.n|0);const kind=ok&gt;=n-1?&#x27;gold&#x27;:ok&gt;=n/2?&#x27;silver&#x27;:&#x27;bronze&#x27;;
+ const col=kind===&#x27;gold&#x27;?&#x27;#9C6BFF&#x27;:kind===&#x27;silver&#x27;?&#x27;#4F8DF5&#x27;:&#x27;#F08A3C&#x27;;
+ host.innerHTML=`&lt;div class=&quot;wn&quot; style=&quot;--wc:${col}&quot;&gt;${rays()}&lt;div class=&quot;wn-card&quot;&gt;&lt;div class=&quot;wn-cup&quot;&gt;&lt;div class=&quot;wn-bob&quot;&gt;${cup(kind)}&lt;span class=&quot;wn-plate&quot;&gt;${o.plate||&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;wn-t&quot;&gt;${o.title||&#x27;&#x27;}&lt;/div&gt;${o.sub?`&lt;div class=&quot;wn-s&quot;&gt;${o.sub}&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;div class=&quot;wn-slots${n&gt;6?&#x27; sm&#x27;:&#x27;&#x27;}&quot;&gt;${Array.from({length:n},()=&gt;&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;wn-btns&quot;&gt;&lt;button class=&quot;wn-b g&quot; id=&quot;wnAgain&quot;&gt;↻ ${o.againLabel||&#x27;Ещё раз&#x27;}&lt;/button&gt;${o.backHtml||`&lt;button class=&quot;wn-b y&quot; id=&quot;wnBack&quot;&gt;${o.backLabel||&#x27;К играм&#x27;} ›&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const sl=[...host.querySelectorAll(&#x27;.wn-slots span&#x27;)];const T=[];sl.forEach((el,i)=&gt;{if(i&lt;ok)T.push(setTimeout(()=&gt;{if(!document.body.contains(el))return;el.classList.add(&#x27;on&#x27;);el.innerHTML=STAR;try{typeof tone===&#x27;function&#x27;&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}},650+i*230));});
+ const a=host.querySelector(&#x27;#wnAgain&#x27;);if(a)a.onclick=()=&gt;{T.forEach(clearTimeout);o.again&amp;&amp;o.again();};
+ const b=host.querySelector(&#x27;#wnBack&#x27;);if(b)b.onclick=()=&gt;{T.forEach(clearTimeout);o.onBack&amp;&amp;o.onBack();};
+ const yb=host.querySelector(&#x27;.wn-btns .big-btn&#x27;);if(yb)yb.classList.add(&#x27;wn-b&#x27;,&#x27;y&#x27;);};
+})();
+
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -8259,6 +8529,33 @@ html .menu .tile.nt .t{color:#fff!important;font-weight:900;text-shadow:0 2px 0 
 html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
 @media (max-width:360px){html .ncats .ncat.nb{padding:80px 9px 12px;min-height:160px}.ncat.nb .nn{font-size:15px}.ncat.nb .nring{width:44px;height:44px}html .menu .tile.nt .e{font-size:58px!important}}
 @media (prefers-reduced-motion:reduce){.ncat.nb .nhero,html .menu .tile.nt .e{animation:none}}
+/* ===== экран победы: кубок-наклейка ===== */
+.wn{position:relative;padding:150px 6px 10px;max-width:420px;margin:0 auto}
+.wn-rays{position:absolute;left:50%;top:-60px;width:460px;height:460px;margin-left:-230px;opacity:.4;animation:wnSpin 16s linear infinite;pointer-events:none;z-index:0}
+@keyframes wnSpin{to{transform:rotate(360deg)}}
+.wn-card{position:relative;z-index:1;background:var(--wc);border-radius:34px;padding:84px 16px 22px;text-align:center;color:#fff;
+ box-shadow:0 8px 0 color-mix(in srgb,var(--wc) 70%,#000),0 16px 30px color-mix(in srgb,var(--wc) 30%,transparent);
+ background-image:radial-gradient(circle at 8% 108%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 95% 6%,rgba(255,255,255,.16) 0 18%,transparent 19%);animation:wnUp .5s ease both}
+.wn-cup{position:absolute;left:50%;top:-142px;width:226px;margin-left:-113px;animation:wnPop .7s cubic-bezier(.3,1.6,.5,1) .1s both}
+.wn-bob{position:relative;animation:wnBob 2.6s ease-in-out .8s infinite}.wn-bob svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.wn-plate{position:absolute;left:0;right:0;bottom:7%;text-align:center;font-weight:900;font-size:clamp(12px,3.9vw,16px);white-space:nowrap;color:#fff;letter-spacing:.5px}
+.wn-shine{animation:wnShine 2.6s ease-in-out infinite}
+.wn-t{font-size:clamp(28px,8vw,36px);font-weight:900;line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.wn-s{font-size:16px;font-weight:800;margin-top:4px;opacity:.95}
+.wn-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.wn-slots span{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.wn-slots.sm span{width:32px;height:32px}
+.wn-slots span svg{width:84%;height:84%;animation:wnPop .5s cubic-bezier(.3,1.6,.5,1) both}
+.wn-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.wn-btns .wn-b{border:none;font:inherit;font-weight:900;font-size:19px!important;border-radius:22px!important;padding:13px 20px!important;color:#fff;cursor:pointer;min-height:54px;margin:0!important}
+.wn-b.g{background:#2FBF71!important;box-shadow:0 6px 0 #1E9152!important}.wn-b.y{background:#FFC93C!important;color:#3A2E5C!important;box-shadow:0 6px 0 #D9A21A!important}
+.wn-b:active{transform:translateY(4px)}
+@keyframes wnPop{from{transform:scale(0) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wnBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-2deg)}}
+@keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
+@media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
+@media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -8788,6 +9085,32 @@ new MutationObserver(ms=&gt;{let i=0;ms.forEach(m=&gt;m.addedNodes.forEach(n=&gt
  if(n.classList.contains(&#x27;menu&#x27;)||n.classList.contains(&#x27;sec&#x27;)||n.classList.contains(&#x27;nhead&#x27;))return;
  let an=&#x27;none&#x27;;try{an=getComputedStyle(n).animationName;}catch(e){}if(an&amp;&amp;an!==&#x27;none&#x27;)return;
  n.style.setProperty(&#x27;--fxd&#x27;,(i++*55)+&#x27;ms&#x27;);n.classList.add(&#x27;fx-in&#x27;);n.addEventListener(&#x27;animationend&#x27;,function f(e){if(e.target!==n)return;n.classList.remove(&#x27;fx-in&#x27;);n.removeEventListener(&#x27;animationend&#x27;,f);});}));}).observe(app,{childList:true});
+})();
+
+/* ===== ЭКРАН ПОБЕДЫ: кубок-наклейка (общий для всех разделов) ===== */
+(function(){
+let uid=0;
+function cup(kind){const id=&#x27;wc&#x27;+(++uid);const G=kind===&#x27;gold&#x27;?[&#x27;#FFB703&#x27;,&#x27;#FFE066&#x27;,&#x27;#F59E0B&#x27;,&#x27;#FFC93C&#x27;,&#x27;#F59E0B&#x27;]:kind===&#x27;silver&#x27;?[&#x27;#9AA8C2&#x27;,&#x27;#EEF2FA&#x27;,&#x27;#8593B0&#x27;,&#x27;#D4DCEB&#x27;,&#x27;#8593B0&#x27;]:[&#x27;#C9773A&#x27;,&#x27;#F6C08E&#x27;,&#x27;#A85E2A&#x27;,&#x27;#E39A5E&#x27;,&#x27;#A85E2A&#x27;];
+ return `&lt;svg viewBox=&quot;0 0 230 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;${id}g&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;${G[0]}&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;${G[1]}&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;${G[2]}&quot;/&gt;&lt;/linearGradient&gt;
+ &lt;clipPath id=&quot;${id}c&quot;&gt;&lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot;/&gt;&lt;/clipPath&gt;&lt;/defs&gt;
+ &lt;g stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;&lt;path d=&quot;M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[4]}&quot; stroke-width=&quot;12&quot;/&gt;
+ &lt;path d=&quot;M62 22 H168 V74 C168 112 144 134 115 134 C86 134 62 112 62 74Z&quot; fill=&quot;url(#${id}g)&quot;/&gt;&lt;rect x=&quot;100&quot; y=&quot;132&quot; width=&quot;30&quot; height=&quot;24&quot; fill=&quot;${G[4]}&quot;/&gt;&lt;rect x=&quot;72&quot; y=&quot;154&quot; width=&quot;86&quot; height=&quot;22&quot; rx=&quot;8&quot; fill=&quot;${G[3]}&quot;/&gt;&lt;rect x=&quot;58&quot; y=&quot;174&quot; width=&quot;114&quot; height=&quot;30&quot; rx=&quot;10&quot; fill=&quot;#FF6B6B&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M66 40 H34 C30 76 46 100 74 104 M164 40 H196 C200 76 184 100 156 104&quot; fill=&quot;none&quot; stroke=&quot;${G[3]}&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+ &lt;g clip-path=&quot;url(#${id}c)&quot;&gt;&lt;rect class=&quot;wn-shine&quot; x=&quot;70&quot; y=&quot;10&quot; width=&quot;26&quot; height=&quot;140&quot; fill=&quot;#fff&quot; opacity=&quot;.55&quot; transform=&quot;skewX(-18)&quot;/&gt;&lt;/g&gt;
+ &lt;path d=&quot;M115 50 l9 19 21 2 -16 14 5 21 -19 -11 -19 11 5 -21 -16 -14 21 -2z&quot; fill=&quot;#fff&quot; opacity=&quot;.95&quot;/&gt;&lt;/svg&gt;`;}
+const STAR=&#x27;&lt;svg viewBox=&quot;0 0 100 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M50 4 l13 28 31 3 -23 21 7 31 -28 -16 -28 16 7 -31 -23 -21 31 -3z&quot; fill=&quot;#FFE45C&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+const rays=()=&gt;`&lt;svg class=&quot;wn-rays&quot; viewBox=&quot;-100 -100 200 200&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;#fff&quot;&gt;${Array.from({length:12},(_,i)=&gt;`&lt;path d=&quot;M0 0 L-9 -100 L9 -100Z&quot; transform=&quot;rotate(${i*30})&quot;/&gt;`).join(&#x27;&#x27;)}&lt;/g&gt;&lt;/svg&gt;`;
+/* o: {ok,n,title,sub,plate,again:fn,againLabel,backHtml|onBack,backLabel} */
+window.WINCARD=function(host,o){const ok=Math.max(0,o.ok|0),n=Math.max(1,o.n|0);const kind=ok&gt;=n-1?&#x27;gold&#x27;:ok&gt;=n/2?&#x27;silver&#x27;:&#x27;bronze&#x27;;
+ const col=kind===&#x27;gold&#x27;?&#x27;#9C6BFF&#x27;:kind===&#x27;silver&#x27;?&#x27;#4F8DF5&#x27;:&#x27;#F08A3C&#x27;;
+ host.innerHTML=`&lt;div class=&quot;wn&quot; style=&quot;--wc:${col}&quot;&gt;${rays()}&lt;div class=&quot;wn-card&quot;&gt;&lt;div class=&quot;wn-cup&quot;&gt;&lt;div class=&quot;wn-bob&quot;&gt;${cup(kind)}&lt;span class=&quot;wn-plate&quot;&gt;${o.plate||&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div class=&quot;wn-t&quot;&gt;${o.title||&#x27;&#x27;}&lt;/div&gt;${o.sub?`&lt;div class=&quot;wn-s&quot;&gt;${o.sub}&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;div class=&quot;wn-slots${n&gt;6?&#x27; sm&#x27;:&#x27;&#x27;}&quot;&gt;${Array.from({length:n},()=&gt;&#x27;&lt;span&gt;&lt;/span&gt;&#x27;).join(&#x27;&#x27;)}&lt;/div&gt;
+  &lt;div class=&quot;wn-btns&quot;&gt;&lt;button class=&quot;wn-b g&quot; id=&quot;wnAgain&quot;&gt;↻ ${o.againLabel||&#x27;Ещё раз&#x27;}&lt;/button&gt;${o.backHtml||`&lt;button class=&quot;wn-b y&quot; id=&quot;wnBack&quot;&gt;${o.backLabel||&#x27;К играм&#x27;} ›&lt;/button&gt;`}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ const sl=[...host.querySelectorAll(&#x27;.wn-slots span&#x27;)];const T=[];sl.forEach((el,i)=&gt;{if(i&lt;ok)T.push(setTimeout(()=&gt;{if(!document.body.contains(el))return;el.classList.add(&#x27;on&#x27;);el.innerHTML=STAR;try{typeof tone===&#x27;function&#x27;&amp;&amp;tone(&#x27;pop&#x27;)}catch(e){}},650+i*230));});
+ const a=host.querySelector(&#x27;#wnAgain&#x27;);if(a)a.onclick=()=&gt;{T.forEach(clearTimeout);o.again&amp;&amp;o.again();};
+ const b=host.querySelector(&#x27;#wnBack&#x27;);if(b)b.onclick=()=&gt;{T.forEach(clearTimeout);o.onBack&amp;&amp;o.onBack();};
+ const yb=host.querySelector(&#x27;.wn-btns .big-btn&#x27;);if(yb)yb.classList.add(&#x27;wn-b&#x27;,&#x27;y&#x27;);};
 })();
 
 &lt;/script&gt;
