@@ -614,6 +614,28 @@ html.th .opts:not(:has(&gt; :nth-child(5))) &gt; .opt:not([data-b]):not([style*=
 html.emb .opt[data-b=&quot;1&quot;]{font-size:clamp(90px,min(30vw,17dvh),170px)!important}
 html.emb .opt[data-b=&quot;0&quot;]{font-size:clamp(36px,min(12vw,7dvh),70px)!important}
 html.emb .opt[data-b]{min-width:clamp(110px,min(40vw,21dvh),250px)!important;min-height:clamp(110px,min(40vw,21dvh),250px)!important}
+/* «Больше, меньше или равно»: число — ? — число в одну строку */
+html.th .cmp{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;justify-content:center!important;
+ gap:clamp(8px,2.6vw,18px)!important;width:min(100%,560px);margin:0 auto clamp(14px,2.4dvh,24px)!important}
+html.th .cmp .grp{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;flex-direction:column!important;justify-content:center!important;
+ padding:clamp(8px,1.6dvh,16px) 6px!important}
+html.th .cmp .grp .n{font-size:clamp(56px,min(18vw,11dvh),124px)!important;white-space:nowrap!important}
+html.th .cmp .grp .o{font-size:clamp(17px,min(5.4vw,3.4dvh),32px)!important;letter-spacing:0!important;line-height:1.2!important;max-width:100%!important}
+html.th .cmp .sign{flex:none!important;align-self:center!important;width:clamp(58px,17vw,104px)!important;height:clamp(58px,17vw,104px)!important;
+ font-size:clamp(40px,12vw,76px)!important;color:#FF8A00!important;background:#fff!important;border:4px dashed #FFB938!important;
+ box-shadow:0 0 0 6px rgba(255,206,70,.28),0 8px 18px rgba(255,150,0,.22)!important;animation:cmpPulse 1.6s ease-in-out infinite}
+html.th .cmp .sign::before,html.th .cmp .sign::after{display:none!important}
+@keyframes cmpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){html.th .cmp .sign{animation:none}}
+html.th .cmp{width:min(100%,640px)}
+html.th .cmp .grp{min-height:clamp(150px,25dvh,300px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(20vw,13dvh),150px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6vw,3.8dvh),40px)!important}
+html.th .cmp+.choices{width:min(100%,640px)!important}
+html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:clamp(42px,7.5dvh,72px)!important}
+html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -1404,6 +1426,28 @@ html.th .opts:not(:has(&gt; :nth-child(5))) &gt; .opt:not([data-b]):not([style*=
 html.emb .opt[data-b=&quot;1&quot;]{font-size:clamp(90px,min(30vw,17dvh),170px)!important}
 html.emb .opt[data-b=&quot;0&quot;]{font-size:clamp(36px,min(12vw,7dvh),70px)!important}
 html.emb .opt[data-b]{min-width:clamp(110px,min(40vw,21dvh),250px)!important;min-height:clamp(110px,min(40vw,21dvh),250px)!important}
+/* «Больше, меньше или равно»: число — ? — число в одну строку */
+html.th .cmp{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;justify-content:center!important;
+ gap:clamp(8px,2.6vw,18px)!important;width:min(100%,560px);margin:0 auto clamp(14px,2.4dvh,24px)!important}
+html.th .cmp .grp{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;flex-direction:column!important;justify-content:center!important;
+ padding:clamp(8px,1.6dvh,16px) 6px!important}
+html.th .cmp .grp .n{font-size:clamp(56px,min(18vw,11dvh),124px)!important;white-space:nowrap!important}
+html.th .cmp .grp .o{font-size:clamp(17px,min(5.4vw,3.4dvh),32px)!important;letter-spacing:0!important;line-height:1.2!important;max-width:100%!important}
+html.th .cmp .sign{flex:none!important;align-self:center!important;width:clamp(58px,17vw,104px)!important;height:clamp(58px,17vw,104px)!important;
+ font-size:clamp(40px,12vw,76px)!important;color:#FF8A00!important;background:#fff!important;border:4px dashed #FFB938!important;
+ box-shadow:0 0 0 6px rgba(255,206,70,.28),0 8px 18px rgba(255,150,0,.22)!important;animation:cmpPulse 1.6s ease-in-out infinite}
+html.th .cmp .sign::before,html.th .cmp .sign::after{display:none!important}
+@keyframes cmpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){html.th .cmp .sign{animation:none}}
+html.th .cmp{width:min(100%,640px)}
+html.th .cmp .grp{min-height:clamp(150px,25dvh,300px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(20vw,13dvh),150px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6vw,3.8dvh),40px)!important}
+html.th .cmp+.choices{width:min(100%,640px)!important}
+html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:clamp(42px,7.5dvh,72px)!important}
+html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -2394,6 +2438,28 @@ html.th .opts:not(:has(&gt; :nth-child(5))) &gt; .opt:not([data-b]):not([style*=
 html.emb .opt[data-b=&quot;1&quot;]{font-size:clamp(90px,min(30vw,17dvh),170px)!important}
 html.emb .opt[data-b=&quot;0&quot;]{font-size:clamp(36px,min(12vw,7dvh),70px)!important}
 html.emb .opt[data-b]{min-width:clamp(110px,min(40vw,21dvh),250px)!important;min-height:clamp(110px,min(40vw,21dvh),250px)!important}
+/* «Больше, меньше или равно»: число — ? — число в одну строку */
+html.th .cmp{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;justify-content:center!important;
+ gap:clamp(8px,2.6vw,18px)!important;width:min(100%,560px);margin:0 auto clamp(14px,2.4dvh,24px)!important}
+html.th .cmp .grp{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;flex-direction:column!important;justify-content:center!important;
+ padding:clamp(8px,1.6dvh,16px) 6px!important}
+html.th .cmp .grp .n{font-size:clamp(56px,min(18vw,11dvh),124px)!important;white-space:nowrap!important}
+html.th .cmp .grp .o{font-size:clamp(17px,min(5.4vw,3.4dvh),32px)!important;letter-spacing:0!important;line-height:1.2!important;max-width:100%!important}
+html.th .cmp .sign{flex:none!important;align-self:center!important;width:clamp(58px,17vw,104px)!important;height:clamp(58px,17vw,104px)!important;
+ font-size:clamp(40px,12vw,76px)!important;color:#FF8A00!important;background:#fff!important;border:4px dashed #FFB938!important;
+ box-shadow:0 0 0 6px rgba(255,206,70,.28),0 8px 18px rgba(255,150,0,.22)!important;animation:cmpPulse 1.6s ease-in-out infinite}
+html.th .cmp .sign::before,html.th .cmp .sign::after{display:none!important}
+@keyframes cmpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){html.th .cmp .sign{animation:none}}
+html.th .cmp{width:min(100%,640px)}
+html.th .cmp .grp{min-height:clamp(150px,25dvh,300px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(20vw,13dvh),150px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6vw,3.8dvh),40px)!important}
+html.th .cmp+.choices{width:min(100%,640px)!important}
+html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:clamp(42px,7.5dvh,72px)!important}
+html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -4069,6 +4135,28 @@ html.th .opts:not(:has(&gt; :nth-child(5))) &gt; .opt:not([data-b]):not([style*=
 html.emb .opt[data-b=&quot;1&quot;]{font-size:clamp(90px,min(30vw,17dvh),170px)!important}
 html.emb .opt[data-b=&quot;0&quot;]{font-size:clamp(36px,min(12vw,7dvh),70px)!important}
 html.emb .opt[data-b]{min-width:clamp(110px,min(40vw,21dvh),250px)!important;min-height:clamp(110px,min(40vw,21dvh),250px)!important}
+/* «Больше, меньше или равно»: число — ? — число в одну строку */
+html.th .cmp{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;justify-content:center!important;
+ gap:clamp(8px,2.6vw,18px)!important;width:min(100%,560px);margin:0 auto clamp(14px,2.4dvh,24px)!important}
+html.th .cmp .grp{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;flex-direction:column!important;justify-content:center!important;
+ padding:clamp(8px,1.6dvh,16px) 6px!important}
+html.th .cmp .grp .n{font-size:clamp(56px,min(18vw,11dvh),124px)!important;white-space:nowrap!important}
+html.th .cmp .grp .o{font-size:clamp(17px,min(5.4vw,3.4dvh),32px)!important;letter-spacing:0!important;line-height:1.2!important;max-width:100%!important}
+html.th .cmp .sign{flex:none!important;align-self:center!important;width:clamp(58px,17vw,104px)!important;height:clamp(58px,17vw,104px)!important;
+ font-size:clamp(40px,12vw,76px)!important;color:#FF8A00!important;background:#fff!important;border:4px dashed #FFB938!important;
+ box-shadow:0 0 0 6px rgba(255,206,70,.28),0 8px 18px rgba(255,150,0,.22)!important;animation:cmpPulse 1.6s ease-in-out infinite}
+html.th .cmp .sign::before,html.th .cmp .sign::after{display:none!important}
+@keyframes cmpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){html.th .cmp .sign{animation:none}}
+html.th .cmp{width:min(100%,640px)}
+html.th .cmp .grp{min-height:clamp(150px,25dvh,300px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(20vw,13dvh),150px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6vw,3.8dvh),40px)!important}
+html.th .cmp+.choices{width:min(100%,640px)!important}
+html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:clamp(42px,7.5dvh,72px)!important}
+html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -4728,6 +4816,28 @@ html.th .opts:not(:has(&gt; :nth-child(5))) &gt; .opt:not([data-b]):not([style*=
 html.emb .opt[data-b=&quot;1&quot;]{font-size:clamp(90px,min(30vw,17dvh),170px)!important}
 html.emb .opt[data-b=&quot;0&quot;]{font-size:clamp(36px,min(12vw,7dvh),70px)!important}
 html.emb .opt[data-b]{min-width:clamp(110px,min(40vw,21dvh),250px)!important;min-height:clamp(110px,min(40vw,21dvh),250px)!important}
+/* «Больше, меньше или равно»: число — ? — число в одну строку */
+html.th .cmp{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;justify-content:center!important;
+ gap:clamp(8px,2.6vw,18px)!important;width:min(100%,560px);margin:0 auto clamp(14px,2.4dvh,24px)!important}
+html.th .cmp .grp{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;flex-direction:column!important;justify-content:center!important;
+ padding:clamp(8px,1.6dvh,16px) 6px!important}
+html.th .cmp .grp .n{font-size:clamp(56px,min(18vw,11dvh),124px)!important;white-space:nowrap!important}
+html.th .cmp .grp .o{font-size:clamp(17px,min(5.4vw,3.4dvh),32px)!important;letter-spacing:0!important;line-height:1.2!important;max-width:100%!important}
+html.th .cmp .sign{flex:none!important;align-self:center!important;width:clamp(58px,17vw,104px)!important;height:clamp(58px,17vw,104px)!important;
+ font-size:clamp(40px,12vw,76px)!important;color:#FF8A00!important;background:#fff!important;border:4px dashed #FFB938!important;
+ box-shadow:0 0 0 6px rgba(255,206,70,.28),0 8px 18px rgba(255,150,0,.22)!important;animation:cmpPulse 1.6s ease-in-out infinite}
+html.th .cmp .sign::before,html.th .cmp .sign::after{display:none!important}
+@keyframes cmpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){html.th .cmp .sign{animation:none}}
+html.th .cmp{width:min(100%,640px)}
+html.th .cmp .grp{min-height:clamp(150px,25dvh,300px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(20vw,13dvh),150px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6vw,3.8dvh),40px)!important}
+html.th .cmp+.choices{width:min(100%,640px)!important}
+html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:clamp(42px,7.5dvh,72px)!important}
+html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
 
 &lt;/style&gt;
 &lt;/head&gt;
@@ -5296,6 +5406,28 @@ html.th .opts:not(:has(&gt; :nth-child(5))) &gt; .opt:not([data-b]):not([style*=
 html.emb .opt[data-b=&quot;1&quot;]{font-size:clamp(90px,min(30vw,17dvh),170px)!important}
 html.emb .opt[data-b=&quot;0&quot;]{font-size:clamp(36px,min(12vw,7dvh),70px)!important}
 html.emb .opt[data-b]{min-width:clamp(110px,min(40vw,21dvh),250px)!important;min-height:clamp(110px,min(40vw,21dvh),250px)!important}
+/* «Больше, меньше или равно»: число — ? — число в одну строку */
+html.th .cmp{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;justify-content:center!important;
+ gap:clamp(8px,2.6vw,18px)!important;width:min(100%,560px);margin:0 auto clamp(14px,2.4dvh,24px)!important}
+html.th .cmp .grp{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;flex-direction:column!important;justify-content:center!important;
+ padding:clamp(8px,1.6dvh,16px) 6px!important}
+html.th .cmp .grp .n{font-size:clamp(56px,min(18vw,11dvh),124px)!important;white-space:nowrap!important}
+html.th .cmp .grp .o{font-size:clamp(17px,min(5.4vw,3.4dvh),32px)!important;letter-spacing:0!important;line-height:1.2!important;max-width:100%!important}
+html.th .cmp .sign{flex:none!important;align-self:center!important;width:clamp(58px,17vw,104px)!important;height:clamp(58px,17vw,104px)!important;
+ font-size:clamp(40px,12vw,76px)!important;color:#FF8A00!important;background:#fff!important;border:4px dashed #FFB938!important;
+ box-shadow:0 0 0 6px rgba(255,206,70,.28),0 8px 18px rgba(255,150,0,.22)!important;animation:cmpPulse 1.6s ease-in-out infinite}
+html.th .cmp .sign::before,html.th .cmp .sign::after{display:none!important}
+@keyframes cmpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){html.th .cmp .sign{animation:none}}
+html.th .cmp{width:min(100%,640px)}
+html.th .cmp .grp{min-height:clamp(150px,25dvh,300px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(20vw,13dvh),150px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6vw,3.8dvh),40px)!important}
+html.th .cmp+.choices{width:min(100%,640px)!important}
+html.th .cmp+.choices .ch{height:clamp(72px,12dvh,120px)!important;font-size:clamp(42px,7.5dvh,72px)!important}
+html.th .cmp .grp{min-height:clamp(150px,31dvh,360px)}
+html.th .cmp .grp .n{font-size:clamp(60px,min(22vw,14dvh),170px)!important}
+html.th .cmp .grp .o{font-size:clamp(18px,min(6.4vw,4.2dvh),46px)!important}
 
 &lt;/style&gt;
 &lt;/head&gt;
