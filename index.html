@@ -1375,6 +1375,45 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 @keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
 @media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
 @media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
+/* ===== укрытия-наклейки ===== */
+.hd-stage{position:relative;margin:10px auto 6px;width:min(100%,520px);border-radius:32px;box-shadow:0 8px 0 color-mix(in srgb,var(--hc,#FFB45E) 72%,#000);background:var(--hc,#FFB45E);
+ background-image:radial-gradient(circle at 10% 110%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 92% 4%,rgba(255,255,255,.15) 0 16%,transparent 17%)}
+/* стаканчики */
+.hd-cups{height:clamp(270px,72vw,340px);--hc:#FFB45E;margin-top:18px}
+.hd-cups::after{content:&#x27;&#x27;;position:absolute;left:6%;right:6%;bottom:12%;height:9%;border-radius:50%;background:rgba(120,60,10,.18)}
+.hd-cup{position:absolute;bottom:13%;width:27%;max-width:112px;aspect-ratio:108/150;transform:translateX(-50%);border:none;background:none;padding:0;cursor:pointer;z-index:1;transition:left .42s cubic-bezier(.5,0,.3,1)}
+.hd-cup .toy{position:absolute;left:0;right:0;bottom:2%;text-align:center;font-size:clamp(44px,13vw,70px);line-height:1;opacity:0;transition:opacity .15s}
+.hd-cup.open .toy{opacity:1}
+.hd-cup .cap{position:absolute;inset:0;z-index:2;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-cup .cap svg{width:100%;height:100%;display:block}
+.hd-cup.open .cap{transform:translateY(-58%) rotate(-10deg)}
+.hd-cup.wob .cap{animation:hdWob .45s ease}
+.hd-cup.hint .cap{animation:hdHop 1.1s ease-in-out infinite}
+.hd-cup:nth-child(3).hint .cap{animation-delay:.2s}.hd-cup:nth-child(4).hint .cap{animation-delay:.4s}
+@keyframes hdWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+@keyframes hdHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* коробочки */
+.hd-boxes{--hc:#9C6BFF;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:8px;padding:clamp(70px,20vw,100px) 12px 30px}
+.hd-boxes::after{content:&#x27;&#x27;;position:absolute;left:10px;right:10px;bottom:16px;height:20px;border-radius:10px;background:#7A4FE0;box-shadow:0 5px 0 #5C35C2;z-index:0}
+.hd-box{position:relative;aspect-ratio:108/94;z-index:1}
+.hd-box .bx{position:absolute;inset:0;z-index:2;filter:drop-shadow(0 6px 0 rgba(0,0,0,.14))}.hd-box svg{width:100%;height:100%;display:block}
+.hd-box .ld{position:absolute;left:-4%;right:-4%;top:-22%;height:36%;z-index:3;transform-origin:0 100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 4px 0 rgba(0,0,0,.14))}
+.hd-box .an{position:absolute;left:-10%;right:-10%;top:-78%;text-align:center;font-size:clamp(40px,12vw,66px);line-height:1;z-index:1;transform:translateY(60%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.hd-box.open .ld{transform:translate(16%,-70%) rotate(16deg);z-index:0}.hd-box.open .an{transform:none;opacity:1}
+.hd-box.empty .an{opacity:0!important}
+.hd-box.q .bx::after{content:&#x27;?&#x27;;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,48px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.hd-box.shk{animation:hdWob .5s ease}
+/* домик */
+.hd-house{--hc:#4CC487;display:flex;justify-content:center;padding:18px 0 0;cursor:pointer;border:none;font:inherit;width:min(100%,360px)}
+.hd-house::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;bottom:0;height:24%;border-radius:0 0 32px 32px;background:#3DB277}
+.hd-hs{position:relative;width:min(78%,260px);aspect-ratio:200/210;z-index:1}
+.hd-hs&gt;svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-hs .an{position:absolute;left:28%;width:44%;bottom:2%;height:44%;display:flex;align-items:flex-end;justify-content:center;font-size:clamp(60px,19vw,96px);line-height:1;transform:translateY(30%);opacity:0;transition:opacity .2s .15s,transform .5s .15s cubic-bezier(.3,1.5,.5,1);transition:transform .5s .15s cubic-bezier(.3,1.5,.5,1)}
+.hd-hs .dr{position:absolute;left:31%;width:38%;bottom:3%;height:45.7%;transform-origin:0 50%;transition:transform .5s ease;z-index:2}
+.hd-hs .dr svg{width:100%;height:100%;display:block}
+.hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
+.hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
+@media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -1821,12 +1860,12 @@ function paint(){reset();
 /* 13. Тук-тук, кто там? */
 function whoThere(){reset();
  const pick=shuffle(ANIMALS.filter(a=&gt;![&#x27;bee&#x27;,&#x27;mouse&#x27;,&#x27;owl&#x27;].includes(a[3]))).slice(0,2),t=rnd(pick);let open=false;
- app.innerHTML=`&lt;h2&gt;${L(&#x27;Тук-тук! Кто там?&#x27;,&#x27;Тық-тық! Кім бар?&#x27;)}&lt;/h2&gt;&lt;div class=&quot;svgbox&quot;&gt;&lt;button class=&quot;card&quot; id=&quot;door&quot; style=&quot;width:min(320px,70vw);font-size:0&quot;&gt;&lt;span class=&quot;em&quot; id=&quot;de&quot; style=&quot;font-size:180px&quot;&gt;🚪&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+ app.innerHTML=`&lt;h2&gt;${L(&#x27;Тук-тук! Кто там?&#x27;,&#x27;Тық-тық! Кім бар?&#x27;)}&lt;/h2&gt;&lt;button class=&quot;hd-stage hd-house&quot; id=&quot;door&quot; aria-label=&quot;${L(&#x27;Дверь&#x27;,&#x27;Есік&#x27;)}&quot;&gt;&lt;span class=&quot;hd-hs&quot;&gt;${HIDE.house(rnd([&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#F5A623&#x27;]))}&lt;span class=&quot;an&quot; id=&quot;de&quot;&gt;${t[0]}&lt;/span&gt;&lt;span class=&quot;dr&quot;&gt;${HIDE.door(rnd([&#x27;#E8742A&#x27;,&#x27;#5A6FE8&#x27;,&#x27;#2FBF71&#x27;]))}&lt;/span&gt;&lt;/span&gt;&lt;/button&gt;
   &lt;div class=&quot;two&quot; id=&quot;ch&quot; style=&quot;margin-top:18px;visibility:hidden&quot;&gt;${pick.map((a,i)=&gt;`&lt;button class=&quot;card&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;em&quot;&gt;${a[0]}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${a[1]}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  const knock=()=&gt;{if(soundOn){[0,.22,.44].forEach(t=&gt;noise(t,.08,.5,[&#x27;lowpass&#x27;,300]));}};
- document.getElementById(&#x27;door&#x27;).onclick=()=&gt;{if(open){whoThere();return;}knock();bump(document.getElementById(&#x27;door&#x27;));setTimeout(()=&gt;play(t[3]),700);speak(L(&#x27;Кто там?&#x27;,&#x27;Кім бар?&#x27;),1900);document.getElementById(&#x27;ch&#x27;).style.visibility=&#x27;visible&#x27;;};
+ document.getElementById(&#x27;door&#x27;).onclick=()=&gt;{if(open){whoThere();return;}knock();const D=document.getElementById(&#x27;door&#x27;);D.classList.remove(&#x27;knock&#x27;);void D.offsetWidth;D.classList.add(&#x27;knock&#x27;);setTimeout(()=&gt;play(t[3]),700);speak(L(&#x27;Кто там?&#x27;,&#x27;Кім бар?&#x27;),1900);document.getElementById(&#x27;ch&#x27;).style.visibility=&#x27;visible&#x27;;};
  app.querySelectorAll(&#x27;#ch .card&#x27;).forEach(b=&gt;b.onclick=()=&gt;{const a=pick[+b.dataset.i];bump(b);
-  if(a===t){open=true;document.getElementById(&#x27;de&#x27;).textContent=t[0];play(&#x27;yay&#x27;);confetti();label(t[1]+&#x27;!&#x27;);speak(L(`Это ${t[1].toLowerCase()}! ${t[1]} говорит: ${t[2]}!`,`Бұл — ${t[1].toLowerCase()}! ${t[1]}: ${t[2]}!`),300);timers.push(setTimeout(whoThere,4200));}
+  if(a===t){open=true;document.getElementById(&#x27;door&#x27;).classList.add(&#x27;open&#x27;);play(&#x27;yay&#x27;);confetti();label(t[1]+&#x27;!&#x27;);speak(L(`Это ${t[1].toLowerCase()}! ${t[1]} говорит: ${t[2]}!`,`Бұл — ${t[1].toLowerCase()}! ${t[1]}: ${t[2]}!`),300);timers.push(setTimeout(whoThere,4200));}
   else{play(a[3]);speak(L(`Это ${a[1].toLowerCase()}, говорит ${a[2]}. А кто за дверью?`,`Бұл — ${a[1].toLowerCase()}: ${a[2]}. Ал есік артында кім?`),800);}});
  speak(L(&#x27;Тук-тук! Нажми на дверь!&#x27;,&#x27;Тық-тық! Есікті бас!&#x27;));
 }
@@ -1945,6 +1984,18 @@ const A={
 };
 window.CARDART=A;
 })();
+/* ===== Укрытия-наклейки: стаканчики, коробочки, домик (для игр «найди/кто спрятался») ===== */
+(function(){
+const W=&#x27;stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; stroke-linejoin=&quot;round&quot;&#x27;;
+window.HIDE={
+ cup:c=&gt;`&lt;svg viewBox=&quot;0 0 108 150&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 30 H90 L80 146 H28Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;10&quot; y=&quot;18&quot; width=&quot;88&quot; height=&quot;22&quot; rx=&quot;11&quot; fill=&quot;#fff&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;22&quot; width=&quot;80&quot; height=&quot;14&quot; rx=&quot;7&quot; fill=&quot;${c}&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M28 64 H82&quot; stroke=&quot;#fff&quot; stroke-width=&quot;8&quot; opacity=&quot;.55&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M30 50 L36 130&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;54&quot; cy=&quot;96&quot; r=&quot;14&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;path d=&quot;M54 88 l3 6 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1z&quot; fill=&quot;${c}&quot;/&gt;&lt;/svg&gt;`,
+ box:c=&gt;`&lt;svg viewBox=&quot;0 0 108 94&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;96&quot; height=&quot;86&quot; rx=&quot;14&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;46&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;86&quot; fill=&quot;#FFE066&quot;/&gt;&lt;path d=&quot;M14 20 v54&quot; stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;`,
+ lid:c=&gt;`&lt;svg viewBox=&quot;0 0 116 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M58 9 C40 -8 30 4 52 9 M58 9 C76 -8 86 4 64 9&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;9&quot; width=&quot;110&quot; height=&quot;28&quot; rx=&quot;10&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;5&quot;/&gt;&lt;rect x=&quot;50&quot; y=&quot;9&quot; width=&quot;16&quot; height=&quot;28&quot; fill=&quot;#FFE066&quot;/&gt;&lt;/svg&gt;`,
+ house:c=&gt;`&lt;svg viewBox=&quot;0 0 200 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M10 96 L100 14 L190 96Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;26&quot; y=&quot;90&quot; width=&quot;148&quot; height=&quot;114&quot; rx=&quot;12&quot; fill=&quot;#FFF3E2&quot; ${W}/&gt;&lt;rect x=&quot;142&quot; y=&quot;30&quot; width=&quot;22&quot; height=&quot;40&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;62&quot; y=&quot;108&quot; width=&quot;76&quot; height=&quot;96&quot; rx=&quot;36&quot; fill=&quot;#3A2E5C&quot; opacity=&quot;.9&quot;/&gt;&lt;circle cx=&quot;100&quot; cy=&quot;66&quot; r=&quot;13&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;rect x=&quot;34&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;144&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`,
+ door:c=&gt;`&lt;svg viewBox=&quot;0 0 76 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 94 V38 a36 36 0 0 1 72 0 V94Z&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;5&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M18 40 v46 M38 20 v66 M58 40 v6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; opacity=&quot;.35&quot;/&gt;&lt;/svg&gt;`,
+ cols:[&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#2FBF71&#x27;,&#x27;#FFC93C&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#4FB8F2&#x27;]
+};})();
+
 
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
@@ -2440,6 +2491,45 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 @keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
 @media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
 @media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
+/* ===== укрытия-наклейки ===== */
+.hd-stage{position:relative;margin:10px auto 6px;width:min(100%,520px);border-radius:32px;box-shadow:0 8px 0 color-mix(in srgb,var(--hc,#FFB45E) 72%,#000);background:var(--hc,#FFB45E);
+ background-image:radial-gradient(circle at 10% 110%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 92% 4%,rgba(255,255,255,.15) 0 16%,transparent 17%)}
+/* стаканчики */
+.hd-cups{height:clamp(270px,72vw,340px);--hc:#FFB45E;margin-top:18px}
+.hd-cups::after{content:&#x27;&#x27;;position:absolute;left:6%;right:6%;bottom:12%;height:9%;border-radius:50%;background:rgba(120,60,10,.18)}
+.hd-cup{position:absolute;bottom:13%;width:27%;max-width:112px;aspect-ratio:108/150;transform:translateX(-50%);border:none;background:none;padding:0;cursor:pointer;z-index:1;transition:left .42s cubic-bezier(.5,0,.3,1)}
+.hd-cup .toy{position:absolute;left:0;right:0;bottom:2%;text-align:center;font-size:clamp(44px,13vw,70px);line-height:1;opacity:0;transition:opacity .15s}
+.hd-cup.open .toy{opacity:1}
+.hd-cup .cap{position:absolute;inset:0;z-index:2;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-cup .cap svg{width:100%;height:100%;display:block}
+.hd-cup.open .cap{transform:translateY(-58%) rotate(-10deg)}
+.hd-cup.wob .cap{animation:hdWob .45s ease}
+.hd-cup.hint .cap{animation:hdHop 1.1s ease-in-out infinite}
+.hd-cup:nth-child(3).hint .cap{animation-delay:.2s}.hd-cup:nth-child(4).hint .cap{animation-delay:.4s}
+@keyframes hdWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+@keyframes hdHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* коробочки */
+.hd-boxes{--hc:#9C6BFF;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:8px;padding:clamp(70px,20vw,100px) 12px 30px}
+.hd-boxes::after{content:&#x27;&#x27;;position:absolute;left:10px;right:10px;bottom:16px;height:20px;border-radius:10px;background:#7A4FE0;box-shadow:0 5px 0 #5C35C2;z-index:0}
+.hd-box{position:relative;aspect-ratio:108/94;z-index:1}
+.hd-box .bx{position:absolute;inset:0;z-index:2;filter:drop-shadow(0 6px 0 rgba(0,0,0,.14))}.hd-box svg{width:100%;height:100%;display:block}
+.hd-box .ld{position:absolute;left:-4%;right:-4%;top:-22%;height:36%;z-index:3;transform-origin:0 100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 4px 0 rgba(0,0,0,.14))}
+.hd-box .an{position:absolute;left:-10%;right:-10%;top:-78%;text-align:center;font-size:clamp(40px,12vw,66px);line-height:1;z-index:1;transform:translateY(60%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.hd-box.open .ld{transform:translate(16%,-70%) rotate(16deg);z-index:0}.hd-box.open .an{transform:none;opacity:1}
+.hd-box.empty .an{opacity:0!important}
+.hd-box.q .bx::after{content:&#x27;?&#x27;;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,48px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.hd-box.shk{animation:hdWob .5s ease}
+/* домик */
+.hd-house{--hc:#4CC487;display:flex;justify-content:center;padding:18px 0 0;cursor:pointer;border:none;font:inherit;width:min(100%,360px)}
+.hd-house::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;bottom:0;height:24%;border-radius:0 0 32px 32px;background:#3DB277}
+.hd-hs{position:relative;width:min(78%,260px);aspect-ratio:200/210;z-index:1}
+.hd-hs&gt;svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-hs .an{position:absolute;left:28%;width:44%;bottom:2%;height:44%;display:flex;align-items:flex-end;justify-content:center;font-size:clamp(60px,19vw,96px);line-height:1;transform:translateY(30%);opacity:0;transition:opacity .2s .15s,transform .5s .15s cubic-bezier(.3,1.5,.5,1);transition:transform .5s .15s cubic-bezier(.3,1.5,.5,1)}
+.hd-hs .dr{position:absolute;left:31%;width:38%;bottom:3%;height:45.7%;transform-origin:0 50%;transition:transform .5s ease;z-index:2}
+.hd-hs .dr svg{width:100%;height:100%;display:block}
+.hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
+.hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
+@media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -2708,15 +2798,20 @@ G2.circles=()=&gt;{reset();const lv=LV.get(&#x27;circles&#x27;);const kinds=shuf
  app.querySelectorAll(&#x27;.kcell&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.n===target){b.classList.add(&#x27;ok&#x27;);b.onclick=null;sfx.pop();got++;if(got===need){good(null,L(`Все нашёл! Их было ${need}.`,`Бәрін таптың! Олар ${need} еді.`));LV.res(&#x27;circles&#x27;,tr&lt;2);confetti();later(G2.circles,2600);}}
   else{tr++;shake(b);sfx.bad();speak(L(`Это ${b.dataset.n}.`,`Бұл — ${shn(b.dataset.n)}.`));}});};
 /* 2. Где игрушка? (стаканчики) */
-G2.cups=()=&gt;{reset();const lv=LV.get(&#x27;cups&#x27;);const n=lv===1?2:3;const toy=rnd([&quot;🚗&quot;,&quot;🧸&quot;,&quot;⚽&quot;,&quot;🐥&quot;,&quot;🍎&quot;]);let pos=Math.floor(Math.random()*n),tr=0,ready=false;
- app.innerHTML=askBar(L(&#x27;Запомни, где игрушка!&#x27;,&#x27;Ойыншық қайда екенін есте сақта!&#x27;))+`&lt;div class=&quot;kcups&quot; id=&quot;cu&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;button class=&quot;kcup&quot; data-i=&quot;${i}&quot;&gt;&lt;span class=&quot;toy&quot;&gt;${i===pos?toy:&#x27;&#x27;}&lt;/span&gt;&lt;span class=&quot;cap&quot;&gt;🥤&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+G2.cups=()=&gt;{reset();const lv=LV.get(&#x27;cups&#x27;);const n=lv===1?2:3;const toy=rnd([&quot;🚗&quot;,&quot;🧸&quot;,&quot;⚽&quot;,&quot;🐥&quot;,&quot;🍎&quot;,&quot;🦆&quot;,&quot;🎈&quot;]);const hide=Math.floor(Math.random()*n);let tr=0,ready=false;
+ const X=n===2?[30,70]:[18,50,82];let pos=[...Array(n).keys()];const C=HIDE.cols;
+ app.innerHTML=askBar(L(&#x27;Запомни, где игрушка!&#x27;,&#x27;Ойыншық қайда екенін есте сақта!&#x27;))+`&lt;div class=&quot;hd-stage hd-cups&quot; id=&quot;cu&quot;&gt;${Array.from({length:n},(_,i)=&gt;`&lt;button class=&quot;hd-cup open&quot; data-i=&quot;${i}&quot; aria-label=&quot;${L(&#x27;стаканчик&#x27;,&#x27;стақан&#x27;)} ${i+1}&quot;&gt;&lt;span class=&quot;toy&quot;&gt;${i===hide?toy:&#x27;&#x27;}&lt;/span&gt;&lt;span class=&quot;cap&quot;&gt;${HIDE.cup(C[i])}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
  bindAsk(L(&#x27;Запомни, где игрушка!&#x27;,&#x27;Ойыншық қайда екенін есте сақта!&#x27;));
- later(()=&gt;{app.querySelectorAll(&#x27;.kcup&#x27;).forEach(c=&gt;c.classList.add(&#x27;down&#x27;));sfx.flip();
-  if(lv===3){later(()=&gt;{const a=pos,b=(pos+1)%n;const cs=[...app.querySelectorAll(&#x27;.kcup&#x27;)];cs[a].classList.add(&#x27;swapL&#x27;);cs[b].classList.add(&#x27;swapR&#x27;);sfx.flip();
-    later(()=&gt;{cs[a].classList.remove(&#x27;swapL&#x27;);cs[b].classList.remove(&#x27;swapR&#x27;);cs[a].querySelector(&#x27;.toy&#x27;).textContent=&#x27;&#x27;;cs[b].querySelector(&#x27;.toy&#x27;).textContent=toy;pos=b;ready=true;speak(L(&#x27;Где игрушка?&#x27;,&#x27;Ойыншық қайда?&#x27;));},900);},700);}
-  else{ready=true;speak(L(&#x27;Где игрушка?&#x27;,&#x27;Ойыншық қайда?&#x27;));}},2200);
- app.querySelectorAll(&#x27;.kcup&#x27;).forEach(c=&gt;c.onclick=()=&gt;{if(!ready)return;const i=+c.dataset.i;c.classList.remove(&#x27;down&#x27;);
-  if(i===pos){ready=false;good(null,L(&#x27;Нашёл! Молодец!&#x27;,&#x27;Таптың! Жарайсың!&#x27;));LV.res(&#x27;cups&#x27;,!tr);confetti();later(G2.cups,2600);}else{tr++;sfx.bad();speak(L(&#x27;Здесь пусто. Попробуй ещё!&#x27;,&#x27;Мұнда бос. Тағы байқап көр!&#x27;));later(()=&gt;c.classList.add(&#x27;down&#x27;),900);}});};
+ const cs=[...app.querySelectorAll(&#x27;.hd-cup&#x27;)];const place=()=&gt;cs.forEach((c,i)=&gt;c.style.left=X[pos[i]]+&#x27;%&#x27;);place();
+ const swaps=lv===1?0:lv===2?1:3;
+ later(()=&gt;{cs.forEach(c=&gt;c.classList.remove(&#x27;open&#x27;));sfx.flip();
+  let k=0;const sw=()=&gt;{if(k&gt;=swaps){ready=true;cs.forEach(c=&gt;c.classList.add(&#x27;hint&#x27;));speak(L(&#x27;Где игрушка?&#x27;,&#x27;Ойыншық қайда?&#x27;));return;}
+   const a=Math.floor(Math.random()*n);let b=(a+1+Math.floor(Math.random()*(n-1)))%n;const ia=pos.indexOf(a),ib=pos.indexOf(b);[pos[ia],pos[ib]]=[pos[ib],pos[ia]];place();
+   cs.forEach(c=&gt;{c.classList.remove(&#x27;wob&#x27;);void c.offsetWidth;c.classList.add(&#x27;wob&#x27;);});sfx.flip();k++;later(sw,lv===3?620:800);};
+  later(sw,600);},2200);
+ cs.forEach(c=&gt;c.onclick=()=&gt;{if(!ready)return;const i=+c.dataset.i;cs.forEach(x=&gt;x.classList.remove(&#x27;hint&#x27;));c.classList.add(&#x27;open&#x27;);
+  if(i===hide){ready=false;good(null,L(&#x27;Нашёл! Молодец!&#x27;,&#x27;Таптың! Жарайсың!&#x27;));LV.res(&#x27;cups&#x27;,!tr);confetti();later(G2.cups,2600);}
+  else{tr++;sfx.bad();speak(L(&#x27;Здесь пусто. Попробуй ещё!&#x27;,&#x27;Мұнда бос. Тағы байқап көр!&#x27;));later(()=&gt;{c.classList.remove(&#x27;open&#x27;);if(ready)cs.forEach(x=&gt;x.classList.add(&#x27;hint&#x27;));},900);}});};
 /* 3. Где больше? */
 G2.more=()=&gt;kpick(&#x27;more&#x27;,lv=&gt;{const e=rnd([&quot;🍎&quot;,&quot;🍓&quot;,&quot;⭐&quot;,&quot;🐟&quot;,&quot;🍪&quot;,&quot;🎈&quot;]);const d=[3,2,1][lv-1];const a=1+Math.floor(Math.random()*(6-d)),b=a+d;const big=Math.random()&lt;.5;
  const L1=big?b:a,R1=big?a:b;return {q:L(&#x27;Где больше?&#x27;,&#x27;Қай жерде көп?&#x27;),opts:[{h:`&lt;span class=&quot;kgrp&quot;&gt;${e.repeat(L1)}&lt;/span&gt;`,ok:L1&gt;R1},{h:`&lt;span class=&quot;kgrp&quot;&gt;${e.repeat(R1)}&lt;/span&gt;`,ok:R1&gt;L1}],
@@ -3390,6 +3485,18 @@ const A={
 };
 window.CARDART=A;
 })();
+/* ===== Укрытия-наклейки: стаканчики, коробочки, домик (для игр «найди/кто спрятался») ===== */
+(function(){
+const W=&#x27;stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; stroke-linejoin=&quot;round&quot;&#x27;;
+window.HIDE={
+ cup:c=&gt;`&lt;svg viewBox=&quot;0 0 108 150&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 30 H90 L80 146 H28Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;10&quot; y=&quot;18&quot; width=&quot;88&quot; height=&quot;22&quot; rx=&quot;11&quot; fill=&quot;#fff&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;22&quot; width=&quot;80&quot; height=&quot;14&quot; rx=&quot;7&quot; fill=&quot;${c}&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M28 64 H82&quot; stroke=&quot;#fff&quot; stroke-width=&quot;8&quot; opacity=&quot;.55&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M30 50 L36 130&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;54&quot; cy=&quot;96&quot; r=&quot;14&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;path d=&quot;M54 88 l3 6 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1z&quot; fill=&quot;${c}&quot;/&gt;&lt;/svg&gt;`,
+ box:c=&gt;`&lt;svg viewBox=&quot;0 0 108 94&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;96&quot; height=&quot;86&quot; rx=&quot;14&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;46&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;86&quot; fill=&quot;#FFE066&quot;/&gt;&lt;path d=&quot;M14 20 v54&quot; stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;`,
+ lid:c=&gt;`&lt;svg viewBox=&quot;0 0 116 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M58 9 C40 -8 30 4 52 9 M58 9 C76 -8 86 4 64 9&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;9&quot; width=&quot;110&quot; height=&quot;28&quot; rx=&quot;10&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;5&quot;/&gt;&lt;rect x=&quot;50&quot; y=&quot;9&quot; width=&quot;16&quot; height=&quot;28&quot; fill=&quot;#FFE066&quot;/&gt;&lt;/svg&gt;`,
+ house:c=&gt;`&lt;svg viewBox=&quot;0 0 200 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M10 96 L100 14 L190 96Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;26&quot; y=&quot;90&quot; width=&quot;148&quot; height=&quot;114&quot; rx=&quot;12&quot; fill=&quot;#FFF3E2&quot; ${W}/&gt;&lt;rect x=&quot;142&quot; y=&quot;30&quot; width=&quot;22&quot; height=&quot;40&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;62&quot; y=&quot;108&quot; width=&quot;76&quot; height=&quot;96&quot; rx=&quot;36&quot; fill=&quot;#3A2E5C&quot; opacity=&quot;.9&quot;/&gt;&lt;circle cx=&quot;100&quot; cy=&quot;66&quot; r=&quot;13&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;rect x=&quot;34&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;144&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`,
+ door:c=&gt;`&lt;svg viewBox=&quot;0 0 76 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 94 V38 a36 36 0 0 1 72 0 V94Z&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;5&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M18 40 v46 M38 20 v66 M58 40 v6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; opacity=&quot;.35&quot;/&gt;&lt;/svg&gt;`,
+ cols:[&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#2FBF71&#x27;,&#x27;#FFC93C&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#4FB8F2&#x27;]
+};})();
+
 
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
@@ -4064,6 +4171,45 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 @keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
 @media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
 @media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
+/* ===== укрытия-наклейки ===== */
+.hd-stage{position:relative;margin:10px auto 6px;width:min(100%,520px);border-radius:32px;box-shadow:0 8px 0 color-mix(in srgb,var(--hc,#FFB45E) 72%,#000);background:var(--hc,#FFB45E);
+ background-image:radial-gradient(circle at 10% 110%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 92% 4%,rgba(255,255,255,.15) 0 16%,transparent 17%)}
+/* стаканчики */
+.hd-cups{height:clamp(270px,72vw,340px);--hc:#FFB45E;margin-top:18px}
+.hd-cups::after{content:&#x27;&#x27;;position:absolute;left:6%;right:6%;bottom:12%;height:9%;border-radius:50%;background:rgba(120,60,10,.18)}
+.hd-cup{position:absolute;bottom:13%;width:27%;max-width:112px;aspect-ratio:108/150;transform:translateX(-50%);border:none;background:none;padding:0;cursor:pointer;z-index:1;transition:left .42s cubic-bezier(.5,0,.3,1)}
+.hd-cup .toy{position:absolute;left:0;right:0;bottom:2%;text-align:center;font-size:clamp(44px,13vw,70px);line-height:1;opacity:0;transition:opacity .15s}
+.hd-cup.open .toy{opacity:1}
+.hd-cup .cap{position:absolute;inset:0;z-index:2;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-cup .cap svg{width:100%;height:100%;display:block}
+.hd-cup.open .cap{transform:translateY(-58%) rotate(-10deg)}
+.hd-cup.wob .cap{animation:hdWob .45s ease}
+.hd-cup.hint .cap{animation:hdHop 1.1s ease-in-out infinite}
+.hd-cup:nth-child(3).hint .cap{animation-delay:.2s}.hd-cup:nth-child(4).hint .cap{animation-delay:.4s}
+@keyframes hdWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+@keyframes hdHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* коробочки */
+.hd-boxes{--hc:#9C6BFF;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:8px;padding:clamp(70px,20vw,100px) 12px 30px}
+.hd-boxes::after{content:&#x27;&#x27;;position:absolute;left:10px;right:10px;bottom:16px;height:20px;border-radius:10px;background:#7A4FE0;box-shadow:0 5px 0 #5C35C2;z-index:0}
+.hd-box{position:relative;aspect-ratio:108/94;z-index:1}
+.hd-box .bx{position:absolute;inset:0;z-index:2;filter:drop-shadow(0 6px 0 rgba(0,0,0,.14))}.hd-box svg{width:100%;height:100%;display:block}
+.hd-box .ld{position:absolute;left:-4%;right:-4%;top:-22%;height:36%;z-index:3;transform-origin:0 100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 4px 0 rgba(0,0,0,.14))}
+.hd-box .an{position:absolute;left:-10%;right:-10%;top:-78%;text-align:center;font-size:clamp(40px,12vw,66px);line-height:1;z-index:1;transform:translateY(60%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.hd-box.open .ld{transform:translate(16%,-70%) rotate(16deg);z-index:0}.hd-box.open .an{transform:none;opacity:1}
+.hd-box.empty .an{opacity:0!important}
+.hd-box.q .bx::after{content:&#x27;?&#x27;;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,48px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.hd-box.shk{animation:hdWob .5s ease}
+/* домик */
+.hd-house{--hc:#4CC487;display:flex;justify-content:center;padding:18px 0 0;cursor:pointer;border:none;font:inherit;width:min(100%,360px)}
+.hd-house::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;bottom:0;height:24%;border-radius:0 0 32px 32px;background:#3DB277}
+.hd-hs{position:relative;width:min(78%,260px);aspect-ratio:200/210;z-index:1}
+.hd-hs&gt;svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-hs .an{position:absolute;left:28%;width:44%;bottom:2%;height:44%;display:flex;align-items:flex-end;justify-content:center;font-size:clamp(60px,19vw,96px);line-height:1;transform:translateY(30%);opacity:0;transition:opacity .2s .15s,transform .5s .15s cubic-bezier(.3,1.5,.5,1);transition:transform .5s .15s cubic-bezier(.3,1.5,.5,1)}
+.hd-hs .dr{position:absolute;left:31%;width:38%;bottom:3%;height:45.7%;transform-origin:0 50%;transition:transform .5s ease;z-index:2}
+.hd-hs .dr svg{width:100%;height:100%;display:block}
+.hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
+.hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
+@media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -5339,15 +5485,18 @@ WG.diff=()=&gt;{clearT();const st={n:0,ok:0},R=4;
 /* 41. Кто исчез? */
 WG.vanish=()=&gt;{clearT();const st={n:0,ok:0},R=6;
  const lvl=()=&gt;{if(st.n&gt;=R)return finish(st.ok,R,WG.vanish);st.tries=0;const cnt=st.n&lt;3?4:5;const pool=shuffle(Object.keys(W.N).filter(e=&gt;/[\u{1F400}-\u{1F43F}\u{1F980}-\u{1F99F}]/u.test(e))).slice(0,cnt+2);
-  const show=pool.slice(0,cnt),gone=rnd(show),extra=pool.slice(cnt);let t=3;
-  app.innerHTML=`&lt;h2&gt;${tx([&#x27;Запомни картинки!&#x27;,&#x27;Суреттерді есте сақта!&#x27;])}&lt;/h2&gt;&lt;div class=&quot;wmem&quot; id=&quot;mm&quot;&gt;${show.map(e=&gt;`&lt;span&gt;${e}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;p class=&quot;say&quot; id=&quot;tm&quot;&gt;⏳ ${t}&lt;/p&gt;`+W.foot(st);
+  const show=pool.slice(0,cnt),gone=rnd(show),extra=pool.slice(cnt);let t=4;
+  const C=HIDE.cols;
+  app.innerHTML=`&lt;h2 id=&quot;vh&quot;&gt;${tx([&#x27;Запомни, кто в коробочках!&#x27;,&#x27;Қорапта кім барын есте сақта!&#x27;])}&lt;/h2&gt;&lt;div class=&quot;hd-stage hd-boxes&quot; style=&quot;--n:${cnt}&quot;&gt;${show.map((e,i)=&gt;`&lt;div class=&quot;hd-box open&quot; data-e=&quot;${e}&quot;&gt;&lt;span class=&quot;an&quot;&gt;${e}&lt;/span&gt;&lt;span class=&quot;bx&quot;&gt;${HIDE.box(C[i%C.length])}&lt;/span&gt;&lt;span class=&quot;ld&quot;&gt;${HIDE.lid(C[i%C.length])}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;p class=&quot;say&quot; id=&quot;tm&quot;&gt;⏳ ${t}&lt;/p&gt;&lt;div id=&quot;vo&quot;&gt;&lt;/div&gt;`+W.foot(st);
   sp([&#x27;Запомни, кто здесь!&#x27;,&#x27;Мұнда кім барын есте сақта!&#x27;]);
-  const iv=setInterval(()=&gt;{t--;const tm=document.getElementById(&#x27;tm&#x27;);if(tm)tm.textContent=&#x27;⏳ &#x27;+t;if(t&lt;=0){clearInterval(iv);ask();}},1000);timers.push(iv);
-  const ask=()=&gt;{const left=shuffle(show.filter(e=&gt;e!==gone));const o=shuffle([gone,...extra]);
-   app.innerHTML=`&lt;h2&gt;${tx([&#x27;Кто исчез?&#x27;,&#x27;Кім жоғалып кетті?&#x27;])}&lt;/h2&gt;&lt;div class=&quot;wmem&quot;&gt;${left.map(e=&gt;`&lt;span&gt;${e}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;span class=&quot;q&quot;&gt;?&lt;/span&gt;&lt;/div&gt;
-    &lt;div class=&quot;wops&quot;&gt;${o.map(e=&gt;`&lt;button class=&quot;wo&quot; data-e=&quot;${e}&quot;&gt;${picH(e,nm(e))}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`+W.foot(st);
+  const bxs=[...app.querySelectorAll(&#x27;.hd-box&#x27;)];
+  const iv=setInterval(()=&gt;{t--;const tm=document.getElementById(&#x27;tm&#x27;);if(tm)tm.textContent=&#x27;⏳ &#x27;+t;if(t&lt;=0){clearInterval(iv);close();}},1000);timers.push(iv);
+  const close=()=&gt;{bxs.forEach(x=&gt;x.classList.remove(&#x27;open&#x27;));tone(&#x27;pop&#x27;);const tm=document.getElementById(&#x27;tm&#x27;);if(tm)tm.textContent=tx([&#x27;Коробочки закрылись…&#x27;,&#x27;Қораптар жабылды…&#x27;]);
+   timers.push(setTimeout(()=&gt;{bxs.forEach(x=&gt;{if(x.dataset.e===gone)x.classList.add(&#x27;empty&#x27;,&#x27;q&#x27;);x.classList.add(&#x27;open&#x27;);});tone(&#x27;pop&#x27;);ask();},1200));};
+  const ask=()=&gt;{const o=shuffle([gone,...extra]);const h=document.getElementById(&#x27;vh&#x27;);if(!h)return;h.textContent=tx([&#x27;Кто исчез из коробочки?&#x27;,&#x27;Қораптан кім жоғалды?&#x27;]);document.getElementById(&#x27;tm&#x27;).textContent=&#x27;&#x27;;
+   document.getElementById(&#x27;vo&#x27;).innerHTML=`&lt;div class=&quot;wops&quot;&gt;${o.map(e=&gt;`&lt;button class=&quot;wo&quot; data-e=&quot;${e}&quot;&gt;${picH(e,nm(e))}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
    sp([&#x27;Кто исчез?&#x27;,&#x27;Кім жоғалып кетті?&#x27;]);
-   app.querySelectorAll(&#x27;.wo&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===gone){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.wo&#x27;).forEach(x=&gt;x.onclick=null);W.done(st);sp([`Да! Исчез ${W.N[gone][0]}.`,`Иә! ${cap(W.N[gone][1])} жоғалды.`]);timers.push(setTimeout(lvl,2300));}
+   app.querySelectorAll(&#x27;.wo&#x27;).forEach(b=&gt;b.onclick=()=&gt;{if(b.dataset.e===gone){b.classList.add(&#x27;ok&#x27;);app.querySelectorAll(&#x27;.wo&#x27;).forEach(x=&gt;x.onclick=null);W.done(st);bxs.forEach(x=&gt;{if(x.dataset.e===gone){x.classList.remove(&#x27;empty&#x27;,&#x27;q&#x27;,&#x27;open&#x27;);void x.offsetWidth;x.classList.add(&#x27;open&#x27;);}});sp([`Да! Исчез ${W.N[gone][0]}.`,`Иә! ${cap(W.N[gone][1])} жоғалды.`]);timers.push(setTimeout(lvl,2300));}
     else{st.tries++;b.classList.add(&#x27;no&#x27;);W.shk(b);tone(&#x27;bad&#x27;);sp([&#x27;Этого здесь не было. Вспомни!&#x27;,&#x27;Бұл мұнда болған жоқ. Есіңе түсір!&#x27;]);}});};};
  lvl();};
 /* 42. Режим дня */
@@ -5948,6 +6097,18 @@ const A={
 };
 window.CARDART=A;
 })();
+/* ===== Укрытия-наклейки: стаканчики, коробочки, домик (для игр «найди/кто спрятался») ===== */
+(function(){
+const W=&#x27;stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; stroke-linejoin=&quot;round&quot;&#x27;;
+window.HIDE={
+ cup:c=&gt;`&lt;svg viewBox=&quot;0 0 108 150&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 30 H90 L80 146 H28Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;10&quot; y=&quot;18&quot; width=&quot;88&quot; height=&quot;22&quot; rx=&quot;11&quot; fill=&quot;#fff&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;22&quot; width=&quot;80&quot; height=&quot;14&quot; rx=&quot;7&quot; fill=&quot;${c}&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M28 64 H82&quot; stroke=&quot;#fff&quot; stroke-width=&quot;8&quot; opacity=&quot;.55&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M30 50 L36 130&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;54&quot; cy=&quot;96&quot; r=&quot;14&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;path d=&quot;M54 88 l3 6 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1z&quot; fill=&quot;${c}&quot;/&gt;&lt;/svg&gt;`,
+ box:c=&gt;`&lt;svg viewBox=&quot;0 0 108 94&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;96&quot; height=&quot;86&quot; rx=&quot;14&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;46&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;86&quot; fill=&quot;#FFE066&quot;/&gt;&lt;path d=&quot;M14 20 v54&quot; stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;`,
+ lid:c=&gt;`&lt;svg viewBox=&quot;0 0 116 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M58 9 C40 -8 30 4 52 9 M58 9 C76 -8 86 4 64 9&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;9&quot; width=&quot;110&quot; height=&quot;28&quot; rx=&quot;10&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;5&quot;/&gt;&lt;rect x=&quot;50&quot; y=&quot;9&quot; width=&quot;16&quot; height=&quot;28&quot; fill=&quot;#FFE066&quot;/&gt;&lt;/svg&gt;`,
+ house:c=&gt;`&lt;svg viewBox=&quot;0 0 200 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M10 96 L100 14 L190 96Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;26&quot; y=&quot;90&quot; width=&quot;148&quot; height=&quot;114&quot; rx=&quot;12&quot; fill=&quot;#FFF3E2&quot; ${W}/&gt;&lt;rect x=&quot;142&quot; y=&quot;30&quot; width=&quot;22&quot; height=&quot;40&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;62&quot; y=&quot;108&quot; width=&quot;76&quot; height=&quot;96&quot; rx=&quot;36&quot; fill=&quot;#3A2E5C&quot; opacity=&quot;.9&quot;/&gt;&lt;circle cx=&quot;100&quot; cy=&quot;66&quot; r=&quot;13&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;rect x=&quot;34&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;144&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`,
+ door:c=&gt;`&lt;svg viewBox=&quot;0 0 76 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 94 V38 a36 36 0 0 1 72 0 V94Z&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;5&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M18 40 v46 M38 20 v66 M58 40 v6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; opacity=&quot;.35&quot;/&gt;&lt;/svg&gt;`,
+ cols:[&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#2FBF71&#x27;,&#x27;#FFC93C&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#4FB8F2&#x27;]
+};})();
+
 
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
@@ -6429,6 +6590,45 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 @keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
 @media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
 @media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
+/* ===== укрытия-наклейки ===== */
+.hd-stage{position:relative;margin:10px auto 6px;width:min(100%,520px);border-radius:32px;box-shadow:0 8px 0 color-mix(in srgb,var(--hc,#FFB45E) 72%,#000);background:var(--hc,#FFB45E);
+ background-image:radial-gradient(circle at 10% 110%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 92% 4%,rgba(255,255,255,.15) 0 16%,transparent 17%)}
+/* стаканчики */
+.hd-cups{height:clamp(270px,72vw,340px);--hc:#FFB45E;margin-top:18px}
+.hd-cups::after{content:&#x27;&#x27;;position:absolute;left:6%;right:6%;bottom:12%;height:9%;border-radius:50%;background:rgba(120,60,10,.18)}
+.hd-cup{position:absolute;bottom:13%;width:27%;max-width:112px;aspect-ratio:108/150;transform:translateX(-50%);border:none;background:none;padding:0;cursor:pointer;z-index:1;transition:left .42s cubic-bezier(.5,0,.3,1)}
+.hd-cup .toy{position:absolute;left:0;right:0;bottom:2%;text-align:center;font-size:clamp(44px,13vw,70px);line-height:1;opacity:0;transition:opacity .15s}
+.hd-cup.open .toy{opacity:1}
+.hd-cup .cap{position:absolute;inset:0;z-index:2;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-cup .cap svg{width:100%;height:100%;display:block}
+.hd-cup.open .cap{transform:translateY(-58%) rotate(-10deg)}
+.hd-cup.wob .cap{animation:hdWob .45s ease}
+.hd-cup.hint .cap{animation:hdHop 1.1s ease-in-out infinite}
+.hd-cup:nth-child(3).hint .cap{animation-delay:.2s}.hd-cup:nth-child(4).hint .cap{animation-delay:.4s}
+@keyframes hdWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+@keyframes hdHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* коробочки */
+.hd-boxes{--hc:#9C6BFF;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:8px;padding:clamp(70px,20vw,100px) 12px 30px}
+.hd-boxes::after{content:&#x27;&#x27;;position:absolute;left:10px;right:10px;bottom:16px;height:20px;border-radius:10px;background:#7A4FE0;box-shadow:0 5px 0 #5C35C2;z-index:0}
+.hd-box{position:relative;aspect-ratio:108/94;z-index:1}
+.hd-box .bx{position:absolute;inset:0;z-index:2;filter:drop-shadow(0 6px 0 rgba(0,0,0,.14))}.hd-box svg{width:100%;height:100%;display:block}
+.hd-box .ld{position:absolute;left:-4%;right:-4%;top:-22%;height:36%;z-index:3;transform-origin:0 100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 4px 0 rgba(0,0,0,.14))}
+.hd-box .an{position:absolute;left:-10%;right:-10%;top:-78%;text-align:center;font-size:clamp(40px,12vw,66px);line-height:1;z-index:1;transform:translateY(60%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.hd-box.open .ld{transform:translate(16%,-70%) rotate(16deg);z-index:0}.hd-box.open .an{transform:none;opacity:1}
+.hd-box.empty .an{opacity:0!important}
+.hd-box.q .bx::after{content:&#x27;?&#x27;;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,48px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.hd-box.shk{animation:hdWob .5s ease}
+/* домик */
+.hd-house{--hc:#4CC487;display:flex;justify-content:center;padding:18px 0 0;cursor:pointer;border:none;font:inherit;width:min(100%,360px)}
+.hd-house::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;bottom:0;height:24%;border-radius:0 0 32px 32px;background:#3DB277}
+.hd-hs{position:relative;width:min(78%,260px);aspect-ratio:200/210;z-index:1}
+.hd-hs&gt;svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-hs .an{position:absolute;left:28%;width:44%;bottom:2%;height:44%;display:flex;align-items:flex-end;justify-content:center;font-size:clamp(60px,19vw,96px);line-height:1;transform:translateY(30%);opacity:0;transition:opacity .2s .15s,transform .5s .15s cubic-bezier(.3,1.5,.5,1);transition:transform .5s .15s cubic-bezier(.3,1.5,.5,1)}
+.hd-hs .dr{position:absolute;left:31%;width:38%;bottom:3%;height:45.7%;transform-origin:0 50%;transition:transform .5s ease;z-index:2}
+.hd-hs .dr svg{width:100%;height:100%;display:block}
+.hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
+.hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
+@media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -7005,6 +7205,18 @@ const A={
 };
 window.CARDART=A;
 })();
+/* ===== Укрытия-наклейки: стаканчики, коробочки, домик (для игр «найди/кто спрятался») ===== */
+(function(){
+const W=&#x27;stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; stroke-linejoin=&quot;round&quot;&#x27;;
+window.HIDE={
+ cup:c=&gt;`&lt;svg viewBox=&quot;0 0 108 150&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 30 H90 L80 146 H28Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;10&quot; y=&quot;18&quot; width=&quot;88&quot; height=&quot;22&quot; rx=&quot;11&quot; fill=&quot;#fff&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;22&quot; width=&quot;80&quot; height=&quot;14&quot; rx=&quot;7&quot; fill=&quot;${c}&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M28 64 H82&quot; stroke=&quot;#fff&quot; stroke-width=&quot;8&quot; opacity=&quot;.55&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M30 50 L36 130&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;54&quot; cy=&quot;96&quot; r=&quot;14&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;path d=&quot;M54 88 l3 6 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1z&quot; fill=&quot;${c}&quot;/&gt;&lt;/svg&gt;`,
+ box:c=&gt;`&lt;svg viewBox=&quot;0 0 108 94&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;96&quot; height=&quot;86&quot; rx=&quot;14&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;46&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;86&quot; fill=&quot;#FFE066&quot;/&gt;&lt;path d=&quot;M14 20 v54&quot; stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;`,
+ lid:c=&gt;`&lt;svg viewBox=&quot;0 0 116 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M58 9 C40 -8 30 4 52 9 M58 9 C76 -8 86 4 64 9&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;9&quot; width=&quot;110&quot; height=&quot;28&quot; rx=&quot;10&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;5&quot;/&gt;&lt;rect x=&quot;50&quot; y=&quot;9&quot; width=&quot;16&quot; height=&quot;28&quot; fill=&quot;#FFE066&quot;/&gt;&lt;/svg&gt;`,
+ house:c=&gt;`&lt;svg viewBox=&quot;0 0 200 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M10 96 L100 14 L190 96Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;26&quot; y=&quot;90&quot; width=&quot;148&quot; height=&quot;114&quot; rx=&quot;12&quot; fill=&quot;#FFF3E2&quot; ${W}/&gt;&lt;rect x=&quot;142&quot; y=&quot;30&quot; width=&quot;22&quot; height=&quot;40&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;62&quot; y=&quot;108&quot; width=&quot;76&quot; height=&quot;96&quot; rx=&quot;36&quot; fill=&quot;#3A2E5C&quot; opacity=&quot;.9&quot;/&gt;&lt;circle cx=&quot;100&quot; cy=&quot;66&quot; r=&quot;13&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;rect x=&quot;34&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;144&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`,
+ door:c=&gt;`&lt;svg viewBox=&quot;0 0 76 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 94 V38 a36 36 0 0 1 72 0 V94Z&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;5&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M18 40 v46 M38 20 v66 M58 40 v6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; opacity=&quot;.35&quot;/&gt;&lt;/svg&gt;`,
+ cols:[&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#2FBF71&#x27;,&#x27;#FFC93C&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#4FB8F2&#x27;]
+};})();
+
 
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
@@ -7538,6 +7750,45 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 @keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
 @media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
 @media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
+/* ===== укрытия-наклейки ===== */
+.hd-stage{position:relative;margin:10px auto 6px;width:min(100%,520px);border-radius:32px;box-shadow:0 8px 0 color-mix(in srgb,var(--hc,#FFB45E) 72%,#000);background:var(--hc,#FFB45E);
+ background-image:radial-gradient(circle at 10% 110%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 92% 4%,rgba(255,255,255,.15) 0 16%,transparent 17%)}
+/* стаканчики */
+.hd-cups{height:clamp(270px,72vw,340px);--hc:#FFB45E;margin-top:18px}
+.hd-cups::after{content:&#x27;&#x27;;position:absolute;left:6%;right:6%;bottom:12%;height:9%;border-radius:50%;background:rgba(120,60,10,.18)}
+.hd-cup{position:absolute;bottom:13%;width:27%;max-width:112px;aspect-ratio:108/150;transform:translateX(-50%);border:none;background:none;padding:0;cursor:pointer;z-index:1;transition:left .42s cubic-bezier(.5,0,.3,1)}
+.hd-cup .toy{position:absolute;left:0;right:0;bottom:2%;text-align:center;font-size:clamp(44px,13vw,70px);line-height:1;opacity:0;transition:opacity .15s}
+.hd-cup.open .toy{opacity:1}
+.hd-cup .cap{position:absolute;inset:0;z-index:2;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-cup .cap svg{width:100%;height:100%;display:block}
+.hd-cup.open .cap{transform:translateY(-58%) rotate(-10deg)}
+.hd-cup.wob .cap{animation:hdWob .45s ease}
+.hd-cup.hint .cap{animation:hdHop 1.1s ease-in-out infinite}
+.hd-cup:nth-child(3).hint .cap{animation-delay:.2s}.hd-cup:nth-child(4).hint .cap{animation-delay:.4s}
+@keyframes hdWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+@keyframes hdHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* коробочки */
+.hd-boxes{--hc:#9C6BFF;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:8px;padding:clamp(70px,20vw,100px) 12px 30px}
+.hd-boxes::after{content:&#x27;&#x27;;position:absolute;left:10px;right:10px;bottom:16px;height:20px;border-radius:10px;background:#7A4FE0;box-shadow:0 5px 0 #5C35C2;z-index:0}
+.hd-box{position:relative;aspect-ratio:108/94;z-index:1}
+.hd-box .bx{position:absolute;inset:0;z-index:2;filter:drop-shadow(0 6px 0 rgba(0,0,0,.14))}.hd-box svg{width:100%;height:100%;display:block}
+.hd-box .ld{position:absolute;left:-4%;right:-4%;top:-22%;height:36%;z-index:3;transform-origin:0 100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 4px 0 rgba(0,0,0,.14))}
+.hd-box .an{position:absolute;left:-10%;right:-10%;top:-78%;text-align:center;font-size:clamp(40px,12vw,66px);line-height:1;z-index:1;transform:translateY(60%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.hd-box.open .ld{transform:translate(16%,-70%) rotate(16deg);z-index:0}.hd-box.open .an{transform:none;opacity:1}
+.hd-box.empty .an{opacity:0!important}
+.hd-box.q .bx::after{content:&#x27;?&#x27;;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,48px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.hd-box.shk{animation:hdWob .5s ease}
+/* домик */
+.hd-house{--hc:#4CC487;display:flex;justify-content:center;padding:18px 0 0;cursor:pointer;border:none;font:inherit;width:min(100%,360px)}
+.hd-house::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;bottom:0;height:24%;border-radius:0 0 32px 32px;background:#3DB277}
+.hd-hs{position:relative;width:min(78%,260px);aspect-ratio:200/210;z-index:1}
+.hd-hs&gt;svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-hs .an{position:absolute;left:28%;width:44%;bottom:2%;height:44%;display:flex;align-items:flex-end;justify-content:center;font-size:clamp(60px,19vw,96px);line-height:1;transform:translateY(30%);opacity:0;transition:opacity .2s .15s,transform .5s .15s cubic-bezier(.3,1.5,.5,1);transition:transform .5s .15s cubic-bezier(.3,1.5,.5,1)}
+.hd-hs .dr{position:absolute;left:31%;width:38%;bottom:3%;height:45.7%;transform-origin:0 50%;transition:transform .5s ease;z-index:2}
+.hd-hs .dr svg{width:100%;height:100%;display:block}
+.hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
+.hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
+@media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -8123,6 +8374,18 @@ const A={
 };
 window.CARDART=A;
 })();
+/* ===== Укрытия-наклейки: стаканчики, коробочки, домик (для игр «найди/кто спрятался») ===== */
+(function(){
+const W=&#x27;stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; stroke-linejoin=&quot;round&quot;&#x27;;
+window.HIDE={
+ cup:c=&gt;`&lt;svg viewBox=&quot;0 0 108 150&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 30 H90 L80 146 H28Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;10&quot; y=&quot;18&quot; width=&quot;88&quot; height=&quot;22&quot; rx=&quot;11&quot; fill=&quot;#fff&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;22&quot; width=&quot;80&quot; height=&quot;14&quot; rx=&quot;7&quot; fill=&quot;${c}&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M28 64 H82&quot; stroke=&quot;#fff&quot; stroke-width=&quot;8&quot; opacity=&quot;.55&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M30 50 L36 130&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;54&quot; cy=&quot;96&quot; r=&quot;14&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;path d=&quot;M54 88 l3 6 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1z&quot; fill=&quot;${c}&quot;/&gt;&lt;/svg&gt;`,
+ box:c=&gt;`&lt;svg viewBox=&quot;0 0 108 94&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;96&quot; height=&quot;86&quot; rx=&quot;14&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;46&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;86&quot; fill=&quot;#FFE066&quot;/&gt;&lt;path d=&quot;M14 20 v54&quot; stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;`,
+ lid:c=&gt;`&lt;svg viewBox=&quot;0 0 116 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M58 9 C40 -8 30 4 52 9 M58 9 C76 -8 86 4 64 9&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;9&quot; width=&quot;110&quot; height=&quot;28&quot; rx=&quot;10&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;5&quot;/&gt;&lt;rect x=&quot;50&quot; y=&quot;9&quot; width=&quot;16&quot; height=&quot;28&quot; fill=&quot;#FFE066&quot;/&gt;&lt;/svg&gt;`,
+ house:c=&gt;`&lt;svg viewBox=&quot;0 0 200 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M10 96 L100 14 L190 96Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;26&quot; y=&quot;90&quot; width=&quot;148&quot; height=&quot;114&quot; rx=&quot;12&quot; fill=&quot;#FFF3E2&quot; ${W}/&gt;&lt;rect x=&quot;142&quot; y=&quot;30&quot; width=&quot;22&quot; height=&quot;40&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;62&quot; y=&quot;108&quot; width=&quot;76&quot; height=&quot;96&quot; rx=&quot;36&quot; fill=&quot;#3A2E5C&quot; opacity=&quot;.9&quot;/&gt;&lt;circle cx=&quot;100&quot; cy=&quot;66&quot; r=&quot;13&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;rect x=&quot;34&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;144&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`,
+ door:c=&gt;`&lt;svg viewBox=&quot;0 0 76 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 94 V38 a36 36 0 0 1 72 0 V94Z&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;5&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M18 40 v46 M38 20 v66 M58 40 v6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; opacity=&quot;.35&quot;/&gt;&lt;/svg&gt;`,
+ cols:[&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#2FBF71&#x27;,&#x27;#FFC93C&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#4FB8F2&#x27;]
+};})();
+
 
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
@@ -8556,6 +8819,45 @@ html .menu .tile.nt .done{top:-8px;right:-6px;width:32px;height:32px;border:3px 
 @keyframes wnShine{0%,55%{transform:translateX(-120px) skewX(-18deg)}100%{transform:translateX(170px) skewX(-18deg)}}
 @media (max-height:640px){.wn{padding-top:112px}.wn-cup{width:170px;margin-left:-85px;top:-106px}.wn-card{padding:62px 12px 16px}.wn-slots{gap:4px;margin:8px 0 2px}.wn-slots span{width:30px;height:30px}.wn-btns{margin-top:10px}.wn-t{font-size:26px}}
 @media (max-width:360px){.wn-slots span{width:32px;height:32px}.wn-btns .wn-b{font-size:17px!important;padding:11px 14px!important}}
+/* ===== укрытия-наклейки ===== */
+.hd-stage{position:relative;margin:10px auto 6px;width:min(100%,520px);border-radius:32px;box-shadow:0 8px 0 color-mix(in srgb,var(--hc,#FFB45E) 72%,#000);background:var(--hc,#FFB45E);
+ background-image:radial-gradient(circle at 10% 110%,rgba(255,255,255,.2) 0 30%,transparent 31%),radial-gradient(circle at 92% 4%,rgba(255,255,255,.15) 0 16%,transparent 17%)}
+/* стаканчики */
+.hd-cups{height:clamp(270px,72vw,340px);--hc:#FFB45E;margin-top:18px}
+.hd-cups::after{content:&#x27;&#x27;;position:absolute;left:6%;right:6%;bottom:12%;height:9%;border-radius:50%;background:rgba(120,60,10,.18)}
+.hd-cup{position:absolute;bottom:13%;width:27%;max-width:112px;aspect-ratio:108/150;transform:translateX(-50%);border:none;background:none;padding:0;cursor:pointer;z-index:1;transition:left .42s cubic-bezier(.5,0,.3,1)}
+.hd-cup .toy{position:absolute;left:0;right:0;bottom:2%;text-align:center;font-size:clamp(44px,13vw,70px);line-height:1;opacity:0;transition:opacity .15s}
+.hd-cup.open .toy{opacity:1}
+.hd-cup .cap{position:absolute;inset:0;z-index:2;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-cup .cap svg{width:100%;height:100%;display:block}
+.hd-cup.open .cap{transform:translateY(-58%) rotate(-10deg)}
+.hd-cup.wob .cap{animation:hdWob .45s ease}
+.hd-cup.hint .cap{animation:hdHop 1.1s ease-in-out infinite}
+.hd-cup:nth-child(3).hint .cap{animation-delay:.2s}.hd-cup:nth-child(4).hint .cap{animation-delay:.4s}
+@keyframes hdWob{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+@keyframes hdHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* коробочки */
+.hd-boxes{--hc:#9C6BFF;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:8px;padding:clamp(70px,20vw,100px) 12px 30px}
+.hd-boxes::after{content:&#x27;&#x27;;position:absolute;left:10px;right:10px;bottom:16px;height:20px;border-radius:10px;background:#7A4FE0;box-shadow:0 5px 0 #5C35C2;z-index:0}
+.hd-box{position:relative;aspect-ratio:108/94;z-index:1}
+.hd-box .bx{position:absolute;inset:0;z-index:2;filter:drop-shadow(0 6px 0 rgba(0,0,0,.14))}.hd-box svg{width:100%;height:100%;display:block}
+.hd-box .ld{position:absolute;left:-4%;right:-4%;top:-22%;height:36%;z-index:3;transform-origin:0 100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);filter:drop-shadow(0 4px 0 rgba(0,0,0,.14))}
+.hd-box .an{position:absolute;left:-10%;right:-10%;top:-78%;text-align:center;font-size:clamp(40px,12vw,66px);line-height:1;z-index:1;transform:translateY(60%);opacity:0;transition:transform .45s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.hd-box.open .ld{transform:translate(16%,-70%) rotate(16deg);z-index:0}.hd-box.open .an{transform:none;opacity:1}
+.hd-box.empty .an{opacity:0!important}
+.hd-box.q .bx::after{content:&#x27;?&#x27;;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,48px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.hd-box.shk{animation:hdWob .5s ease}
+/* домик */
+.hd-house{--hc:#4CC487;display:flex;justify-content:center;padding:18px 0 0;cursor:pointer;border:none;font:inherit;width:min(100%,360px)}
+.hd-house::after{content:&#x27;&#x27;;position:absolute;left:0;right:0;bottom:0;height:24%;border-radius:0 0 32px 32px;background:#3DB277}
+.hd-hs{position:relative;width:min(78%,260px);aspect-ratio:200/210;z-index:1}
+.hd-hs&gt;svg{width:100%;height:100%;display:block;filter:drop-shadow(0 7px 0 rgba(0,0,0,.14))}
+.hd-hs .an{position:absolute;left:28%;width:44%;bottom:2%;height:44%;display:flex;align-items:flex-end;justify-content:center;font-size:clamp(60px,19vw,96px);line-height:1;transform:translateY(30%);opacity:0;transition:opacity .2s .15s,transform .5s .15s cubic-bezier(.3,1.5,.5,1);transition:transform .5s .15s cubic-bezier(.3,1.5,.5,1)}
+.hd-hs .dr{position:absolute;left:31%;width:38%;bottom:3%;height:45.7%;transform-origin:0 50%;transition:transform .5s ease;z-index:2}
+.hd-hs .dr svg{width:100%;height:100%;display:block}
+.hd-house.open .dr{transform:perspective(400px) rotateY(-78deg)}.hd-house.open .an{transform:translateY(-4%);opacity:1}
+.hd-house.knock .hd-hs{animation:hdWob .35s ease 2}
+@media (prefers-reduced-motion:reduce){.hd-cup.hint .cap{animation:none}}
 
 /* ---------- прописи по штрихам ---------- */
 .glbox{position:relative;width:min(94vw,600px);background:#fff;border-radius:26px;box-shadow:0 6px 0 rgba(0,0,0,.06),inset 0 0 0 3px #EEE7FA;padding:6px 4px;touch-action:none;user-select:none;-webkit-user-select:none;animation:glIn .45s cubic-bezier(.3,1.5,.5,1) both;transition:box-shadow .3s}
@@ -8932,6 +9234,18 @@ const A={
 };
 window.CARDART=A;
 })();
+/* ===== Укрытия-наклейки: стаканчики, коробочки, домик (для игр «найди/кто спрятался») ===== */
+(function(){
+const W=&#x27;stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; stroke-linejoin=&quot;round&quot;&#x27;;
+window.HIDE={
+ cup:c=&gt;`&lt;svg viewBox=&quot;0 0 108 150&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M18 30 H90 L80 146 H28Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;10&quot; y=&quot;18&quot; width=&quot;88&quot; height=&quot;22&quot; rx=&quot;11&quot; fill=&quot;#fff&quot;/&gt;&lt;rect x=&quot;14&quot; y=&quot;22&quot; width=&quot;80&quot; height=&quot;14&quot; rx=&quot;7&quot; fill=&quot;${c}&quot; opacity=&quot;.55&quot;/&gt;&lt;path d=&quot;M28 64 H82&quot; stroke=&quot;#fff&quot; stroke-width=&quot;8&quot; opacity=&quot;.55&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M30 50 L36 130&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;circle cx=&quot;54&quot; cy=&quot;96&quot; r=&quot;14&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;path d=&quot;M54 88 l3 6 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1z&quot; fill=&quot;${c}&quot;/&gt;&lt;/svg&gt;`,
+ box:c=&gt;`&lt;svg viewBox=&quot;0 0 108 94&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;6&quot; y=&quot;4&quot; width=&quot;96&quot; height=&quot;86&quot; rx=&quot;14&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;46&quot; y=&quot;4&quot; width=&quot;16&quot; height=&quot;86&quot; fill=&quot;#FFE066&quot;/&gt;&lt;path d=&quot;M14 20 v54&quot; stroke=&quot;#fff&quot; stroke-width=&quot;6&quot; opacity=&quot;.35&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;`,
+ lid:c=&gt;`&lt;svg viewBox=&quot;0 0 116 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M58 9 C40 -8 30 4 52 9 M58 9 C76 -8 86 4 64 9&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;3&quot; y=&quot;9&quot; width=&quot;110&quot; height=&quot;28&quot; rx=&quot;10&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;5&quot;/&gt;&lt;rect x=&quot;50&quot; y=&quot;9&quot; width=&quot;16&quot; height=&quot;28&quot; fill=&quot;#FFE066&quot;/&gt;&lt;/svg&gt;`,
+ house:c=&gt;`&lt;svg viewBox=&quot;0 0 200 210&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M10 96 L100 14 L190 96Z&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;26&quot; y=&quot;90&quot; width=&quot;148&quot; height=&quot;114&quot; rx=&quot;12&quot; fill=&quot;#FFF3E2&quot; ${W}/&gt;&lt;rect x=&quot;142&quot; y=&quot;30&quot; width=&quot;22&quot; height=&quot;40&quot; fill=&quot;${c}&quot; ${W}/&gt;&lt;rect x=&quot;62&quot; y=&quot;108&quot; width=&quot;76&quot; height=&quot;96&quot; rx=&quot;36&quot; fill=&quot;#3A2E5C&quot; opacity=&quot;.9&quot;/&gt;&lt;circle cx=&quot;100&quot; cy=&quot;66&quot; r=&quot;13&quot; fill=&quot;#fff&quot; opacity=&quot;.9&quot;/&gt;&lt;rect x=&quot;34&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;rect x=&quot;144&quot; y=&quot;110&quot; width=&quot;22&quot; height=&quot;22&quot; rx=&quot;5&quot; fill=&quot;#BFE8FF&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`,
+ door:c=&gt;`&lt;svg viewBox=&quot;0 0 76 96&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M2 94 V38 a36 36 0 0 1 72 0 V94Z&quot; fill=&quot;${c}&quot; stroke=&quot;#fff&quot; stroke-width=&quot;4&quot;/&gt;&lt;circle cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;5&quot; fill=&quot;#FFE066&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;path d=&quot;M18 40 v46 M38 20 v66 M58 40 v6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; opacity=&quot;.35&quot;/&gt;&lt;/svg&gt;`,
+ cols:[&#x27;#FF6B6B&#x27;,&#x27;#3B7BFF&#x27;,&#x27;#2FBF71&#x27;,&#x27;#FFC93C&#x27;,&#x27;#9C6BFF&#x27;,&#x27;#4FB8F2&#x27;]
+};})();
+
 
 
 /* ===== НАВИГАЦИЯ: разделы → игры → игра (одинаково во всех частях) ===== */
