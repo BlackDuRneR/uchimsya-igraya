@@ -1,5 +1,5 @@
 // Учимся играя — работа без интернета
-const CACHE='uchimsya-igraya-v37';
+const CACHE='uchimsya-igraya-v38';
 const VCACHE='uchimsya-voice-v1'; // записи голоса: качаются один раз и не удаляются при обновлении
 const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-192.png','./icon-maskable-512.png','./apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()));});
