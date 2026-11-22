@@ -278,7 +278,7 @@ private fun Stock(m: Medication, restocks: List<RestockEntry>, onRestock: (Doubl
                 if (low) stringResource(R.string.stock_low_days, days) else stringResource(R.string.stock_days, days),
                 style = Ry.type.bodySmall, color = if (low) Ry.colors.warningText else Ry.colors.textMuted,
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (inv.packageSize != null) RyButton(stringResource(R.string.stock_bought), { onRestock(inv.packageSize!!) }, small = true, style = ButtonStyle.Tonal, icon = RyIcons.Bag)
                 RyButton(stringResource(R.string.stock_fix), onFix, small = true, style = ButtonStyle.Ghost, icon = RyIcons.Edit)
             }

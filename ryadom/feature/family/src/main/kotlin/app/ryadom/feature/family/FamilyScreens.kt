@@ -390,7 +390,7 @@ private fun MedList(meds: List<Medication>, today: java.time.LocalDate, onOpen: 
             Column(Modifier.fillMaxWidth().clickable { onOpen(m.id) }.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(m.name, style = Ry.type.subtitle, color = Ry.colors.text, modifier = Modifier.weight(1f))
-                    Text(m.schedule.times.joinToString(", ") { it.hhmm() }, style = Ry.type.number.copy(fontSize = Ry.type.caption.fontSize), color = Ry.colors.textMuted)
+                    Text(m.schedule.times.joinToString(", ") { it.hhmm() }, style = Ry.type.caption, color = Ry.colors.textMuted)
                 }
                 val inv = m.inventory
                 if (inv != null) RyMeter((inv.remaining / (inv.packageSize ?: inv.remaining.coerceAtLeast(1.0))).toFloat(), ScheduleEngine.isLowStock(m))

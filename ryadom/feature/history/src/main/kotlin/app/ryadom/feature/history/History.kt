@@ -305,10 +305,16 @@ fun StatsScreen(onBack: () -> Unit, vm: HistoryViewModel = hiltViewModel()) {
                 if (st.loading || f == null) { item { SkeletonList() }; return@LazyColumn }
                 item { SummaryCard(st, null) }
                 item {
-                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        StatTile(st.taken.toString(), stringResource(R.string.stats_taken), Modifier.weight(1f))
-                        StatTile(st.snoozed.toString(), stringResource(R.string.stats_snoozed), Modifier.weight(1f))
-                        StatTile(st.skipped.toString(), stringResource(R.string.stats_skipped), Modifier.weight(1f))
+                    RyGroup {
+                        listOf(
+                            Triple(RyIcons.CheckCircle, R.string.stats_taken, st.taken),
+                            Triple(RyIcons.Later, R.string.stats_snoozed, st.snoozed),
+                            Triple(RyIcons.Skip, R.string.stats_skipped, st.skipped),
+                        ).forEachIndexed { i, (icon, label, value) ->
+                            if (i > 0) RyDivider(start = 52.dp)
+                            RyListRow(stringResource(label).replaceFirstChar { it.uppercase() }, icon = icon,
+                                trailing = { Text(value.toString(), style = Ry.type.title, color = Ry.colors.text) })
+                        }
                     }
                 }
                 // По людям: у каждого своя регулярность, без рейтинга и сравнения.

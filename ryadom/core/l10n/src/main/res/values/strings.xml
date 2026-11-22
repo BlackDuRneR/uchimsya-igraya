@@ -222,7 +222,7 @@
     <string name="med_field_course">Курс</string>
     <string name="med_course_start">Начало</string>
     <string name="med_course_end">Окончание</string>
-    <string name="med_course_open">Без окончания</string>
+    <string name="med_course_open">Бессрочно</string>
     <string name="med_course_until">До даты</string>
     <string name="med_course_days">Дней</string>
     <string name="med_course_notify">Напомнить об окончании курса</string>

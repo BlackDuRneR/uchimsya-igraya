@@ -1,5 +1,8 @@
 package app.ryadom
 
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
@@ -40,7 +43,7 @@ open class ScreensTest {
 
     private fun shot(name: String) {
         compose.waitForIdle()
-        compose.onRoot().captureRoboImage("${prefix}_$name.png")
+        compose.onRoot().captureRoboImage("../design/screenshots/${prefix}_$name.png")
     }
 
     private fun waitText(text: String) = compose.waitUntil(10_000) {
@@ -53,9 +56,13 @@ open class ScreensTest {
         compose.waitForIdle()
     }
 
+    /** Кнопка-иконка: ищем по описанию или по подписи действия (как её озвучит TalkBack). */
     private fun clickDesc(desc: String) {
-        compose.waitUntil(10_000) { compose.onAllNodes(hasContentDescription(desc)).fetchSemanticsNodes().isNotEmpty() }
-        compose.onAllNodes(hasContentDescription(desc) and hasClickAction()).onFirst().performClick()
+        val m = (hasContentDescription(desc) or SemanticsMatcher("onClickLabel=$desc") {
+            it.config.getOrNull(SemanticsActions.OnClick)?.label == desc
+        }) and hasClickAction()
+        compose.waitUntil(10_000) { compose.onAllNodes(m).fetchSemanticsNodes().isNotEmpty() }
+        compose.onAllNodes(m).onFirst().performClick()
         compose.waitForIdle()
     }
 
@@ -115,7 +122,7 @@ open class ScreensTest {
 }
 
 @HiltAndroidTest
-@Config(application = HiltTestApplication::class, sdk = [35], qualifiers = "ru-w360dp-h800dp-xhdpi-night")
+@Config(application = HiltTestApplication::class, sdk = [35], qualifiers = "ru-w360dp-h800dp-night-xhdpi")
 class ScreensDarkTest : ScreensTest() {
     override val prefix = "dark"
 }
