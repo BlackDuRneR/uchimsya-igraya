@@ -1,0 +1,811 @@
+<title>Концепция «Рядом»</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<style>
+/* Макет: редакционная страница-презентация; слева узкая колонка подписей, справа материал. Телефоны — в реальном масштабе (1px = 1dp). */
+:root{
+  --bg:#F6F5F0; --surface:#FFFFFF; --surface-muted:#EFEEE7;
+  --primary:#829987; --primary-dark:#536C5B; --primary-container:#E4EBE3;
+  --secondary:#D9CBB8; --accent:#B7C8B8; --warm:#D8B9A8; --warm-container:#F4EAE3;
+  --text:#2E3531; --text-2:#818780; --text-2s:#666C65; --border:#E7E8E2;
+  --success:#7E9B83; --warning:#D2B17D; --warning-container:#F6EEDF; --warning-text:#7A5C25;
+  --error:#C8877C; --error-container:#F5E6E2; --error-text:#8D544B; --on-primary:#FFFFFF;
+  --shadow:0 8px 24px rgba(46,53,49,.08);
+  --il-ink:#3A433D; --il-paper:#FFFFFF; --il-cream:#ECE7DA; --il-sage:#B7C8B8; --il-leaf:#829987;
+  --il-sand:#D9CBB8; --il-clay:#D8B9A8; --il-bark:#A8937E;
+  --logo-l:#536C5B; --logo-r:#C29A86; --logo-d:#829987; --logo-gap:var(--bg);
+  --p-anna:#C29A86; --p-damir:#6F8B76; --p-bogdan:#C9AD7E;
+  --f-display:"Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --f-text:"Onest", "Segoe UI", Roboto, system-ui, sans-serif;
+  --r-s:10px; --r-m:16px; --r-l:24px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141816; --surface:#1C211E; --surface-muted:#232925;
+  --primary:#9DB5A2; --primary-dark:#B4CAB8; --primary-container:#2A372E;
+  --secondary:#6E6455; --accent:#3E5044; --warm:#A88878; --warm-container:#33291F;
+  --text:#ECEAE3; --text-2:#A2A79F; --text-2s:#B9BDB4; --border:#2C332F;
+  --success:#93B098; --warning:#DDBF8E; --warning-container:#352E22; --warning-text:#E5C995;
+  --error:#DB9C91; --error-container:#3A2925; --error-text:#E8B2A8; --on-primary:#16201A;
+  --shadow:0 8px 24px rgba(0,0,0,.35);
+  --il-ink:#D9D5CA; --il-paper:#252B27; --il-cream:#262C28; --il-sage:#4A5D4F; --il-leaf:#7F9A85;
+  --il-sand:#615749; --il-clay:#73594D; --il-bark:#8E7966;
+  --logo-l:#B4CAB8; --logo-r:#C9A693; --logo-d:#9DB5A2;
+  --p-anna:#C9A693; --p-damir:#93B098; --p-bogdan:#D6BE92;
+  color-scheme:dark; } }
+:root[data-theme="dark"], .force-dark{
+  --bg:#141816; --surface:#1C211E; --surface-muted:#232925;
+  --primary:#9DB5A2; --primary-dark:#B4CAB8; --primary-container:#2A372E;
+  --secondary:#6E6455; --accent:#3E5044; --warm:#A88878; --warm-container:#33291F;
+  --text:#ECEAE3; --text-2:#A2A79F; --text-2s:#B9BDB4; --border:#2C332F;
+  --success:#93B098; --warning:#DDBF8E; --warning-container:#352E22; --warning-text:#E5C995;
+  --error:#DB9C91; --error-container:#3A2925; --error-text:#E8B2A8; --on-primary:#16201A;
+  --shadow:0 8px 24px rgba(0,0,0,.35);
+  --il-ink:#D9D5CA; --il-paper:#252B27; --il-cream:#262C28; --il-sage:#4A5D4F; --il-leaf:#7F9A85;
+  --il-sand:#615749; --il-clay:#73594D; --il-bark:#8E7966;
+  --logo-l:#B4CAB8; --logo-r:#C9A693; --logo-d:#9DB5A2;
+  --p-anna:#C9A693; --p-damir:#93B098; --p-bogdan:#D6BE92;
+  color-scheme:dark;
+}
+.force-light{
+  --bg:#F6F5F0; --surface:#FFFFFF; --surface-muted:#EFEEE7;
+  --primary:#829987; --primary-dark:#536C5B; --primary-container:#E4EBE3;
+  --secondary:#D9CBB8; --accent:#B7C8B8; --warm:#D8B9A8; --warm-container:#F4EAE3;
+  --text:#2E3531; --text-2:#818780; --text-2s:#666C65; --border:#E7E8E2;
+  --success:#7E9B83; --warning:#D2B17D; --warning-container:#F6EEDF; --warning-text:#7A5C25;
+  --error:#C8877C; --error-container:#F5E6E2; --error-text:#8D544B; --on-primary:#FFFFFF;
+  --il-ink:#3A433D; --il-paper:#FFFFFF; --il-cream:#ECE7DA; --il-sage:#B7C8B8; --il-leaf:#829987;
+  --il-sand:#D9CBB8; --il-clay:#D8B9A8; --il-bark:#A8937E;
+  --logo-l:#536C5B; --logo-r:#C29A86; --logo-d:#829987;
+  --p-anna:#C29A86; --p-damir:#6F8B76; --p-bogdan:#C9AD7E;
+  color-scheme:light;
+}
+
+/* ---------- иллюстрации: классы генератора ---------- */
+.illo{display:block;width:100%;height:auto}
+.illo .l{fill:none;stroke:var(--il-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.illo .lt{fill:none;stroke:var(--il-ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.illo .ld{fill:none;stroke:var(--il-ink);stroke-width:1.75;stroke-linecap:round;stroke-dasharray:.1 6}
+.illo .f-paper{fill:var(--il-paper)} .illo .f-cream{fill:var(--il-cream)} .illo .f-sage{fill:var(--il-sage)}
+.illo .f-leaf{fill:var(--il-leaf)} .illo .f-sand{fill:var(--il-sand)} .illo .f-clay{fill:var(--il-clay)}
+.illo .f-bark{fill:var(--il-bark)} .illo .f-ink{fill:var(--il-ink)}
+.illo .s-sage{fill:none;stroke:var(--il-sage);stroke-linecap:round} .illo .s-clay{fill:none;stroke:var(--il-clay);stroke-linecap:round}
+
+/* ---------- страница ---------- */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font:16px/1.55 var(--f-text);margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 64px}
+.wrap{max-width:1180px;margin:0 auto}
+.ic{width:24px;height:24px;flex:none}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.12;letter-spacing:-.01em}
+h3{font-size:22px;line-height:1.25}
+h4{font:600 13px/1.3 var(--f-text);letter-spacing:.08em;text-transform:uppercase;color:var(--text-2s);margin:0 0 12px}
+p{margin:0}
+.lead{font-size:18px;color:var(--text-2s);max-width:62ch}
+.muted{color:var(--text-2s)}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--bg)}
+.topbar .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px max(16px, env(safe-area-inset-left, 0px))}
+.brand{display:flex;align-items:center;gap:10px;font:500 20px/1 var(--f-display)}
+.brand svg{width:28px;height:28px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav a{color:var(--text-2s);text-decoration:none;font-size:14px;padding:8px 10px;border-radius:999px;white-space:nowrap}
+.nav a:hover{background:var(--surface-muted);color:var(--text)}
+.theme-btn{display:flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);
+  border-radius:999px;padding:0 14px;min-height:40px;font:500 14px var(--f-text);cursor:pointer;flex:none}
+.theme-btn:focus-visible,.nav a:focus-visible,button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+@media (max-width:760px){.nav{display:none}}
+
+section{padding-block:72px 8px}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:24px;margin-bottom:36px}
+.sec-head .tag{font:500 13px/1.4 var(--f-text);letter-spacing:.08em;text-transform:uppercase;color:var(--primary-dark);padding-top:10px}
+.sec-head .txt{display:grid;gap:14px}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr;gap:8px}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:56px 16px}
+.hero h1{font-size:clamp(56px,10vw,120px);line-height:.95;letter-spacing:-.03em;font-weight:400}
+.hero .slogan{font:400 clamp(22px,3vw,30px)/1.25 var(--f-display);font-style:italic;color:var(--text-2s);margin-top:14px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--text-2s);background:var(--surface)}
+.hero-art{background:var(--surface);border:1px solid var(--border);border-radius:32px;padding:20px}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.principles>div{border-top:1px solid var(--text);padding-top:14px;display:grid;gap:8px}
+.principles b{font:500 20px/1.3 var(--f-display)}
+@media (max-width:760px){.principles{grid-template-columns:1fr}}
+
+/* логотип */
+.logo-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;align-items:start}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);padding:24px;display:grid;gap:14px;align-content:start;min-width:0}
+.tile.center{place-items:center;text-align:center}
+.lockup{display:flex;align-items:center;gap:18px}
+.lockup svg{width:88px;height:88px}
+.lockup span{font:400 64px/1 var(--f-display);letter-spacing:-.02em}
+.ladder{display:flex;align-items:end;gap:18px;color:var(--text);flex-wrap:wrap}
+.ladder svg{width:100%;height:100%;display:block}
+.appicon{width:128px;height:128px;border-radius:29px;overflow:hidden;box-shadow:var(--shadow)}
+.appicon svg{width:100%;height:100%;display:block}
+.alts{display:flex;gap:18px;flex-wrap:wrap}
+.alts figure{margin:0;display:grid;gap:6px;justify-items:center;font-size:13px;color:var(--text-2s)}
+.alts svg{width:72px;height:72px}
+.ref{display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:start;border-top:1px solid var(--border);padding-top:14px}
+.ref img{width:88px;border-radius:20px}
+@media (max-width:900px){.logo-grid{grid-template-columns:1fr}}
+
+/* цвет */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{border:1px solid var(--border);border-radius:var(--r-m);overflow:hidden;background:var(--surface)}
+.sw i{display:block;height:64px}
+.sw div{padding:10px 12px;font-size:13px;display:grid;gap:2px}
+.sw code{font:500 12px/1.3 ui-monospace,Menlo,monospace;color:var(--text-2s)}
+.note{display:flex;gap:12px;align-items:flex-start;background:var(--warning-container);color:var(--text);border-radius:var(--r-m);padding:14px 16px;font-size:15px}
+.note .ic{color:var(--warning-text)}
+
+/* типографика */
+.type-rows{display:grid;border-top:1px solid var(--border)}
+.type-rows>div{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);align-items:baseline}
+.type-rows small{font-size:13px;color:var(--text-2s)}
+@media (max-width:600px){.type-rows>div{grid-template-columns:1fr;gap:4px}}
+
+/* иконки */
+.ic-group{margin-bottom:22px}
+.ic-cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.ic-cell{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:16px 6px 10px;display:grid;justify-items:center;gap:8px;color:var(--text)}
+.ic-cell figcaption{font:500 11px/1.2 ui-monospace,Menlo,monospace;color:var(--text-2s)}
+
+/* иллюстрации */
+.il-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.il-cell{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);padding:10px 10px 14px;display:grid;gap:6px}
+.il-cell figcaption{font-size:14px;padding-inline:6px;display:flex;gap:10px;align-items:baseline}
+.num{font:500 12px/1 ui-monospace,Menlo,monospace;color:var(--text-2s)}
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.rules>div{display:grid;gap:6px;font-size:15px}
+.rules b{font-weight:600}
+@media (max-width:860px){.rules{grid-template-columns:1fr 1fr}}
+
+/* ---------- компоненты приложения ---------- */
+.app{font-family:var(--f-text);color:var(--text);background:var(--bg);font-size:16px;line-height:1.4}
+.app .t-display{font:400 30px/1.15 var(--f-display);letter-spacing:-.01em}
+.app .t-head{font:500 22px/1.2 var(--f-display)}
+.app .t-title{font:600 17px/1.3 var(--f-text)}
+.app .t-sub{font:600 16px/1.3 var(--f-text)}
+.app .t-body-s{font:400 14px/1.4 var(--f-text)}
+.app .t-cap{font:500 13px/1.3 var(--f-text);color:var(--text-2s)}
+.tnum{font-variant-numeric:tabular-nums}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 12px var(--f-text);color:#fff;flex:none}
+.av.lg{width:40px;height:40px;font-size:15px}
+.av.xl{width:72px;height:72px;font-size:26px}
+.av.anna{background:var(--p-anna)} .av.damir{background:var(--p-damir)} .av.bogdan{background:var(--p-bogdan)}
+.force-dark .av,:root[data-theme="dark"] .av{color:#16201A}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;font:600 15px var(--f-text);border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn .ic{width:20px;height:20px}
+.btn.primary{background:var(--primary-dark);color:var(--on-primary)}
+.btn.tonal{background:var(--primary-container);color:var(--primary-dark)}
+.btn.ghost{background:transparent;border-color:var(--border);color:var(--text)}
+.btn.text{background:transparent;color:var(--primary-dark);padding:0 12px}
+.btn.sm{min-height:40px;padding:0 16px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font:500 14px var(--f-text);color:var(--text);white-space:nowrap}
+.chip .ic{width:18px;height:18px}
+.chip.on{background:var(--primary-container);border-color:transparent;color:var(--primary-dark)}
+.seg{display:flex;background:var(--surface-muted);border-radius:999px;padding:4px;gap:2px}
+.seg span{flex:1;text-align:center;font:500 14px/1 var(--f-text);padding:10px 6px;border-radius:999px;color:var(--text-2s)}
+.seg span.on{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+
+/* строка приёма — главный компонент */
+.group{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);overflow:hidden}
+.group-h{display:flex;align-items:center;gap:8px;padding:14px 16px 4px;color:var(--text-2s);font:500 13px var(--f-text);letter-spacing:.04em;text-transform:uppercase}
+.group-h .ic{width:18px;height:18px}
+.group-h .cnt{margin-left:auto;text-transform:none;letter-spacing:0}
+.row{display:grid;grid-template-columns:46px 1fr 48px;gap:8px;align-items:center;padding:10px 12px 10px 16px;position:relative;transition:background-color .2s cubic-bezier(.2,0,0,1)}
+.row+.row::before{content:"";position:absolute;left:70px;right:16px;top:0;border-top:1px solid var(--border)}
+.row .time{font:500 15px/1 var(--f-text);font-variant-numeric:tabular-nums;color:var(--text)}
+.row .nm{font:600 16px/1.3 var(--f-text);display:flex;align-items:center;gap:6px;min-width:0}
+.row .nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .meta{display:flex;align-items:center;gap:6px;font:400 14px/1.35 var(--f-text);color:var(--text-2s);margin-top:2px;flex-wrap:wrap}
+.row .meta .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.anna{background:var(--p-anna)} .dot.damir{background:var(--p-damir)} .dot.bogdan{background:var(--p-bogdan)}
+.st{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:0;background:transparent;cursor:pointer;color:var(--text-2);padding:0}
+.st .ring{width:30px;height:30px;border-radius:50%;border:1.75px solid var(--border);display:grid;place-items:center;transition:all .2s cubic-bezier(.2,0,0,1)}
+.st .ring .ic{width:18px;height:18px;opacity:0}
+.st .ring .ic path{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .24s .06s cubic-bezier(.2,0,0,1)}
+.row.done .st .ring{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.force-dark .row.done .st .ring{color:#16201A}
+.row.done .st .ring .ic{opacity:1}
+.row.done .st .ring .ic path{stroke-dashoffset:0}
+.row.done .nm{color:var(--text-2s)}
+.row.due .st .ring{border-color:var(--primary-dark);border-width:2px}
+.row.due{background:color-mix(in srgb,var(--primary-container) 55%,transparent)}
+.row.due .time{color:var(--primary-dark)}
+.row.later .time{color:var(--warning-text)}
+.row.skipped .nm span:first-child,.row.cancelled .nm span:first-child{text-decoration:line-through;text-decoration-color:var(--text-2);text-decoration-thickness:1px}
+.row.skipped .nm,.row.cancelled .nm{color:var(--text-2s)}
+.badge{display:inline-flex;align-items:center;gap:4px;font:500 12px/1 var(--f-text);padding:5px 8px;border-radius:999px;white-space:nowrap}
+.badge .ic{width:14px;height:14px}
+.badge.ok{background:var(--primary-container);color:var(--primary-dark)}
+.badge.warn{background:var(--warning-container);color:var(--warning-text)}
+.badge.err{background:var(--error-container);color:var(--error-text)}
+.badge.neutral{background:var(--surface-muted);color:var(--text-2s)}
+.states{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.states{grid-template-columns:1fr}}
+
+/* ---------- телефоны ---------- */
+.phones{display:flex;gap:28px;overflow-x:auto;padding:8px 4px 24px;scroll-snap-type:x mandatory}
+.phone-col{flex:none;display:grid;gap:12px;scroll-snap-align:start}
+.phone-col figcaption{font-size:14px;color:var(--text-2s);max-width:340px}
+.phone-col figcaption b{color:var(--text);font-weight:600;display:block;font-size:15px}
+.force-dark,.force-light,.phone{color:var(--text)}
+.phone{width:340px;height:736px;border-radius:40px;border:1px solid var(--border);background:var(--bg);overflow:hidden;position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.sbar{height:36px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:600 13px var(--f-text);color:var(--text)}
+.scr{flex:1;overflow:hidden;padding:4px 16px 0;display:flex;flex-direction:column;gap:16px;position:relative}
+.bnav{flex:none;height:72px;border-top:1px solid var(--border);background:var(--surface);display:grid;grid-template-columns:1fr 1fr 60px 1fr 1fr;padding:8px 6px 12px;align-items:start}
+.bnav .bplus{display:grid;place-items:center;padding-top:2px}
+.bnav .bplus span{width:48px;height:48px;border-radius:16px;background:var(--primary-dark);color:var(--on-primary);display:grid;place-items:center}
+.bnav div{display:grid;justify-items:center;gap:2px;font:500 12px var(--f-text);color:var(--text-2s)}
+.bnav .pip{width:56px;height:30px;border-radius:999px;display:grid;place-items:center}
+.bnav .on{color:var(--text)}
+.bnav .on .pip{background:var(--primary-container);color:var(--primary-dark)}
+.fab{position:absolute;right:16px;bottom:88px;width:56px;height:56px;border-radius:18px;background:var(--primary-dark);color:var(--on-primary);display:grid;place-items:center;box-shadow:var(--shadow);border:0}
+.hdr{display:flex;align-items:flex-start;gap:12px}
+.hdr .grow{flex:1;min-width:0}
+.sync{display:inline-flex;align-items:center;gap:4px;font:500 12px var(--f-text);color:var(--text-2s)}
+.sync .ic{width:16px;height:16px;color:var(--primary)}
+.progress{display:grid;gap:10px}
+.segbar{display:flex;gap:4px}
+.segbar i{flex:1;height:6px;border-radius:3px;background:var(--surface-muted);transition:background-color .45s cubic-bezier(.2,0,0,1)}
+.segbar i.f{background:var(--primary)}
+.segbar i.n{background:var(--warm)}
+.who{display:flex;gap:8px}
+.who div{display:flex;align-items:center;gap:6px;font:500 13px var(--f-text);color:var(--text-2s);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 10px 4px 4px}
+.who .av{width:22px;height:22px;font-size:10px}
+.now{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);padding:16px;display:grid;gap:12px}
+.now .top{display:flex;gap:12px;align-items:flex-start}
+.now .icobox{width:44px;height:44px;border-radius:14px;background:var(--warm-container);display:grid;place-items:center;color:var(--text);flex:none}
+.now .acts{display:flex;gap:8px}
+.now .acts .btn{flex:1}
+.msg{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r-m);background:var(--surface-muted);font-size:14px}
+.msg .grow{flex:1;min-width:0}
+.topnav{display:flex;align-items:center;gap:8px;min-height:48px}
+.topnav .grow{flex:1;text-align:center;font:600 17px var(--f-text)}
+.iconbtn{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;color:var(--text);flex:none}
+.field{display:grid;gap:8px}
+.field label{font:500 13px var(--f-text);color:var(--text-2s)}
+.input{min-height:52px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-m);padding:0 16px;display:flex;align-items:center;gap:10px;font:500 16px var(--f-text)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.stepper{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:var(--r-m);background:var(--surface);overflow:hidden}
+.stepper span{width:44px;height:50px;display:grid;place-items:center;color:var(--text-2s)}
+.stepper b{min-width:36px;text-align:center;font:600 18px var(--f-text)}
+.switch{width:44px;height:26px;border-radius:999px;background:var(--primary-dark);position:relative;flex:none}
+.switch::after{content:"";position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:var(--surface)}
+.listbox{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l)}
+.li{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.li+.li{border-top:1px solid var(--border)}
+.li .grow{flex:1;min-width:0}
+.li .ic{color:var(--text-2s)}
+.hint{display:flex;gap:10px;font-size:13px;color:var(--text-2s);line-height:1.4}
+.hint .ic{width:18px;height:18px}
+.meter{height:6px;border-radius:3px;background:var(--surface-muted);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px;background:var(--primary)}
+.meter.low i{background:var(--warning)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.week div{display:grid;justify-items:center;gap:6px;padding:8px 0;border-radius:14px;font:500 12px var(--f-text);color:var(--text-2s)}
+.week div b{font:600 16px var(--f-text);color:var(--text)}
+.week div.on{background:var(--primary-dark);color:var(--on-primary)}
+.week div.on b{color:var(--on-primary)}
+.week .marks{display:flex;gap:3px;height:6px}
+.week .marks i{width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.week .marks i.o{background:transparent;border:1px solid var(--text-2)}
+.week .marks i.m{background:var(--warm)}
+.week div.on .marks i{background:var(--on-primary)}
+.week div.on .marks i.o{background:transparent;border-color:var(--on-primary)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:110px;padding-top:6px}
+.bars i{flex:1;border-radius:4px 4px 2px 2px;background:var(--accent)}
+.bars i.full{background:var(--primary)}
+.bars-x{display:flex;justify-content:space-between;font:500 11px var(--f-text);color:var(--text-2s)}
+.big{font:400 44px/1 var(--f-display);letter-spacing:-.02em}
+.split{display:flex;gap:12px}
+.split>div{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:12px;display:grid;gap:4px}
+.ill-sm{width:100%;max-width:240px;margin:0 auto}
+
+/* уведомления и виджеты */
+.os{background:#2B2F2D;border-radius:32px;padding:20px;display:grid;gap:14px;width:340px;flex:none;align-content:start}
+.notif{background:#F3F2EC;color:#2E3531;border-radius:24px;padding:14px 16px;display:grid;gap:8px;font-family:var(--f-text)}
+.notif .app-row{display:flex;align-items:center;gap:8px;font:500 12px var(--f-text);color:#666C65}
+.notif .app-row .bdg{width:22px;height:22px;border-radius:50%;background:#536C5B;display:grid;place-items:center;color:#fff}
+.notif .app-row .bdg svg{width:14px;height:14px}
+.notif b{font:600 15px var(--f-text)}
+.notif p{font-size:14px;color:#2E3531}
+.notif .na{display:flex;gap:6px;flex-wrap:wrap}
+.notif .na span{font:600 13px var(--f-text);color:#536C5B;background:#E4EBE3;border-radius:999px;padding:8px 14px}
+.widget{background:var(--surface);color:var(--text);border-radius:28px;padding:16px;display:grid;gap:10px}
+.widget .wh{display:flex;align-items:center;gap:8px;font:500 12px var(--f-text);color:var(--text-2s)}
+.widget .wh svg{width:18px;height:18px}
+.wrow{display:flex;align-items:center;gap:10px}
+.wrow .grow{flex:1;min-width:0}
+.wcheck{width:40px;height:40px;border-radius:50%;background:var(--primary-dark);color:var(--on-primary);display:grid;place-items:center;flex:none}
+.wcheck .ic{width:20px;height:20px}
+.wmini{width:22px;height:22px;border-radius:50%;border:1.75px solid var(--border);flex:none;display:grid;place-items:center}
+.wmini.d{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.wmini .ic{width:14px;height:14px}
+
+/* карта экранов */
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.map>div{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);padding:18px;display:grid;gap:10px;align-content:start}
+.map ol{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+.map li{display:flex;gap:10px;align-items:baseline}
+.map li .num{width:22px;flex:none}
+.map h3{display:flex;align-items:center;gap:8px;font-size:19px}
+@media (max-width:1000px){.map{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.map{grid-template-columns:1fr}}
+
+.tbl{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-l);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font:600 13px var(--f-text);color:var(--text-2s);letter-spacing:.04em;text-transform:uppercase}
+tr:last-child td{border-bottom:0}
+td code{font:500 13px ui-monospace,Menlo,monospace}
+.arch{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.arch>div{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);padding:18px;display:grid;gap:8px;align-content:start;font-size:15px}
+.arch b{font:500 19px/1.3 var(--f-display)}
+.arch code{font:500 12.5px/1.5 ui-monospace,Menlo,monospace;color:var(--text-2s)}
+@media (max-width:900px){.arch{grid-template-columns:1fr}}
+.qs{display:grid;gap:12px;counter-reset:q}
+.qs>div{display:grid;grid-template-columns:36px 1fr;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:16px}
+.qs>div::before{counter-increment:q;content:counter(q);width:32px;height:32px;border-radius:50%;background:var(--primary-container);color:var(--primary-dark);display:grid;place-items:center;font:600 14px var(--f-text)}
+footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--border);color:var(--text-2s);font-size:14px;display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="topbar"><div class="in">
+  <div class="brand">{{logo:mark}}<span>рядом</span></div>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#logo">Логотип</a><a href="#color">Цвет</a><a href="#type">Шрифты</a><a href="#icons">Иконки</a>
+    <a href="#illustrations">Иллюстрации</a><a href="#components">Компоненты</a><a href="#screens">Экраны</a><a href="#map">Карта</a><a href="#next">Дальше</a>
+  </nav>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="Переключить тему">{{icon:theme}}<span id="themeLbl">Тема</span></button>
+</div></header>
+
+<main class="wrap">
+
+<div class="hero">
+  <div>
+    <span class="pill">Этап 1 из 7 · дизайн-концепция</span>
+    <h1 style="margin-top:22px">Рядом</h1>
+    <p class="slogan">Забота, которая не забывается</p>
+    <p class="lead" style="margin-top:22px">Семейное пространство для витаминов, лекарств и привычек. Здесь собрано визуальное направление, логотип, цвета, шрифты, иконки, двадцать иллюстраций, ключевые компоненты, макеты экранов и карта всех тридцати экранов. Код приложения начнётся после того, как вы утвердите направление.</p>
+    <div class="meta"><span class="pill">Android · Kotlin · Compose</span><span class="pill">светлая и тёмная тема</span><span class="pill">RU · KK · EN</span></div>
+  </div>
+  <div class="hero-art">{{illo:family_scene}}</div>
+</div>
+
+<section id="direction">
+  <div class="sec-head"><div class="tag">Направление</div><div class="txt">
+    <h2>Тёплая редакционная тишина вместо больничной таблетницы</h2>
+    <p class="lead">Светлый тёплый фон, шалфейный зелёный и песочный, крупная антиква в заголовках и спокойный гротеск в интерфейсе. Мало рамок, много воздуха. Цвет обозначает состояние и человека, а не украшает.</p>
+  </div></div>
+  <div class="principles">
+    <div><b>Спокойствие</b><p class="muted">Нет красных тревог и счётчиков пропусков. Пропуск — нейтральное состояние с понятным действием «отметить» или «перенести».</p></div>
+    <div><b>Вместе</b><p class="muted">У каждого члена семьи свой цвет-акцент. По нему за полсекунды видно, чей это приём и кто его отметил.</p></div>
+    <div><b>Одно касание</b><p class="muted">Отметка — круг справа в строке, 48 dp. Никаких переходов в карточку ради обычного «принято».</p></div>
+  </div>
+</section>
+
+<section id="logo">
+  <div class="sec-head"><div class="tag">Логотип</div><div class="txt">
+    <h2>«Ладони»: две полудуги бережно держат точку</h2>
+    <p class="lead">Полудуги — двое взрослых, у каждого свой цвет. Точка в центре — тот, о ком заботятся. Дуги чуть заходят друг за друга: люди не просто стоят рядом, они держатся вместе. Знак без таблетки и без сердца-клише, читается при 24 px и в одном цвете.</p>
+  </div></div>
+  <div class="logo-grid">
+    <div class="tile">
+      <div class="lockup">{{logo:mark}}<span>рядом</span></div>
+      <p class="muted">Строчное начертание Source Serif 4. Название вынесено в строковые ресурсы, поэтому приложение можно переименовать без изменений в логике.</p>
+      <div class="ladder">
+        <div style="width:64px;height:64px">{{logo:mark}}</div>
+        <div style="width:48px;height:48px">{{logo:mark}}</div>
+        <div style="width:32px;height:32px">{{logo:mark}}</div>
+        <div style="width:24px;height:24px">{{logo:mono}}</div>
+        <div style="width:18px;height:18px">{{logo:notif}}</div>
+      </div>
+    </div>
+    <div class="tile center">
+      <div class="appicon">{{logo:app}}</div>
+      <p><b>Иконка приложения</b></p>
+      <p class="muted" style="font-size:14px">Adaptive icon: тёмный шалфей и тёплый песок. Есть монохромный слой для тем Android 13+ и белый силуэт для строки уведомлений.</p>
+    </div>
+    <div class="tile">
+      <h4>Другие варианты</h4>
+      <div class="alts">
+        <figure>{{logo:mark}}<figcaption>«Ладони» · основной</figcaption></figure>
+        <figure>__ALT_ROOF__<figcaption>«Под одной крышей»</figcaption></figure>
+        <figure>__ALT_HANDS__<figcaption>«Рука об руку»</figcaption></figure>
+      </div>
+      <div class="ref">
+        <img src="__REF_IMG__" alt="Присланный эскиз иконки: золотые профили мужчины и женщины, ребёнок, флакон и сердце на тёмно-синем фоне">
+        <p class="muted" style="font-size:14px">Ваш эскиз. Из него я взял тёмный фон, тёплый «металл» и смысл «двое взрослых и ребёнок». Флакон и объёмное золото противоречат разделам 4, 5 и 8 ТЗ, поэтому в знак они не вошли. Если хотите оставить эскиз как есть, перерисую его в линейном стиле.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="color">
+  <div class="sec-head"><div class="tag">Цвет</div><div class="txt">
+    <h2>Палитра из ТЗ, разложенная на токены</h2>
+    <p class="lead">Все цвета живут в одном файле токенов. Компоненты берут их по роли (фон, поверхность, текст, состояние), поэтому тёмная тема — это та же система с другими значениями, а не перекраска экранов.</p>
+  </div></div>
+  <h4>Светлая тема</h4>
+  <div class="swatches force-light" style="background:transparent">__SW_LIGHT__</div>
+  <h4 style="margin-top:28px">Тёмная тема</h4>
+  <div class="swatches force-dark" style="background:transparent">__SW_DARK__</div>
+  <div class="note" style="margin-top:24px">{{icon:info}}<div><b>Нужно ваше согласие.</b> Text Secondary <code>#818780</code> на фоне <code>#F6F5F0</code> даёт контраст 3,4:1, а для мелкого текста по WCAG нужно 4,5:1. Предлагаю оставить <code>#818780</code> для иконок и крупного текста, а подписи до 18 sp делать <code>#666C65</code> (4,9:1). По той же причине текст на кнопках идёт по Primary Dark (5,7:1), а не по Primary (3,1:1), а для текста ошибок и предупреждений добавлены более тёмные оттенки.</div></div>
+</section>
+
+<section id="type">
+  <div class="sec-head"><div class="tag">Шрифты</div><div class="txt">
+    <h2>Антиква для заботы, гротеск для дела</h2>
+    <p class="lead">Source Serif 4 — приветствие, крупные числа и заголовки экранов. Onest — весь интерфейс. Оба шрифта поддерживают кириллицу с казахскими буквами (ә, ғ, қ, ң, ө, ұ, ү, һ, і), распространяются по лицензии OFL и вшиваются в APK.</p>
+  </div></div>
+  <div class="type-rows app" style="background:transparent">
+    <div><small>Display · 32/38 · Serif</small><span class="t-display" style="font-size:32px">Доброе утро, Анна</span></div>
+    <div><small>Headline · 24/30 · Serif</small><span class="t-head" style="font-size:24px">Сегодня выполнено 4 из 7</span></div>
+    <div><small>Title · 18/24 · 600</small><span class="t-title" style="font-size:18px">Витамин D3 для Богдана</span></div>
+    <div><small>Body · 16/24 · 400</small><span>Если утренний приём не отмечен до 09:30, Дамир получит мягкое напоминание.</span></div>
+    <div><small>Body S · 14/20 · 400</small><span class="t-body-s">2 капли · после завтрака · отметил Дамир в 09:04</span></div>
+    <div><small>Caption · 13/16 · 500</small><span class="t-cap">ОСТАЛОСЬ ПРИМЕРНО 5 ДНЕЙ</span></div>
+    <div><small>Қазақша</small><span class="t-title" style="font-weight:500">Қамқорлық ұмытылмайды · Бүгін 7-ден 4 орындалды</span></div>
+  </div>
+  <p class="muted" style="margin-top:14px;font-size:14px">Минимальный размер текста — 13 sp. Время и количества набираются моноширинными цифрами, чтобы колонка времени не «прыгала». Все размеры в sp, поэтому системное увеличение шрифта работает.</p>
+</section>
+
+<section id="icons">
+  <div class="sec-head"><div class="tag">Иконки</div><div class="txt">
+    <h2>63 собственные иконки в одной сетке</h2>
+    <p class="lead">Сетка 24×24, рабочая зона 2–22, линия 1,75, круглые концы и стыки, только контур. В интерфейсе иконки одного цвета. Цвет меняется только для состояния (принято, пора, внимание).</p>
+  </div></div>
+  {{icon-grid}}
+</section>
+
+<section id="illustrations">
+  <div class="sec-head"><div class="tag">Иллюстрации</div><div class="txt">
+    <h2>Двадцать сцен одной рукой</h2>
+    <p class="lead">Коллекция нарисована по общим правилам и собирается из одного исходника в SVG для светлой и тёмной темы. Переключите тему вверху, и иллюстрации перекрасятся вместе с интерфейсом.</p>
+  </div></div>
+  <div class="rules">
+    <div><b>Смещённая печать</b><span class="muted">Пастельная заливка сдвинута от контура на 4×3. Этот приём делает набор узнаваемым.</span></div>
+    <div><b>Арки и точки</b><span class="muted">Люди — арка и круг, без лиц и мелких деталей. Это тот же язык, что и в логотипе.</span></div>
+    <div><b>Одна линия</b><span class="muted">Контур 2 px, детали 1,5 px, пунктир для времени и пути.</span></div>
+    <div><b>Восемь красок</b><span class="muted">Чернила, бумага, крем, шалфей, лист, песок, глина и кора. Других цветов нет.</span></div>
+  </div>
+  <div class="il-grid">{{illo-grid}}</div>
+</section>
+
+<section id="components">
+  <div class="sec-head"><div class="tag">Компоненты</div><div class="txt">
+    <h2>Строка приёма и её семь состояний</h2>
+    <p class="lead">Главный элемент приложения. Это строка внутри группы «Утро / День / Вечер», а не отдельная карточка, поэтому экран не превращается в стопку одинаковых плашек. Состояние передаётся формой круга, подписью и цветом сразу, а не только цветом. Нажмите на круг, чтобы увидеть анимацию отметки.</p>
+  </div></div>
+  <div class="states app" style="background:transparent">
+    <div class="group">
+      <div class="row"><span class="time">21:00</span><div><div class="nm"><span>Магний B6</span></div><div class="meta"><i class="dot anna"></i>Анна · 1 таблетка · <span>ожидается</span></div></div><button class="st" type="button" aria-label="Отметить приём"><span class="ring">{{icon:check}}</span></button></div>
+      <div class="row due"><span class="time">09:00</span><div><div class="nm"><span>Витамин D3</span><span class="badge ok">пора</span></div><div class="meta"><i class="dot bogdan"></i>Богдан · 2 капли</div></div><button class="st" type="button" aria-label="Отметить приём"><span class="ring">{{icon:check}}</span></button></div>
+      <div class="row done"><span class="time">08:00</span><div><div class="nm"><span>Омега-3</span></div><div class="meta"><i class="dot damir"></i>Дамир · принято в 08:06</div></div><button class="st" type="button" aria-label="Снять отметку"><span class="ring">{{icon:check}}</span></button></div>
+      <div class="row later"><span class="time">14:15</span><div><div class="nm"><span>Железо</span><span class="badge warn">{{icon:later}}+15 мин</span></div><div class="meta"><i class="dot anna"></i>Анна · перенесено с 14:00</div></div><button class="st" type="button" aria-label="Отметить приём"><span class="ring">{{icon:check}}</span></button></div>
+    </div>
+    <div class="group">
+      <div class="row skipped"><span class="time">13:00</span><div><div class="nm"><span>Цинк</span><span class="badge neutral">{{icon:skip}}пропущено</span></div><div class="meta"><i class="dot damir"></i>Дамир · можно отметить позже</div></div><button class="st" type="button" aria-label="Отметить приём"><span class="ring">{{icon:check}}</span></button></div>
+      <div class="row cancelled"><span class="time">18:00</span><div><div class="nm"><span>Пробиотик</span><span class="badge neutral">отменено</span></div><div class="meta"><i class="dot bogdan"></i>Богдан · на сегодня</div></div><span class="st" style="cursor:default">{{icon:close}}</span></div>
+      <div class="row"><span class="time">—</span><div><div class="nm"><span>Витамин C</span><span class="badge ok">{{icon:flag}}курс завершён</span></div><div class="meta"><i class="dot anna"></i>Анна · 30 из 30 дней</div></div><span class="st" style="cursor:default;color:var(--primary)">{{icon:check-circle}}</span></div>
+      <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border)">
+        <span class="btn primary sm">{{icon:check}}Отметить</span><span class="btn ghost sm">{{icon:later}}Позже</span><span class="btn tonal sm">Сообщить Анне</span>
+      </div>
+    </div>
+  </div>
+  <div class="app" style="background:transparent;margin-top:20px;display:flex;flex-wrap:wrap;gap:24px;align-items:center">
+    <div class="chips"><span class="chip on">{{icon:capsule}}Витамины</span><span class="chip">Минералы</span><span class="chip">Лекарства</span><span class="chip">Добавки</span></div>
+    <div class="seg" style="width:260px"><span class="on">День</span><span>Неделя</span><span>Месяц</span></div>
+    <div class="chips"><span class="chip"><span class="av anna" style="width:22px;height:22px;font-size:10px">А</span>Анна</span><span class="chip on"><span class="av bogdan" style="width:22px;height:22px;font-size:10px">Б</span>Богдан</span></div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="sec-head"><div class="tag">Экраны</div><div class="txt">
+    <h2>Ключевые экраны в масштабе 1:1</h2>
+    <p class="lead">Ширина 340 dp — небольшой смартфон. Данные условные: семья Анны, Дамира и их сына Богдана. Экраны прокручиваются вбок. Второй телефон всегда в тёмной теме, чтобы обе темы было видно рядом.</p>
+  </div></div>
+  <div class="phones app" style="background:transparent">
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone" id="homePhone">
+        <div class="sbar"><span class="tnum">08:56</span><span>{{icon:cloud-check}}</span></div>
+        <div class="scr">
+          <div class="hdr">
+            <div class="grow"><div class="t-display">Доброе утро, Анна</div><div class="t-cap" style="margin-top:4px">Суббота, 22 ноября</div></div>
+            <div style="display:grid;justify-items:end;gap:6px"><span class="av lg anna">А</span><span class="sync">{{icon:cloud-check}}синхр.</span></div>
+          </div>
+          <div class="progress">
+            <div style="display:flex;align-items:baseline;gap:8px"><span class="t-head tnum" id="pCount">4 из 7</span><span class="t-cap">приёмов семьи сегодня</span></div>
+            <div class="segbar" id="pBar"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="n"></i><i></i><i></i></div>
+            <div class="who"><div><span class="av anna">А</span>2/3</div><div><span class="av damir">Д</span>2/2</div><div><span class="av bogdan">Б</span>0/2</div></div>
+          </div>
+          <div class="now">
+            <div class="top">
+              <div class="icobox">{{icon:drop}}</div>
+              <div style="flex:1;min-width:0"><div class="t-cap" style="color:var(--primary-dark)">СЕЙЧАС · 09:00</div><div class="t-title">Витамин D3</div><div class="t-body-s muted">Богдан · 2 капли · следите вы и Дамир</div></div>
+            </div>
+            <div class="acts"><span class="btn primary" id="nowBtn">{{icon:check}}Отметить</span><span class="btn ghost">{{icon:later}}Позже</span></div>
+          </div>
+          <div class="msg"><span class="av damir">Д</span><div class="grow"><b style="font-weight:600">Дамир:</b> купил новую упаковку омеги</div><span class="chip" style="min-height:32px;padding:0 10px">Спасибо</span></div>
+          <div class="group">
+            <div class="group-h">{{icon:sunrise}}Утро<span class="cnt tnum">3 из 4</span></div>
+            <div class="row done"><span class="time">08:00</span><div><div class="nm"><span>Омега-3</span></div><div class="meta"><i class="dot damir"></i>Дамир · принято</div></div><button class="st" type="button" aria-label="Снять отметку"><span class="ring">{{icon:check}}</span></button></div>
+            <div class="row done"><span class="time">08:00</span><div><div class="nm"><span>Магний</span></div><div class="meta"><i class="dot anna"></i>Анна · отметил Дамир</div></div><button class="st" type="button" aria-label="Снять отметку"><span class="ring">{{icon:check}}</span></button></div>
+          </div>
+        </div>
+        <div class="bnav"><div class="on"><span class="pip">{{icon:home}}</span>Главная</div><div><span class="pip">{{icon:calendar}}</span>Расписание</div><div class="bplus"><span aria-label="Добавить препарат">{{icon:plus}}</span></div><div><span class="pip">{{icon:family}}</span>Семья</div><div><span class="pip">{{icon:history}}</span>История</div></div>
+      </div>
+      <figcaption><b>Главная</b>За 2–3 секунды видно, что нужно сейчас, сколько уже сделано и есть ли сообщение от супруга. Кнопка «Отметить» здесь работает.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone force-dark">
+        <div class="sbar"><span class="tnum">21:10</span><span>{{icon:cloud-check}}</span></div>
+        <div class="scr">
+          <div class="hdr">
+            <div class="grow"><div class="t-display">Добрый вечер</div><div class="t-cap" style="margin-top:4px">Суббота, 22 ноября</div></div>
+            <span class="av lg damir">Д</span>
+          </div>
+          <div class="progress">
+            <div style="display:flex;align-items:baseline;gap:8px"><span class="t-head tnum">6 из 7</span><span class="t-cap">приёмов семьи сегодня</span></div>
+            <div class="segbar"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="n"></i></div>
+          </div>
+          <div class="group">
+            <div class="group-h">{{icon:moon}}Вечер<span class="cnt tnum">1 из 2</span></div>
+            <div class="row due"><span class="time">21:00</span><div><div class="nm"><span>Магний B6</span><span class="badge ok">пора</span></div><div class="meta"><i class="dot anna"></i>Анна · 1 таблетка</div></div><button class="st" type="button" aria-label="Отметить приём"><span class="ring">{{icon:check}}</span></button></div>
+            <div class="row done"><span class="time">20:00</span><div><div class="nm"><span>Витамин D3</span></div><div class="meta"><i class="dot damir"></i>Дамир · принято</div></div><button class="st" type="button" aria-label="Снять отметку"><span class="ring">{{icon:check}}</span></button></div>
+          </div>
+          <div class="msg"><span class="av anna">А</span><div class="grow"><b style="font-weight:600">Анна:</b> не забудь вечером</div></div>
+          <div class="group">
+            <div class="group-h">{{icon:sun}}День<span class="cnt tnum">2 из 2</span></div>
+            <div class="row done"><span class="time">14:15</span><div><div class="nm"><span>Железо</span></div><div class="meta"><i class="dot anna"></i>Анна · принято в 14:20</div></div><button class="st" type="button" aria-label="Снять отметку"><span class="ring">{{icon:check}}</span></button></div>
+          </div>
+        </div>
+        <div class="bnav"><div class="on"><span class="pip">{{icon:home}}</span>Главная</div><div><span class="pip">{{icon:calendar}}</span>Расписание</div><div class="bplus"><span aria-label="Добавить препарат">{{icon:plus}}</span></div><div><span class="pip">{{icon:family}}</span>Семья</div><div><span class="pip">{{icon:history}}</span>История</div></div>
+      </div>
+      <figcaption><b>Главная, тёмная тема</b>Тёплый тёмный фон, а не чёрный. Акценты людей и состояний сохраняют характер, иллюстрации перекрашиваются автоматически.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone">
+        <div class="sbar"><span class="tnum">10:12</span><span></span></div>
+        <div class="scr" style="gap:18px">
+          <div class="topnav"><span class="iconbtn">{{icon:close}}</span><span class="grow">Новый препарат</span><span class="btn text">Готово</span></div>
+          <div class="field"><label>Название</label><div class="input">Витамин D3<span style="margin-left:auto;color:var(--text-2s)">{{icon:camera}}</span></div></div>
+          <div class="field"><label>Категория</label><div class="chips"><span class="chip on">Витамины</span><span class="chip">Минералы</span><span class="chip">Лекарства</span><span class="chip">Добавки</span></div></div>
+          <div class="field"><label>Для кого</label><div class="chips"><span class="chip"><span class="av anna" style="width:22px;height:22px;font-size:10px">А</span>Анна</span><span class="chip"><span class="av damir" style="width:22px;height:22px;font-size:10px">Д</span>Дамир</span><span class="chip on"><span class="av bogdan" style="width:22px;height:22px;font-size:10px">Б</span>Богдан</span></div></div>
+          <div class="field"><label>Дозировка — как назначено</label><div style="display:flex;gap:10px;align-items:center"><div class="stepper"><span>−</span><b>2</b><span>+</span></div><div class="chips" style="flex-wrap:nowrap;overflow:hidden"><span class="chip on">{{icon:drop}}капли</span><span class="chip">мл</span><span class="chip">табл.</span></div></div></div>
+          <div class="field"><label>Расписание</label><div class="seg"><span class="on">Ежедневно</span><span>Дни</span><span>Интервал</span></div><div class="chips"><span class="chip on tnum">09:00</span><span class="chip">{{icon:plus}}время</span></div></div>
+          <div class="field"><label>Кто следит</label><div class="seg"><span>Я</span><span>Дамир</span><span class="on">Оба</span></div></div>
+          <div class="listbox"><div class="li">{{icon:bell}}<div class="grow t-body-s">Напомнить Дамиру, если не отмечено за 30 мин</div><span class="switch"></span></div></div>
+          <div class="hint">{{icon:info}}<span>Рядом не рассчитывает и не советует дозировку. Укажите то, что назначил врач.</span></div>
+        </div>
+      </div>
+      <figcaption><b>Добавление препарата</b>Один прокручиваемый экран вместо мастера на пять шагов. Курс, остаток и заметки — ниже, их можно заполнить потом.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone">
+        <div class="sbar"><span class="tnum">12:40</span><span></span></div>
+        <div class="scr">
+          <div class="topnav"><span class="iconbtn">{{icon:arrow-left}}</span><span class="grow"></span><span class="iconbtn">{{icon:more}}</span></div>
+          <div style="display:flex;gap:14px;align-items:center"><span class="av xl bogdan">Б</span><div><div class="t-head">Богдан</div><div class="t-cap">4 года · ведут Анна и Дамир</div></div></div>
+          <div class="seg"><span class="on">Препараты</span><span>История</span><span>Правила</span></div>
+          <div class="listbox">
+            <div class="li" style="display:grid;gap:8px">
+              <div style="display:flex;gap:10px;align-items:center"><span class="t-sub" style="flex:1">Витамин D3</span><span class="t-cap tnum">09:00</span></div>
+              <div class="meter"><i style="width:62%"></i></div>
+              <div class="t-cap" style="display:flex;justify-content:space-between"><span>Осталось ~18 дней</span><span class="tnum">курс: день 24 из 60</span></div>
+            </div>
+            <div class="li" style="display:grid;gap:8px">
+              <div style="display:flex;gap:10px;align-items:center"><span class="t-sub" style="flex:1">Омега детская</span><span class="t-cap tnum">19:00</span></div>
+              <div class="meter low"><i style="width:14%"></i></div>
+              <div class="t-cap" style="display:flex;justify-content:space-between;align-items:center"><span style="color:var(--warning-text)">Осталось примерно 5 дней</span><span class="chip" style="min-height:30px;padding:0 10px;font-size:13px">{{icon:bag}}Купить</span></div>
+            </div>
+          </div>
+          <div class="listbox" style="padding:14px 16px;display:grid;gap:8px">
+            <div style="display:flex;gap:8px;align-items:center" class="t-sub">{{icon:heart}}Семейное правило</div>
+            <div class="t-body-s muted">Если утренний витамин не отмечен до 09:30, напомнить второму родителю. Только для приёмов Богдана.</div>
+          </div>
+          <div class="ill-sm" style="margin-top:-4px">{{illo:mother_child}}</div>
+        </div>
+      </div>
+      <figcaption><b>Профиль ребёнка</b>Ребёнку не нужен аккаунт: профиль ведут оба родителя, у каждого препарата видно остаток и ход курса.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone">
+        <div class="sbar"><span class="tnum">12:41</span><span></span></div>
+        <div class="scr">
+          <div class="t-display" style="font-size:28px">Расписание</div>
+          <div class="seg"><span>День</span><span class="on">Неделя</span><span>Месяц</span></div>
+          <div class="week">
+            <div><span>пн</span><b>17</b><span class="marks"><i></i><i></i><i></i></span></div>
+            <div><span>вт</span><b>18</b><span class="marks"><i></i><i></i><i></i></span></div>
+            <div><span>ср</span><b>19</b><span class="marks"><i></i><i></i><i class="m"></i></span></div>
+            <div><span>чт</span><b>20</b><span class="marks"><i></i><i></i><i></i></span></div>
+            <div><span>пт</span><b>21</b><span class="marks"><i></i><i></i><i></i></span></div>
+            <div class="on"><span>сб</span><b>22</b><span class="marks"><i></i><i></i><i class="o"></i></span></div>
+            <div><span>вс</span><b>23</b><span class="marks"><i class="o"></i><i class="o"></i><i class="o"></i></span></div>
+          </div>
+          <div class="chips"><span class="chip on">Все</span><span class="chip">Анна</span><span class="chip">Дамир</span><span class="chip">Богдан</span></div>
+          <div class="group">
+            <div class="group-h">{{icon:sunrise}}Утро</div>
+            <div class="row done"><span class="time">08:00</span><div><div class="nm"><span>Омега-3</span></div><div class="meta"><i class="dot damir"></i>Дамир</div></div><span class="st"><span class="ring">{{icon:check}}</span></span></div>
+            <div class="row due"><span class="time">09:00</span><div><div class="nm"><span>Витамин D3</span></div><div class="meta"><i class="dot bogdan"></i>Богдан</div></div><span class="st"><span class="ring">{{icon:check}}</span></span></div>
+            <div class="group-h" style="border-top:1px solid var(--border);margin-top:4px">{{icon:moon}}Вечер</div>
+            <div class="row"><span class="time">21:00</span><div><div class="nm"><span>Магний B6</span></div><div class="meta"><i class="dot anna"></i>Анна · курс до 15 дек</div></div><span class="st"><span class="ring">{{icon:check}}</span></span></div>
+          </div>
+        </div>
+        <div class="bnav"><div><span class="pip">{{icon:home}}</span>Главная</div><div class="on"><span class="pip">{{icon:calendar}}</span>Расписание</div><div class="bplus"><span aria-label="Добавить препарат">{{icon:plus}}</span></div><div><span class="pip">{{icon:family}}</span>Семья</div><div><span class="pip">{{icon:history}}</span>История</div></div>
+      </div>
+      <figcaption><b>Расписание, неделя</b>Не больше трёх меток на день: принято, впереди, пропуск. Календарь остаётся лёгким и не превращается в россыпь точек.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone">
+        <div class="sbar"><span class="tnum">12:42</span><span></span></div>
+        <div class="scr">
+          <div class="t-display" style="font-size:28px">История</div>
+          <div class="seg"><span>Неделя</span><span class="on">2 недели</span><span>Месяц</span></div>
+          <div class="listbox" style="padding:16px;display:grid;gap:10px">
+            <div style="display:flex;align-items:baseline;gap:10px"><span class="big tnum">94%</span><span class="t-cap">отмечено вовремя или позже</span></div>
+            <div class="bars" aria-hidden="true"><i class="full" style="height:100%"></i><i class="full" style="height:100%"></i><i style="height:86%"></i><i class="full" style="height:100%"></i><i class="full" style="height:100%"></i><i style="height:71%"></i><i class="full" style="height:100%"></i><i class="full" style="height:100%"></i><i class="full" style="height:100%"></i><i style="height:86%"></i><i class="full" style="height:100%"></i><i class="full" style="height:100%"></i><i class="full" style="height:100%"></i><i style="height:57%"></i></div>
+            <div class="bars-x tnum"><span>9 ноя</span><span>15</span><span>22 ноя</span></div>
+          </div>
+          <div class="listbox">
+            <div class="li"><div class="grow"><div class="t-sub">Пятница, 21 ноября</div><div class="t-cap">7 из 7 · отмечали Анна и Дамир</div></div>{{icon:chevron-right}}</div>
+            <div class="li"><div class="grow"><div class="t-sub">Четверг, 20 ноября</div><div class="t-cap">6 из 7 · Железо перенесено на 15 мин</div></div>{{icon:chevron-right}}</div>
+            <div class="li"><div class="grow"><div class="t-sub">Среда, 19 ноября</div><div class="t-cap">6 из 7 · Цинк пропущен</div></div>{{icon:chevron-right}}</div>
+          </div>
+        </div>
+        <div class="bnav"><div><span class="pip">{{icon:home}}</span>Главная</div><div><span class="pip">{{icon:calendar}}</span>Расписание</div><div class="bplus"><span aria-label="Добавить препарат">{{icon:plus}}</span></div><div><span class="pip">{{icon:family}}</span>Семья</div><div class="on"><span class="pip">{{icon:history}}</span>История</div></div>
+      </div>
+      <figcaption><b>История и статистика</b>Регулярность без рейтингов и соревнования между супругами. Пропуск описан словами, без красного цвета.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="phone">
+        <div class="sbar"><span class="tnum">07:30</span><span></span></div>
+        <div class="scr" style="justify-content:center;text-align:center;gap:18px;padding-bottom:40px">
+          <div class="ill-sm">{{illo:empty_schedule}}</div>
+          <div class="t-head">Расписание пока пустое</div>
+          <p class="t-body-s muted" style="max-width:260px;margin:0 auto">Добавьте первый витамин или лекарство, и Рядом напомнит о нём вам и близким.</p>
+          <div style="display:grid;gap:8px;justify-items:center"><span class="btn primary">{{icon:plus}}Добавить препарат</span><span class="btn text">Пригласить супруга</span></div>
+        </div>
+        <div class="bnav"><div class="on"><span class="pip">{{icon:home}}</span>Главная</div><div><span class="pip">{{icon:calendar}}</span>Расписание</div><div class="bplus"><span aria-label="Добавить препарат">{{icon:plus}}</span></div><div><span class="pip">{{icon:family}}</span>Семья</div><div><span class="pip">{{icon:history}}</span>История</div></div>
+      </div>
+      <figcaption><b>Пустое состояние</b>Иллюстрация, одна фраза и два настоящих действия. Так же устроены экраны ошибок и офлайна.</figcaption>
+    </figure>
+
+    <figure class="phone-col" style="margin:0">
+      <div class="os">
+        <div class="notif">
+          <div class="app-row"><span class="bdg">{{logo:notif}}</span>Рядом · сейчас</div>
+          <b>Время заботы</b><p>Богдан — витамин D3, 2 капли</p>
+          <div class="na"><span>Отметить приём</span><span>Позже</span></div>
+        </div>
+        <div class="notif">
+          <div class="app-row"><span class="bdg">{{logo:notif}}</span>Рядом · 09:30</div>
+          <b>Богдану ещё не отметили утренний витамин</b><p>Анна получила напоминание в 09:00</p>
+          <div class="na"><span>Я дал</span><span>Напомнить Анне</span><span>Позже</span></div>
+        </div>
+        <div class="widget force-light">
+          <div class="wh">{{logo:mark}}Ближайший приём</div>
+          <div class="wrow"><div class="grow"><div class="t-sub">Витамин D3</div><div class="t-cap">Богдан · 09:00</div></div><span class="wcheck">{{icon:check}}</span></div>
+        </div>
+        <div class="widget force-light">
+          <div class="wh">{{logo:mark}}Сегодня<span style="margin-left:auto" class="tnum">4 из 7</span></div>
+          <div class="segbar"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="n"></i><i></i><i></i></div>
+          <div class="wrow"><span class="wmini d">{{icon:check}}</span><div class="grow t-body-s">08:00 Омега-3 · Дамир</div></div>
+          <div class="wrow"><span class="wmini"></span><div class="grow t-body-s">09:00 Витамин D3 · Богдан</div></div>
+          <div class="wrow"><span class="wmini"></span><div class="grow t-body-s">14:00 Железо · Анна</div></div>
+        </div>
+      </div>
+      <figcaption><b>Уведомления и виджеты</b>Фирменный значок и действия прямо в уведомлении. Семейное уведомление приходит один раз и только по правилу, которое вы включили.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="map">
+  <div class="sec-head"><div class="tag">Карта экранов</div><div class="txt">
+    <h2>Все 30 экранов из ТЗ, сгруппированные по сценариям</h2>
+    <p class="lead">Номера соответствуют разделу 24 ТЗ. Четыре вкладки внизу: Главная, Расписание, Семья, История. Добавление препарата — кнопка «+» в центре нижней панели, она видна на любой вкладке и не перекрывает список, настройки — через аватар в шапке.</p>
+  </div></div>
+  <div class="map">
+    <div><h3>{{icon:user}}Вход</h3><ol><li><span class="num">01</span>Заставка</li><li><span class="num">02</span>Приветствие</li><li><span class="num">03</span>Регистрация</li><li><span class="num">04</span>Вход</li><li><span class="num">05</span>Создание семьи</li><li><span class="num">06</span>Вход по приглашению</li></ol></div>
+    <div><h3>{{icon:home}}Каждый день</h3><ol><li><span class="num">07</span>Главная</li><li><span class="num">14</span>Расписание: день и неделя</li><li><span class="num">15</span>Календарь</li><li><span class="num">16</span>История</li><li><span class="num">17</span>Статистика</li><li><span class="num">18</span>Напоминания</li></ol></div>
+    <div><h3>{{icon:capsule}}Препарат</h3><ol><li><span class="num">11</span>Добавление</li><li><span class="num">12</span>Редактирование</li><li><span class="num">13</span>Карточка препарата</li><li><span class="num">20</span>Остатки</li><li><span class="num">29</span>Завершение курса</li><li><span class="num">30</span>Удаление и архив</li></ol></div>
+    <div><h3>{{icon:family}}Семья</h3><ol><li><span class="num">08</span>Семья</li><li><span class="num">09</span>Профиль члена семьи</li><li><span class="num">10</span>Добавление члена семьи</li><li><span class="num">19</span>Семейные сообщения</li></ol></div>
+    <div><h3>{{icon:settings}}Настройки</h3><ol><li><span class="num">21</span>Настройки</li><li><span class="num">22</span>Уведомления</li><li><span class="num">23</span>Синхронизация</li><li><span class="num">24</span>Тема</li></ol></div>
+    <div><h3>{{icon:info}}Состояния</h3><ol><li><span class="num">25</span>Пустые состояния</li><li><span class="num">26</span>Ошибки</li><li><span class="num">27</span>Нет интернета</li><li><span class="num">28</span>Загрузка (скелетоны)</li></ol></div>
+    <div><h3>{{icon:bell}}Вне приложения</h3><ol><li><span class="num">—</span>Уведомление о приёме</li><li><span class="num">—</span>Семейное уведомление</li><li><span class="num">—</span>Виджеты: компактный, средний, семья</li></ol></div>
+    <div><h3>{{icon:leaf}}Позже</h3><ol><li><span class="num">—</span>Мои привычки (раздел 22): отдельный тип объектов, не смешивается с лекарствами</li></ol></div>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="sec-head"><div class="tag">Движение</div><div class="txt">
+    <h2>Анимация подтверждает действие, а не развлекает</h2>
+  </div></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Событие</th><th>Что происходит</th><th>Длительность</th></tr></thead>
+    <tbody>
+      <tr><td>Отметка приёма</td><td>Круг заливается, галочка прорисовывается линией, строка приглушается, сегмент прогресса заполняется. Тактильный отклик CONFIRM.</td><td class="tnum">200 + 240 мс</td></tr>
+      <tr><td>Прогресс дня</td><td>Плавное заполнение сегмента. Без конфетти и счётчиков серий.</td><td class="tnum">450 мс</td></tr>
+      <tr><td>Переход между вкладками</td><td>Короткое растворение с подъёмом на 8 dp.</td><td class="tnum">200 мс</td></tr>
+      <tr><td>Открытие карточки</td><td>Общий элемент: строка раскрывается в экран препарата.</td><td class="tnum">280 мс</td></tr>
+      <tr><td>Загрузка</td><td>Скелетоны той же формы, что и строки. Никаких спиннеров на весь экран.</td><td class="tnum">—</td></tr>
+      <tr><td>Конец дня</td><td>Один раз в день спокойный экран с иллюстрацией «День завершён». Его можно отключить.</td><td class="tnum">280 мс</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="margin-top:12px;font-size:14px">Если в системе включено «Убрать анимацию», приложение переключает состояния мгновенно.</p>
+</section>
+
+<section id="next">
+  <div class="sec-head"><div class="tag">Дальше</div><div class="txt">
+    <h2>Архитектура, на которую ляжет этот дизайн</h2>
+    <p class="lead">Коротко о главных технических решениях следующих этапов. Подробно они описаны в README проекта.</p>
+  </div></div>
+  <div class="arch">
+    <div><b>Офлайн по умолчанию</b><p class="muted">Room — источник правды на телефоне. Каждое действие сначала пишется локально и попадает в очередь отправки. Firestore синхронизирует семью, когда появляется сеть.</p><code>core:database · core:data · sync</code></div>
+    <div><b>Без дублей и потерянных отметок</b><p class="muted">ID отметки = препарат + плановое время. Если оба родителя нажмут одновременно, запись будет одна, и второй увидит «уже отметил Дамир». История неизменяема: правка расписания её не трогает, удаление препарата — это архив.</p><code>IntakeEvent · soft delete</code></div>
+    <div><b>Надёжные напоминания</b><p class="muted">AlarmManager с точным будильником, если пользователь разрешил, и аккуратный запасной вариант, если нет. Восстановление после перезагрузки, смены часового пояса и перехода на летнее время. Семейные push идут через Cloud Functions.</p><code>core:notifications · FCM · WorkManager</code></div>
+  </div>
+  <h3 style="margin:40px 0 16px">Что нужно решить до этапа 2</h3>
+  <div class="qs">
+    <div><div><b>Логотип.</b> «Ладони», один из двух альтернативных вариантов или ваш эскиз в линейной перерисовке?</div></div>
+    <div><div><b>Второй цвет текста.</b> Согласны подписи до 18 sp делать <code>#666C65</code> ради контраста?</div></div>
+    <div><div><b>Firebase.</b> Для синхронизации и семейных push нужен ваш проект Firebase. Семейные push работают через Cloud Functions, а для них Google требует тариф Blaze (оплата по факту; для одной семьи расход укладывается в бесплатный лимит).</div></div>
+    <div><div><b>Репозиторий.</b> Сейчас «Рядом» лежит в папке <code>ryadom/</code> рядом с «Учимся играя». Перенести в отдельный репозиторий?</div></div>
+  </div>
+</section>
+
+<footer><span>Рядом · этап 1 · дизайн-концепция</span><span>Все иллюстрации, иконки и знак нарисованы для проекта и собираются из <code>design/tools/build.py</code></span></footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, lbl=document.getElementById('themeLbl');
+  function cur(){var t=root.getAttribute('data-theme');if(t)return t;return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  function paint(){lbl.textContent=cur()==='dark'?'Тёмная':'Светлая';}
+  try{var s=localStorage.getItem('ryadom-theme');if(s)root.setAttribute('data-theme',s);}catch(e){}
+  paint();
+  try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paint);}catch(e){}
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var n=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',n);
+    try{localStorage.setItem('ryadom-theme',n);}catch(e){}paint();
+  });
+  // отметка в одно касание
+  document.querySelectorAll('button.st').forEach(function(b){
+    b.addEventListener('click',function(){
+      var row=b.closest('.row'); if(!row)return;
+      var wasDue=row.classList.contains('due');
+      row.classList.toggle('done'); if(wasDue)row.classList.remove('due');
+      b.setAttribute('aria-label',row.classList.contains('done')?'Снять отметку':'Отметить приём');
+      if(navigator.vibrate){try{navigator.vibrate(12);}catch(e){}}
+    });
+  });
+  // кнопка «Отметить» на главной обновляет прогресс
+  var nb=document.getElementById('nowBtn'), done=4;
+  if(nb)nb.addEventListener('click',function(){
+    if(nb.dataset.done)return; nb.dataset.done='1'; done++;
+    var bars=document.querySelectorAll('#pBar i'); bars[4].className='f'; if(bars[5])bars[5].className='n';
+    document.getElementById('pCount').textContent=done+' из 7';
+    nb.innerHTML=nb.innerHTML.replace('Отметить','Отмечено');
+    nb.classList.remove('primary');nb.classList.add('tonal');
+  });
+})();
+</script>
