@@ -1,0 +1,4 @@
+-keepattributes *Annotation*, InnerClasses
+-keep,includedescriptorclasses class com.yasnost.app.**$$serializer { *; }
+-keepclassmembers class com.yasnost.app.** { *** Companion; }
+-keepclasseswithmembers class com.yasnost.app.** { kotlinx.serialization.KSerializer serializer(...); }

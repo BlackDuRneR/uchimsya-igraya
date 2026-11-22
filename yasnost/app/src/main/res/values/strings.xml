@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ясность</string>
+    <string name="widget_counter">Счётчик</string>
+    <string name="widget_counter_desc">Дни и живой таймер одной привычки с кольцом прогресса</string>
+    <string name="widget_summary">Сводка</string>
+    <string name="widget_summary_desc">Все привычки и сэкономленные деньги</string>
+    <string name="sos_short">SOS</string>
+    <string name="sos_long">Тяга — помоги переждать</string>
+</resources>

@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <!-- кольцо пути -->
+    <path android:pathData="M54,30A24,24 0,1 1,30 54" android:strokeWidth="5.5" android:strokeLineCap="round" android:fillColor="#00000000">
+        <aapt:attr name="android:strokeColor">
+            <gradient android:type="linear" android:startX="30" android:startY="78" android:endX="78" android:endY="30"
+                android:startColor="#FF2DE3C5" android:endColor="#FFE07CFF"/>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M30,54A24,24 0,0 1,54 30" android:strokeWidth="5.5" android:strokeLineCap="round" android:strokeColor="#33FFFFFF" android:fillColor="#00000000"/>
+    <!-- искра ясности -->
+    <path android:fillColor="#FFFFFFFF" android:pathData="M54,40L56.6,51.4L68,54L56.6,56.6L54,68L51.4,56.6L40,54L51.4,51.4Z"/>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M54,27.5m-3.2,0a3.2,3.2 0,1 1,6.4 0a3.2,3.2 0,1 1,-6.4 0"/>
+</vector>

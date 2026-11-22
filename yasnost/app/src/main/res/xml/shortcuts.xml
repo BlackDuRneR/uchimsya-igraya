@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_sos"
+        android:shortcutId="sos"
+        android:shortcutShortLabel="@string/sos_short"
+        android:shortcutLongLabel="@string/sos_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.yasnost.app.MainActivity"
+            android:targetPackage="com.yasnost.app">
+            <extra android:name="sos" android:value="true" />
+        </intent>
+    </shortcut>
+</shortcuts>
