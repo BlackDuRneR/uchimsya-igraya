@@ -62,6 +62,7 @@ import com.yasnost.app.domain.stats
 import com.yasnost.app.domain.unitsLabel
 import com.yasnost.app.domain.verb
 import com.yasnost.app.ui.components.Glass
+import com.yasnost.app.ui.components.g
 import com.yasnost.app.ui.components.GhostButton
 import com.yasnost.app.ui.components.HabitBadge
 import com.yasnost.app.ui.components.ProgressRing
@@ -141,7 +142,7 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
 
             // Здоровье
             SectionLabel("Восстановление организма", Modifier.padding(top = 18.dp))
-            HealthTimeline(h, st.elapsed, acc)
+            HealthTimeline(h, st.elapsed, acc, com.yasnost.app.ui.components.LocalFemale.current)
             Text(
                 "Сроки ориентировочные, по данным ВОЗ, CDC, NIAAA и рецензируемых исследований. У каждого организма свой темп.",
                 style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 4.dp, start = 4.dp)
@@ -171,7 +172,7 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
             }
 
             Spacer(Modifier.height(22.dp))
-            GhostButton("Я сорвался", Modifier.fillMaxWidth(), color = Y.Danger) { relapseDialog = true }
+            GhostButton(g("Я сорвался", "Я сорвалась"), Modifier.fillMaxWidth(), color = Y.Danger) { relapseDialog = true }
             Text(
                 "Срыв — не конец пути. Счётчик начнётся заново, а прошлая серия сохранится в истории.",
                 style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, textAlign = TextAlign.Center,
@@ -193,7 +194,7 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
             text = {
                 Column(Modifier.verticalScroll(rememberScrollState())) {
                     Text(
-                        "Ты продержался ${Fmt.duration(st.elapsed)} — это никуда не денется, серия останется в истории. " +
+                        g("Ты продержался ", "Ты продержалась ") + "${Fmt.duration(st.elapsed)} — это никуда не денется, серия останется в истории. " +
                             "Психологи называют ловушкой мысль «всё пропало, теперь можно». Один эпизод — это урок, а не приговор. " +
                             "Большинство людей бросают окончательно не с первой попытки.",
                         style = YType.Body, color = Y.Text2
@@ -243,8 +244,8 @@ fun MoneyHighlights(kzt: Double, cur: String, perDay: Double, onClick: () -> Uni
 }
 
 @Composable
-private fun HealthTimeline(h: Habit, elapsed: Long, acc: Accent) {
-    val steps = Health.forType(h.type)
+private fun HealthTimeline(h: Habit, elapsed: Long, acc: Accent, female: Boolean) {
+    val steps = Health.forType(h.type, female)
     Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
         var prev = 0L
         steps.forEachIndexed { i, step ->

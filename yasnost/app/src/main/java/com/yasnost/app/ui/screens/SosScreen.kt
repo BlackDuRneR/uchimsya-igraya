@@ -41,6 +41,7 @@ import com.yasnost.app.domain.Fmt
 import com.yasnost.app.domain.stats
 import com.yasnost.app.ui.components.Dot
 import com.yasnost.app.ui.components.Glass
+import com.yasnost.app.ui.components.g
 import com.yasnost.app.ui.components.GhostButton
 import com.yasnost.app.ui.components.GradientButton
 import com.yasnost.app.ui.components.SectionLabel
@@ -166,7 +167,7 @@ fun SosScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             }
 
             Spacer(Modifier.height(20.dp))
-            GradientButton("Я справился 💪", acc, Modifier.fillMaxWidth()) {
+            GradientButton(g("Я справился 💪", "Я справилась 💪"), acc, Modifier.fillMaxWidth()) {
                 scope.launch { repo.update(refreshWidgets = false) { it.copy(cravingsBeaten = it.cravingsBeaten + 1) } }
                 Toast.makeText(ctx, "Отлично! Ещё одна победа.", Toast.LENGTH_SHORT).show()
                 nav.back()

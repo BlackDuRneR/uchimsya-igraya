@@ -99,7 +99,8 @@ fun AwardsScreen(s: AppState, nav: Nav) {
 
         val timeTotal = s.habits.sumOf { h -> Achievements.list.count { now - h.startMillis >= it.millis } }
         val globalGot = Awards.unlocked(ctx).size
-        Segmented(listOf("За время  $timeTotal", "Особые  $globalGot/${Awards.list.size}"), tab, LEVEL) { tab = it }
+        val visible = Awards.list.count { (it.cat != AwardCat.CYCLE || s.cycleSettings.enabled) && (it.cat != AwardCat.INTIMACY || s.settings.intimacyEnabled) }
+        Segmented(listOf("За время  $timeTotal", "Особые  $globalGot/$visible"), tab, LEVEL) { tab = it }
         Spacer(Modifier.height(6.dp))
 
         if (tab == 0) {
@@ -116,6 +117,7 @@ fun AwardsScreen(s: AppState, nav: Nav) {
             AwardCat.entries.forEach { cat ->
                 val items = Awards.list.filter { it.cat == cat }
                 if (cat == AwardCat.INTIMACY && !s.settings.intimacyEnabled) return@forEach
+                if (cat == AwardCat.CYCLE && !s.cycleSettings.enabled) return@forEach
                 SectionLabel(cat.title, Modifier.padding(top = 10.dp))
                 items.chunked(3).forEach { row ->
                     Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {

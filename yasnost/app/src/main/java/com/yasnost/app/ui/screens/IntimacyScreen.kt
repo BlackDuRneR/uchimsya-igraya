@@ -64,6 +64,7 @@ import com.yasnost.app.domain.Fmt
 import com.yasnost.app.domain.IntimacyLogic
 import com.yasnost.app.ui.components.Chip
 import com.yasnost.app.ui.components.Glass
+import com.yasnost.app.ui.components.g
 import com.yasnost.app.ui.components.GradientButton
 import com.yasnost.app.ui.components.MonthCalendar
 import com.yasnost.app.ui.components.SectionLabel
@@ -170,7 +171,7 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
                 }
             }
             Spacer(Modifier.height(14.dp))
-            GradientButton("Я сдал анализы", Accent(Y.Coral, Y.Rose), Modifier.fillMaxWidth()) {
+            GradientButton(g("Я сдал анализы", "Я сдала анализы"), Accent(Y.Coral, Y.Rose), Modifier.fillMaxWidth()) {
                 scope.launch { repo.update(false) { it.copy(lastStiTestDay = t) } }
             }
             Text("Источники: NHS, CDC (nPEP 2025), ВОЗ. Это ориентир, а не диагноз — точный план подскажет врач.", style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp))
@@ -226,7 +227,7 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
     }
 
     SectionLabel("Что говорит наука", Modifier.padding(top = 14.dp))
-    IntimacyLogic.facts.forEach { f -> FactCard(f.text, f.source, ROSE) }
+    IntimacyLogic.facts.filter { it.fits(com.yasnost.app.ui.components.LocalFemale.current) }.forEach { f -> FactCard(f.text, f.source, ROSE) }
     Text(
         "Здесь нет «правильной» нормы. Календарь нужен, чтобы лучше понимать себя, беречь здоровье и замечать связь с трезвостью. Все записи хранятся только на этом телефоне.",
         style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp, start = 4.dp)

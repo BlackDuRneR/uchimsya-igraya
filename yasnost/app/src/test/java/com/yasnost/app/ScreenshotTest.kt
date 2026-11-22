@@ -48,6 +48,28 @@ class ScreenshotTest {
             seed(ctx)
         }
 
+        fun cycle(today: Long, female: Boolean): List<com.yasnost.app.data.CycleDay> {
+            val starts = if (female) listOf(today - 59, today - 31, today - 3) else listOf(today - 62, today - 34, today - 6)
+            val syms = listOf(listOf("Спазмы", "Усталость"), listOf("Спазмы", "Боль в пояснице"), listOf("Головная боль"), listOf("Вздутие"), emptyList())
+            return starts.flatMap { st ->
+                (0 until 5).map { i ->
+                    com.yasnost.app.data.CycleDay(st + i, listOf(com.yasnost.app.data.Flow.MEDIUM, com.yasnost.app.data.Flow.HEAVY, com.yasnost.app.data.Flow.MEDIUM, com.yasnost.app.data.Flow.LIGHT, com.yasnost.app.data.Flow.LIGHT)[i],
+                        pain = listOf(6, 7, 4, 2, 1)[i], symptoms = syms[i], mood = listOf(2, 2, 3, 4, 4)[i], meds = if (i < 2) listOf("Ибупрофен", "Грелка") else emptyList())
+                }.filter { it.day <= today }
+            } + listOf(com.yasnost.app.data.CycleDay(today - 8, null, 0, listOf("Тяга к сладкому", "Раздражительность"), 3))
+        }
+
+        fun seedProfile(ctx: android.content.Context, female: Boolean, done: Boolean = true) = runBlocking {
+            val today = LocalDate.now().toEpochDay()
+            Repository.get(ctx).update(refreshWidgets = false) {
+                it.copy(
+                    profile = com.yasnost.app.data.Profile(if (female) "Аня" else "Арман", if (female) com.yasnost.app.data.Gender.FEMALE else com.yasnost.app.data.Gender.MALE, if (female) "" else "Аня", done),
+                    cycle = cycle(today, female),
+                    periodClosedStart = if (female) -1 else today - 6,
+                )
+            }
+        }
+
         fun seed(ctx: android.content.Context) = runBlocking {
             val now = System.currentTimeMillis()
             val today = LocalDate.now().toEpochDay()
@@ -65,6 +87,9 @@ class ScreenshotTest {
                     },
                     reasons = listOf("Ясная голова по утрам", "Хочу видеть, как растут сбережения", "Здоровое сердце"),
                     cravingsBeaten = 14,
+                    profile = com.yasnost.app.data.Profile("Арман", com.yasnost.app.data.Gender.MALE, "Аня", true),
+                    cycle = cycle(today, false),
+                    periodClosedStart = today - 6,
                     goals = listOf(
                         com.yasnost.app.data.Goal("g1", "Наушники", 90_000.0, now - 50 * DAY),
                         com.yasnost.app.data.Goal("g2", "Отпуск в Турции", 500_000.0, now - 40 * DAY),
@@ -101,6 +126,7 @@ class ScreenshotTest {
     }
 
     @Test fun screens() {
+        seedProfile(ApplicationProvider.getApplicationContext(), female = false); settle()
         shot("01_home")
         rule.onNodeWithText("Отметки").performClick(); settle(); shot("03_diary")
         rule.onNodeWithText("Близость").performClick(); settle(); shot("04_intimacy")
@@ -113,6 +139,19 @@ class ScreenshotTest {
         rule.onNodeWithText("Не пью").performClick(); settle(); shot("12_habit")
         rule.runOnUiThread { rule.activity.onBackPressedDispatcher.onBackPressed() }; settle()
         rule.onNodeWithText("SOS").performClick(); settle(); shot("15_sos")
+        rule.runOnUiThread { rule.activity.onBackPressedDispatcher.onBackPressed() }; settle()
+        rule.onNodeWithText("Отметки").performClick(); settle()
+        rule.onNodeWithText("Цикл").performClick(); settle(); shot("16_cycle_male")
+    }
+
+    @Test fun female() {
+        val ctx = ApplicationProvider.getApplicationContext<android.content.Context>()
+        seedProfile(ctx, female = true, done = false); settle(); shot("20_welcome")
+        rule.onNodeWithText("Женский").performClick(); settle(); rule.onNodeWithText("Далее").performClick(); settle(); shot("21_welcome_cycle")
+        seedProfile(ctx, female = true, done = true); settle(); shot("22_home_female")
+        rule.onNodeWithText("Отметки").performClick(); settle()
+        rule.onNodeWithText("Цикл").performClick(); settle(); shot("23_cycle_female")
+        rule.onNodeWithText("Обезболивающие (НПВП)").performClick(); settle(); shot("24_cycle_guide")
     }
 
     @Test fun widgets() {

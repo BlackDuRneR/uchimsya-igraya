@@ -142,6 +142,12 @@ private fun App(startHabit: String?, startSos: Boolean) {
     val accentType = (top as? Route.Habit)?.let { s.habit(it.id)?.type }
     val acc = accentType?.accent()
 
+    if (!s.profile.setupDone) {
+        AuroraBackground { com.yasnost.app.ui.screens.WelcomeScreen(s, repo, scope) }
+        return
+    }
+
+    androidx.compose.runtime.CompositionLocalProvider(com.yasnost.app.ui.components.LocalFemale provides s.profile.female) {
     AuroraBackground(acc?.a ?: Y.Violet, acc?.b ?: Y.Teal) {
         Column(Modifier.fillMaxSize()) {
             Box(Modifier.weight(1f)) {
@@ -153,6 +159,7 @@ private fun App(startHabit: String?, startSos: Boolean) {
                 BottomBar(top, nav)
             }
         }
+    }
     }
 }
 

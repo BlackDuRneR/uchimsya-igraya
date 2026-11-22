@@ -49,6 +49,22 @@ class Repository private constructor(private val ctx: Context) {
         s.copy(intimacy = s.intimacy.filterNot { it.day == e.day } + e)
     }
 
+    suspend fun saveCycleDay(c: CycleDay) = update(refreshWidgets = false) { s ->
+        val empty = c.flow == null && c.pain == 0 && c.symptoms.isEmpty() && c.mood == 0 && c.meds.isEmpty() && c.note.isBlank()
+        s.copy(cycle = s.cycle.filterNot { it.day == c.day } + if (empty) emptyList() else listOf(c))
+    }
+
+    /** Отметить дни месячных from..to (не затирая уже введённые данные). */
+    suspend fun markPeriod(from: Long, to: Long, close: Boolean) = update(refreshWidgets = false) { s ->
+        val add = (from..to).filter { d -> s.cycleOn(d)?.flow == null }.map { d ->
+            (s.cycleOn(d) ?: CycleDay(d)).copy(flow = if (d - from <= 1) com.yasnost.app.data.Flow.MEDIUM else com.yasnost.app.data.Flow.LIGHT)
+        }
+        s.copy(
+            cycle = s.cycle.filterNot { c -> add.any { it.day == c.day } } + add,
+            periodClosedStart = if (close) from else s.periodClosedStart,
+        )
+    }
+
     suspend fun deleteIntimacy(day: Long) = update(refreshWidgets = false) { s ->
         s.copy(intimacy = s.intimacy.filterNot { it.day == day })
     }

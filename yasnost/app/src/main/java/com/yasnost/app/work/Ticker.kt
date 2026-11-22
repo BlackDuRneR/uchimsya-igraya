@@ -74,7 +74,7 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
         var changed = false
         s.habits.forEach { h ->
             val elapsed = now - h.startMillis
-            val events = Health.forType(h.type).map { it.afterMillis to "${h.title}: ${it.title}" to it.text } +
+            val events = Health.forType(h.type, s.profile.female).map { it.afterMillis to "${h.title}: ${it.title}" to it.text } +
                 Achievements.list.map { it.millis to "Награда «${it.title}»" to "${h.type.verb} уже ${it.short.replace(" д", " дн.")}. Так держать!" }
             val passed = events.filter { it.first.first <= elapsed }.maxByOrNull { it.first.first }
             val last = passed?.first?.first ?: 0L
@@ -105,6 +105,40 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
             changed = true
         }
 
+        // Цикл
+        var cycleKeys = s.cycleNotified
+        val hour = LocalTime.now().hour
+        if (s.cycleSettings.enabled && hour in 9..21) {
+            val today = LocalDate.now().toEpochDay()
+            val ci = com.yasnost.app.domain.CycleLogic.info(s, today)
+            val ns = ci.nextStart
+            val female = s.profile.female
+            val her = s.profile.partnerName.ifBlank { "Девушка" }
+            fun once(key: String, title: String, text: String) {
+                if (key !in cycleKeys) {
+                    Notifier.show(ctx, key.hashCode(), title, text, Notifier.CH_REMINDERS, null)
+                    cycleKeys = cycleKeys + key
+                    changed = true
+                }
+            }
+            if (ns != null && !ci.inPeriodNow) {
+                val left = ns - today
+                val rd = s.cycleSettings.remindDaysBefore
+                if (rd > 0 && left in 1..rd) {
+                    val dn = "$left ${com.yasnost.app.domain.Fmt.days(left)}"
+                    if (female) once("pre_$ns", "Через $dn ожидаются месячные", "Положи в сумку средства гигиены и обезболивающее. НПВП лучше начать при первых признаках.")
+                    else once("pre_$ns", "$her: через $dn могут начаться месячные", "Будь внимательнее и терпеливее — и запасись её любимым шоколадом 🍫")
+                }
+                if (ci.lateDays >= 3) {
+                    once("late_$ns", if (female) "Задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}" else "$her: задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}",
+                        "Частые причины — стресс, болезнь, перелёт. Если был незащищённый контакт — стоит сделать тест на беременность.")
+                }
+                if (s.cycleSettings.fertileReminder && ci.fertile?.first == today) {
+                    once("fert_$ns", "Начинаются фертильные дни", "Ближайшие ~7 дней шанс беременности самый высокий. Календарь — не контрацепция.")
+                }
+            }
+        }
+
         // Вечернее напоминание
         val today = LocalDate.now().toEpochDay()
         var remindDay = s.lastReminderDay
@@ -115,7 +149,7 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
             remindDay = today; changed = true
         }
         if (changed) repo.update(refreshWidgets = false) {
-            it.copy(notified = it.notified + notified, lastReminderDay = remindDay, unlocked = (it.unlocked + unlocked).distinct(), unlockedInit = init)
+            it.copy(notified = it.notified + notified, lastReminderDay = remindDay, unlocked = (it.unlocked + unlocked).distinct(), unlockedInit = init, cycleNotified = (it.cycleNotified + cycleKeys).distinct().takeLast(60))
         }
         return Result.success()
     }

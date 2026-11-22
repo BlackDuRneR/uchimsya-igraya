@@ -44,6 +44,7 @@ import com.yasnost.app.data.HabitType
 import com.yasnost.app.data.Repository
 import com.yasnost.app.ui.components.Chip
 import com.yasnost.app.ui.components.Glass
+import com.yasnost.app.ui.components.g
 import com.yasnost.app.ui.components.GhostButton
 import com.yasnost.app.ui.components.GradientButton
 import com.yasnost.app.ui.components.SectionLabel
@@ -113,7 +114,7 @@ fun EditorScreen(id: String?, preset: String?, s: AppState, nav: Nav, repo: Repo
             SectionLabel("Название", Modifier.padding(top = 14.dp))
             OutlinedTextField(title, { title = it }, Modifier.fillMaxWidth(), singleLine = true, shape = RoundedCornerShape(18.dp), colors = fieldColors)
 
-            SectionLabel("Когда бросил", Modifier.padding(top = 14.dp))
+            SectionLabel(g("Когда бросил", "Когда бросила"), Modifier.padding(top = 14.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Glass(Modifier.weight(1.4f), radius = 18.dp, padding = 16.dp, onClick = { pickDate = true }) {
                     Text("ДАТА", style = YType.Label, color = Y.Text3)

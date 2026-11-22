@@ -42,8 +42,10 @@ import com.yasnost.app.data.Repository
 import com.yasnost.app.data.Settings
 import com.yasnost.app.ui.components.Chip
 import com.yasnost.app.ui.components.Glass
+import com.yasnost.app.ui.components.g
 import com.yasnost.app.ui.components.HabitBadge
 import com.yasnost.app.ui.components.SectionLabel
+import com.yasnost.app.ui.screens.Stepper
 import com.yasnost.app.ui.theme.Accent
 import com.yasnost.app.ui.theme.Y
 import com.yasnost.app.ui.theme.YType
@@ -67,7 +69,50 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
         Text("НАСТРОЙКИ", style = YType.Label, color = Y.Text3)
         Text("Ещё", style = YType.Big, color = Y.Text, modifier = Modifier.padding(top = 4.dp, bottom = 8.dp))
 
-        SectionLabel("Мои привычки")
+        SectionLabel("Профиль")
+        var pname by remember(s.profile.name) { mutableStateOf(s.profile.name) }
+        var partner by remember(s.profile.partnerName) { mutableStateOf(s.profile.partnerName) }
+        val fc = OutlinedTextFieldDefaults.colors(focusedBorderColor = Y.Violet, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text, focusedLabelColor = Y.Violet, unfocusedLabelColor = Y.Text3)
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 14.dp) {
+            OutlinedTextField(pname, { pname = it.take(24) }, Modifier.fillMaxWidth(), label = { Text("Имя") }, singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc)
+            Row(Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Chip("♂  Мужской", !s.profile.female, Accent(Y.Sky, Y.Violet)) {
+                    scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(gender = com.yasnost.app.data.Gender.MALE)) } }
+                }
+                Chip("♀  Женский", s.profile.female, Accent(Y.Rose, Y.Magenta)) {
+                    scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(gender = com.yasnost.app.data.Gender.FEMALE)) } }
+                }
+            }
+            if (!s.profile.female) {
+                OutlinedTextField(partner, { partner = it.take(24) }, Modifier.fillMaxWidth().padding(top = 12.dp), label = { Text("Имя девушки (для календаря цикла)") }, singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc)
+            }
+            if (pname != s.profile.name || partner != s.profile.partnerName) {
+                Text("Сохранить", style = YType.Sub, color = Y.Violet, modifier = Modifier.padding(top = 10.dp).clickable {
+                    scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(name = pname.trim(), partnerName = partner.trim())) } }
+                })
+            }
+        }
+
+        SectionLabel(if (s.profile.female) "Мой цикл" else "Цикл девушки", Modifier.padding(top = 14.dp))
+        fun setCycle(f: (com.yasnost.app.data.CycleSettings) -> com.yasnost.app.data.CycleSettings) = scope.launch { repo.update(false) { it.copy(cycleSettings = f(it.cycleSettings)) } }
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+            ToggleRow("Календарь цикла", "Вкладка «Цикл» в отметках и карточка на главной", s.cycleSettings.enabled) { v -> setCycle { it.copy(enabled = v) } }
+            if (s.cycleSettings.enabled) {
+                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+                Stepper("Длина цикла (пока нет данных)", s.cycleSettings.cycleLength, 20..45, "дн") { v -> setCycle { it.copy(cycleLength = v) } }
+                Stepper("Длительность месячных", s.cycleSettings.periodLength, 2..10, "дн") { v -> setCycle { it.copy(periodLength = v) } }
+                Text("НАПОМИНАТЬ ДО МЕСЯЧНЫХ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 10.dp, bottom = 8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(0 to "Нет", 1 to "1 день", 2 to "2 дня", 3 to "3 дня").forEach { (d, l) ->
+                        Chip(l, s.cycleSettings.remindDaysBefore == d, Accent(Y.Rose, Y.Magenta)) { setCycle { it.copy(remindDaysBefore = d) } }
+                    }
+                }
+                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+                ToggleRow("Фертильные дни", "Напоминать о начале фертильного окна", s.cycleSettings.fertileReminder) { v -> setCycle { it.copy(fertileReminder = v) } }
+            }
+        }
+
+        SectionLabel("Мои привычки", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 8.dp) {
             s.habits.forEach { h ->
                 Row(
@@ -88,7 +133,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             }
         }
 
-        SectionLabel("Почему я бросил", Modifier.padding(top = 14.dp))
+        SectionLabel(g("Почему я бросил", "Почему я бросила"), Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 14.dp) {
             Text("Эти причины покажутся на экране SOS, когда будет трудно.", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(bottom = 6.dp))
             s.reasons.forEachIndexed { i, r ->
@@ -199,7 +244,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 2.0", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.0", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),

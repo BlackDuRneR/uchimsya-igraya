@@ -11,7 +11,12 @@ const val MIN = 60_000L
 const val HOUR = 60 * MIN
 const val DAY = 24 * HOUR
 
-data class HealthStep(val afterMillis: Long, val title: String, val text: String, val source: String = "")
+data class HealthStep(
+    val afterMillis: Long, val title: String, val text: String, val source: String = "",
+    val femaleText: String? = null, val femaleSource: String? = null,
+) {
+    fun forFemale(f: Boolean) = if (f && femaleText != null) copy(text = femaleText, source = femaleSource ?: source) else this
+}
 
 private const val WHO = "ВОЗ, «Польза отказа от курения»"
 private const val CDC = "CDC, Benefits of Quitting Smoking"
@@ -21,18 +26,22 @@ object Health {
     val smoking = listOf(
         HealthStep(20 * MIN, "20 минут", "Пульс и давление снижаются.", WHO),
         HealthStep(12 * HOUR, "12 часов", "Уровень угарного газа в крови возвращается к норме — органы получают больше кислорода.", WHO),
-        HealthStep(1 * DAY, "1 день", "Никотина в крови больше нет. У мужчин уже через сутки улучшаются ночные эрекции.", "$CDC; Guay et al., Endocr Pract 1998"),
+        HealthStep(1 * DAY, "1 день", "Никотина в крови больше нет. У мужчин уже через сутки улучшаются ночные эрекции.", "$CDC; Guay et al., Endocr Pract 1998",
+            "Никотина в крови больше нет. Сосуды начинают расслабляться, кровоснабжение органов улучшается.", CDC),
         HealthStep(2 * DAY, "2 дня", "Нервные окончания восстанавливаются — возвращаются вкус и обоняние.", ACS),
         HealthStep(3 * DAY, "3 дня", "Пик синдрома отмены позади: обычно хуже всего первые 3 дня. Отдельная волна тяги длится минуты.", "NCI, Nicotine withdrawal fact sheet; HSE"),
         HealthStep(14 * DAY, "2 недели", "Улучшаются кровообращение и функция лёгких (процесс идёт до 3 месяцев).", WHO),
         HealthStep(30 * DAY, "1 месяц", "Уменьшаются кашель и одышка (этот период длится до 9 месяцев).", WHO),
         HealthStep(66 * DAY, "66 дней", "В среднем столько нужно, чтобы новое поведение стало автоматическим (разброс — от 18 до 254 дней).", "Lally et al., Eur J Soc Psychol 2010"),
-        HealthStep(90 * DAY, "3 месяца", "Эректильная функция у бросивших заметно лучше: средний балл IIEF вырос с 54,8 до 60,4.", "Sahin et al., 2020 (n=181)"),
+        HealthStep(90 * DAY, "3 месяца", "Эректильная функция у бросивших заметно лучше: средний балл IIEF вырос с 54,8 до 60,4.", "Sahin et al., 2020 (n=181)",
+            "Кровообращение и дыхание заметно лучше. Курение мешает забеременеть и приближает менопаузу — отказ снижает эти риски.", "CDC, Cigarettes and Reproductive Health"),
         HealthStep(270 * DAY, "9 месяцев", "Реснички в лёгких восстанавливаются и снова очищают дыхательные пути, меньше инфекций.", ACS),
-        HealthStep(365 * DAY, "1 год", "Риск ишемической болезни сердца примерно вдвое ниже, чем у курящего. У четверти бросивших с проблемами эрекции — улучшение.", "$WHO; Pourmand et al., BJU Int 2004"),
+        HealthStep(365 * DAY, "1 год", "Риск ишемической болезни сердца примерно вдвое ниже, чем у курящего. У четверти бросивших с проблемами эрекции — улучшение.", "$WHO; Pourmand et al., BJU Int 2004",
+            "Риск ишемической болезни сердца примерно вдвое ниже, чем у курящей.", WHO),
         HealthStep(5 * 365 * DAY, "5 лет", "Риск инсульта снижается до уровня некурящего (за 5–15 лет). Риск рака рта, горла и пищевода вдвое ниже.", "$WHO; $ACS"),
         HealthStep(10 * 365 * DAY, "10 лет", "Риск рака лёгких примерно вдвое ниже, чем у курящего.", WHO),
-        HealthStep(15 * 365 * DAY, "15 лет", "Риск болезней сердца — как у человека, который никогда не курил.", WHO),
+        HealthStep(15 * 365 * DAY, "15 лет", "Риск болезней сердца — как у человека, который никогда не курил.", WHO,
+            "Риск болезней сердца — как у никогда не курившей. Дополнительный риск рака шейки матки снижается примерно вдвое.", "$WHO; CDC"),
     )
 
     val alcohol = listOf(
@@ -43,8 +52,10 @@ object Health {
         HealthStep(30 * DAY, "1 месяц", "Исследование месячного отказа: инсулинорезистентность −26%, давление −6%, вес −1,5%, снизились факторы роста, связанные с раком.", "Mehta et al., BMJ Open 2018 (n=94)"),
         HealthStep(35 * DAY, "5 недель", "Жира в печени становится заметно меньше: в эксперименте UCL — минус 15% и более.", "UCL / New Scientist, 2013"),
         HealthStep(66 * DAY, "66 дней", "В среднем столько нужно, чтобы новая привычка стала автоматической (от 18 до 254 дней).", "Lally et al., Eur J Soc Psychol 2010"),
-        HealthStep(90 * DAY, "3 месяца", "У 88,5% мужчин с проблемами эрекции на фоне алкоголя через 3 месяца трезвости наступило улучшение.", "Проспективное исследование, 2022 (n=104), PubMed 36606722"),
-        HealthStep(180 * DAY, "6 месяцев", "Уровень тестостерона постепенно восстанавливается — после тяжёлого употребления на это уходят месяцы.", "Клинические обзоры; Cleveland Clinic"),
+        HealthStep(90 * DAY, "3 месяца", "У 88,5% мужчин с проблемами эрекции на фоне алкоголя через 3 месяца трезвости наступило улучшение.", "Проспективное исследование, 2022 (n=104), PubMed 36606722",
+            "Алкоголь повышает риск рака груди: каждые 10 г спирта в день (маленький бокал вина) — плюс 5–9%. Трезвость убирает этот вклад.", "Метаанализ McTiernan et al.; WCRF/AICR"),
+        HealthStep(180 * DAY, "6 месяцев", "Уровень тестостерона постепенно восстанавливается — после тяжёлого употребления на это уходят месяцы.", "Клинические обзоры; Cleveland Clinic",
+            "Гормональный фон выравнивается: алкоголь влияет на эстроген и регулярность цикла. Печень и кожа выглядят заметно лучше.", "NIAAA, обзоры"),
         HealthStep(365 * DAY, "1 год", "Алкоголь — доказанная причина как минимум 7 видов рака. Каждый трезвый год снижает накопленный риск.", "ВОЗ, IARC"),
         HealthStep(5 * 365 * DAY, "5 лет", "Риск рака рта, горла и пищевода продолжает снижаться и с годами приближается к уровню непьющих.", "IARC, обзоры"),
     )
@@ -57,11 +68,11 @@ object Health {
         HealthStep(365 * DAY, "1 год", "Целый год свободы.", ""),
     )
 
-    fun forType(t: HabitType) = when (t) {
+    fun forType(t: HabitType, female: Boolean = false) = when (t) {
         HabitType.SMOKING -> smoking
         HabitType.ALCOHOL -> alcohol
         HabitType.CUSTOM -> custom
-    }
+    }.map { it.forFemale(female) }
 }
 
 data class Achievement(val millis: Long, val title: String, val short: String)
@@ -231,33 +242,40 @@ object Quotes {
     fun today(epochDay: Long) = list[(epochDay % list.size).toInt()]
 }
 
-data class Fact(val text: String, val source: String, val type: HabitType?)
+/** male: null — для всех, true — только для мужчин, false — только для женщин */
+data class Fact(val text: String, val source: String, val type: HabitType?, val male: Boolean? = null) {
+    fun fits(female: Boolean) = male == null || male == !female
+}
 
 /** Короткие научные факты для «Факта дня». */
 object Facts {
     val list = listOf(
         Fact("Месяц без алкоголя у умеренно-сильно пьющих снизил инсулинорезистентность на 26%, давление — на 6%, вес — на 1,5%.", "Mehta et al., BMJ Open 2018", HabitType.ALCOHOL),
-        Fact("У 88,5% мужчин с нарушением эрекции на фоне алкоголя через 3 месяца трезвости эрекция улучшилась.", "PubMed 36606722, 2022", HabitType.ALCOHOL),
+        Fact("У 88,5% мужчин с нарушением эрекции на фоне алкоголя через 3 месяца трезвости эрекция улучшилась.", "PubMed 36606722, 2022", HabitType.ALCOHOL, male = true),
+        Fact("Каждые 10 г алкоголя в день повышают риск рака груди на 5–9%. Безопасной дозы для этого риска не найдено.", "McTiernan et al.; WCRF/AICR", HabitType.ALCOHOL, male = false),
+        Fact("Курение затрудняет беременность и может приблизить менопаузу на 1–2 года. Отказ — лучший подарок будущему здоровью.", "CDC, Reproductive Health", HabitType.SMOKING, male = false),
+        Fact("Регулярные упражнения могут заметно снизить менструальную боль — в обзоре Cochrane эффект был большим.", "Armour et al., Cochrane 2019", null, male = false),
+        Fact("Кофеин, соль и алкоголь во второй половине цикла усиливают симптомы ПМС.", "womenshealth.gov", null, male = false),
         Fact("Алкоголь в анализе 50 исследований связан с более редким использованием презервативов и большим числом случайных партнёров.", "Cho & Yang, Int J Public Health 2023", HabitType.ALCOHOL),
         Fact("После 5 недель без алкоголя у добровольцев жира в печени стало меньше на 15% и более.", "UCL / New Scientist, 2013", HabitType.ALCOHOL),
         Fact("Алкоголь — канцероген 1-й группы: он причинно связан минимум с 7 видами рака.", "ВОЗ / IARC", HabitType.ALCOHOL),
         Fact("Через 12 часов без сигарет уровень угарного газа в крови возвращается к норме.", "ВОЗ", HabitType.SMOKING),
         Fact("Отдельная волна тяги к сигарете обычно проходит за 3–5 минут. Переждать её — реально.", "HSE (Ирландия)", HabitType.SMOKING),
         Fact("Отказ от курения в 30 лет добавляет почти 10 лет ожидаемой жизни.", "ВОЗ; CDC", HabitType.SMOKING),
-        Fact("Уже через 24 часа без курения у мужчин измеримо улучшаются ночные эрекции.", "Guay et al., Endocr Pract 1998", HabitType.SMOKING),
+        Fact("Уже через 24 часа без курения у мужчин измеримо улучшаются ночные эрекции.", "Guay et al., Endocr Pract 1998", HabitType.SMOKING, male = true),
         Fact("Через год после отказа риск ишемической болезни сердца примерно вдвое ниже, чем у курящего.", "ВОЗ", HabitType.SMOKING),
         Fact("Синдром отмены никотина сильнее всего в первые 3 дня и заметно слабеет к концу первой недели.", "NCI", HabitType.SMOKING),
         Fact("Привычка в среднем становится автоматической за 66 дней, а пропуск одного дня почти не влияет на результат.", "Lally et al., 2010", null),
         Fact("Счастье от секса растёт примерно до частоты «раз в неделю», дальше — выходит на плато.", "Muise et al., SPPS 2016 (n=30 645)", null),
-        Fact("Мужчины с частотой эякуляций 21+ в месяц имели на 19–22% меньший риск рака простаты, чем при 4–7 в месяц.", "Rider et al., European Urology 2016", null),
+        Fact("Мужчины с частотой эякуляций 21+ в месяц имели на 19–22% меньший риск рака простаты, чем при 4–7 в месяц.", "Rider et al., European Urology 2016", null, male = true),
         Fact("Презерватив защищает от беременности на 98% при идеальном и около 87% при обычном использовании.", "Contraceptive Technology / Guttmacher", null),
         Fact("Отложить действие на 5 минут, потом ещё на 5 — простой и рабочий способ пережить тягу.", "GoodRx; техника «urge surfing»", null),
         Fact("Срыв чаще превращается в полный возврат из-за чувства вины («всё пропало»). Доброта к себе после срыва помогает быстрее вернуться.", "Marlatt, модель профилактики рецидивов", null),
         Fact("Даже 10–15 минут физической нагрузки заметно ослабляют тягу к сигарете.", "Taylor, Ussher, Faulkner, Addiction 2007 (систематический обзор)", HabitType.SMOKING),
     )
 
-    fun today(epochDay: Long, types: Set<HabitType>): Fact {
-        val pool = list.filter { it.type == null || it.type in types }
+    fun today(epochDay: Long, types: Set<HabitType>, female: Boolean = false): Fact {
+        val pool = list.filter { (it.type == null || it.type in types) && it.fits(female) }
         return pool[(epochDay % pool.size).toInt()]
     }
 }

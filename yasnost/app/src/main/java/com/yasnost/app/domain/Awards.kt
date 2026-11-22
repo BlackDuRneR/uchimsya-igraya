@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 enum class AwardCat(val title: String) {
     MONEY("Деньги"), DIARY("Дневник"), SOS("Тяга"), HEALTH("Здоровье"),
-    COMEBACK("Возвращение"), COMBO("Комбо"), INTIMACY("Близость"), DREAMS("Мечты"), MIND("Опора")
+    COMEBACK("Возвращение"), COMBO("Комбо"), INTIMACY("Близость"), CYCLE("Цикл"), DREAMS("Мечты"), MIND("Опора")
 }
 
 /** Общее достижение: прогресс value/target. */
@@ -22,6 +22,7 @@ class AwardCtx(val s: AppState, val now: Long) {
     fun combo(days: Int) = s.habits.count { now - it.startMillis >= days * DAY }.toDouble()
     val intimacyDays get() = s.intimacy.size.toDouble()
     val protectedCount get() = s.intimacy.filter { it.sex == SexStatus.PROTECTED }.sumOf { it.sexCount }.toDouble()
+    val periods by lazy { CycleLogic.info(s, today).periods.size.toDouble() }
     val goalsDone by lazy { Money.goals(s, now).count { it.done }.toDouble() }
 
     private fun bestRun(days: List<Long>): Double {
@@ -68,6 +69,11 @@ object Awards {
         add(Award("int_30", AwardCat.INTIMACY, "🧘", "Осознанность", "Заполнить календарь близости 30 дней", 30.0) { it.intimacyDays })
         add(Award("int_protect", AwardCat.INTIMACY, "🛡️", "Ответственный", "10 защищённых контактов", 10.0) { it.protectedCount })
         add(Award("int_test", AwardCat.INTIMACY, "🩺", "Проверился", "Отметить сданные анализы на ИППП", 1.0) { if (it.s.lastStiTestDay >= 0) 1.0 else 0.0 })
+
+        add(Award("cycle_2", AwardCat.CYCLE, "🌸", "Первый цикл", "Отметить два периода подряд", 2.0) { it.periods })
+        add(Award("cycle_4", AwardCat.CYCLE, "🌙", "Ритм", "Отметить 4 периода", 4.0) { it.periods })
+        add(Award("cycle_7", AwardCat.CYCLE, "🔮", "Полгода наблюдений", "Отметить 7 периодов", 7.0) { it.periods })
+        add(Award("cycle_log", AwardCat.CYCLE, "🗓️", "Внимание к деталям", "Записать самочувствие в 30 дней цикла", 30.0) { it.s.cycle.size.toDouble() })
 
         add(Award("goal_set", AwardCat.DREAMS, "🎯", "Есть цель", "Поставить цель в копилке мечты", 1.0) { if (it.s.goals.isNotEmpty()) 1.0 else 0.0 })
         add(Award("goal_1", AwardCat.DREAMS, "🎁", "Мечта сбылась", "Накопить на первую цель", 1.0) { it.goalsDone })

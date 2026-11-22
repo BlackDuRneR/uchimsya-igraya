@@ -75,11 +75,17 @@ val RU: Locale = Locale.forLanguageTag("ru")
 val dayFmt: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM, EEEE", RU)
 val shortDayFmt: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM", RU)
 
-object CalendarTab { var tab = 0 }
+object CalendarTab { var tab = "diary" }
 
 @Composable
 fun CalendarScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
-    var tab by rememberSaveable { mutableIntStateOf(if (s.settings.intimacyEnabled) CalendarTab.tab else 0) }
+    val tabs = buildList {
+        add("diary" to "Дневник")
+        if (s.settings.intimacyEnabled) add("intimacy" to "Близость")
+        if (s.cycleSettings.enabled) add("cycle" to "Цикл")
+    }
+    var key by rememberSaveable { mutableStateOf(CalendarTab.tab) }
+    if (tabs.none { it.first == key }) key = "diary"
     Column(
         Modifier
             .fillMaxSize()
@@ -90,13 +96,17 @@ fun CalendarScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
         Spacer(Modifier.height(18.dp))
         Text("ДНЕВНИК", style = YType.Label, color = Y.Text3)
         Text("Отметки", style = YType.Big, color = Y.Text, modifier = Modifier.padding(top = 4.dp, bottom = 14.dp))
-        if (s.settings.intimacyEnabled) {
-            Segmented(listOf("Дневник трезвости", "Близость"), tab, if (tab == 0) Accent(Y.Teal, Y.Mint) else Accent(Y.Rose, Y.Magenta)) {
-                tab = it; CalendarTab.tab = it
-            }
+        if (tabs.size > 1) {
+            val idx = tabs.indexOfFirst { it.first == key }
+            val acc = when (key) { "intimacy" -> Accent(Y.Rose, Y.Magenta); "cycle" -> CYCLE; else -> Accent(Y.Teal, Y.Mint) }
+            Segmented(tabs.map { it.second }, idx, acc) { key = tabs[it].first; CalendarTab.tab = key }
             Spacer(Modifier.height(14.dp))
         }
-        if (tab == 0 || !s.settings.intimacyEnabled) DiaryContent(s, repo, scope) else IntimacyContent(s, repo, scope)
+        when (key) {
+            "intimacy" -> IntimacyContent(s, repo, scope)
+            "cycle" -> CycleContent(s, repo, scope)
+            else -> DiaryContent(s, repo, scope)
+        }
         Spacer(Modifier.height(24.dp))
     }
 }

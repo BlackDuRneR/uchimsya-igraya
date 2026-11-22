@@ -47,6 +47,7 @@ import com.yasnost.app.domain.stats
 import com.yasnost.app.domain.unitsLabel
 import com.yasnost.app.domain.verb
 import com.yasnost.app.ui.components.Glass
+import com.yasnost.app.ui.components.g
 import com.yasnost.app.ui.components.GradientButton
 import com.yasnost.app.ui.components.HabitBadge
 import com.yasnost.app.ui.components.SectionLabel
@@ -81,7 +82,10 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             .padding(horizontal = 20.dp)
     ) {
         Spacer(Modifier.height(18.dp))
-        Text(ruDay.format(today).replaceFirstChar { it.uppercase() }, style = YType.Label, color = Y.Text3)
+        Text(
+            ruDay.format(today).replaceFirstChar { it.uppercase() } + if (s.profile.name.isNotBlank()) " · привет, ${s.profile.name}" else "",
+            style = YType.Label, color = Y.Text3
+        )
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
             Text("Ясность", style = YType.Big.copy(fontSize = 40.sp), color = Y.Text, modifier = Modifier.weight(1f))
             if (s.habits.isNotEmpty()) {
@@ -102,6 +106,10 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
 
         if (s.habits.isEmpty()) {
             Onboarding(nav)
+            if (s.cycleSettings.enabled) {
+                Spacer(Modifier.height(14.dp))
+                CycleMini(s) { CalendarTab.tab = "cycle"; nav.tab(Route.Calendar) }
+            }
         } else {
             s.habits.forEach { h ->
                 HabitCard(h, now, s.settings.currency) { nav.go(Route.Habit(h.id)) }
@@ -109,6 +117,10 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             }
             CheckInPrompt(s, today.toEpochDay()) { showCheckIn = true }
             Spacer(Modifier.height(14.dp))
+            if (s.cycleSettings.enabled) {
+                CycleMini(s) { CalendarTab.tab = "cycle"; nav.tab(Route.Calendar) }
+                Spacer(Modifier.height(14.dp))
+            }
             FactOfDay(s, today.toEpochDay())
             Spacer(Modifier.height(14.dp))
             DreamPreview(s, now) { nav.go(Route.Money) }
@@ -138,12 +150,12 @@ private fun Onboarding(nav: Nav) {
     Glass(Modifier.fillMaxWidth()) {
         Text("С чего начнём?", style = YType.Title, color = Y.Text)
         Text(
-            "Отметь, от чего ты отказался, и укажи, когда. Можно добавить несколько — например, алкоголь и курение.",
+            g("Отметь, от чего ты отказался, и укажи, когда.", "Отметь, от чего ты отказалась, и укажи, когда.") + " Можно добавить несколько — например, алкоголь и курение.",
             style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp, bottom = 18.dp)
         )
-        GradientButton("Я бросил пить", HabitType.ALCOHOL.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.ALCOHOL.name)) }
+        GradientButton(g("Я бросил пить", "Я бросила пить"), HabitType.ALCOHOL.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.ALCOHOL.name)) }
         Spacer(Modifier.height(10.dp))
-        GradientButton("Я бросил курить", HabitType.SMOKING.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.SMOKING.name)) }
+        GradientButton(g("Я бросил курить", "Я бросила курить"), HabitType.SMOKING.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.SMOKING.name)) }
         Spacer(Modifier.height(10.dp))
         GradientButton("Другая привычка", HabitType.CUSTOM.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.CUSTOM.name)) }
     }
@@ -252,7 +264,7 @@ private fun Totals(s: AppState, now: Long, onMoney: () -> Unit) {
 
 @Composable
 private fun FactOfDay(s: AppState, day: Long) {
-    val f = com.yasnost.app.domain.Facts.today(day, s.habits.map { it.type }.toSet())
+    val f = com.yasnost.app.domain.Facts.today(day, s.habits.map { it.type }.toSet(), s.profile.female)
     Glass(Modifier.fillMaxWidth(), radius = 26.dp, padding = 18.dp, tint = Y.Sky.copy(alpha = 0.05f)) {
         Text("🔬  ФАКТ ДНЯ", style = YType.Label, color = Y.Sky)
         Text(f.text, style = YType.Body, color = Y.Text, modifier = Modifier.padding(top = 8.dp))

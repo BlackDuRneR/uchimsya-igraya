@@ -62,6 +62,45 @@ data class IntimacyEntry(
 )
 
 @Serializable
+enum class Gender { MALE, FEMALE }
+
+@Serializable
+data class Profile(
+    val name: String = "",
+    val gender: Gender = Gender.MALE,
+    val partnerName: String = "",
+    val setupDone: Boolean = false,
+) {
+    val female get() = gender == Gender.FEMALE
+}
+
+@Serializable
+enum class Flow { SPOTTING, LIGHT, MEDIUM, HEAVY }
+
+@Serializable
+data class CycleDay(
+    val day: Long,
+    /** null — кровотечения нет */
+    val flow: Flow? = null,
+    /** Боль 0..10 */
+    val pain: Int = 0,
+    val symptoms: List<String> = emptyList(),
+    /** 0 — не отмечено, 1..5 */
+    val mood: Int = 0,
+    val meds: List<String> = emptyList(),
+    val note: String = "",
+)
+
+@Serializable
+data class CycleSettings(
+    val enabled: Boolean = true,
+    val cycleLength: Int = 28,
+    val periodLength: Int = 5,
+    val remindDaysBefore: Int = 2,
+    val fertileReminder: Boolean = false,
+)
+
+@Serializable
 data class Goal(
     val id: String,
     val title: String,
@@ -104,7 +143,15 @@ data class AppState(
     /** id полученных общих достижений (для уведомлений) */
     val unlocked: List<String> = emptyList(),
     val unlockedInit: Boolean = false,
+    val profile: Profile = Profile(),
+    val cycle: List<CycleDay> = emptyList(),
+    val cycleSettings: CycleSettings = CycleSettings(),
+    /** Ключи уже отправленных уведомлений о цикле */
+    val cycleNotified: List<String> = emptyList(),
+    /** Начало периода, который закрыт кнопкой «Закончились» */
+    val periodClosedStart: Long = -1,
 ) {
+    fun cycleOn(day: Long) = cycle.firstOrNull { it.day == day }
     fun intimacyOn(day: Long) = intimacy.firstOrNull { it.day == day }
     fun habit(id: String?) = habits.firstOrNull { it.id == id }
     fun checkIn(day: Long) = checkIns.firstOrNull { it.day == day }
