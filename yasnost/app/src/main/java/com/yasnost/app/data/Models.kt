@@ -69,6 +69,8 @@ data class IntimacyEntry(
     val partnerIds: List<String> = emptyList(),
     /** Виды: Вагинальный, Оральный, Анальный */
     val kinds: List<String> = emptyList(),
+    /** Сколько раз мастурбация за день */
+    val mastCount: Int = 1,
 ) {
     /** Был ли вагинальный контакт (важно для риска беременности). Старые записи без видов считаем вагинальными. */
     val vaginal get() = kinds.isEmpty() || "Вагинальный" in kinds

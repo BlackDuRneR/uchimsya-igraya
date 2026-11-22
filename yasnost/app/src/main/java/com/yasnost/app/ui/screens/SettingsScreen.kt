@@ -333,9 +333,9 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
                     Modifier.size(64.dp).clip(RoundedCornerShape(20.dp))
                         .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(androidx.compose.ui.graphics.Color(0xFF2E4363), androidx.compose.ui.graphics.Color(0xFF070E1E)))),
                     contentAlignment = Alignment.Center,
-                ) { androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(com.yasnost.app.R.drawable.logo_harmony), null, modifier = Modifier.size(50.dp)) }
+                ) { androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(com.yasnost.app.R.drawable.logo_harmony_img), null, modifier = Modifier.size(50.dp)) }
                 Column(Modifier.padding(start = 14.dp)) {
-                    Text("Harmony 3.7", style = YType.Sub, color = Y.Text)
+                    Text("Harmony 3.9", style = YType.Sub, color = Y.Text)
                     Text("Разработчик", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
                     Text(androidx.compose.ui.res.stringResource(com.yasnost.app.R.string.developer), style = YType.Body.copy(fontSize = 14.sp), color = androidx.compose.ui.graphics.Color(0xFFE3C9A0))
                 }

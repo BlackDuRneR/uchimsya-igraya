@@ -182,7 +182,10 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
         }
         Spacer(Modifier.height(24.dp))
         if (step == 0) {
-            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(com.yasnost.app.R.drawable.logo_harmony), null, modifier = Modifier.size(120.dp).padding(bottom = 12.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(bottom = 14.dp)) {
+                androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(com.yasnost.app.R.drawable.logo_harmony_img), null, modifier = Modifier.size(120.dp))
+                Text("HARMONY", style = YType.Sub.copy(fontSize = 16.sp, letterSpacing = 6.sp), color = Color(0xFFE3C9A0))
+            }
             Text("Добро пожаловать\nв Harmony", style = YType.Big.copy(fontSize = 38.sp, lineHeight = 42.sp), color = Y.Text)
             Text(
                 "Трезвость, свобода от сигарет, дневник, близость и цикл — всё в одном месте и только на твоём телефоне.",

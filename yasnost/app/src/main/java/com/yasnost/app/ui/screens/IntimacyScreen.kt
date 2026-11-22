@@ -198,7 +198,7 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
     }
     Spacer(Modifier.height(10.dp))
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        StatTile("мастурбация", "${st.masturbationDays30}", Fmt.days(st.masturbationDays30.toLong()), Y.Violet, Modifier.weight(1f))
+        StatTile("мастурбация", "${st.masturbationTimes30}", Fmt.plural(st.masturbationTimes30.toLong(), "раз", "раза", "раз") + " · ${st.masturbationDays30} дн", Y.Violet, Modifier.weight(1f))
         StatTile("желание", st.avgDesire30?.let { "%.1f".format(it).replace('.', ',') } ?: "—", if (st.avgDesire30 != null) "из 5" else "", Y.Magenta, Modifier.weight(1f))
     }
     Spacer(Modifier.height(10.dp))
@@ -312,7 +312,7 @@ private fun summary(e: IntimacyEntry): String = buildList {
         SexStatus.PROTECTED -> add("защищённый" + if (e.sexCount > 1) " ×${e.sexCount}" else "")
         SexStatus.UNPROTECTED -> add("незащищённый" + if (e.sexCount > 1) " ×${e.sexCount}" else "")
     }
-    if (e.masturbation) add("мастурбация")
+    if (e.masturbation) add("мастурбация" + if (e.mastCount > 1) " ×${e.mastCount}" else "")
     add("желание ${e.desire}/5")
 }.joinToString(" · ")
 
@@ -337,7 +337,7 @@ private fun WeeksChart(s: AppState, today: Long) {
         Triple(
             es.filter { it.sex == SexStatus.PROTECTED }.sumOf { it.sexCount },
             es.filter { it.sex == SexStatus.UNPROTECTED }.sumOf { it.sexCount },
-            es.count { it.masturbation },
+            es.filter { it.masturbation }.sumOf { it.mastCount.coerceAtLeast(1) },
         )
     }
     val max = data.maxOf { maxOf(it.first + it.second, it.third) }.coerceAtLeast(3)
@@ -396,6 +396,7 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
     var sex by remember { mutableStateOf(e?.sex ?: SexStatus.NONE) }
     var count by remember { mutableIntStateOf(e?.sexCount ?: 1) }
     var mast by remember { mutableStateOf(e?.masturbation ?: false) }
+    var mastCount by remember { mutableIntStateOf((e?.mastCount ?: 1).coerceAtLeast(1)) }
     var desire by remember { mutableFloatStateOf((e?.desire ?: 3).toFloat()) }
     var alcohol by remember { mutableStateOf(e?.alcohol ?: false) }
     var note by remember { mutableStateOf(e?.note ?: "") }
@@ -447,6 +448,14 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
                     Text("Мастурбация", style = YType.Body, color = Y.Text, modifier = Modifier.weight(1f))
                     Switch(mast, { mast = it }, colors = switchColors)
                 }
+                if (mast) {
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 12.dp)) {
+                        Text("Сколько раз", style = YType.Body, color = Y.Text2, modifier = Modifier.weight(1f))
+                        IconButton(onClick = { if (mastCount > 1) mastCount-- }) { Text("−", style = YType.Title, color = Y.Text2) }
+                        Text("$mastCount", style = YType.Title, color = Y.Text)
+                        IconButton(onClick = { if (mastCount < 9) mastCount++ }) { Text("+", style = YType.Title, color = Y.Text2) }
+                    }
+                }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text("Был алкоголь", style = YType.Body, color = Y.Text)
@@ -478,7 +487,8 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
         confirmButton = {
             TextButton(onClick = {
                 scope.launch { repo.saveIntimacy(IntimacyEntry(day, sex, if (sex == SexStatus.NONE) 0 else count, mast, desire.toInt(), alcohol, note.trim(),
-                    if (sex == SexStatus.NONE) emptyList() else partners.toList(), if (sex == SexStatus.NONE) emptyList() else kinds.toList())) }
+                    if (sex == SexStatus.NONE) emptyList() else partners.toList(), if (sex == SexStatus.NONE) emptyList() else kinds.toList(),
+                    if (mast) mastCount else 1)) }
                 onClose()
             }) { Text("Сохранить", color = Y.Rose, style = YType.Sub) }
         },

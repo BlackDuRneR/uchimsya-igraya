@@ -161,6 +161,18 @@ class ScreenshotTest {
         rule.onNodeWithText("Ещё").performClick(); settle(); shot("09c_settings_tall")
     }
 
+    @Test fun launcherIcon() {
+        val ctx = rule.activity
+        val d = androidx.core.content.ContextCompat.getDrawable(ctx, R.mipmap.ic_launcher)!!
+        val px = 432
+        listOf("icon_app" to d, "icon_logo" to androidx.core.content.ContextCompat.getDrawable(ctx, R.drawable.logo_harmony_img)!!).forEach { (n, dr) ->
+            val bmp = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
+            val c = Canvas(bmp); c.drawColor(0xFF1B2440.toInt())
+            dr.setBounds(0, 0, px, px); dr.draw(c)
+            File(out, "$n.png").outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        }
+    }
+
     @Test fun cycleOnly() {
         val ctx = ApplicationProvider.getApplicationContext<android.content.Context>()
         seedProfile(ctx, female = true)
