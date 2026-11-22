@@ -473,3 +473,54 @@ fun CycleMini(s: AppState, onClick: () -> Unit) {
         }
     }
 }
+
+/** Крупная карточка цикла для главной (режим без привычек). */
+@Composable
+fun CycleHomeCard(s: AppState, repo: Repository, scope: CoroutineScope, onOpen: () -> Unit) {
+    val t = LocalDate.now().toEpochDay()
+    val ci = CycleLogic.info(s, t)
+    val phase = ci.phase()
+    val acc = phase?.accent() ?: CYCLE
+    Glass(Modifier.fillMaxWidth(), radius = 30.dp, padding = 18.dp, tint = acc.a.copy(alpha = 0.06f), onClick = onOpen) {
+        Text(g(partnerTitle(s).uppercase(), "МОЙ ЦИКЛ"), style = YType.Label, color = acc.b)
+        if (!ci.hasData) {
+            Text("Отметь первый день последних месячных — и увидишь прогноз, фертильные дни и ПМС.", style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 8.dp, bottom = 14.dp))
+            GradientButton("Открыть календарь", CYCLE, Modifier.fillMaxWidth(), onClick = onOpen)
+            return@Glass
+        }
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 10.dp)) {
+            val doc = ci.dayOfCycle ?: 1
+            ProgressRing((doc.toFloat() / ci.avgCycle).coerceIn(0f, 1f), acc, Modifier.size(140.dp), stroke = 12.dp) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("ДЕНЬ", style = YType.Label, color = Y.Text3)
+                    Text("$doc", style = YType.Big.copy(fontSize = 44.sp), color = Y.Text)
+                    Text("из ~${ci.avgCycle}", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
+                }
+            }
+            Column(Modifier.padding(start = 16.dp)) {
+                if (phase != null) Text("${phase.emoji()} ${phase.title}", style = YType.Sub, color = Y.Text)
+                val ns = ci.nextStart!!
+                Text(
+                    when {
+                        ci.inPeriodNow -> "День ${t - ci.lastStart!! + 1} из ~${ci.avgPeriod}"
+                        ci.lateDays > 0 -> "Задержка ${ci.lateDays} ${Fmt.days(ci.lateDays.toLong())}"
+                        else -> "Месячные через ${ns - t} ${Fmt.days(ns - t)}"
+                    },
+                    style = YType.Title.copy(fontSize = 19.sp), color = acc.b, modifier = Modifier.padding(top = 4.dp)
+                )
+                if (!ci.inPeriodNow && ci.lateDays == 0) Text("≈ ${d(ns)}", style = YType.Body, color = Y.Text2)
+                ci.ovulation?.takeIf { it >= t }?.let { Text("Овуляция ≈ ${d(it)}", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 4.dp)) }
+            }
+        }
+        if (phase != null) {
+            val pt = CycleLogic.phaseText(phase)
+            val tip = (if (LocalFemale.current) pt.tips else pt.partner).let { it[(t % it.size).toInt()] }
+            Text("💡 $tip", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2, modifier = Modifier.padding(top = 12.dp))
+        }
+        Row(Modifier.padding(top = 14.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (ci.inPeriodNow) GradientButton("Закончились", CYCLE, Modifier.weight(1f)) { scope.launch { repo.markPeriod(ci.lastStart!!, t, close = true) } }
+            else GradientButton("Начались сегодня", CYCLE, Modifier.weight(1f)) { scope.launch { repo.markPeriod(t, t, close = false) } }
+            GhostButton("Календарь", Modifier.weight(1f), onClick = onOpen)
+        }
+    }
+}

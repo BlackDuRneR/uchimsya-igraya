@@ -102,10 +102,12 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
                 }
             }
         }
-        Text(Quotes.today(today.toEpochDay()), style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp, bottom = 20.dp))
+        Text(if (s.settings.anyHabits) Quotes.today(today.toEpochDay()) else Quotes.general(today.toEpochDay()), style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp, bottom = 20.dp))
 
-        if (s.habits.isEmpty()) {
-            Onboarding(nav)
+        if (!s.settings.anyHabits) {
+            WellnessHome(s, nav, repo, scope, today.toEpochDay()) { showCheckIn = true }
+        } else if (s.habits.isEmpty()) {
+            Onboarding(nav, s)
             if (s.cycleSettings.enabled) {
                 Spacer(Modifier.height(14.dp))
                 CycleMini(s) { CalendarTab.tab = "cycle"; nav.tab(Route.Calendar) }
@@ -146,18 +148,56 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
 }
 
 @Composable
-private fun Onboarding(nav: Nav) {
+private fun WellnessHome(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope, today: Long, onCheckIn: () -> Unit) {
+    if (s.cycleSettings.enabled) {
+        CycleHomeCard(s, repo, scope) { CalendarTab.tab = "cycle"; nav.tab(Route.Calendar) }
+        Spacer(Modifier.height(14.dp))
+    }
+    CheckInPrompt(s, today, onCheckIn)
+    Spacer(Modifier.height(14.dp))
+    if (s.settings.intimacyEnabled) {
+        val e = s.intimacyOn(today)
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp, onClick = { CalendarTab.tab = "intimacy"; nav.tab(Route.Calendar) }, tint = Y.Rose.copy(alpha = 0.05f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("💞", fontSize = 26.sp)
+                Column(Modifier.padding(start = 14.dp).weight(1f)) {
+                    Text("Близость", style = YType.Sub, color = Y.Text)
+                    Text(if (e == null) "Отметить сегодняшний день" else "Сегодня отмечено", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
+                }
+                Text("→", style = YType.Title, color = Y.Rose)
+            }
+        }
+        Spacer(Modifier.height(14.dp))
+    }
+    FactOfDay(s, today)
+    if (!s.cycleSettings.enabled && !s.settings.intimacyEnabled) {
+        Spacer(Modifier.height(14.dp))
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp, onClick = { nav.tab(Route.Settings) }) {
+            Text("Все разделы выключены", style = YType.Sub, color = Y.Text)
+            Text("Включи нужное в «Ещё» → «Что отслеживаю»: трезвость, курение, цикл, близость.", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2, modifier = Modifier.padding(top = 4.dp))
+        }
+    }
+}
+
+@Composable
+private fun Onboarding(nav: Nav, s: AppState) {
     Glass(Modifier.fillMaxWidth()) {
         Text("С чего начнём?", style = YType.Title, color = Y.Text)
         Text(
             g("Отметь, от чего ты отказался, и укажи, когда.", "Отметь, от чего ты отказалась, и укажи, когда.") + " Можно добавить несколько — например, алкоголь и курение.",
             style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp, bottom = 18.dp)
         )
-        GradientButton(g("Я бросил пить", "Я бросила пить"), HabitType.ALCOHOL.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.ALCOHOL.name)) }
-        Spacer(Modifier.height(10.dp))
-        GradientButton(g("Я бросил курить", "Я бросила курить"), HabitType.SMOKING.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.SMOKING.name)) }
-        Spacer(Modifier.height(10.dp))
-        GradientButton("Другая привычка", HabitType.CUSTOM.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.CUSTOM.name)) }
+        if (s.settings.trackAlcohol) {
+            GradientButton(g("Я бросил пить", "Я бросила пить"), HabitType.ALCOHOL.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.ALCOHOL.name)) }
+            Spacer(Modifier.height(10.dp))
+        }
+        if (s.settings.trackSmoking) {
+            GradientButton(g("Я бросил курить", "Я бросила курить"), HabitType.SMOKING.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.SMOKING.name)) }
+            Spacer(Modifier.height(10.dp))
+        }
+        if (s.settings.trackOther) {
+            GradientButton("Другая привычка", HabitType.CUSTOM.accent(), Modifier.fillMaxWidth()) { nav.go(Route.Editor(null, HabitType.CUSTOM.name)) }
+        }
     }
 }
 
@@ -232,9 +272,10 @@ private fun CheckInPrompt(s: AppState, today: Long, onClick: () -> Unit) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(if (c == null) "✍️" else MOODS[c.mood - 1], fontSize = 30.sp)
             Column(Modifier.padding(start = 14.dp).weight(1f)) {
-                Text(if (c == null) "Отметка за сегодня" else "Сегодня отмечено", style = YType.Sub, color = Y.Text)
+                Text(if (c == null) (if (s.habits.isEmpty()) "Как ты сегодня?" else "Отметка за сегодня") else "Сегодня отмечено", style = YType.Sub, color = Y.Text)
                 Text(
-                    if (c == null) "Настроение, тяга, заметка"
+                    if (c == null) (if (s.habits.isEmpty()) "Настроение и заметка" else "Настроение, тяга, заметка")
+                    else if (s.habits.isEmpty()) MOOD_NAMES[c.mood - 1] + if (c.note.isNotBlank()) " · ${c.note}" else ""
                     else "Тяга ${c.craving}/10" + if (c.note.isNotBlank()) " · ${c.note}" else "",
                     style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2, maxLines = 1
                 )

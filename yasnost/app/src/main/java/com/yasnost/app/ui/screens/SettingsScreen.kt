@@ -99,12 +99,28 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             }
         }
 
+        SectionLabel("Что отслеживаю", Modifier.padding(top = 14.dp))
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+            ToggleRow("🍷  Алкоголь", if (s.settings.trackAlcohol) g("Бросаю / бросил", "Бросаю / бросила") else "Не пью вообще — раздел скрыт", s.settings.trackAlcohol) { v -> setSettings { it.copy(trackAlcohol = v) } }
+            Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+            ToggleRow("🚬  Курение", if (s.settings.trackSmoking) g("Бросаю / бросил", "Бросаю / бросила") else "Не курю вообще — раздел скрыт", s.settings.trackSmoking) { v -> setSettings { it.copy(trackSmoking = v) } }
+            Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+            ToggleRow("✨  Другие привычки", "Сладкое, соцсети, игры…", s.settings.trackOther) { v -> setSettings { it.copy(trackOther = v) } }
+            Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+            ToggleRow("💞  Близость", "Календарь интимной жизни", s.settings.intimacyEnabled) { v -> setSettings { it.copy(intimacyEnabled = v) } }
+            Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+            ToggleRow("🌸  Цикл", if (s.profile.female) "Месячные, фертильные дни, ПМС" else "Цикл девушки", s.cycleSettings.enabled) { v -> scope.launch { repo.update(false) { it.copy(cycleSettings = it.cycleSettings.copy(enabled = v)) } } }
+            Text(
+                "Если выключить раздел, его данные не удаляются — включишь снова, и всё вернётся.",
+                style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 10.dp)
+            )
+        }
+
         SectionLabel(if (s.profile.female) "Мой цикл" else "Цикл девушки", Modifier.padding(top = 14.dp))
         fun setCycle(f: (com.yasnost.app.data.CycleSettings) -> com.yasnost.app.data.CycleSettings) = scope.launch { repo.update(false) { it.copy(cycleSettings = f(it.cycleSettings)) } }
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            ToggleRow("Календарь цикла", "Вкладка «Цикл» в отметках и карточка на главной", s.cycleSettings.enabled) { v -> setCycle { it.copy(enabled = v) } }
+            if (!s.cycleSettings.enabled) Text("Цикл выключен — включи его в «Что отслеживаю».", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3)
             if (s.cycleSettings.enabled) {
-                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
                 Stepper("Длина цикла (пока нет данных)", s.cycleSettings.cycleLength, 20..45, "дн") { v -> setCycle { it.copy(cycleLength = v) } }
                 Stepper("Длительность месячных", s.cycleSettings.periodLength, 2..10, "дн") { v -> setCycle { it.copy(periodLength = v) } }
                 Text("НАПОМИНАТЬ ДО МЕСЯЧНЫХ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 10.dp, bottom = 8.dp))
@@ -118,6 +134,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             }
         }
 
+        if (s.settings.anyHabits) {
         SectionLabel("Мои привычки", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 8.dp) {
             s.habits.forEach { h ->
@@ -205,6 +222,8 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             }
         }
 
+        }
+
         SectionLabel("Уведомления", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
             ToggleRow("Новые этапы и награды", "Сообщу, когда откроется новый этап восстановления", s.settings.milestoneNotifications) { v ->
@@ -225,16 +244,12 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("Приватность", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            ToggleRow("Раздел «Близость»", "Календарь интимной жизни во вкладке «Отметки»", s.settings.intimacyEnabled) { v ->
-                setSettings { it.copy(intimacyEnabled = v) }
-            }
             if (s.settings.intimacyEnabled) {
-                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
                 ToggleRow("Защитить отпечатком", "Открывать «Близость» по отпечатку, лицу или PIN", s.settings.intimacyLock) { v ->
                     setSettings { it.copy(intimacyLock = v) }
                 }
+                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
             }
-            Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
             ToggleRow("Запретить скриншоты", "И скрыть содержимое в списке недавних приложений", s.settings.secureScreen) { v ->
                 setSettings { it.copy(secureScreen = v) }
             }
@@ -250,7 +265,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.2", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.3", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),

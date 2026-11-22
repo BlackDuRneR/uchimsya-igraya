@@ -98,14 +98,42 @@ fun GenderCard(title: String, symbol: String, selected: Boolean, acc: Accent, mo
     }
 }
 
+@Composable
+private fun HabitChoice(emoji: String, title: String, quitting: Boolean, yes: String, no: String, acc: Accent, onChange: (Boolean) -> Unit) {
+    Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+        Text("$emoji  $title", style = YType.Sub, color = Y.Text)
+        Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            com.yasnost.app.ui.components.Chip(yes, quitting, acc, Modifier.weight(1f)) { onChange(true) }
+            com.yasnost.app.ui.components.Chip(no, !quitting, Accent(Y.Text2, Y.Text3), Modifier.weight(1f)) { onChange(false) }
+        }
+    }
+}
+
+@Composable
+private fun ModuleRow(emoji: String, title: String, sub: String, value: Boolean, color: Color, onChange: (Boolean) -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp)) {
+        Text(emoji, fontSize = 22.sp)
+        Column(Modifier.padding(start = 12.dp).weight(1f)) {
+            Text(title, style = YType.Sub, color = Y.Text)
+            Text(sub, style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
+        }
+        Switch(value, onChange, colors = SwitchDefaults.colors(checkedTrackColor = color, checkedThumbColor = Color.White))
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
-    var step by remember { mutableIntStateOf(0) }
+    val existing = s.profile.setupDone
+    var step by remember { mutableIntStateOf(if (existing) 1 else 0) }
+    var quitAlcohol by remember { mutableStateOf(s.settings.trackAlcohol) }
+    var quitSmoking by remember { mutableStateOf(s.settings.trackSmoking) }
+    var other by remember { mutableStateOf(s.settings.trackOther) }
+    var intimacy by remember { mutableStateOf(s.settings.intimacyEnabled) }
     var name by remember { mutableStateOf(s.profile.name) }
     var gender by remember { mutableStateOf<Gender?>(if (s.profile.setupDone) s.profile.gender else null) }
     var partner by remember { mutableStateOf(s.profile.partnerName) }
-    var track by remember { mutableStateOf(true) }
+    var track by remember { mutableStateOf(s.cycleSettings.enabled) }
     var lastStart by remember { mutableStateOf<Long?>(null) }
     var cycleLen by remember { mutableIntStateOf(s.cycleSettings.cycleLength) }
     var periodLen by remember { mutableIntStateOf(s.cycleSettings.periodLength) }
@@ -122,6 +150,7 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
             repo.update(refreshWidgets = true) { st ->
                 val days = lastStart?.let { ls -> (ls..minOf(ls + periodLen - 1, today)).map { CycleDay(it, if (it - ls <= 1) Flow.MEDIUM else Flow.LIGHT) } } ?: emptyList()
                 st.copy(
+                    settings = st.settings.copy(trackAlcohol = quitAlcohol, trackSmoking = quitSmoking, trackOther = other, intimacyEnabled = intimacy, modulesChosen = true),
                     profile = Profile(name.trim(), gender ?: Gender.MALE, partner.trim(), setupDone = true),
                     cycleSettings = st.cycleSettings.copy(enabled = track, cycleLength = cycleLen, periodLength = periodLen),
                     cycle = st.cycle.filterNot { c -> days.any { it.day == c.day } } + days,
@@ -141,7 +170,7 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
     ) {
         Spacer(Modifier.height(36.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            repeat(2) { i -> Box(Modifier.height(4.dp).size(width = if (i == step) 28.dp else 12.dp, height = 4.dp).clip(RoundedCornerShape(50)).background(if (i <= step) Y.Violet else Y.Stroke)) }
+            repeat(if (existing) 1 else 3) { i0 -> val i = if (existing) 1 else i0; Box(Modifier.height(4.dp).size(width = if (i == step) 28.dp else 12.dp, height = 4.dp).clip(RoundedCornerShape(50)).background(if (i <= step) Y.Violet else Y.Stroke)) }
         }
         Spacer(Modifier.height(24.dp))
         if (step == 0) {
@@ -165,6 +194,35 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
             GradientButton(if (gender == null) "Выбери пол" else "Далее", if (gender == null) Accent(Y.Text3, Y.Text3) else MAIN, Modifier.fillMaxWidth()) {
                 if (gender != null) step = 1
             }
+        } else if (step == 1) {
+            Text(if (existing) "Что тебе актуально?" else "Что тебе нужно?", style = YType.Big, color = Y.Text)
+            Text(
+                "Выбери разделы — остальные скроем, чтобы ничего лишнего. Всё можно поменять в «Ещё».",
+                style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 10.dp, bottom = 18.dp)
+            )
+            HabitChoice("🍷", "Алкоголь", quitAlcohol, if (female) "Бросаю / бросила" else "Бросаю / бросил", "Не пью вообще", Accent(Y.Violet, Y.Magenta)) { quitAlcohol = it }
+            Spacer(Modifier.height(10.dp))
+            HabitChoice("🚬", "Курение", quitSmoking, if (female) "Бросаю / бросила" else "Бросаю / бросил", "Не курю вообще", Accent(Y.Teal, Y.Mint)) { quitSmoking = it }
+            Spacer(Modifier.height(10.dp))
+            Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+                ModuleRow("✨", "Другие привычки", "Сладкое, соцсети, игры — что угодно", other, Y.Amber) { other = it }
+                ModuleRow("💞", "Календарь близости", "Отметки, статистика, здоровье", intimacy, Y.Rose) { intimacy = it }
+                ModuleRow("🌸", if (female) "Мой цикл" else "Цикл девушки", if (female) "Месячные, фертильные дни, боль, ПМС" else "Когда у неё месячные и как поддержать", track, BLOOD) { track = it }
+            }
+            Spacer(Modifier.height(24.dp))
+            GradientButton(if (existing || !track) "Готово" else "Далее", MAIN, Modifier.fillMaxWidth()) {
+                if (existing) {
+                    scope.launch {
+                        repo.update(refreshWidgets = true) { st ->
+                            st.copy(
+                                settings = st.settings.copy(trackAlcohol = quitAlcohol, trackSmoking = quitSmoking, trackOther = other, intimacyEnabled = intimacy, modulesChosen = true),
+                                cycleSettings = st.cycleSettings.copy(enabled = track),
+                            )
+                        }
+                    }
+                } else if (track) step = 2 else finish()
+            }
+            if (!existing) TextButton(onClick = { step = 0 }, modifier = Modifier.fillMaxWidth()) { Text("Назад", color = Y.Text2) }
         } else {
             Text(if (female) "Твой цикл" else "Цикл твоей девушки", style = YType.Big, color = Y.Text)
             Text(
@@ -198,7 +256,7 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
             }
             Spacer(Modifier.height(24.dp))
             GradientButton("Начать", MAIN, Modifier.fillMaxWidth()) { finish() }
-            TextButton(onClick = { step = 0 }, modifier = Modifier.fillMaxWidth()) { Text("Назад", color = Y.Text2) }
+            TextButton(onClick = { step = 1 }, modifier = Modifier.fillMaxWidth()) { Text("Назад", color = Y.Text2) }
         }
         Spacer(Modifier.height(24.dp))
         Spacer(Modifier.navigationBarsPadding())

@@ -73,7 +73,7 @@ private fun Double.clean(): String = if (this == 0.0) "" else if (this % 1.0 == 
 fun EditorScreen(id: String?, preset: String?, s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
     val existing = s.habit(id)
     val zone = ZoneId.systemDefault()
-    var type by remember { mutableStateOf(existing?.type ?: preset?.let { HabitType.valueOf(it) } ?: HabitType.ALCOHOL) }
+    var type by remember { mutableStateOf(existing?.type ?: preset?.let { HabitType.valueOf(it) } ?: HabitType.entries.firstOrNull { s.settings.tracks(it) } ?: HabitType.CUSTOM) }
     var title by remember { mutableStateOf(existing?.title ?: defaults(type).first) }
     var start by remember { mutableStateOf(LocalDateTime.ofInstant(Instant.ofEpochMilli(existing?.startMillis ?: System.currentTimeMillis()), zone).withSecond(0).withNano(0)) }
     var cost by remember { mutableStateOf(existing?.costPerDay?.clean() ?: if (type == HabitType.SMOKING) "1200" else if (type == HabitType.ALCOHOL) "1700" else "") }
@@ -99,7 +99,8 @@ fun EditorScreen(id: String?, preset: String?, s: AppState, nav: Nav, repo: Repo
         ) {
             SectionLabel("От чего отказываюсь")
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                listOf(HabitType.ALCOHOL to "Алкоголь", HabitType.SMOKING to "Курение", HabitType.CUSTOM to "Другое").forEach { (t, label) ->
+                listOf(HabitType.ALCOHOL to "Алкоголь", HabitType.SMOKING to "Курение", HabitType.CUSTOM to "Другое")
+                    .filter { (t, _) -> s.settings.tracks(t) || t == existing?.type }.forEach { (t, label) ->
                     Chip(label, type == t, t.accent()) {
                         if (existing == null && type != t) {
                             type = t

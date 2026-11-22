@@ -122,7 +122,20 @@ data class Settings(
     val secureScreen: Boolean = false,
     /** Для девушек: советы о паре и мягкие напоминания */
     val partnerTips: Boolean = true,
-)
+    /** Модули: что человек вообще отслеживает */
+    val trackAlcohol: Boolean = true,
+    val trackSmoking: Boolean = true,
+    val trackOther: Boolean = true,
+    /** Выбор модулей уже сделан (для старых пользователей покажем один раз) */
+    val modulesChosen: Boolean = false,
+) {
+    fun tracks(t: HabitType) = when (t) {
+        HabitType.ALCOHOL -> trackAlcohol
+        HabitType.SMOKING -> trackSmoking
+        HabitType.CUSTOM -> trackOther
+    }
+    val anyHabits get() = trackAlcohol || trackSmoking || trackOther
+}
 
 @Serializable
 data class AppState(

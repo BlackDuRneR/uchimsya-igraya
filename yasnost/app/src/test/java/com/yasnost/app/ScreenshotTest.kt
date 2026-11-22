@@ -87,6 +87,7 @@ class ScreenshotTest {
                     },
                     reasons = listOf("Ясная голова по утрам", "Хочу видеть, как растут сбережения", "Здоровое сердце"),
                     cravingsBeaten = 14,
+                    settings = com.yasnost.app.data.Settings(modulesChosen = true),
                     profile = com.yasnost.app.data.Profile("Арман", com.yasnost.app.data.Gender.MALE, "Аня", true),
                     cycle = cycle(today, false),
                     periodClosedStart = today - 6,
@@ -126,7 +127,7 @@ class ScreenshotTest {
     }
 
     @Test fun screens() {
-        seedProfile(ApplicationProvider.getApplicationContext(), female = false); settle()
+        seed(ApplicationProvider.getApplicationContext()); settle()
         shot("01_home")
         rule.onNodeWithText("Отметки").performClick(); settle(); shot("03_diary")
         rule.onNodeWithText("Близость").performClick(); settle(); shot("04_intimacy")
@@ -144,10 +145,48 @@ class ScreenshotTest {
         rule.onNodeWithText("Цикл").performClick(); settle(); shot("16_cycle_male")
     }
 
+    @Test fun cycleOnly() {
+        val ctx = ApplicationProvider.getApplicationContext<android.content.Context>()
+        seedProfile(ctx, female = true)
+        runBlocking {
+            Repository.get(ctx).update(false) { it.copy(settings = it.settings.copy(trackAlcohol = false, trackSmoking = false, trackOther = false, modulesChosen = true)) }
+        }
+        settle(); shot("30_cycle_only_home")
+        rule.onNodeWithText("Награды").performClick(); settle(); shot("31_cycle_only_awards")
+        rule.onNodeWithText("Ещё").performClick(); settle(); shot("32_cycle_only_settings")
+        runBlocking {
+            val s = Repository.get(ctx).current()
+            val m = com.yasnost.app.widget.WidgetUpdater
+            val ms = m.javaClass.declaredMethods
+            val cl = ms.first { it.name == "cycleLayout" }.apply { isAccessible = true }
+            val mini = ms.first { it.name == "cycleMini" }.apply { isAccessible = true }
+            val ci = com.yasnost.app.domain.CycleLogic.info(s, LocalDate.now().toEpochDay())
+            val act = rule.activity
+            fun render(name: String, views: RemoteViews, wDp: Int, hDp: Int) {
+                val d = act.resources.displayMetrics.density
+                val w = (wDp * d).toInt(); val h = (hDp * d).toInt()
+                val parent = FrameLayout(act)
+                val v: View = views.apply(act, parent)
+                parent.addView(v, ViewGroup.LayoutParams(w, h))
+                parent.measure(View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(h, View.MeasureSpec.EXACTLY))
+                parent.layout(0, 0, w, h)
+                val pad = (16 * d).toInt()
+                val bmp = Bitmap.createBitmap(w + pad * 2, h + pad * 2, Bitmap.Config.ARGB_8888)
+                val c = Canvas(bmp); c.drawColor(0xFF1B2440.toInt()); c.translate(pad.toFloat(), pad.toFloat()); parent.draw(c)
+                File(out, "$name.png").outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
+            }
+            render("w_cycle", cl.invoke(m, act, 1, s, ci, false) as RemoteViews, 350, 170)
+            render("w_cycle_tall", cl.invoke(m, act, 1, s, ci, true) as RemoteViews, 350, 360)
+            render("w_cycle_mini", mini.invoke(m, act, 1, s) as RemoteViews, 80, 80)
+        }
+    }
+
     @Test fun female() {
         val ctx = ApplicationProvider.getApplicationContext<android.content.Context>()
         seedProfile(ctx, female = true, done = false); settle(); shot("20_welcome")
-        rule.onNodeWithText("Женский").performClick(); settle(); rule.onNodeWithText("Далее").performClick(); settle(); shot("21_welcome_cycle")
+        rule.onNodeWithText("Женский").performClick(); settle(); rule.onNodeWithText("Далее").performClick(); settle()
+        rule.onNodeWithText("Не пью вообще").performClick(); rule.onNodeWithText("Не курю вообще").performClick(); settle(); shot("21_welcome_modules")
+        rule.onNodeWithText("Далее").performClick(); settle(); shot("21b_welcome_cycle")
         seedProfile(ctx, female = true, done = true); settle(); shot("22_home_female")
         rule.onNodeWithText("Отметки").performClick(); settle()
         rule.onNodeWithText("Цикл").performClick(); settle(); shot("23_cycle_female")
@@ -156,6 +195,7 @@ class ScreenshotTest {
     }
 
     @Test fun widgets() {
+        seed(ApplicationProvider.getApplicationContext())
         val ctx = rule.activity
         val m = com.yasnost.app.widget.WidgetUpdater
         runBlocking {

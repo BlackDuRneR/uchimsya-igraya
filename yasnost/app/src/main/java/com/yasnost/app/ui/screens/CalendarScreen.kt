@@ -80,7 +80,7 @@ object CalendarTab { var tab = "diary" }
 @Composable
 fun CalendarScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
     val tabs = buildList {
-        add("diary" to "Дневник")
+        add("diary" to if (s.habits.isEmpty()) "Настроение" else "Дневник")
         if (s.settings.intimacyEnabled) add("intimacy" to "Близость")
         if (s.cycleSettings.enabled) add("cycle" to "Цикл")
     }
@@ -119,9 +119,15 @@ private fun DiaryContent(s: AppState, repo: Repository, scope: CoroutineScope) {
 
     MonthCalendar(month, { month = it }, footer = {
         Row(Modifier.padding(top = 10.dp, start = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-            Legend(Brush.linearGradient(listOf(Y.Teal, Y.Mint)), "Чистый день")
-            Legend(Brush.linearGradient(listOf(Y.Amber, Y.Amber)), "Частично")
-            Legend(Brush.linearGradient(listOf(Y.Danger, Y.Danger)), "Срыв")
+            if (s.habits.isNotEmpty()) {
+                Legend(Brush.linearGradient(listOf(Y.Teal, Y.Mint)), "Чистый день")
+                Legend(Brush.linearGradient(listOf(Y.Amber, Y.Amber)), "Частично")
+                Legend(Brush.linearGradient(listOf(Y.Danger, Y.Danger)), "Срыв")
+            } else {
+                Legend(Brush.linearGradient(listOf(Y.Violet, Y.Magenta)), "Хорошее настроение")
+                Legend(Brush.linearGradient(listOf(Y.Sky, Y.Sky)), "Ровное")
+                Legend(Brush.linearGradient(listOf(Y.Coral, Y.Coral)), "Тяжёлое")
+            }
         }
     }) { date -> DayCell(date, s, today) { if (!date.isAfter(today)) editDay = date.toEpochDay() } }
 
@@ -136,12 +142,14 @@ private fun DiaryContent(s: AppState, repo: Repository, scope: CoroutineScope) {
             "", Y.Violet, Modifier.weight(1f)
         )
     }
-    SectionLabel("Тяга за 14 дней", Modifier.padding(top = 10.dp))
-    Glass(Modifier.fillMaxWidth(), padding = 16.dp) { CravingChart(s, today.toEpochDay()) }
+    if (s.habits.isNotEmpty()) {
+        SectionLabel("Тяга за 14 дней", Modifier.padding(top = 10.dp))
+        Glass(Modifier.fillMaxWidth(), padding = 16.dp) { CravingChart(s, today.toEpochDay()) }
+    }
 
     val trig = (s.checkIns.flatMap { it.triggers } + s.relapses.flatMap { it.triggers }).groupingBy { it }.eachCount()
         .entries.sortedByDescending { it.value }.take(5)
-    if (trig.isNotEmpty()) {
+    if (trig.isNotEmpty() && s.habits.isNotEmpty()) {
         SectionLabel("Мои главные триггеры", Modifier.padding(top = 10.dp))
         Glass(Modifier.fillMaxWidth(), padding = 16.dp) {
             val max = trig.first().value.toFloat()
@@ -206,6 +214,11 @@ private fun DayCell(date: LocalDate, s: AppState, today: LocalDate, onClick: () 
         relapsed -> Brush.linearGradient(listOf(Y.Danger.copy(alpha = 0.8f), Y.Coral.copy(alpha = 0.6f)))
         c != null && tracked.isNotEmpty() && c.cleanHabits.containsAll(tracked.map { it.id }) -> Brush.linearGradient(listOf(Y.Teal, Y.Mint))
         c != null && c.cleanHabits.isNotEmpty() -> Brush.linearGradient(listOf(Y.Amber, Y.Amber.copy(alpha = 0.7f)))
+        c != null && s.habits.isEmpty() -> when (c.mood) {
+            4, 5 -> Brush.linearGradient(listOf(Y.Violet, Y.Magenta))
+            3 -> Brush.linearGradient(listOf(Y.Sky, Y.Sky.copy(alpha = 0.8f)))
+            else -> Brush.linearGradient(listOf(Y.Coral, Y.Coral.copy(alpha = 0.8f)))
+        }
         c != null -> Brush.linearGradient(listOf(Color(0x40FFFFFF), Color(0x30FFFFFF)))
         else -> null
     }
@@ -265,7 +278,7 @@ private fun CravingChart(s: AppState, today: Long) {
 fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScope, onClose: () -> Unit) {
     val existing = s.checkIn(day)
     var mood by remember { mutableIntStateOf(existing?.mood ?: 4) }
-    var craving by remember { mutableFloatStateOf((existing?.craving ?: 2).toFloat()) }
+    var craving by remember { mutableFloatStateOf((existing?.craving ?: if (s.habits.isEmpty()) 0 else 2).toFloat()) }
     var clean by remember { mutableStateOf(existing?.cleanHabits?.toSet() ?: s.habits.map { it.id }.toSet()) }
     var triggers by remember { mutableStateOf(existing?.triggers?.toSet() ?: emptySet()) }
     var note by remember { mutableStateOf(existing?.note ?: "") }
@@ -299,12 +312,12 @@ fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScop
                 }
                 Text(MOOD_NAMES[mood - 1], style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp))
 
-                Text("ТЯГА: ${craving.toInt()} / 10", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 18.dp))
-                Slider(
+                if (s.habits.isNotEmpty()) Text("ТЯГА: ${craving.toInt()} / 10", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 18.dp))
+                if (s.habits.isNotEmpty()) Slider(
                     craving, { craving = it }, valueRange = 0f..10f, steps = 9,
                     colors = SliderDefaults.colors(thumbColor = Y.Coral, activeTrackColor = Y.Coral, inactiveTrackColor = Color(0x22FFFFFF), activeTickColor = Color.Transparent, inactiveTickColor = Color.Transparent)
                 )
-                if (craving >= 1f) {
+                if (craving >= 1f && s.habits.isNotEmpty()) {
                     Text("ЧТО ВЫЗЫВАЛО ТЯГУ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 6.dp, bottom = 8.dp))
                     ChipsMulti(TRIGGERS, triggers, Accent(Y.Coral, Y.Magenta)) { t -> triggers = if (t in triggers) triggers - t else triggers + t }
                 }

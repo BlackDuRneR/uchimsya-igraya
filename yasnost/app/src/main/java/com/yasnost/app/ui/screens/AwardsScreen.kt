@@ -57,7 +57,7 @@ import com.yasnost.app.ui.theme.accent
 private val LEVEL = Accent(Y.Amber, Y.Magenta)
 
 @Composable
-fun LevelCard(level: Level, modifier: Modifier = Modifier) {
+fun LevelCard(level: Level, modifier: Modifier = Modifier, habits: Boolean = true) {
     Glass(modifier.fillMaxWidth(), radius = 28.dp, padding = 18.dp, tint = Y.Amber.copy(alpha = 0.05f)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             ProgressRing(level.progress, LEVEL, Modifier.size(84.dp), stroke = 8.dp) {
@@ -73,7 +73,8 @@ fun LevelCard(level: Level, modifier: Modifier = Modifier) {
             }
         }
         Text(
-            "Опыт начисляется за каждый чистый день, награды, отметки в дневнике и побеждённую тягу.",
+            if (habits) "Опыт начисляется за каждый чистый день, награды, отметки в дневнике и побеждённую тягу."
+            else "Опыт начисляется за отметки настроения, цикла и близости и за награды.",
             style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 10.dp)
         )
     }
@@ -82,7 +83,10 @@ fun LevelCard(level: Level, modifier: Modifier = Modifier) {
 @Composable
 fun AwardsScreen(s: AppState, nav: Nav) {
     val now = rememberNow(60_000)
-    var tab by remember { mutableIntStateOf(0) }
+    var tab by remember { mutableIntStateOf(if (s.settings.anyHabits) 0 else 1) }
+    val habitCats = setOf(AwardCat.MONEY, AwardCat.SOS, AwardCat.HEALTH, AwardCat.COMEBACK, AwardCat.COMBO, AwardCat.DREAMS, AwardCat.MIND)
+    fun catVisible(c: AwardCat) = (c !in habitCats || s.settings.anyHabits) &&
+        (c != AwardCat.INTIMACY || s.settings.intimacyEnabled) && (c != AwardCat.CYCLE || s.cycleSettings.enabled)
     val ctx = AwardCtx(s, now)
     Column(
         Modifier
@@ -94,13 +98,14 @@ fun AwardsScreen(s: AppState, nav: Nav) {
         Spacer(Modifier.height(18.dp))
         Text("ДОСТИЖЕНИЯ", style = YType.Label, color = Y.Text3)
         Text("Награды", style = YType.Big, color = Y.Text, modifier = Modifier.padding(top = 4.dp, bottom = 14.dp))
-        LevelCard(Levels.of(s, now))
+        LevelCard(Levels.of(s, now), habits = s.settings.anyHabits)
         Spacer(Modifier.height(14.dp))
 
         val timeTotal = s.habits.sumOf { h -> Achievements.list.count { now - h.startMillis >= it.millis } }
         val globalGot = Awards.unlocked(ctx).size
-        val visible = Awards.list.count { (it.cat != AwardCat.CYCLE || s.cycleSettings.enabled) && (it.cat != AwardCat.INTIMACY || s.settings.intimacyEnabled) }
-        Segmented(listOf("За время  $timeTotal", "Особые  $globalGot/$visible"), tab, LEVEL) { tab = it }
+        val visible = Awards.list.count { catVisible(it.cat) }
+        val gotVisible = Awards.unlocked(ctx).count { catVisible(it.cat) }
+        if (s.settings.anyHabits) Segmented(listOf("За время  $timeTotal", "Особые  $gotVisible/$visible"), tab, LEVEL) { tab = it }
         Spacer(Modifier.height(6.dp))
 
         if (tab == 0) {
@@ -116,8 +121,7 @@ fun AwardsScreen(s: AppState, nav: Nav) {
         } else {
             AwardCat.entries.forEach { cat ->
                 val items = Awards.list.filter { it.cat == cat }
-                if (cat == AwardCat.INTIMACY && !s.settings.intimacyEnabled) return@forEach
-                if (cat == AwardCat.CYCLE && !s.cycleSettings.enabled) return@forEach
+                if (!catVisible(cat)) return@forEach
                 SectionLabel(cat.title, Modifier.padding(top = 10.dp))
                 items.chunked(3).forEach { row ->
                     Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {

@@ -110,7 +110,7 @@ object WidgetUpdater {
         val now = System.currentTimeMillis()
         ids.forEach { id ->
             val h = s.habit(prefs(ctx).getString("w_$id", null)) ?: s.habits.firstOrNull()
-            if (h == null) { m.updateAppWidget(id, emptyViews(ctx)); return@forEach }
+            if (h == null) { m.updateAppWidget(id, cycleMini(ctx, id, s) ?: emptyViews(ctx)); return@forEach }
             val v = RemoteViews(ctx.packageName, R.layout.widget_mini)
             v.setInt(R.id.root, "setBackgroundResource", when (h.type) {
                 HabitType.ALCOHOL -> R.drawable.mini_bg_alcohol; HabitType.SMOKING -> R.drawable.mini_bg_smoking; HabitType.CUSTOM -> R.drawable.mini_bg_custom
@@ -130,7 +130,7 @@ object WidgetUpdater {
         ids.forEach { id ->
             val habitId = prefs(ctx).getString("w_$id", null)
             val h = s.habit(habitId) ?: s.habits.firstOrNull()
-            m.updateAppWidget(id, counterViews(ctx, id, h, s, now))
+            m.updateAppWidget(id, if (h == null) cycleOrEmpty(ctx, id, s) else counterViews(ctx, id, h, s, now))
         }
     }
 
@@ -220,7 +220,7 @@ object WidgetUpdater {
     )
 
     private fun summaryViews(ctx: Context, id: Int, s: AppState, now: Long): RemoteViews {
-        if (s.habits.isEmpty()) return emptyViews(ctx)
+        if (s.habits.isEmpty()) return cycleOrEmpty(ctx, id, s)
         val compact = summaryLayout(ctx, id, s, now, tall = false)
         val tall = summaryLayout(ctx, id, s, now, tall = true)
         return if (Build.VERSION.SDK_INT >= 31) RemoteViews(mapOf(SizeF(200f, 100f) to compact, SizeF(200f, 230f) to tall))
@@ -342,6 +342,92 @@ object WidgetUpdater {
         return v
     }
 
+    // ---------- Цикл (когда привычки не отслеживаются) ----------
+
+    private fun cycleOrEmpty(ctx: Context, id: Int, s: AppState): RemoteViews {
+        if (!s.cycleSettings.enabled) return emptyViews(ctx)
+        val ci = com.yasnost.app.domain.CycleLogic.info(s, java.time.LocalDate.now().toEpochDay())
+        if (!ci.hasData) return emptyViews(ctx)
+        val compact = cycleLayout(ctx, id, s, ci, false)
+        val tall = cycleLayout(ctx, id, s, ci, true)
+        return if (Build.VERSION.SDK_INT >= 31) RemoteViews(mapOf(SizeF(100f, 100f) to compact, SizeF(200f, 230f) to tall)) else compact
+    }
+
+    private fun cycleRight(ci: com.yasnost.app.domain.CycleInfo): Pair<String, String> {
+        val t = ci.today
+        val ns = ci.nextStart!!
+        return when {
+            ci.inPeriodNow -> "день ${t - ci.lastStart!! + 1}" to "МЕСЯЧНЫЕ"
+            ci.lateDays > 0 -> "+${ci.lateDays} дн" to "ЗАДЕРЖКА"
+            else -> "${ns - t} дн" to "ДО МЕСЯЧНЫХ"
+        }
+    }
+
+    private fun cycleLayout(ctx: Context, id: Int, s: AppState, ci: com.yasnost.app.domain.CycleInfo, tall: Boolean): RemoteViews {
+        val v = RemoteViews(ctx.packageName, R.layout.widget_summary_single)
+        val t = ci.today
+        val ru = java.util.Locale.forLanguageTag("ru")
+        val df = java.time.format.DateTimeFormatter.ofPattern("d MMMM", ru)
+        fun d(day: Long) = df.format(java.time.LocalDate.ofEpochDay(day))
+        v.setInt(R.id.root, "setBackgroundResource", R.drawable.widget_bg_cycle)
+        v.setInt(R.id.badge, "setBackgroundResource", R.drawable.badge_cycle)
+        v.setImageViewResource(R.id.icon, R.drawable.ic_drop)
+        val lvl = Levels.of(s, System.currentTimeMillis())
+        v.setTextViewText(R.id.level, "Ур. ${lvl.n} · ${lvl.title}")
+        val who = if (s.profile.female) "МОЙ ЦИКЛ" else if (s.profile.partnerName.isBlank()) "ЦИКЛ ДЕВУШКИ" else "ЦИКЛ · ${s.profile.partnerName.uppercase()}"
+        v.setTextViewText(R.id.total, who)
+        v.setTextColor(R.id.total, 0xFFFF7AB6.toInt())
+        v.setTextViewTextSize(R.id.total, android.util.TypedValue.COMPLEX_UNIT_SP, 13f)
+        val doc = ci.dayOfCycle ?: 1
+        v.setTextViewText(R.id.days, "$doc")
+        v.setTextColor(R.id.days, 0xFFFF7AB6.toInt())
+        v.setTextViewText(R.id.daysLabel, "день цикла")
+        v.setTextColor(R.id.daysLabel, 0xFFFF7AB6.toInt())
+        v.setTextViewText(R.id.title, ci.phase()?.title?.lowercase() ?: "")
+        v.setViewVisibility(R.id.timer, View.GONE)
+        val (big, small) = cycleRight(ci)
+        v.setViewVisibility(R.id.rightBig, View.VISIBLE)
+        v.setTextViewText(R.id.rightBig, big)
+        v.setTextViewText(R.id.timerLabel, small)
+        v.setImageViewBitmap(R.id.bar, bar((doc.toFloat() / ci.avgCycle).coerceIn(0f, 1f), null))
+        val ns = ci.nextStart!!
+        v.setTextViewText(R.id.next, if (ci.ovulation != null && ci.ovulation!! >= t) "овуляция ≈ ${d(ci.ovulation!!)} · месячные ≈ ${d(ns)}" else "месячные ≈ ${d(ns)}")
+        v.setTextViewText(R.id.percent, "$doc/${ci.avgCycle}")
+        v.setTextColor(R.id.percent, 0xFFFF7AB6.toInt())
+        if (tall) {
+            v.setViewVisibility(R.id.extra, View.VISIBLE)
+            v.setTextViewText(R.id.sx1Label, "СРЕДНИЙ ЦИКЛ"); v.setTextViewText(R.id.sx1, "${ci.avgCycle} дн")
+            v.setTextViewText(R.id.sx2Label, "МЕСЯЧНЫЕ"); v.setTextViewText(R.id.sx2, "${ci.avgPeriod} дн")
+            v.setTextViewText(R.id.sx3Label, "ПМС С"); v.setTextViewText(R.id.sx3, d(ns - 5))
+        }
+        val phase = ci.phase()
+        v.setViewVisibility(R.id.quote, View.VISIBLE)
+        if (phase != null) {
+            val pt = com.yasnost.app.domain.CycleLogic.phaseText(phase)
+            val tips = if (s.profile.female) pt.tips else pt.partner
+            v.setTextViewText(R.id.quote, "💡 " + tips[(t % tips.size).toInt()])
+            v.setInt(R.id.quote, "setMaxLines", if (tall) 3 else 2)
+        }
+        v.setOnClickPendingIntent(R.id.root, openApp(ctx, id * 10 + 8, null))
+        return v
+    }
+
+    private fun cycleMini(ctx: Context, id: Int, s: AppState): RemoteViews? {
+        if (!s.cycleSettings.enabled) return null
+        val ci = com.yasnost.app.domain.CycleLogic.info(s, java.time.LocalDate.now().toEpochDay())
+        if (!ci.hasData) return null
+        val v = RemoteViews(ctx.packageName, R.layout.widget_mini)
+        v.setInt(R.id.root, "setBackgroundResource", R.drawable.mini_bg_cycle)
+        val t = ci.today
+        when {
+            ci.inPeriodNow -> { v.setTextViewText(R.id.days, "${t - ci.lastStart!! + 1}"); v.setTextViewText(R.id.label, "день мес.") }
+            ci.lateDays > 0 -> { v.setTextViewText(R.id.days, "+${ci.lateDays}"); v.setTextViewText(R.id.label, "задержка") }
+            else -> { v.setTextViewText(R.id.days, "${ci.nextStart!! - t}"); v.setTextViewText(R.id.label, "до мес.") }
+        }
+        v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, null))
+        return v
+    }
+
     private fun emptyViews(ctx: Context): RemoteViews {
         val v = RemoteViews(ctx.packageName, R.layout.widget_empty)
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, 0, null))
@@ -376,7 +462,7 @@ object WidgetUpdater {
     }
 
     /** Полоска прогресса (растягивается по ширине). */
-    private fun bar(progress: Float, t: HabitType): Bitmap {
+    private fun bar(progress: Float, t: HabitType?): Bitmap {
         val w = 600; val h = 14
         val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         val c = Canvas(bmp)
@@ -384,7 +470,7 @@ object WidgetUpdater {
         c.drawRoundRect(RectF(0f, 0f, w.toFloat(), h.toFloat()), r, r, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0x1FFFFFFF })
         val pw = (w * progress.coerceIn(0.03f, 1f))
         val p = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            shader = android.graphics.LinearGradient(0f, 0f, pw, 0f, colorA(t), colorB(t), Shader.TileMode.CLAMP)
+            shader = android.graphics.LinearGradient(0f, 0f, pw, 0f, t?.let { colorA(it) } ?: 0xFFFF4D6D.toInt(), t?.let { colorB(it) } ?: 0xFFFF7AB6.toInt(), Shader.TileMode.CLAMP)
         }
         c.drawRoundRect(RectF(0f, 0f, pw, h.toFloat()), r, r, p)
         return bmp

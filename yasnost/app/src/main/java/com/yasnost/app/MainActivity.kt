@@ -142,7 +142,7 @@ private fun App(startHabit: String?, startSos: Boolean) {
     val accentType = (top as? Route.Habit)?.let { s.habit(it.id)?.type }
     val acc = accentType?.accent()
 
-    if (!s.profile.setupDone) {
+    if (!s.profile.setupDone || !s.settings.modulesChosen) {
         AuroraBackground { com.yasnost.app.ui.screens.WelcomeScreen(s, repo, scope) }
         return
     }
@@ -156,7 +156,7 @@ private fun App(startHabit: String?, startSos: Boolean) {
                 }
             }
             if (top is Route.Home || top is Route.Calendar || top is Route.Settings || top is Route.Awards) {
-                BottomBar(top, nav)
+                BottomBar(top, nav, s.settings.anyHabits)
             }
         }
     }
@@ -178,7 +178,7 @@ private fun Screen(r: Route, s: AppState, nav: Nav, repo: Repository, scope: Cor
 }
 
 @Composable
-private fun BottomBar(top: Route, nav: Nav) {
+private fun BottomBar(top: Route, nav: Nav, sos: Boolean) {
     Box(
         Modifier
             .fillMaxWidth()
@@ -198,7 +198,7 @@ private fun BottomBar(top: Route, nav: Nav) {
         ) {
             NavItem(Icons.Filled.Home, "Главная", top is Route.Home) { nav.tab(Route.Home) }
             NavItem(Icons.Filled.DateRange, "Отметки", top is Route.Calendar) { nav.tab(Route.Calendar) }
-            Box(
+            if (sos) Box(
                 Modifier
                     .size(56.dp)
                     .clip(CircleShape)

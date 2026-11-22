@@ -18,8 +18,10 @@ val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
 class Repository private constructor(private val ctx: Context) {
 
+    /** Состояние для экрана и виджетов: привычки отключённых модулей скрыты (но не удалены). */
     val state: Flow<AppState> = ctx.store.data.map { prefs ->
-        prefs[KEY]?.let { runCatching { json.decodeFromString<AppState>(it) }.getOrNull() } ?: AppState()
+        val raw = prefs[KEY]?.let { runCatching { json.decodeFromString<AppState>(it) }.getOrNull() } ?: AppState()
+        raw.copy(habits = raw.habits.filter { raw.settings.tracks(it.type) })
     }
 
     suspend fun current(): AppState = state.first()
