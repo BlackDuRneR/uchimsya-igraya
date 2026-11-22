@@ -182,7 +182,8 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
         }
         Spacer(Modifier.height(24.dp))
         if (step == 0) {
-            Text("Добро пожаловать\nв Ясность", style = YType.Big.copy(fontSize = 38.sp, lineHeight = 42.sp), color = Y.Text)
+            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(com.yasnost.app.R.drawable.logo_harmony), null, modifier = Modifier.size(120.dp).padding(bottom = 12.dp))
+            Text("Добро пожаловать\nв Harmony", style = YType.Big.copy(fontSize = 38.sp, lineHeight = 42.sp), color = Y.Text)
             Text(
                 "Трезвость, свобода от сигарет, дневник, близость и цикл — всё в одном месте и только на твоём телефоне.",
                 style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 10.dp, bottom = 26.dp)
@@ -267,6 +268,11 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
             TextButton(onClick = { step = 1 }, modifier = Modifier.fillMaxWidth()) { Text("Назад", color = Y.Text2) }
         }
         Spacer(Modifier.height(24.dp))
+        Text(
+            "Разработчик: " + androidx.compose.ui.res.stringResource(com.yasnost.app.R.string.developer),
+            style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(16.dp))
         Spacer(Modifier.navigationBarsPadding())
     }
 

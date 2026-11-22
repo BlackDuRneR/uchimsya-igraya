@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Открой «Ясность» и добавь привычку"
+        android:text="Открой Harmony и добавь привычку"
         android:textColor="#FF9AA0BC"
         android:textSize="13sp" />
 </LinearLayout>

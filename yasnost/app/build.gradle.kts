@@ -13,8 +13,8 @@ android {
         applicationId = "com.yasnost.app"
         minSdk = 29
         targetSdk = 36
-        versionCode = 9
-        versionName = "3.6"
+        versionCode = 10
+        versionName = "3.7"
     }
 
     signingConfigs {

@@ -91,7 +91,7 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             style = YType.Label, color = Y.Text3
         )
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
-            Text("Ясность", style = YType.Big.copy(fontSize = 40.sp), color = Y.Text, modifier = Modifier.weight(1f))
+            Text("Harmony", style = YType.Big.copy(fontSize = 40.sp), color = Y.Text, modifier = Modifier.weight(1f))
             if (s.habits.isNotEmpty()) {
                 val lvl = com.yasnost.app.domain.Levels.of(s, now)
                 Row(

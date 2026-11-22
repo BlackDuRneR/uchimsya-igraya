@@ -167,7 +167,7 @@ object WidgetUpdater {
         v.setInt(R.id.tile, "setBackgroundResource", tileFor(type))
         v.setImageViewResource(R.id.glyph, iconFor(type))
         v.setTextViewText(R.id.days, h?.let { Fmt.intNum(it.stats(now).days) } ?: "—")
-        v.setTextViewText(R.id.label, if (h == null) "Ясность" else when (type) {
+        v.setTextViewText(R.id.label, if (h == null) "Harmony" else when (type) {
             HabitType.ALCOHOL -> "Не пью"; HabitType.SMOKING -> "Не курю"; HabitType.CUSTOM -> h.title
         })
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, h?.id))

@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.sp
 import com.yasnost.app.R
 import com.yasnost.app.data.HabitType
 
-/** Дизайн-код «Ясность»: глубокая ночь + северное сияние. */
+/** Дизайн-код Harmony: глубокая ночь + северное сияние. */
 object Y {
     val Bg = Color(0xFF06070C)
     val Surface = Color(0xFF10121C)

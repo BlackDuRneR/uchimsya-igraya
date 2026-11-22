@@ -1,4 +1,4 @@
-name: Ясность — сборка APK
+name: Harmony — сборка APK
 
 on:
   push:
@@ -26,16 +26,16 @@ jobs:
       - name: Build release APK
         run: ./gradlew --no-daemon assembleRelease
       - name: Rename
-        run: cp app/build/outputs/apk/release/app-release.apk Yasnost.apk
+        run: cp app/build/outputs/apk/release/app-release.apk Harmony.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: Yasnost-apk
-          path: yasnost/Yasnost.apk
+          name: Harmony.apk
+          path: yasnost/Harmony.apk
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: yasnost-${{ github.run_number }}
-          name: Ясность (сборка ${{ github.run_number }})
+          name: Harmony (сборка ${{ github.run_number }})
           target_commitish: ${{ github.sha }}
           prerelease: true
-          files: yasnost/Yasnost.apk
+          files: yasnost/Harmony.apk

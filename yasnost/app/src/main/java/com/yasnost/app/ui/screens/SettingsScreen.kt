@@ -283,7 +283,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
         SectionLabel("Виджеты", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
             Text(
-                "Долгое нажатие на пустом месте рабочего стола → «Виджеты» → «Ясность». Есть ярлыки 1×1 («Не пью», «Не курю», «Месячные») — только число; «Счётчик» с кольцом для одной привычки (растяни до 4×3 — появятся рекорд и этап восстановления); «Сводка» со всеми привычками, циклом и фактом дня.",
+                "Долгое нажатие на пустом месте рабочего стола → «Виджеты» → «Harmony». Есть ярлыки 1×1 («Не пью», «Не курю», «Месячные») — только число; «Счётчик» с кольцом для одной привычки (растяни до 4×3 — появятся рекорд и этап восстановления); «Сводка» со всеми привычками, циклом и фактом дня.",
                 style = YType.Body, color = Y.Text2,
             )
         }
@@ -328,7 +328,18 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.6", style = YType.Sub, color = Y.Text)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    Modifier.size(64.dp).clip(RoundedCornerShape(20.dp))
+                        .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(androidx.compose.ui.graphics.Color(0xFF2E4363), androidx.compose.ui.graphics.Color(0xFF070E1E)))),
+                    contentAlignment = Alignment.Center,
+                ) { androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(com.yasnost.app.R.drawable.logo_harmony), null, modifier = Modifier.size(50.dp)) }
+                Column(Modifier.padding(start = 14.dp)) {
+                    Text("Harmony 3.7", style = YType.Sub, color = Y.Text)
+                    Text("Разработчик", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
+                    Text(androidx.compose.ui.res.stringResource(com.yasnost.app.R.string.developer), style = YType.Body.copy(fontSize = 14.sp), color = androidx.compose.ui.graphics.Color(0xFFE3C9A0))
+                }
+            }
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),
