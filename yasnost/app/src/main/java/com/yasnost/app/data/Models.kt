@@ -25,6 +25,7 @@ data class Relapse(
     val atMillis: Long,
     val streakMillis: Long,
     val note: String = "",
+    val triggers: List<String> = emptyList(),
 )
 
 @Serializable
@@ -38,6 +39,34 @@ data class CheckIn(
     /** id привычек, по которым день прошёл чисто */
     val cleanHabits: List<String> = emptyList(),
     val note: String = "",
+    /** Что вызывало тягу сегодня */
+    val triggers: List<String> = emptyList(),
+)
+
+@Serializable
+enum class SexStatus { NONE, PROTECTED, UNPROTECTED }
+
+@Serializable
+data class IntimacyEntry(
+    /** LocalDate.toEpochDay() */
+    val day: Long,
+    val sex: SexStatus = SexStatus.NONE,
+    /** Сколько раз был контакт за день (если был) */
+    val sexCount: Int = 1,
+    val masturbation: Boolean = false,
+    /** Желание / либидо 0..5 */
+    val desire: Int = 3,
+    /** Был ли алкоголь в этот день перед близостью */
+    val alcohol: Boolean = false,
+    val note: String = "",
+)
+
+@Serializable
+data class Goal(
+    val id: String,
+    val title: String,
+    val price: Double,
+    val createdMillis: Long,
 )
 
 @Serializable
@@ -46,6 +75,12 @@ data class Settings(
     val reminderEnabled: Boolean = true,
     val reminderHour: Int = 21,
     val milestoneNotifications: Boolean = true,
+    /** Показывать раздел «Близость» */
+    val intimacyEnabled: Boolean = true,
+    /** Требовать отпечаток / PIN для раздела «Близость» */
+    val intimacyLock: Boolean = false,
+    /** Запретить скриншоты и превью в списке приложений */
+    val secureScreen: Boolean = false,
 )
 
 @Serializable
@@ -60,7 +95,17 @@ data class AppState(
     /** Сколько раз удалось перебороть тягу через SOS */
     val cravingsBeaten: Int = 0,
     val lastReminderDay: Long = -1,
+    val intimacy: List<IntimacyEntry> = emptyList(),
+    val goals: List<Goal> = emptyList(),
+    /** Письмо себе — показывается на экране SOS */
+    val letter: String = "",
+    /** Дата последнего обследования на ИППП (epochDay) */
+    val lastStiTestDay: Long = -1,
+    /** id полученных общих достижений (для уведомлений) */
+    val unlocked: List<String> = emptyList(),
+    val unlockedInit: Boolean = false,
 ) {
+    fun intimacyOn(day: Long) = intimacy.firstOrNull { it.day == day }
     fun habit(id: String?) = habits.firstOrNull { it.id == id }
     fun checkIn(day: Long) = checkIns.firstOrNull { it.day == day }
     fun bestStreak(habitId: String, now: Long): Long {

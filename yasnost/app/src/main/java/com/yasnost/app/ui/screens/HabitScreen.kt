@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -135,17 +136,14 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
             }
             if (h.costPerDay > 0) {
                 Spacer(Modifier.height(10.dp))
-                Glass(Modifier.fillMaxWidth(), radius = 22.dp, padding = 16.dp) {
-                    Text("НА ЭТИ ДЕНЬГИ МОЖНО", style = YType.Label, color = Y.Text3)
-                    Text(moneyIdea(st.money, s.settings.currency), style = YType.Body, color = Y.Text, modifier = Modifier.padding(top = 6.dp))
-                }
+                MoneyHighlights(com.yasnost.app.domain.Rates.toKzt(st.money, s.settings.currency), s.settings.currency, h.costPerDay) { nav.go(Route.Money) }
             }
 
             // Здоровье
             SectionLabel("Восстановление организма", Modifier.padding(top = 18.dp))
             HealthTimeline(h, st.elapsed, acc)
             Text(
-                "Сроки ориентировочные, по данным открытых медицинских источников. У каждого организма свой темп.",
+                "Сроки ориентировочные, по данным ВОЗ, CDC, NIAAA и рецензируемых исследований. У каждого организма свой темп.",
                 style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 4.dp, start = 4.dp)
             )
 
@@ -163,6 +161,7 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
                             Column(Modifier.weight(1f)) {
                                 Text(r.atMillis.fmtDate(), style = YType.Body, color = Y.Text2)
                                 if (r.note.isNotBlank()) Text(r.note, style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3)
+                                if (r.triggers.isNotEmpty()) Text(r.triggers.joinToString(" · "), style = YType.Body.copy(fontSize = 12.sp), color = Y.Coral)
                             }
                             Text(Fmt.duration(r.streakMillis), style = YType.Sub, color = Y.Text)
                         }
@@ -185,26 +184,31 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
 
     if (relapseDialog) {
         var note by remember { mutableStateOf("") }
+        var trig by remember { mutableStateOf(setOf<String>()) }
         AlertDialog(
             onDismissRequest = { relapseDialog = false },
             containerColor = Y.Surface2,
             shape = RoundedCornerShape(32.dp),
-            title = { Text("Начать заново?", style = YType.Title, color = Y.Text) },
+            title = { Text("Срыв — это не конец", style = YType.Title, color = Y.Text) },
             text = {
-                Column {
+                Column(Modifier.verticalScroll(rememberScrollState())) {
                     Text(
-                        "Ты продержался ${Fmt.duration(st.elapsed)}. Это не пропадёт — серия останется в истории. Что стало причиной? Это поможет в следующий раз.",
+                        "Ты продержался ${Fmt.duration(st.elapsed)} — это никуда не денется, серия останется в истории. " +
+                            "Психологи называют ловушкой мысль «всё пропало, теперь можно». Один эпизод — это урок, а не приговор. " +
+                            "Большинство людей бросают окончательно не с первой попытки.",
                         style = YType.Body, color = Y.Text2
                     )
+                    Text("ЧТО ПОДТОЛКНУЛО", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 14.dp, bottom = 8.dp))
+                    com.yasnost.app.ui.components.ChipsMulti(com.yasnost.app.domain.TRIGGERS, trig, Accent(Y.Coral, Y.Magenta)) { t -> trig = if (t in trig) trig - t else trig + t }
                     OutlinedTextField(
-                        note, { note = it }, placeholder = { Text("Например: стресс на работе", color = Y.Text3) },
+                        note, { note = it }, placeholder = { Text("Что было бы полезно сделать в следующий раз?", color = Y.Text3) },
                         modifier = Modifier.fillMaxWidth().padding(top = 12.dp), shape = RoundedCornerShape(18.dp),
                         colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Y.Danger, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text),
                     )
                 }
             },
             confirmButton = {
-                TextButton(onClick = { scope.launch { repo.relapse(h.id, note.trim()) }; relapseDialog = false }) {
+                TextButton(onClick = { scope.launch { repo.relapse(h.id, note.trim(), trig.toList()) }; relapseDialog = false }) {
                     Text("Начать заново", color = Y.Danger, style = YType.Sub)
                 }
             },
@@ -213,15 +217,28 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
     }
 }
 
-private fun moneyIdea(money: Double, cur: String): String {
-    val m = money
-    return when {
-        m < 5_000 -> "Пока немного — но это уже чашка хорошего кофе каждый день вместо вреда."
-        m < 30_000 -> "Новые наушники, кроссовки или хороший ужин в ресторане."
-        m < 100_000 -> "Абонемент в спортзал на полгода или поездка на выходные."
-        m < 300_000 -> "Новый смартфон среднего класса или отпуск у моря."
-        m < 1_000_000 -> "Хороший отпуск за границей или крупная покупка для дома."
-        else -> "Первый взнос на машину или серьёзная подушка безопасности. ${Fmt.money(m)} $cur — это твоя свобода."
+@Composable
+fun MoneyHighlights(kzt: Double, cur: String, perDay: Double, onClick: () -> Unit) {
+    val hl = com.yasnost.app.domain.Catalog.highlights(kzt, java.time.LocalDate.now().toEpochDay())
+    val next = com.yasnost.app.domain.Catalog.nextTargets(kzt, 1).firstOrNull()
+    Glass(Modifier.fillMaxWidth(), radius = 22.dp, padding = 16.dp, onClick = onClick) {
+        Text("ТВОИ ДЕНЬГИ — ЭТО", style = YType.Label, color = Y.Text3)
+        if (hl.isEmpty()) Text(com.yasnost.app.domain.Money.idea(kzt), style = YType.Body, color = Y.Text, modifier = Modifier.padding(top = 6.dp))
+        hl.forEach { e ->
+            Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(e.thing.emoji, fontSize = 18.sp)
+                Text(e.thing.title, style = YType.Body, color = Y.Text, modifier = Modifier.padding(start = 10.dp).weight(1f))
+                Text("× ${e.count}", style = YType.Sub, color = Y.Mint)
+            }
+        }
+        if (next != null && perDay > 0) {
+            val days = kotlin.math.ceil(com.yasnost.app.domain.Rates.fromKzt(next.priceKzt - kzt, cur) / perDay).toLong()
+            Text(
+                "${next.emoji} ${next.title} — ещё $days ${Fmt.days(days)} без срывов",
+                style = YType.Body.copy(fontSize = 13.sp), color = Y.Amber, modifier = Modifier.padding(top = 10.dp)
+            )
+        }
+        Text("Подробнее и копилка мечты →", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp))
     }
 }
 
@@ -248,6 +265,7 @@ private fun HealthTimeline(h: Habit, elapsed: Long, acc: Accent) {
                 Column(Modifier.padding(start = 14.dp).weight(1f)) {
                     Text(step.title, style = YType.Sub, color = if (done) acc.b else Y.Text)
                     Text(step.text, style = YType.Body.copy(fontSize = 14.sp), color = Y.Text2)
+                    if (step.source.isNotEmpty() && (done || active)) Text(step.source, style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 2.dp))
                     if (active) {
                         Box(Modifier.padding(top = 8.dp).fillMaxWidth().height(5.dp).clip(RoundedCornerShape(50)).background(Color(0x14FFFFFF))) {
                             Box(Modifier.fillMaxWidth(p.coerceAtLeast(0.02f)).height(5.dp).clip(RoundedCornerShape(50)).background(acc.brush))
@@ -265,12 +283,13 @@ private fun HealthTimeline(h: Habit, elapsed: Long, acc: Accent) {
 fun MedalsGrid(elapsed: Long, acc: Accent) {
     val list = Achievements.list
     list.chunked(4).forEach { row ->
-        Row(Modifier.fillMaxWidth().padding(bottom = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(Modifier.fillMaxWidth().height(androidx.compose.foundation.layout.IntrinsicSize.Min).padding(bottom = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             row.forEach { a ->
                 val got = elapsed >= a.millis
                 Column(
                     Modifier
                         .weight(1f)
+                        .fillMaxHeight()
                         .clip(RoundedCornerShape(20.dp))
                         .background(if (got) acc.soft else Color(0x08FFFFFF))
                         .border(1.dp, if (got) acc.a.copy(alpha = 0.5f) else Y.Stroke, RoundedCornerShape(20.dp))
@@ -296,29 +315,3 @@ fun MedalsGrid(elapsed: Long, acc: Accent) {
     }
 }
 
-@Composable
-fun AwardsScreen(s: AppState, nav: Nav) {
-    val now = rememberNow(60_000)
-    Column(
-        Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .statusBarsPadding()
-            .padding(horizontal = 20.dp)
-    ) {
-        Spacer(Modifier.height(18.dp))
-        Text("ДОСТИЖЕНИЯ", style = YType.Label, color = Y.Text3)
-        Text("Награды", style = YType.Big, color = Y.Text, modifier = Modifier.padding(top = 4.dp, bottom = 8.dp))
-        val total = s.habits.sumOf { h -> Achievements.list.count { h.stats(now).elapsed >= it.millis } }
-        Text("Получено $total из ${Achievements.list.size * s.habits.size.coerceAtLeast(1)}", style = YType.Body, color = Y.Text2, modifier = Modifier.padding(bottom = 10.dp))
-        if (s.habits.isEmpty()) Text("Добавь привычку на главной, и здесь появятся награды.", style = YType.Body, color = Y.Text3)
-        s.habits.forEach { h ->
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 14.dp, bottom = 12.dp)) {
-                HabitBadge(h.type, 34.dp)
-                Text(h.title, style = YType.Sub, color = Y.Text, modifier = Modifier.padding(start = 10.dp))
-            }
-            MedalsGrid(h.stats(now).elapsed, h.type.accent())
-        }
-        Spacer(Modifier.height(24.dp))
-    }
-}

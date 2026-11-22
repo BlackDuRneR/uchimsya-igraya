@@ -4,7 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -76,6 +76,7 @@ sealed interface Route {
     data object Sos : Route
     data object Settings : Route
     data object Awards : Route
+    data object Money : Route
     data class Habit(val id: String) : Route
     data class Editor(val id: String?, val preset: String? = null) : Route
 }
@@ -87,7 +88,7 @@ class Nav(val stack: MutableList<Route>) {
     fun back(): Boolean = if (stack.size > 1) { stack.removeAt(stack.lastIndex); true } else false
 }
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -132,6 +133,11 @@ private fun App(startHabit: String?, startSos: Boolean) {
     BackHandler(enabled = stack.size > 1) { nav.back() }
 
     val s = state ?: run { Box(Modifier.fillMaxSize().background(Y.Bg)); return }
+    val activity = ctx as? android.app.Activity
+    LaunchedEffect(s.settings.secureScreen) {
+        if (s.settings.secureScreen) activity?.window?.addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE)
+        else activity?.window?.clearFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE)
+    }
     val top = nav.top
     val accentType = (top as? Route.Habit)?.let { s.habit(it.id)?.type }
     val acc = accentType?.accent()
@@ -158,6 +164,7 @@ private fun Screen(r: Route, s: AppState, nav: Nav, repo: Repository, scope: Cor
         Route.Sos -> SosScreen(s, nav, repo, scope)
         Route.Settings -> SettingsScreen(s, nav, repo, scope)
         Route.Awards -> AwardsScreen(s, nav)
+        Route.Money -> com.yasnost.app.ui.screens.MoneyScreen(s, nav, repo, scope)
         is Route.Habit -> HabitScreen(r.id, s, nav, repo, scope)
         is Route.Editor -> EditorScreen(r.id, r.preset, s, nav, repo, scope)
     }

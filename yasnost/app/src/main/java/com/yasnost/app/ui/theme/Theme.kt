@@ -29,6 +29,7 @@ object Y {
     val Coral = Color(0xFFFF6B6B)
     val Sky = Color(0xFF5CB8FF)
     val Danger = Color(0xFFFF5C7A)
+    val Rose = Color(0xFFFF7AB6)
 }
 
 data class Accent(val a: Color, val b: Color) {

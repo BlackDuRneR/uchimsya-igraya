@@ -45,12 +45,20 @@ class Repository private constructor(private val ctx: Context) {
         )
     }
 
-    suspend fun relapse(id: String, note: String) = update { s ->
+    suspend fun saveIntimacy(e: IntimacyEntry) = update(refreshWidgets = false) { s ->
+        s.copy(intimacy = s.intimacy.filterNot { it.day == e.day } + e)
+    }
+
+    suspend fun deleteIntimacy(day: Long) = update(refreshWidgets = false) { s ->
+        s.copy(intimacy = s.intimacy.filterNot { it.day == day })
+    }
+
+    suspend fun relapse(id: String, note: String, triggers: List<String> = emptyList()) = update { s ->
         val now = System.currentTimeMillis()
         val h = s.habit(id) ?: return@update s
         s.copy(
             habits = s.habits.map { if (it.id == id) it.copy(startMillis = now) else it },
-            relapses = s.relapses + Relapse(id, now, now - h.startMillis, note),
+            relapses = s.relapses + Relapse(id, now, now - h.startMillis, note, triggers),
             notified = s.notified - id,
         )
     }

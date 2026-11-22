@@ -127,6 +127,14 @@ fun SosScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
                 }
             }
 
+            if (s.letter.isNotBlank()) {
+                SectionLabel("Письмо от тебя", Modifier.padding(top = 20.dp))
+                Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 18.dp, tint = Y.Violet.copy(alpha = 0.06f)) {
+                    Text("✉️", fontSize = 22.sp)
+                    Text(s.letter, style = YType.Body.copy(fontSize = 16.sp, lineHeight = 23.sp), color = Y.Text, modifier = Modifier.padding(top = 8.dp))
+                }
+            }
+
             SectionLabel("Мои причины", Modifier.padding(top = 20.dp))
             if (s.reasons.isEmpty()) {
                 Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp, onClick = { nav.go(Route.Settings) }) {
@@ -150,6 +158,8 @@ fun SosScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
                     "Выйди на улицу на 5 минут",
                     "Съешь что-нибудь: яблоко, орехи, жвачка",
                     "Позвони или напиши кому-нибудь",
+                    "Скажи себе: «отложу на 5 минут» — потом ещё на 5",
+                    "Почисти зубы — вкус мяты сбивает тягу",
                     "Сделай 20 приседаний",
                     "Прими душ",
                 ).forEach { Text("•  $it", style = YType.Body, color = Y.Text2, modifier = Modifier.padding(vertical = 3.dp)) }

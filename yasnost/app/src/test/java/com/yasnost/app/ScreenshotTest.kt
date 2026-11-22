@@ -12,6 +12,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.testing.WorkManagerTestInitHelper
 import com.yasnost.app.data.AppState
@@ -35,7 +36,7 @@ import java.time.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(sdk = [35], qualifiers = "w412dp-h900dp-xxhdpi")
+@Config(sdk = [35], qualifiers = "w412dp-h2600dp-xhdpi")
 class ScreenshotTest {
     @get:Rule val rule = createAndroidComposeRule<MainActivity>()
 
@@ -59,10 +60,26 @@ class ScreenshotTest {
                     relapses = listOf(Relapse("s", now - 41 * DAY - 5 * HOUR, 12 * DAY, "стресс на работе")),
                     checkIns = (0..20).filter { it % 7 != 3 }.map { d ->
                         CheckIn(today - d - 1, mood = 3 + (d % 3).coerceAtMost(2), craving = (1 + d / 3 + d % 2).coerceAtMost(8), cleanHabits = listOf("a", "s"),
+                            triggers = listOf(listOf("Стресс"), listOf("Компания", "Выходные"), listOf("Усталость"), listOf("Стресс", "Скука"))[d % 4],
                             note = if (d == 1) "Вечер прошёл спокойно, сходил в зал" else if (d == 5) "Друзья звали в бар — отказался" else "")
                     },
                     reasons = listOf("Ясная голова по утрам", "Хочу видеть, как растут сбережения", "Здоровое сердце"),
                     cravingsBeaten = 14,
+                    goals = listOf(
+                        com.yasnost.app.data.Goal("g1", "Наушники", 90_000.0, now - 50 * DAY),
+                        com.yasnost.app.data.Goal("g2", "Отпуск в Турции", 500_000.0, now - 40 * DAY),
+                    ),
+                    letter = "Привет. Если ты читаешь это — сейчас трудно. Вспомни, как болела голова по утрам и как стыдно было перед собой. Ты уже прошёл больше, чем думаешь.",
+                    intimacy = (0..40).mapNotNull { d ->
+                        val day = today - d
+                        when {
+                            d % 9 == 4 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.UNPROTECTED, 1, false, 4, alcohol = d > 30)
+                            d % 4 == 1 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.PROTECTED, 1, false, 4)
+                            d % 5 == 2 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.NONE, 0, true, 3)
+                            d % 3 == 0 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.NONE, 0, false, 2 + d % 3)
+                            else -> null
+                        }
+                    },
                 )
             }
         }
@@ -77,17 +94,25 @@ class ScreenshotTest {
         File(out, "$name.png").outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }
 
+    private fun settle() { rule.mainClock.autoAdvance = false; repeat(15) { rule.mainClock.advanceTimeBy(100) } }
+
+    private fun scrollShot(name: String, text: String) {
+        rule.onNodeWithText(text, substring = true).performScrollTo(); shot(name)
+    }
+
     @Test fun screens() {
-        shot("1_home")
-        rule.onNodeWithText("Отметки").performClick(); shot("3_calendar")
-        rule.onNodeWithText("Награды").performClick(); shot("4_awards")
-        rule.onNodeWithText("Ещё").performClick(); shot("5_settings")
-        rule.onNodeWithText("Главная").performClick()
-        rule.mainClock.autoAdvance = false; repeat(15) { rule.mainClock.advanceTimeBy(100) }
-        rule.onNodeWithText("Не пью").performClick(); shot("2_habit")
-        rule.runOnUiThread { rule.activity.onBackPressedDispatcher.onBackPressed() }
-        repeat(10) { rule.mainClock.advanceTimeBy(100) }
-        rule.onNodeWithText("SOS").performClick(); shot("6_sos")
+        shot("01_home")
+        rule.onNodeWithText("Отметки").performClick(); settle(); shot("03_diary")
+        rule.onNodeWithText("Близость").performClick(); settle(); shot("04_intimacy")
+        rule.onNodeWithText("Награды").performClick(); settle(); shot("07_awards")
+        rule.onNodeWithText("Особые", substring = true).performClick(); settle(); shot("08_awards_special")
+        rule.onNodeWithText("Ещё").performClick(); settle(); shot("09_settings")
+        rule.onNodeWithText("Деньги и копилка мечты").performClick(); settle(); shot("10_money")
+        rule.runOnUiThread { rule.activity.onBackPressedDispatcher.onBackPressed() }; settle()
+        rule.onNodeWithText("Главная").performClick(); settle()
+        rule.onNodeWithText("Не пью").performClick(); settle(); shot("12_habit")
+        rule.runOnUiThread { rule.activity.onBackPressedDispatcher.onBackPressed() }; settle()
+        rule.onNodeWithText("SOS").performClick(); settle(); shot("15_sos")
     }
 
     @Test fun widgets() {

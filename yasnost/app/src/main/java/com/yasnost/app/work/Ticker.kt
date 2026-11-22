@@ -89,6 +89,22 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
             }
         }
 
+        // Особые награды
+        val got = com.yasnost.app.domain.Awards.unlocked(com.yasnost.app.domain.AwardCtx(s, now))
+        var unlocked = s.unlocked
+        var init = s.unlockedInit
+        val fresh = got.filter { it.id !in s.unlocked }
+        if (fresh.isNotEmpty() || !init) {
+            if (init && s.settings.milestoneNotifications) {
+                fresh.take(3).forEach { a ->
+                    Notifier.show(ctx, a.id.hashCode(), "${a.emoji} Новая награда: «${a.title}»", a.desc + ". Загляни в раздел «Награды».", Notifier.CH_MILESTONES, null)
+                }
+            }
+            unlocked = (s.unlocked + got.map { it.id }).distinct()
+            init = true
+            changed = true
+        }
+
         // Вечернее напоминание
         val today = LocalDate.now().toEpochDay()
         var remindDay = s.lastReminderDay
@@ -98,7 +114,9 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
             Notifier.show(ctx, 777, "Как прошёл день?", "Отметь настроение и тягу — это займёт 10 секунд.", Notifier.CH_REMINDERS, null)
             remindDay = today; changed = true
         }
-        if (changed) repo.update(refreshWidgets = false) { it.copy(notified = it.notified + notified, lastReminderDay = remindDay) }
+        if (changed) repo.update(refreshWidgets = false) {
+            it.copy(notified = it.notified + notified, lastReminderDay = remindDay, unlocked = (it.unlocked + unlocked).distinct(), unlockedInit = init)
+        }
         return Result.success()
     }
 }

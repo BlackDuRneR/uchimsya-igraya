@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -81,7 +82,22 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
     ) {
         Spacer(Modifier.height(18.dp))
         Text(ruDay.format(today).replaceFirstChar { it.uppercase() }, style = YType.Label, color = Y.Text3)
-        Text("Ясность", style = YType.Big.copy(fontSize = 40.sp), color = Y.Text, modifier = Modifier.padding(top = 4.dp))
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
+            Text("Ясность", style = YType.Big.copy(fontSize = 40.sp), color = Y.Text, modifier = Modifier.weight(1f))
+            if (s.habits.isNotEmpty()) {
+                val lvl = com.yasnost.app.domain.Levels.of(s, now)
+                Row(
+                    Modifier
+                        .clip(RoundedCornerShape(50))
+                        .background(Brush.linearGradient(listOf(Y.Amber, Y.Magenta)))
+                        .clickable { nav.tab(Route.Awards) }
+                        .padding(horizontal = 14.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text("Ур. ${lvl.n} · ${lvl.title}", style = YType.Sub.copy(fontSize = 13.sp), color = Color(0xFF0B0C14))
+                }
+            }
+        }
         Text(Quotes.today(today.toEpochDay()), style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp, bottom = 20.dp))
 
         if (s.habits.isEmpty()) {
@@ -93,7 +109,10 @@ fun HomeScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             }
             CheckInPrompt(s, today.toEpochDay()) { showCheckIn = true }
             Spacer(Modifier.height(14.dp))
-            Totals(s, now)
+            FactOfDay(s, today.toEpochDay())
+            Spacer(Modifier.height(14.dp))
+            DreamPreview(s, now) { nav.go(Route.Money) }
+            Totals(s, now) { nav.go(Route.Money) }
             Spacer(Modifier.height(14.dp))
             Row(
                 Modifier
@@ -215,12 +234,12 @@ private fun CheckInPrompt(s: AppState, today: Long, onClick: () -> Unit) {
 }
 
 @Composable
-private fun Totals(s: AppState, now: Long) {
+private fun Totals(s: AppState, now: Long, onMoney: () -> Unit) {
     val money = s.habits.sumOf { it.stats(now).money }
     val checks = s.checkIns.size
     SectionLabel("Всего")
     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        com.yasnost.app.ui.components.StatTile("сохранено", Fmt.money(money), s.settings.currency, Y.Mint, Modifier.weight(1.4f))
+        com.yasnost.app.ui.components.StatTile("сохранено", Fmt.money(money), s.settings.currency, Y.Mint, Modifier.weight(1.4f).clickable(onClick = onMoney))
         com.yasnost.app.ui.components.StatTile("тяг побеждено", "${s.cravingsBeaten}", "", Y.Coral, Modifier.weight(1f))
     }
     Spacer(Modifier.height(10.dp))
@@ -228,6 +247,37 @@ private fun Totals(s: AppState, now: Long) {
         com.yasnost.app.ui.components.StatTile("отметок", "$checks", Fmt.plural(checks.toLong(), "день", "дня", "дней"), Y.Sky, Modifier.weight(1f))
         val bestDays = s.habits.maxOfOrNull { s.bestStreak(it.id, now) / com.yasnost.app.domain.DAY } ?: 0
         com.yasnost.app.ui.components.StatTile("лучшая серия", "$bestDays", Fmt.days(bestDays), Y.Amber, Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun FactOfDay(s: AppState, day: Long) {
+    val f = com.yasnost.app.domain.Facts.today(day, s.habits.map { it.type }.toSet())
+    Glass(Modifier.fillMaxWidth(), radius = 26.dp, padding = 18.dp, tint = Y.Sky.copy(alpha = 0.05f)) {
+        Text("🔬  ФАКТ ДНЯ", style = YType.Label, color = Y.Sky)
+        Text(f.text, style = YType.Body, color = Y.Text, modifier = Modifier.padding(top = 8.dp))
+        Text(f.source, style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
+    }
+}
+
+@Composable
+private fun DreamPreview(s: AppState, now: Long, onClick: () -> Unit) {
+    val goals = com.yasnost.app.domain.Money.goals(s, now)
+    val g = goals.firstOrNull { !it.done } ?: goals.lastOrNull()
+    if (g != null) {
+        SectionLabel("Копилка мечты")
+        Box(Modifier.clickable(onClick = onClick)) { GoalCard(g, s.settings.currency) }
+    } else if (s.habits.any { it.costPerDay > 0 }) {
+        Glass(Modifier.fillMaxWidth().padding(bottom = 4.dp), radius = 24.dp, padding = 16.dp, onClick = onClick) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("🎯", fontSize = 26.sp)
+                Column(Modifier.padding(start = 14.dp).weight(1f)) {
+                    Text("Поставь цель", style = YType.Sub, color = Y.Text)
+                    Text("Копи сэкономленные деньги на мечту", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
+                }
+                Text("→", style = YType.Title, color = Y.Amber)
+            }
+        }
     }
 }
 

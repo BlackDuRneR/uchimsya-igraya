@@ -114,6 +114,39 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             }
         }
 
+        SectionLabel("Письмо себе", Modifier.padding(top = 14.dp))
+        var letter by remember(s.letter) { mutableStateOf(s.letter) }
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 14.dp) {
+            Text(
+                "Напиши себе — сегодняшнему, решительному — в тот момент, когда будет тяжело. Письмо появится на экране SOS.",
+                style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(bottom = 8.dp)
+            )
+            OutlinedTextField(
+                letter, { letter = it }, Modifier.fillMaxWidth(),
+                placeholder = { Text("Привет. Если ты читаешь это, значит, сейчас трудно. Вспомни, как…", color = Y.Text3) },
+                shape = RoundedCornerShape(16.dp), minLines = 3,
+                colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Y.Violet, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text),
+            )
+            if (letter != s.letter) {
+                Text(
+                    "Сохранить", style = YType.Sub, color = Y.Violet,
+                    modifier = Modifier.padding(top = 10.dp).clickable { scope.launch { repo.update(false) { it.copy(letter = letter.trim()) } } }
+                )
+            }
+        }
+
+        SectionLabel("Деньги", Modifier.padding(top = 14.dp))
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 8.dp) {
+            Row(
+                Modifier.fillMaxWidth().clickable { nav.go(Route.Money) }.padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text("💰", fontSize = 22.sp)
+                Text("Деньги и копилка мечты", style = YType.Sub, color = Y.Text, modifier = Modifier.padding(start = 12.dp).weight(1f))
+                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null, tint = Y.Text3)
+            }
+        }
+
         SectionLabel("Валюта", Modifier.padding(top = 14.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             listOf("₸", "₽", "$", "€", "сом").forEach { c ->
@@ -139,6 +172,23 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             }
         }
 
+        SectionLabel("Приватность", Modifier.padding(top = 14.dp))
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+            ToggleRow("Раздел «Близость»", "Календарь интимной жизни во вкладке «Отметки»", s.settings.intimacyEnabled) { v ->
+                setSettings { it.copy(intimacyEnabled = v) }
+            }
+            if (s.settings.intimacyEnabled) {
+                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+                ToggleRow("Защитить отпечатком", "Открывать «Близость» по отпечатку, лицу или PIN", s.settings.intimacyLock) { v ->
+                    setSettings { it.copy(intimacyLock = v) }
+                }
+            }
+            Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+            ToggleRow("Запретить скриншоты", "И скрыть содержимое в списке недавних приложений", s.settings.secureScreen) { v ->
+                setSettings { it.copy(secureScreen = v) }
+            }
+        }
+
         SectionLabel("Виджеты", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
             Text(
@@ -149,15 +199,46 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 1.0", style = YType.Sub, color = Y.Text)
+            Text("Ясность 2.0", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),
             )
         }
+
+        SectionLabel("Научные источники", Modifier.padding(top = 14.dp))
+        val uri = androidx.compose.ui.platform.LocalUriHandler.current
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 8.dp) {
+            SOURCES.forEach { (title, url) ->
+                Text(
+                    title, style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2,
+                    modifier = Modifier.fillMaxWidth().clickable { runCatching { uri.openUri(url) } }.padding(horizontal = 10.dp, vertical = 8.dp)
+                )
+            }
+        }
         Spacer(Modifier.height(24.dp))
     }
 }
+
+val SOURCES = listOf(
+    "ВОЗ — польза отказа от курения" to "https://www.who.int/news-room/q-a-detail/health-benefits-of-smoking-cessation",
+    "CDC — Benefits of Quitting Smoking" to "https://www.cdc.gov/tobacco/about/benefits-of-quitting.html",
+    "American Cancer Society — польза отказа со временем" to "https://www.cancer.org/healthy/stay-away-from-tobacco/benefits-of-quitting-smoking-over-time.html",
+    "NCI — синдром отмены никотина" to "https://www.cancer.gov/about-cancer/causes-prevention/risk/tobacco/withdrawal-fact-sheet",
+    "Mehta et al., BMJ Open 2018 — месяц без алкоголя" to "https://pubmed.ncbi.nlm.nih.gov/29730627/",
+    "Эрекция после 3 мес. трезвости, 2022" to "https://pubmed.ncbi.nlm.nih.gov/36606722/",
+    "Pourmand et al., BJU Int 2004 — курение и ЭД" to "https://pubmed.ncbi.nlm.nih.gov/15610111/",
+    "Sahin et al., 2020 — отказ от курения и сексуальная функция" to "https://pmc.ncbi.nlm.nih.gov/articles/PMC7239286/",
+    "Lally et al., 2010 — формирование привычки" to "https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit",
+    "Rider et al., European Urology 2016 — эякуляция и рак простаты" to "https://pubmed.ncbi.nlm.nih.gov/27033442/",
+    "Muise et al., 2016 — частота секса и благополучие" to "https://journals.sagepub.com/doi/abs/10.1177/1948550615616462",
+    "Hall et al., 2010 — сексуальная активность и сердце" to "https://pubmed.ncbi.nlm.nih.gov/20102917/",
+    "Cho & Yang, 2023 — алкоголь и рискованное поведение" to "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10154531/",
+    "Frontiers in Psychology 2021 — эякуляция и здоровье" to "https://www.frontiersin.org/articles/10.3389/fpsyg.2021.693121/full",
+    "CDC — постконтактная профилактика ВИЧ" to "https://www.cdc.gov/hivnexus/hcp/pep/index.html",
+    "NHS — инфекции, передающиеся половым путём" to "https://www.nhs.uk/conditions/sexually-transmitted-infections/",
+    "Guttmacher — эффективность контрацепции" to "https://www.guttmacher.org/fact-sheet/contraceptive-effectiveness-united-states",
+)
 
 @Composable
 private fun ToggleRow(title: String, sub: String, value: Boolean, onChange: (Boolean) -> Unit) {
