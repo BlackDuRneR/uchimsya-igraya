@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Сгенерировано design/tools/build.py. Не редактировать вручную. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="180dp"
+    android:viewportWidth="240"
+    android:viewportHeight="180">
+    <path
+        android:pathData="M24 146c0-17.6 33.6-22 96 -22s96 5.5 96 22-38.4 19.8-96 19.8-96-3.3-96-19.8z"
+        android:fillColor="#FF262C28" />
+    <path
+        android:pathData="M56 146H184"
+        android:strokeColor="#FFD9D5CA"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <group android:translateX="4" android:translateY="3">
+        <path
+            android:pathData="M80,92A40,40 0 1 0 160,92A40,40 0 1 0 80,92z"
+            android:fillColor="#FF4A5D4F" />
+    </group>
+    <path
+        android:pathData="M80,92A40,40 0 1 0 160,92A40,40 0 1 0 80,92z"
+        android:strokeColor="#FFD9D5CA"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M102 92l12 12 24-26"
+        android:strokeColor="#FFD9D5CA"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <group android:rotation="-20" android:pivotX="168" android:pivotY="138">
+        <group android:translateX="4" android:translateY="3">
+            <path
+                android:pathData="M156.5,131.5H179.5A6.5,6.5 0 0 1 186,138V138A6.5,6.5 0 0 1 179.5,144.5H156.5A6.5,6.5 0 0 1 150,138V138A6.5,6.5 0 0 1 156.5,131.5z"
+                android:fillColor="#FF252B27" />
+        </group>
+        <group android:translateX="4" android:translateY="3">
+            <path
+                android:pathData="M168 131.5H156.5a6.5 6.5 0 0 0 0 13H168z"
+                android:fillColor="#FF615749" />
+        </group>
+        <path
+            android:pathData="M156.5,131.5H179.5A6.5,6.5 0 0 1 186,138V138A6.5,6.5 0 0 1 179.5,144.5H156.5A6.5,6.5 0 0 1 150,138V138A6.5,6.5 0 0 1 156.5,131.5z"
+            android:strokeColor="#FFD9D5CA"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M168 131.5V144.5"
+            android:strokeColor="#FFD9D5CA"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+    <group android:translateX="4" android:translateY="3">
+        <path
+            android:pathData="M63,136A9,9 0 1 0 81,136A9,9 0 1 0 63,136z"
+            android:fillColor="#FF73594D" />
+    </group>
+    <path
+        android:pathData="M63,136A9,9 0 1 0 81,136A9,9 0 1 0 63,136z"
+        android:strokeColor="#FFD9D5CA"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <group android:rotation="-30" android:pivotX="72" android:pivotY="136">
+        <path
+            android:pathData="M67.0 136H77.0"
+            android:strokeColor="#FFD9D5CA"
+            android:strokeWidth="1.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+    <path
+        android:pathData="M70 54l-6-6M170 54l6-6M120 34v-8"
+        android:strokeColor="#FFD9D5CA"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

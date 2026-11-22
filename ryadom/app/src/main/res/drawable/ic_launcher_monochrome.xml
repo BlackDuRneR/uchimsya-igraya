@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Сгенерировано design/tools/build.py. Не редактировать вручную. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:translateX="25" android:translateY="25">
+        <group android:scaleX="0.58" android:scaleY="0.58">
+            <path
+                android:pathData="M42.07 78.81A32 32 0 1 0 42.07 21.19"
+                android:strokeColor="#FF000000"
+                android:strokeWidth="8.5"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+            <path
+                android:pathData="M57.93 21.19A32 32 0 1 0 57.93 78.81"
+                android:strokeColor="#FF000000"
+                android:strokeWidth="8.5"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+            <path
+                android:pathData="M42,50A8,8 0 1 0 58,50A8,8 0 1 0 42,50z"
+                android:fillColor="#FF000000" />
+        </group>
+    </group>
+</vector>

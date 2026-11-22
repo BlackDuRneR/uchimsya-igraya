@@ -123,7 +123,46 @@ def build():
     src = DESIGN / "concept.src.html"
     if src.exists():
         write(DESIGN / "concept.html", render_page(src.read_text(encoding="utf-8")))
+    build_android()
     print("ok:", len(icons.ICONS), "иконок,", len(il.ILLUSTRATIONS), "иллюстраций")
+
+
+def build_android():
+    """Векторные ресурсы для Android: иконки, иллюстрации (light/night), знак и иконка приложения."""
+    import android
+    root = DESIGN.parent
+    ds = root / "core" / "designsystem" / "src" / "main" / "res"
+    appres = root / "app" / "src" / "main" / "res"
+    gen = "Сгенерировано design/tools/build.py. Не редактировать вручную."
+    for name in icons.ICONS:
+        write(ds / "drawable" / f"ic_{name.replace('-', '_')}.xml",
+              android.to_vector(icons.svg(name, color="#000000"), 24, 24, gen))
+    for key, _, fn in il.ILLUSTRATIONS:
+        frag = fn()
+        write(ds / "drawable" / f"il_{key}.xml", android.to_vector(illo_svg(frag, ILLO_LIGHT), 240, 180, gen))
+        write(ds / "drawable-night" / f"il_{key}.xml", android.to_vector(illo_svg(frag, ILLO_DARK), 240, 180, gen))
+    write(ds / "drawable" / "logo_mark.xml", android.to_vector(logo.mark(gap=UI_LIGHT["bg"]), 48, 48, gen))
+    write(ds / "drawable-night" / "logo_mark.xml",
+          android.to_vector(logo.mark("#B4CAB8", "#C9A693", "#9DB5A2", UI_DARK["bg"]), 48, 48, gen))
+    # иконка заставки Android 12+: знак в центральной трети, чтобы не обрезался круглой маской
+    def splash(l, r, d, gap):
+        inner = logo.mark_inner(l, r, d, gap)
+        return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108">'
+                f'<g transform="translate(30 30) scale(0.48)">{inner}</g></svg>')
+    write(appres / "drawable" / "splash_mark.xml", android.to_vector(splash("#536C5B", "#C29A86", "#829987", UI_LIGHT["bg"]), 108, 108, gen))
+    write(appres / "drawable-night" / "splash_mark.xml", android.to_vector(splash("#B4CAB8", "#C9A693", "#9DB5A2", UI_DARK["bg"]), 108, 108, gen))
+    write(ds / "drawable" / "ic_stat_ryadom.xml", android.to_vector(logo.notification_icon(), 24, 24, gen))
+    write(appres / "drawable" / "ic_launcher_foreground.xml", android.to_vector(logo.adaptive_foreground(), 108, 108, gen))
+    write(appres / "drawable" / "ic_launcher_background.xml", android.to_vector(logo.adaptive_background(), 108, 108, gen))
+    write(appres / "drawable" / "ic_launcher_monochrome.xml", android.to_vector(logo.adaptive_monochrome(), 108, 108, gen))
+    adaptive = ('<?xml version="1.0" encoding="utf-8"?>\n'
+                '<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">\n'
+                '    <background android:drawable="@drawable/ic_launcher_background" />\n'
+                '    <foreground android:drawable="@drawable/ic_launcher_foreground" />\n'
+                '    <monochrome android:drawable="@drawable/ic_launcher_monochrome" />\n'
+                '</adaptive-icon>\n')
+    write(appres / "mipmap-anydpi-v26" / "ic_launcher.xml", adaptive)
+    write(appres / "mipmap-anydpi-v26" / "ic_launcher_round.xml", adaptive)
 
 
 def render_page(tpl):
