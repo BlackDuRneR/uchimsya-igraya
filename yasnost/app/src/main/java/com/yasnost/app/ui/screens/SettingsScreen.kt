@@ -83,8 +83,14 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
                     scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(gender = com.yasnost.app.data.Gender.FEMALE)) } }
                 }
             }
-            if (!s.profile.female) {
-                OutlinedTextField(partner, { partner = it.take(24) }, Modifier.fillMaxWidth().padding(top = 12.dp), label = { Text("Имя девушки (для календаря цикла)") }, singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc)
+            OutlinedTextField(
+                partner, { partner = it.take(24) }, Modifier.fillMaxWidth().padding(top = 12.dp),
+                label = { Text(if (s.profile.female) "Имя парня (необязательно)" else "Имя девушки (для календаря цикла)") },
+                singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc,
+            )
+            if (s.profile.female) {
+                Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
+                ToggleRow("Советы для пары", "Раздел «Понять его» и мягкие напоминания о близости", s.settings.partnerTips) { v -> setSettings { it.copy(partnerTips = v) } }
             }
             if (pname != s.profile.name || partner != s.profile.partnerName) {
                 Text("Сохранить", style = YType.Sub, color = Y.Violet, modifier = Modifier.padding(top = 10.dp).clickable {
@@ -244,7 +250,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.1", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.2", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),

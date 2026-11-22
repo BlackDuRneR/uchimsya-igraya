@@ -140,6 +140,26 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
             }
         }
 
+        // Девушкам: мягкие напоминания о паре
+        if (s.profile.female && s.settings.partnerTips && s.settings.intimacyEnabled && hour in 18..21) {
+            val today = LocalDate.now().toEpochDay()
+            val last = s.intimacy.filter { it.sex != com.yasnost.app.data.SexStatus.NONE }.maxOfOrNull { it.day }
+            val gap = last?.let { today - it }
+            if (gap != null && gap >= 10 && "gap_$last" !in cycleKeys) {
+                Notifier.show(ctx, 778, "Время друг для друга 🤍",
+                    "Близости не было $gap ${com.yasnost.app.domain.Fmt.days(gap)}. Не обязательно секс — объятия, свидание или разговор «как ты?» тоже сближают.",
+                    Notifier.CH_REMINDERS, null)
+                cycleKeys = cycleKeys + "gap_$last"; changed = true
+            }
+            val dow = LocalDate.now().dayOfWeek.value
+            val week = today / 7
+            if (dow == 7 && "tip_$week" !in cycleKeys) {
+                val c = com.yasnost.app.domain.PartnerInsights.today(today)
+                Notifier.show(ctx, 779, "${c.emoji} ${c.title}", c.text, Notifier.CH_REMINDERS, null)
+                cycleKeys = cycleKeys + "tip_$week"; changed = true
+            }
+        }
+
         // Вечернее напоминание
         val today = LocalDate.now().toEpochDay()
         var remindDay = s.lastReminderDay

@@ -152,6 +152,7 @@ class ScreenshotTest {
         rule.onNodeWithText("Отметки").performClick(); settle()
         rule.onNodeWithText("Цикл").performClick(); settle(); shot("23_cycle_female")
         rule.onNodeWithText("Обезболивающие (НПВП)").performClick(); settle(); shot("24_cycle_guide")
+        rule.onNodeWithText("Близость").performClick(); settle(); shot("25_intimacy_female")
     }
 
     @Test fun widgets() {
@@ -187,6 +188,7 @@ class ScreenshotTest {
             val one = s.copy(habits = listOf(a))
             render("w_summary_1", summary.invoke(m, ctx, 1, one, now, false) as RemoteViews, 350, 170)
             render("w_summary_tall", summary.invoke(m, ctx, 1, s, now, true) as RemoteViews, 350, 360)
+            render("w_summary_1_tall", summary.invoke(m, ctx, 1, one, now, true) as RemoteViews, 350, 360)
             val mini = RemoteViews(ctx.packageName, R.layout.widget_mini)
             render("w_mini", mini, 80, 80)
         }

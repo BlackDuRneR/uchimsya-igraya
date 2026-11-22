@@ -238,6 +238,7 @@ object WidgetUpdater {
         val lvl = Levels.of(s, now)
         v.setTextViewText(R.id.level, "Ур. ${lvl.n} · ${lvl.title}")
         val shown = s.habits.take(if (tall) 3 else 2)
+        if (shown.size == 1) return singleLayout(ctx, id, s, shown[0], now, tall)
         rowIds.forEachIndexed { i, r ->
             val h = shown.getOrNull(i)
             if (h == null) { v.setViewVisibility(r[0], View.GONE); return@forEachIndexed }
@@ -280,6 +281,64 @@ object WidgetUpdater {
             v.setInt(R.id.quote, "setMaxLines", if (tall) 3 else if (ci?.hasData == true) 1 else 2)
         } else v.setViewVisibility(R.id.quote, View.GONE)
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id * 10 + 9, null))
+        return v
+    }
+
+    /** Сводка для одной привычки: крупный «герой» на весь виджет. */
+    private fun singleLayout(ctx: Context, id: Int, s: AppState, h: Habit, now: Long, tall: Boolean): RemoteViews {
+        val v = RemoteViews(ctx.packageName, R.layout.widget_summary_single)
+        val st = h.stats(now)
+        val cur = s.settings.currency
+        v.setInt(R.id.root, "setBackgroundResource", bgFor(h.type))
+        v.setTextViewText(R.id.total, "${Fmt.money(st.money)} $cur")
+        val lvl = Levels.of(s, now)
+        v.setTextViewText(R.id.level, "Ур. ${lvl.n} · ${lvl.title}")
+        v.setInt(R.id.badge, "setBackgroundResource", badgeFor(h.type))
+        v.setImageViewResource(R.id.icon, iconFor(h.type))
+        v.setTextViewText(R.id.days, Fmt.intNum(st.days))
+        v.setTextColor(R.id.days, colorB(h.type))
+        v.setTextViewText(R.id.daysLabel, Fmt.days(st.days))
+        v.setTextColor(R.id.daysLabel, colorB(h.type))
+        val since = java.time.format.DateTimeFormatter.ofPattern("d MMMM", java.util.Locale.forLanguageTag("ru"))
+            .format(java.time.Instant.ofEpochMilli(h.startMillis).atZone(java.time.ZoneId.systemDefault()))
+        v.setTextViewText(R.id.title, "${h.type.verb.lowercase()} · с $since")
+        v.setChronometer(R.id.timer, SystemClock.elapsedRealtime() - (st.elapsed % DAY), null, true)
+        v.setTextViewText(R.id.timerLabel, "Ч · МИН · СЕК")
+        val p = Achievements.progress(st.elapsed)
+        v.setImageViewBitmap(R.id.bar, bar(p, h.type))
+        val next = Achievements.next(st.elapsed)
+        v.setTextViewText(R.id.next, if (next != null) "до «${next.title}» · ${Fmt.duration(next.millis - st.elapsed)}" else "все награды за время получены")
+        v.setTextViewText(R.id.percent, "${(p * 100).toInt()}%")
+        v.setTextColor(R.id.percent, colorB(h.type))
+
+        val today = java.time.LocalDate.now().toEpochDay()
+        val ci = if (s.cycleSettings.enabled) com.yasnost.app.domain.CycleLogic.info(s, today) else null
+        val hasCycle = ci != null && ci.hasData
+        if (hasCycle) {
+            val who = if (s.profile.female) "Мой цикл" else if (s.profile.partnerName.isBlank()) "Цикл девушки" else "Цикл · ${s.profile.partnerName}"
+            v.setViewVisibility(R.id.cycle, View.VISIBLE)
+            v.setTextViewText(R.id.cycle, "🌸 $who: ${com.yasnost.app.ui.screens.cycleStatus(ci!!)}")
+        }
+        if (tall) {
+            v.setViewVisibility(R.id.extra, View.VISIBLE)
+            v.setTextViewText(R.id.sx1, "${Fmt.money(st.money)} $cur")
+            if (h.unitsPerDay > 0) {
+                v.setTextViewText(R.id.sx2Label, h.type.unitsLabel.uppercase())
+                v.setTextViewText(R.id.sx2, "${Fmt.num(st.units)} ${h.unitName}")
+            } else {
+                v.setTextViewText(R.id.sx2Label, "ТЯГ ПОБЕЖДЕНО")
+                v.setTextViewText(R.id.sx2, "${s.cravingsBeaten}")
+            }
+            val best = s.bestStreak(h.id, now) / DAY
+            v.setTextViewText(R.id.sx3, "$best ${Fmt.days(best)}")
+            v.setViewVisibility(R.id.quote, View.VISIBLE)
+            v.setTextViewText(R.id.quote, "🔬 " + com.yasnost.app.domain.Facts.today(today, setOf(h.type), s.profile.female).text)
+            v.setInt(R.id.quote, "setMaxLines", 3)
+        } else if (!hasCycle) {
+            v.setViewVisibility(R.id.quote, View.VISIBLE)
+            v.setTextViewText(R.id.quote, "«${com.yasnost.app.domain.Quotes.today(today)}»")
+        }
+        v.setOnClickPendingIntent(R.id.root, openApp(ctx, id * 10 + 9, h.id))
         return v
     }
 

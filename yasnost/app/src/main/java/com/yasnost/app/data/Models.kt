@@ -120,6 +120,8 @@ data class Settings(
     val intimacyLock: Boolean = false,
     /** Запретить скриншоты и превью в списке приложений */
     val secureScreen: Boolean = false,
+    /** Для девушек: советы о паре и мягкие напоминания */
+    val partnerTips: Boolean = true,
 )
 
 @Serializable

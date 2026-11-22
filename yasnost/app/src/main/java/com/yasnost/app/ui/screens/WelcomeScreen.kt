@@ -177,6 +177,10 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
                     Text(if (female) "Отслеживать мой цикл" else "Отслеживать её цикл", style = YType.Sub, color = Y.Text, modifier = Modifier.weight(1f))
                     Switch(track, { track = it }, colors = SwitchDefaults.colors(checkedTrackColor = BLOOD, checkedThumbColor = Color.White))
                 }
+                if (female) {
+                    OutlinedTextField(partner, { partner = it.take(24) }, Modifier.fillMaxWidth().padding(top = 12.dp), singleLine = true,
+                        label = { Text("Имя парня (необязательно)") }, shape = RoundedCornerShape(16.dp), colors = fieldColors)
+                }
                 if (track) {
                     if (!female) {
                         OutlinedTextField(partner, { partner = it.take(24) }, Modifier.fillMaxWidth().padding(top = 12.dp), singleLine = true,

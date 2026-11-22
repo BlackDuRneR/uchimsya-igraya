@@ -220,10 +220,16 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
                 )
             }
             Text(
-                "Алкоголь связан с более редким использованием презервативов (анализ 50 исследований), а трезвость за 3 месяца улучшает эрекцию у большинства мужчин с проблемами на фоне алкоголя.",
+                if (com.yasnost.app.ui.components.LocalFemale.current)
+                    "Алкоголь связан с более редким использованием презервативов (анализ 50 исследований) и случайными партнёрами. Трезвость — это ещё и безопасность и осознанный выбор."
+                else "Алкоголь связан с более редким использованием презервативов (анализ 50 исследований), а трезвость за 3 месяца улучшает эрекцию у большинства мужчин с проблемами на фоне алкоголя.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2, modifier = Modifier.padding(top = if (st.alcoholContacts > 0) 8.dp else 0.dp)
             )
         }
+    }
+
+    if (com.yasnost.app.ui.components.LocalFemale.current && s.settings.partnerTips) {
+        PartnerSection(s, t)
     }
 
     SectionLabel("Что говорит наука", Modifier.padding(top = 14.dp))
@@ -234,6 +240,37 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
     )
 
     editDay?.let { d -> IntimacyDialog(s, d, repo, scope) { editDay = null } }
+}
+
+@Composable
+private fun PartnerSection(s: AppState, today: Long) {
+    val name = s.profile.partnerName
+    SectionLabel(if (name.isBlank()) "Понять его" else "Понять его · $name", Modifier.padding(top = 14.dp))
+    val last = s.intimacy.filter { it.sex != SexStatus.NONE }.maxOfOrNull { it.day }
+    val gap = last?.let { today - it }
+    val card = com.yasnost.app.domain.PartnerInsights.today(today)
+    Glass(Modifier.fillMaxWidth(), radius = 26.dp, padding = 18.dp, tint = Y.Sky.copy(alpha = 0.06f)) {
+        Text("СОВЕТ ДНЯ ДЛЯ ВАС ДВОИХ", style = YType.Label, color = Y.Sky)
+        Text("${card.emoji}  ${card.title}", style = YType.Sub, color = Y.Text, modifier = Modifier.padding(top = 8.dp))
+        Text(card.text, style = YType.Body.copy(fontSize = 14.sp), color = Y.Text2, modifier = Modifier.padding(top = 6.dp))
+        Text(card.source, style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
+        if (gap != null && gap >= 10) {
+            Box(Modifier.padding(vertical = 12.dp).fillMaxWidth().height(1.dp).background(Y.Stroke))
+            Text(
+                "Близости не было $gap ${Fmt.days(gap)}. Это не упрёк — так бывает. Но многим мужчинам в такие периоды одиноко, даже если они молчат. " +
+                    "Объятия, свидание или просто разговор «как ты?» уже сближают.",
+                style = YType.Body.copy(fontSize = 13.sp), color = Y.Text
+            )
+        }
+    }
+    Spacer(Modifier.height(8.dp))
+    com.yasnost.app.domain.PartnerInsights.cards.filter { it != card }.forEach { c ->
+        GuideCard(com.yasnost.app.domain.CycleLogic.Guide(c.emoji, c.title, c.text, c.source))
+    }
+    Text(
+        "Близость — всегда по взаимному желанию. Эти факты — чтобы лучше понимать друг друга, а не чтобы что-то кому-то «быть должной».",
+        style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 4.dp, start = 4.dp)
+    )
 }
 
 private fun summary(e: IntimacyEntry): String = buildList {
