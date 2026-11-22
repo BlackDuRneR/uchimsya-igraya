@@ -33,7 +33,7 @@ ICONS = {
     "chevron-down": '<path d="M6 9.5l6 6 6-6"/>',
     "arrow-left": '<path d="M19 12H5.5M11 6l-6 6 6 6"/>',
     # --- препараты ---
-    "capsule": '<rect x="3.6" y="8.5" width="16.8" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M9.5 9.5l5 5"/>',
+    "capsule": '<rect x="3" y="7.8" width="18" height="8.4" rx="4.2" transform="rotate(-35 12 12)"/><path d="M9.6 8.6l4.8 6.8M6.7 13.4l1.7-1.2"/>',
     "tablet": '<circle cx="12" cy="12" r="7.5"/><path d="M8.2 15.8l7.6-7.6"/>',
     "drop": '<path d="M12 3.8c3 3.5 5.5 6.6 5.5 9.8a5.5 5.5 0 0 1-11 0c0-3.2 2.5-6.3 5.5-9.8z"/>',
     "measure": '<path d="M9.5 3.8h5M10.3 3.8v5.1L5.8 17a2.3 2.3 0 0 0 2 3.4h8.4a2.3 2.3 0 0 0 2-3.4l-4.5-8.1V3.8"/><path d="M7.6 14.5h8.8"/>',
