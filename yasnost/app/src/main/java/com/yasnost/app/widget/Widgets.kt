@@ -71,6 +71,8 @@ class SummaryWidget : AppWidgetProvider() {
 /** Мини 1×1: только число дней. */
 class MiniWidget : AppWidgetProvider() {
     override fun onUpdate(context: Context, manager: AppWidgetManager, ids: IntArray) = async { WidgetUpdater.renderMinis(context, ids) }
+    override fun onAppWidgetOptionsChanged(context: Context, manager: AppWidgetManager, id: Int, newOptions: Bundle?) =
+        async { WidgetUpdater.renderMinis(context, intArrayOf(id)) }
     override fun onDeleted(context: Context, ids: IntArray) {
         val p = WidgetUpdater.prefs(context).edit()
         ids.forEach { p.remove("w_$it") }
@@ -87,6 +89,10 @@ open class IconWidget(private val kind: String) : AppWidgetProvider() {
     override fun onUpdate(context: Context, manager: AppWidgetManager, ids: IntArray) {
         val pending = goAsync()
         widgetScope.launch { try { WidgetUpdater.renderIcons(context, ids, kind) } finally { pending.finish() } }
+    }
+    override fun onAppWidgetOptionsChanged(context: Context, manager: AppWidgetManager, id: Int, newOptions: Bundle?) {
+        val pending = goAsync()
+        widgetScope.launch { try { WidgetUpdater.renderIcons(context, intArrayOf(id), kind) } finally { pending.finish() } }
     }
 }
 class MiniAlcoholWidget : IconWidget("alcohol")
@@ -118,7 +124,7 @@ object WidgetUpdater {
                 "cycle" -> cycleIcon(ctx, id, s)
                 else -> {
                     val type = if (kind == "smoking") HabitType.SMOKING else HabitType.ALCOHOL
-                    habitIcon(ctx, id, s.habits.firstOrNull { it.type == type }, type, now)
+                    habitIcon(ctx, id, s.habits.firstOrNull { it.type == type }, type, now, s)
                 }
             }
             m.updateAppWidget(id, v)
@@ -129,12 +135,39 @@ object WidgetUpdater {
         HabitType.ALCOHOL -> R.drawable.tile_bg_alcohol; HabitType.SMOKING -> R.drawable.tile_bg_smoking; HabitType.CUSTOM -> R.drawable.tile_bg_custom
     }
 
-    private fun habitIcon(ctx: Context, id: Int, h: Habit?, type: HabitType, now: Long): RemoteViews {
+    /** Подгоняем плитку под размер иконок конкретного лаунчера. */
+    fun iconTileDp(ctx: Context, id: Int, s: AppState): Int {
+        if (s.settings.iconSize > 0) return s.settings.iconSize
+        val o = AppWidgetManager.getInstance(ctx).getAppWidgetOptions(id)
+        val w = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
+        val h = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
+        if (w <= 0) return 56
+        var t = (w * 0.62f).toInt()
+        if (h > 0) t = minOf(t, h - 24)
+        return t.coerceIn(40, 68)
+    }
+
+    private fun applyIconGeometry(ctx: Context, v: RemoteViews, id: Int, s: AppState) {
+        val tile = iconTileDp(ctx, id, s)
+        if (Build.VERSION.SDK_INT >= 31) {
+            v.setViewLayoutWidth(R.id.tile, tile.toFloat(), android.util.TypedValue.COMPLEX_UNIT_DIP)
+            v.setViewLayoutHeight(R.id.tile, tile.toFloat(), android.util.TypedValue.COMPLEX_UNIT_DIP)
+            v.setViewLayoutWidth(R.id.glyph, tile * 0.54f, android.util.TypedValue.COMPLEX_UNIT_DIP)
+            v.setViewLayoutHeight(R.id.glyph, tile * 0.54f, android.util.TypedValue.COMPLEX_UNIT_DIP)
+        }
+        val d = ctx.resources.displayMetrics.density
+        val off = (s.settings.iconOffset * 2 * d).toInt()
+        v.setViewPadding(R.id.root, 0, if (off > 0) off else 0, 0, if (off < 0) -off else 0)
+    }
+
+    private fun habitIcon(ctx: Context, id: Int, h: Habit?, type: HabitType, now: Long, s: AppState? = null): RemoteViews {
         val v = RemoteViews(ctx.packageName, R.layout.widget_icon)
+        if (s != null) applyIconGeometry(ctx, v, id, s)
+        h?.let { v.setTextViewText(R.id.caption, Fmt.days(it.stats(now).days)) } ?: v.setTextViewText(R.id.caption, "")
         v.setInt(R.id.tile, "setBackgroundResource", tileFor(type))
         v.setImageViewResource(R.id.glyph, iconFor(type))
         v.setTextViewText(R.id.days, h?.let { Fmt.intNum(it.stats(now).days) } ?: "—")
-        v.setTextViewText(R.id.label, if (h == null) "Добавь в приложении" else when (type) {
+        v.setTextViewText(R.id.label, if (h == null) "Ясность" else when (type) {
             HabitType.ALCOHOL -> "Не пью"; HabitType.SMOKING -> "Не курю"; HabitType.CUSTOM -> h.title
         })
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, h?.id))
@@ -143,15 +176,17 @@ object WidgetUpdater {
 
     private fun cycleIcon(ctx: Context, id: Int, s: AppState): RemoteViews {
         val v = RemoteViews(ctx.packageName, R.layout.widget_icon)
+        applyIconGeometry(ctx, v, id, s)
         v.setInt(R.id.tile, "setBackgroundResource", R.drawable.tile_bg_cycle)
         v.setImageViewResource(R.id.glyph, R.drawable.ic_drop)
         val ci = if (s.cycleSettings.enabled) com.yasnost.app.domain.CycleLogic.info(s, java.time.LocalDate.now().toEpochDay()) else null
         val name = if (s.profile.female) null else s.cyclePartner()?.name
+        v.setTextViewText(R.id.label, name ?: "Месячные")
         when {
-            ci == null || !ci.hasData -> { v.setTextViewText(R.id.days, "—"); v.setTextViewText(R.id.label, "Отметь цикл") }
-            ci.inPeriodNow -> { v.setTextViewText(R.id.days, "${ci.today - ci.lastStart!! + 1}"); v.setTextViewText(R.id.label, name?.let { "$it · мес." } ?: "День месячных") }
-            ci.lateDays > 0 -> { v.setTextViewText(R.id.days, "+${ci.lateDays}"); v.setTextViewText(R.id.label, name?.let { "$it · задержка" } ?: "Задержка") }
-            else -> { v.setTextViewText(R.id.days, "${ci.nextStart!! - ci.today}"); v.setTextViewText(R.id.label, name?.let { "$it · до мес." } ?: "До месячных") }
+            ci == null || !ci.hasData -> { v.setTextViewText(R.id.days, "—"); v.setTextViewText(R.id.caption, "нет данных") }
+            ci.inPeriodNow -> { v.setTextViewText(R.id.days, "${ci.today - ci.lastStart!! + 1}"); v.setTextViewText(R.id.caption, "день") }
+            ci.lateDays > 0 -> { v.setTextViewText(R.id.days, "+${ci.lateDays}"); v.setTextViewText(R.id.caption, "задержка") }
+            else -> { val n = ci.nextStart!! - ci.today; v.setTextViewText(R.id.days, "$n"); v.setTextViewText(R.id.caption, Fmt.days(n) + " до") }
         }
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id + 50000, null))
         return v
@@ -174,7 +209,7 @@ object WidgetUpdater {
         val now = System.currentTimeMillis()
         ids.forEach { id ->
             val h = s.habit(prefs(ctx).getString("w_$id", null)) ?: s.habits.firstOrNull()
-            m.updateAppWidget(id, if (h == null) cycleIcon(ctx, id, s) else habitIcon(ctx, id, h, h.type, now))
+            m.updateAppWidget(id, if (h == null) cycleIcon(ctx, id, s) else habitIcon(ctx, id, h, h.type, now, s))
         }
     }
 

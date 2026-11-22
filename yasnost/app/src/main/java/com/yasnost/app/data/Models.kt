@@ -153,6 +153,10 @@ data class Settings(
     val trackOther: Boolean = true,
     /** Выбор модулей уже сделан (для старых пользователей покажем один раз) */
     val modulesChosen: Boolean = false,
+    /** Размер плитки ярлыка в dp (0 — авто по ячейке лаунчера) */
+    val iconSize: Int = 0,
+    /** Сдвиг ярлыка по вертикали в dp (минус — выше) */
+    val iconOffset: Int = 0,
 ) {
     fun tracks(t: HabitType) = when (t) {
         HabitType.ALCOHOL -> trackAlcohol

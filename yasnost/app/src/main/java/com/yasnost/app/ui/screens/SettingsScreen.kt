@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -275,14 +277,52 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
         SectionLabel("Виджеты", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
             Text(
-                "Долгое нажатие на пустом месте рабочего стола → «Виджеты» → «Ясность». Есть три вида: «Мини» 1×1 — только число дней; «Счётчик» с кольцом для одной привычки (растяни до 4×3 — появятся рекорд и этап восстановления); «Сводка» со всеми привычками, циклом и фактом дня.",
+                "Долгое нажатие на пустом месте рабочего стола → «Виджеты» → «Ясность». Есть ярлыки 1×1 («Не пью», «Не курю», «Месячные») — только число; «Счётчик» с кольцом для одной привычки (растяни до 4×3 — появятся рекорд и этап восстановления); «Сводка» со всеми привычками, циклом и фактом дня.",
                 style = YType.Body, color = Y.Text2,
             )
         }
 
+        SectionLabel("Ярлыки 1×1 на рабочем столе", Modifier.padding(top = 14.dp))
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+            Text(
+                "У разных телефонов (Samsung, Xiaomi, Pixel…) иконки разного размера. «Авто» подстраивает ярлык под сетку лаунчера; если не совпадает — выбери размер и сдвиг вручную.",
+                style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3
+            )
+            val sizeNow = s.settings.iconSize
+            Row(Modifier.fillMaxWidth().padding(vertical = 14.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Bottom) {
+                listOf(Y.Violet to Y.Magenta, Y.Teal to Y.Mint, androidx.compose.ui.graphics.Color(0xFFFF4D6D) to Y.Rose).forEachIndexed { i, (c1, c2) ->
+                    val tile = if (sizeNow == 0) 56 else sizeNow
+                    Column(Modifier.padding(horizontal = 10.dp).padding(top = (if (s.settings.iconOffset > 0) s.settings.iconOffset * 2 else 0).dp, bottom = (if (s.settings.iconOffset < 0) -s.settings.iconOffset * 2 else 0).dp),
+                        horizontalAlignment = Alignment.CenterHorizontally) {
+                        Box(
+                            Modifier.size(tile.dp).clip(RoundedCornerShape((tile * 0.34f).dp))
+                                .background(androidx.compose.ui.graphics.Brush.linearGradient(listOf(c1, c2))),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(listOf("98", "41", "8")[i], style = YType.Title.copy(fontSize = (tile * 0.4f).sp), color = androidx.compose.ui.graphics.Color(0xFF0B0C14))
+                                Text(listOf("дней", "день", "дней до")[i], fontSize = 8.sp, color = androidx.compose.ui.graphics.Color(0xB30B0C14))
+                            }
+                        }
+                        Text(listOf("Не пью", "Не курю", "Месячные")[i], fontSize = 12.sp, color = Y.Text, modifier = Modifier.padding(top = 5.dp))
+                    }
+                }
+            }
+            Text("РАЗМЕР", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(bottom = 8.dp))
+            com.yasnost.app.ui.components.ChipsMulti(listOf("Авто", "48", "52", "56", "60", "64"), setOf(if (sizeNow == 0) "Авто" else "$sizeNow"), acc) { v ->
+                setSettings { it.copy(iconSize = v.toIntOrNull() ?: 0) }
+            }
+            Text("ПОЛОЖЕНИЕ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 14.dp))
+            Stepper(
+                when { s.settings.iconOffset < 0 -> "Выше на ${-s.settings.iconOffset}"; s.settings.iconOffset > 0 -> "Ниже на ${s.settings.iconOffset}"; else -> "По центру" },
+                s.settings.iconOffset, -8..8, "",
+            ) { v -> setSettings { it.copy(iconOffset = v) } }
+            Text("Изменения применяются к ярлыкам на рабочем столе сразу.", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
+        }
+
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.4", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.5", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),

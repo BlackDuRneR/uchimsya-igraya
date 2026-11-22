@@ -155,6 +155,12 @@ class ScreenshotTest {
         rule.onNodeWithText("Отметить день").performClick(); settle(); shot("17_cycle_editor")
     }
 
+    @Test @Config(sdk = [35], qualifiers = "w412dp-h5600dp-mdpi")
+    fun settingsTall() {
+        seed(ApplicationProvider.getApplicationContext()); settle()
+        rule.onNodeWithText("Ещё").performClick(); settle(); shot("09c_settings_tall")
+    }
+
     @Test fun cycleOnly() {
         val ctx = ApplicationProvider.getApplicationContext<android.content.Context>()
         seedProfile(ctx, female = true)
@@ -239,10 +245,10 @@ class ScreenshotTest {
             render("w_summary_1", summary.invoke(m, ctx, 1, one, now, false) as RemoteViews, 350, 170)
             render("w_summary_tall", summary.invoke(m, ctx, 1, s, now, true) as RemoteViews, 350, 360)
             render("w_summary_1_tall", summary.invoke(m, ctx, 1, one, now, true) as RemoteViews, 350, 360)
-            val hi = method.first { it.name == "habitIcon" }.apply { isAccessible = true }
+            val hi = method.first { it.name == "habitIcon" && it.parameterCount == 6 }.apply { isAccessible = true }
             val cy = method.first { it.name == "cycleIcon" }.apply { isAccessible = true }
-            render("w_icon_a", hi.invoke(m, ctx, 1, s.habits[0], com.yasnost.app.data.HabitType.ALCOHOL, now) as RemoteViews, 90, 100)
-            render("w_icon_s", hi.invoke(m, ctx, 1, s.habits[1], com.yasnost.app.data.HabitType.SMOKING, now) as RemoteViews, 90, 100)
+            render("w_icon_a", hi.invoke(m, ctx, 1, s.habits[0], com.yasnost.app.data.HabitType.ALCOHOL, now, s) as RemoteViews, 90, 100)
+            render("w_icon_s", hi.invoke(m, ctx, 1, s.habits[1], com.yasnost.app.data.HabitType.SMOKING, now, s) as RemoteViews, 90, 100)
             render("w_icon_c", cy.invoke(m, ctx, 1, s) as RemoteViews, 90, 100)
         }
     }
