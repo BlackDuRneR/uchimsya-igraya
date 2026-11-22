@@ -2,6 +2,10 @@ package com.yasnost.app.data
 
 import kotlinx.serialization.Serializable
 
+const val MAIN_PARTNER = "main"
+/** Ключ владельца цикла для партнёрши: основная хранит старые данные под "" */
+fun ownerKey(partnerId: String) = if (partnerId == MAIN_PARTNER) "" else partnerId
+
 @Serializable
 enum class HabitType { ALCOHOL, SMOKING, CUSTOM }
 
@@ -41,6 +45,8 @@ data class CheckIn(
     val note: String = "",
     /** Что вызывало тягу сегодня */
     val triggers: List<String> = emptyList(),
+    /** Сколько бутылок безалкогольного пива */
+    val naBeer: Int = 0,
 )
 
 @Serializable
@@ -59,7 +65,17 @@ data class IntimacyEntry(
     /** Был ли алкоголь в этот день перед близостью */
     val alcohol: Boolean = false,
     val note: String = "",
-)
+    /** С кем (id партнёров) */
+    val partnerIds: List<String> = emptyList(),
+    /** Виды: Вагинальный, Оральный, Анальный */
+    val kinds: List<String> = emptyList(),
+) {
+    /** Был ли вагинальный контакт (важно для риска беременности). Старые записи без видов считаем вагинальными. */
+    val vaginal get() = kinds.isEmpty() || "Вагинальный" in kinds
+}
+
+@Serializable
+data class Partner(val id: String, val name: String, val createdMillis: Long = 0)
 
 @Serializable
 enum class Gender { MALE, FEMALE }
@@ -80,6 +96,8 @@ enum class Flow { SPOTTING, LIGHT, MEDIUM, HEAVY }
 @Serializable
 data class CycleDay(
     val day: Long,
+    /** Чей цикл: "" — свой (для девушки) или основной партнёрши (для парня), иначе id партнёрши */
+    val owner: String = "",
     /** null — кровотечения нет */
     val flow: Flow? = null,
     /** Боль 0..10 */
@@ -89,6 +107,13 @@ data class CycleDay(
     val mood: Int = 0,
     val meds: List<String> = emptyList(),
     val note: String = "",
+    /** Тест на овуляцию: 0 — не делали, 1 — отрицательный, 2 — положительный */
+    val ovulationTest: Int = 0,
+    val weight: Double? = null,
+    /** Базальная температура, °C */
+    val temp: Double? = null,
+    /** Стаканы воды */
+    val water: Int = 0,
 )
 
 @Serializable
@@ -165,8 +190,22 @@ data class AppState(
     val cycleNotified: List<String> = emptyList(),
     /** Начало периода, который закрыт кнопкой «Закончились» */
     val periodClosedStart: Long = -1,
+    val partners: List<Partner> = emptyList(),
+    /** Для парня: чей цикл сейчас открыт (ключ владельца) */
+    val cycleOwner: String = "",
+    /** Закрытые кнопкой «Закончились» периоды по владельцам */
+    val periodClosed: Map<String, Long> = emptyMap(),
 ) {
-    fun cycleOn(day: Long) = cycle.firstOrNull { it.day == day }
+    fun cycleOn(day: Long, owner: String = currentOwner()) = cycle.firstOrNull { it.day == day && it.owner == owner }
+    /** Чей цикл показываем сейчас */
+    fun currentOwner() = if (profile.female) "" else cycleOwner
+    fun closedStart(owner: String) = periodClosed[owner] ?: if (owner == "") periodClosedStart else -1
+    fun partner(id: String) = partners.firstOrNull { it.id == id }
+    /** Партнёрша, чей цикл открыт (для парня) */
+    fun cyclePartner() = partners.firstOrNull { ownerKey(it.id) == cycleOwner }
+    fun mainPartnerName() = partners.firstOrNull()?.name ?: profile.partnerName
+    /** Старые данные: имя из профиля превращаем в первого партнёра. */
+    fun migrated() = if (partners.isEmpty() && profile.partnerName.isNotBlank()) copy(partners = listOf(Partner(MAIN_PARTNER, profile.partnerName))) else this
     fun intimacyOn(day: Long) = intimacy.firstOrNull { it.day == day }
     fun habit(id: String?) = habits.firstOrNull { it.id == id }
     fun checkIn(day: Long) = checkIns.firstOrNull { it.day == day }

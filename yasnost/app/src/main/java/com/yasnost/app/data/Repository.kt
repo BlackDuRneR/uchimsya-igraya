@@ -21,14 +21,14 @@ class Repository private constructor(private val ctx: Context) {
     /** Состояние для экрана и виджетов: привычки отключённых модулей скрыты (но не удалены). */
     val state: Flow<AppState> = ctx.store.data.map { prefs ->
         val raw = prefs[KEY]?.let { runCatching { json.decodeFromString<AppState>(it) }.getOrNull() } ?: AppState()
-        raw.copy(habits = raw.habits.filter { raw.settings.tracks(it.type) })
+        raw.migrated().copy(habits = raw.habits.filter { raw.settings.tracks(it.type) })
     }
 
     suspend fun current(): AppState = state.first()
 
     suspend fun update(refreshWidgets: Boolean = true, transform: (AppState) -> AppState) {
         ctx.store.edit { prefs ->
-            val old = prefs[KEY]?.let { runCatching { json.decodeFromString<AppState>(it) }.getOrNull() } ?: AppState()
+            val old = (prefs[KEY]?.let { runCatching { json.decodeFromString<AppState>(it) }.getOrNull() } ?: AppState()).migrated()
             prefs[KEY] = json.encodeToString(AppState.serializer(), transform(old))
         }
         if (refreshWidgets) WidgetUpdater.updateAll(ctx)
@@ -52,18 +52,38 @@ class Repository private constructor(private val ctx: Context) {
     }
 
     suspend fun saveCycleDay(c: CycleDay) = update(refreshWidgets = false) { s ->
-        val empty = c.flow == null && c.pain == 0 && c.symptoms.isEmpty() && c.mood == 0 && c.meds.isEmpty() && c.note.isBlank()
-        s.copy(cycle = s.cycle.filterNot { it.day == c.day } + if (empty) emptyList() else listOf(c))
+        val empty = c.flow == null && c.pain == 0 && c.symptoms.isEmpty() && c.mood == 0 && c.meds.isEmpty() && c.note.isBlank() &&
+            c.ovulationTest == 0 && c.weight == null && c.temp == null && c.water == 0
+        s.copy(cycle = s.cycle.filterNot { it.day == c.day && it.owner == c.owner } + if (empty) emptyList() else listOf(c))
     }
 
     /** Отметить дни месячных from..to (не затирая уже введённые данные). */
-    suspend fun markPeriod(from: Long, to: Long, close: Boolean) = update(refreshWidgets = false) { s ->
-        val add = (from..to).filter { d -> s.cycleOn(d)?.flow == null }.map { d ->
-            (s.cycleOn(d) ?: CycleDay(d)).copy(flow = if (d - from <= 1) com.yasnost.app.data.Flow.MEDIUM else com.yasnost.app.data.Flow.LIGHT)
+    suspend fun markPeriod(from: Long, to: Long, close: Boolean, owner: String? = null) = update(refreshWidgets = true) { s ->
+        val o = owner ?: s.currentOwner()
+        val add = (from..to).filter { d -> s.cycleOn(d, o)?.flow == null }.map { d ->
+            (s.cycleOn(d, o) ?: CycleDay(d, owner = o)).copy(flow = if (d - from <= 1) com.yasnost.app.data.Flow.MEDIUM else com.yasnost.app.data.Flow.LIGHT)
         }
         s.copy(
-            cycle = s.cycle.filterNot { c -> add.any { it.day == c.day } } + add,
-            periodClosedStart = if (close) from else s.periodClosedStart,
+            cycle = s.cycle.filterNot { c -> c.owner == o && add.any { it.day == c.day } } + add,
+            periodClosed = if (close) s.periodClosed + (o to from) else s.periodClosed - o,
+            periodClosedStart = if (close && o == "") from else s.periodClosedStart,
+        )
+    }
+
+    suspend fun addPartner(name: String): String {
+        var id = ""
+        update(refreshWidgets = true) { s ->
+            id = if (s.partners.none { it.id == MAIN_PARTNER }) MAIN_PARTNER else newId()
+            s.copy(partners = s.partners + Partner(id, name.trim(), System.currentTimeMillis()))
+        }
+        return id
+    }
+
+    suspend fun removePartner(id: String) = update(refreshWidgets = true) { s ->
+        s.copy(
+            partners = s.partners.filterNot { it.id == id },
+            intimacy = s.intimacy.map { it.copy(partnerIds = it.partnerIds - id) },
+            cycleOwner = if (s.cycleOwner == ownerKey(id)) "" else s.cycleOwner,
         )
     }
 

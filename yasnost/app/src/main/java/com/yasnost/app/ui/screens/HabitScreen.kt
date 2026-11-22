@@ -140,6 +140,27 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
                 MoneyHighlights(com.yasnost.app.domain.Rates.toKzt(st.money, s.settings.currency), s.settings.currency, h.costPerDay) { nav.go(Route.Money) }
             }
 
+            if (h.type == HabitType.ALCOHOL) {
+                val since30 = java.time.LocalDate.now().toEpochDay() - 30
+                val na = s.checkIns.filter { it.day > since30 }.sumOf { it.naBeer }
+                val naDays = s.checkIns.count { it.day > since30 && it.naBeer > 0 }
+                Spacer(Modifier.height(10.dp))
+                Glass(Modifier.fillMaxWidth(), radius = 22.dp, padding = 16.dp) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("🍺", fontSize = 22.sp)
+                        Column(Modifier.padding(start = 12.dp).weight(1f)) {
+                            Text("Безалкогольное пиво", style = YType.Sub, color = Y.Text)
+                            Text(if (na == 0) "За 30 дней не отмечено" else "$na бут. за 30 дней · $naDays ${Fmt.days(naDays.toLong())}", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
+                        }
+                    }
+                    Text(
+                        "Отмечай его в ежедневной отметке — это не срыв. Научных доказательств, что «безалкоголка» вызывает срывы, пока нет, но вкус и ритуал могут будить тягу. Если после неё тянет на обычное — лучше отказаться.",
+                        style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp)
+                    )
+                    Text("Систематический обзор, Nutrients 2022; Stanford Medicine 2024", style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 4.dp))
+                }
+            }
+
             // Здоровье
             SectionLabel("Восстановление организма", Modifier.padding(top = 18.dp))
             HealthTimeline(h, st.elapsed, acc, com.yasnost.app.ui.components.LocalFemale.current)

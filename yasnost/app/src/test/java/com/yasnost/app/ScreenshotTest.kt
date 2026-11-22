@@ -53,10 +53,10 @@ class ScreenshotTest {
             val syms = listOf(listOf("Спазмы", "Усталость"), listOf("Спазмы", "Боль в пояснице"), listOf("Головная боль"), listOf("Вздутие"), emptyList())
             return starts.flatMap { st ->
                 (0 until 5).map { i ->
-                    com.yasnost.app.data.CycleDay(st + i, listOf(com.yasnost.app.data.Flow.MEDIUM, com.yasnost.app.data.Flow.HEAVY, com.yasnost.app.data.Flow.MEDIUM, com.yasnost.app.data.Flow.LIGHT, com.yasnost.app.data.Flow.LIGHT)[i],
+                    com.yasnost.app.data.CycleDay(st + i, flow = listOf(com.yasnost.app.data.Flow.MEDIUM, com.yasnost.app.data.Flow.HEAVY, com.yasnost.app.data.Flow.MEDIUM, com.yasnost.app.data.Flow.LIGHT, com.yasnost.app.data.Flow.LIGHT)[i],
                         pain = listOf(6, 7, 4, 2, 1)[i], symptoms = syms[i], mood = listOf(2, 2, 3, 4, 4)[i], meds = if (i < 2) listOf("Ибупрофен", "Грелка") else emptyList())
                 }.filter { it.day <= today }
-            } + listOf(com.yasnost.app.data.CycleDay(today - 8, null, 0, listOf("Тяга к сладкому", "Раздражительность"), 3))
+            } + listOf(com.yasnost.app.data.CycleDay(today - 8, symptoms = listOf("Тяга к сладкому", "Раздражительность"), mood = 3, weight = 58.4, temp = 36.4), com.yasnost.app.data.CycleDay(today - 12, ovulationTest = 1, weight = 58.1, temp = 36.3), com.yasnost.app.data.CycleDay(today - 10, temp = 36.7, weight = 58.6))
         }
 
         fun seedProfile(ctx: android.content.Context, female: Boolean, done: Boolean = true) = runBlocking {
@@ -82,11 +82,12 @@ class ScreenshotTest {
                     relapses = listOf(Relapse("s", now - 41 * DAY - 5 * HOUR, 12 * DAY, "стресс на работе")),
                     checkIns = (0..20).filter { it % 7 != 3 }.map { d ->
                         CheckIn(today - d - 1, mood = 3 + (d % 3).coerceAtMost(2), craving = (1 + d / 3 + d % 2).coerceAtMost(8), cleanHabits = listOf("a", "s"),
-                            triggers = listOf(listOf("Стресс"), listOf("Компания", "Выходные"), listOf("Усталость"), listOf("Стресс", "Скука"))[d % 4],
+                            triggers = listOf(listOf("Стресс"), listOf("Компания", "Выходные"), listOf("Усталость"), listOf("Стресс", "Скука"))[d % 4], naBeer = if (d % 6 == 2) 1 else 0,
                             note = if (d == 1) "Вечер прошёл спокойно, сходил в зал" else if (d == 5) "Друзья звали в бар — отказался" else "")
                     },
                     reasons = listOf("Ясная голова по утрам", "Хочу видеть, как растут сбережения", "Здоровое сердце"),
                     cravingsBeaten = 14,
+                    partners = listOf(com.yasnost.app.data.Partner("main", "Аня"), com.yasnost.app.data.Partner("p2", "Дина")),
                     settings = com.yasnost.app.data.Settings(modulesChosen = true),
                     profile = com.yasnost.app.data.Profile("Арман", com.yasnost.app.data.Gender.MALE, "Аня", true),
                     cycle = cycle(today, false),
@@ -99,8 +100,8 @@ class ScreenshotTest {
                     intimacy = (0..40).mapNotNull { d ->
                         val day = today - d
                         when {
-                            d % 9 == 4 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.UNPROTECTED, 1, false, 4, alcohol = d > 30)
-                            d % 4 == 1 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.PROTECTED, 1, false, 4)
+                            d % 9 == 4 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.UNPROTECTED, 1, d % 2 == 0, 4, alcohol = d > 30, partnerIds = listOf("main"), kinds = listOf("Вагинальный", "Оральный"))
+                            d % 4 == 1 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.PROTECTED, 1, false, 4, partnerIds = listOf(if (d % 8 == 1) "p2" else "main"), kinds = listOf(if (d == 5) "Анальный" else "Вагинальный"))
                             d % 5 == 2 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.NONE, 0, true, 3)
                             d % 3 == 0 -> com.yasnost.app.data.IntimacyEntry(day, com.yasnost.app.data.SexStatus.NONE, 0, false, 2 + d % 3)
                             else -> null
@@ -114,7 +115,13 @@ class ScreenshotTest {
     private fun shot(name: String) {
         rule.mainClock.autoAdvance = false
         repeat(15) { rule.mainClock.advanceTimeBy(100); org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idle() }
-        val v = rule.activity.window.decorView
+        val roots = runCatching {
+            val wmg = Class.forName("android.view.WindowManagerGlobal")
+            val inst = wmg.getMethod("getInstance").invoke(null)
+            val f = wmg.getDeclaredField("mViews"); f.isAccessible = true
+            @Suppress("UNCHECKED_CAST") (f.get(inst) as List<android.view.View>)
+        }.getOrDefault(emptyList())
+        val v = roots.lastOrNull { it.width > 0 } ?: rule.activity.window.decorView
         val bmp = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
         rule.runOnUiThread { v.draw(Canvas(bmp)) }
         File(out, "$name.png").outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
@@ -143,6 +150,9 @@ class ScreenshotTest {
         rule.runOnUiThread { rule.activity.onBackPressedDispatcher.onBackPressed() }; settle()
         rule.onNodeWithText("Отметки").performClick(); settle()
         rule.onNodeWithText("Цикл").performClick(); settle(); shot("16_cycle_male")
+        rule.onNodeWithText("Близость").performClick(); settle(); shot("16b_intimacy_male")
+        rule.onNodeWithText("Цикл").performClick(); settle()
+        rule.onNodeWithText("Отметить день").performClick(); settle(); shot("17_cycle_editor")
     }
 
     @Test fun cycleOnly() {
@@ -159,7 +169,7 @@ class ScreenshotTest {
             val m = com.yasnost.app.widget.WidgetUpdater
             val ms = m.javaClass.declaredMethods
             val cl = ms.first { it.name == "cycleLayout" }.apply { isAccessible = true }
-            val mini = ms.first { it.name == "cycleMini" }.apply { isAccessible = true }
+            val mini = ms.first { it.name == "cycleIcon" }.apply { isAccessible = true }
             val ci = com.yasnost.app.domain.CycleLogic.info(s, LocalDate.now().toEpochDay())
             val act = rule.activity
             fun render(name: String, views: RemoteViews, wDp: Int, hDp: Int) {
@@ -177,7 +187,7 @@ class ScreenshotTest {
             }
             render("w_cycle", cl.invoke(m, act, 1, s, ci, false) as RemoteViews, 350, 170)
             render("w_cycle_tall", cl.invoke(m, act, 1, s, ci, true) as RemoteViews, 350, 360)
-            render("w_cycle_mini", mini.invoke(m, act, 1, s) as RemoteViews, 80, 80)
+            render("w_cycle_mini", mini.invoke(m, act, 1, s) as RemoteViews, 90, 100)
         }
     }
 
@@ -229,8 +239,11 @@ class ScreenshotTest {
             render("w_summary_1", summary.invoke(m, ctx, 1, one, now, false) as RemoteViews, 350, 170)
             render("w_summary_tall", summary.invoke(m, ctx, 1, s, now, true) as RemoteViews, 350, 360)
             render("w_summary_1_tall", summary.invoke(m, ctx, 1, one, now, true) as RemoteViews, 350, 360)
-            val mini = RemoteViews(ctx.packageName, R.layout.widget_mini)
-            render("w_mini", mini, 80, 80)
+            val hi = method.first { it.name == "habitIcon" }.apply { isAccessible = true }
+            val cy = method.first { it.name == "cycleIcon" }.apply { isAccessible = true }
+            render("w_icon_a", hi.invoke(m, ctx, 1, s.habits[0], com.yasnost.app.data.HabitType.ALCOHOL, now) as RemoteViews, 90, 100)
+            render("w_icon_s", hi.invoke(m, ctx, 1, s.habits[1], com.yasnost.app.data.HabitType.SMOKING, now) as RemoteViews, 90, 100)
+            render("w_icon_c", cy.invoke(m, ctx, 1, s) as RemoteViews, 90, 100)
         }
     }
 }

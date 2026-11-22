@@ -71,7 +71,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("Профиль")
         var pname by remember(s.profile.name) { mutableStateOf(s.profile.name) }
-        var partner by remember(s.profile.partnerName) { mutableStateOf(s.profile.partnerName) }
+        var partner by remember { mutableStateOf("") }
         val fc = OutlinedTextFieldDefaults.colors(focusedBorderColor = Y.Violet, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text, focusedLabelColor = Y.Violet, unfocusedLabelColor = Y.Text3)
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 14.dp) {
             OutlinedTextField(pname, { pname = it.take(24) }, Modifier.fillMaxWidth(), label = { Text("Имя") }, singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc)
@@ -83,19 +83,36 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
                     scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(gender = com.yasnost.app.data.Gender.FEMALE)) } }
                 }
             }
-            OutlinedTextField(
-                partner, { partner = it.take(24) }, Modifier.fillMaxWidth().padding(top = 12.dp),
-                label = { Text(if (s.profile.female) "Имя парня (необязательно)" else "Имя девушки (для календаря цикла)") },
-                singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc,
-            )
+
             if (s.profile.female) {
                 Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
                 ToggleRow("Советы для пары", "Раздел «Понять его» и мягкие напоминания о близости", s.settings.partnerTips) { v -> setSettings { it.copy(partnerTips = v) } }
             }
-            if (pname != s.profile.name || partner != s.profile.partnerName) {
+            if (pname != s.profile.name) {
                 Text("Сохранить", style = YType.Sub, color = Y.Violet, modifier = Modifier.padding(top = 10.dp).clickable {
-                    scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(name = pname.trim(), partnerName = partner.trim())) } }
+                    scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(name = pname.trim())) } }
                 })
+            }
+            Box(Modifier.fillMaxWidth().padding(vertical = 12.dp).height(1.dp).background(Y.Stroke))
+            Text("ПАРТНЁРЫ", style = YType.Label, color = Y.Text3)
+            Text(
+                if (s.profile.female) "Для календаря близости: с кем был контакт." else "Для близости и календаря цикла: у каждой партнёрши свой цикл.",
+                style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 2.dp, bottom = 4.dp)
+            )
+            s.partners.forEach { p ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("•  ${p.name}", style = YType.Body, color = Y.Text, modifier = Modifier.weight(1f))
+                    IconButton(onClick = { scope.launch { repo.removePartner(p.id) } }) { Icon(Icons.Filled.Close, null, tint = Y.Text3) }
+                }
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                OutlinedTextField(partner, { partner = it.take(24) }, Modifier.weight(1f), placeholder = { Text("Имя партнёра", color = Y.Text3) },
+                    singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc)
+                IconButton(onClick = {
+                    val n = partner.trim()
+                    if (n.isNotEmpty()) scope.launch { repo.addPartner(n) }
+                    partner = ""
+                }) { Icon(Icons.Filled.Add, null, tint = Y.Violet) }
             }
         }
 
@@ -265,7 +282,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.3", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.4", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),

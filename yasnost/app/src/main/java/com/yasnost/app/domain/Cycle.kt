@@ -23,6 +23,8 @@ data class CycleInfo(
     val today: Long,
     /** Последний период ещё не закрыт кнопкой «Закончились» */
     val open: Boolean,
+    /** Ожидаемая овуляция по положительному тесту на ЛГ в текущем цикле */
+    val lhOvulation: Long? = null,
 ) {
     val last get() = periods.lastOrNull()
     val lastStart get() = last?.start
@@ -35,9 +37,9 @@ data class CycleInfo(
     }
     val inPeriodNow get() = last != null && today in last!!.start..lastEffectiveEnd!! && (open || today <= last!!.end)
 
-    val nextStart: Long? get() = lastStart?.let { it + avgCycle }
+    val nextStart: Long? get() = lastStart?.let { ls -> lhOvulation?.let { it + 14 } ?: (ls + avgCycle) }
     val lateDays get() = nextStart?.let { (today - it).toInt() }?.takeIf { it > 0 && !inPeriodNow } ?: 0
-    val ovulation get() = nextStart?.let { it - 14 }
+    val ovulation get() = lhOvulation ?: nextStart?.let { it - 14 }
     val fertile get() = ovulation?.let { (it - 5)..(it + 1) }
     val regular get() = cycleLengths.size < 3 || (cycleLengths.max() - cycleLengths.min()) <= 7
 
@@ -67,8 +69,9 @@ data class CycleInfo(
 }
 
 object CycleLogic {
-    fun info(s: AppState, today: Long): CycleInfo {
-        val bleeding = s.cycle.filter { it.flow != null && it.flow != Flow.SPOTTING }.map { it.day }.sorted()
+    fun info(s: AppState, today: Long, owner: String = s.currentOwner()): CycleInfo {
+        val days = s.cycle.filter { it.owner == owner }
+        val bleeding = days.filter { it.flow != null && it.flow != Flow.SPOTTING }.map { it.day }.sorted()
         val runs = mutableListOf<PeriodRun>()
         for (d in bleeding) {
             val last = runs.lastOrNull()
@@ -77,11 +80,13 @@ object CycleLogic {
         }
         val lengths = runs.zipWithNext { a, b -> (b.start - a.start).toInt() }.filter { it in 15..60 }.takeLast(6)
         val avgCycle = if (lengths.isEmpty()) s.cycleSettings.cycleLength else lengths.average().roundToInt()
-        val open = runs.isNotEmpty() && s.periodClosedStart != runs.last().start
+        val open = runs.isNotEmpty() && s.closedStart(owner) != runs.last().start
         // для средней длительности берём только завершённые и полностью отмеченные периоды
         val closed = runs.dropLast(if (open) 1 else 0).takeLast(6).map { it.length }.filter { it in 2..12 }
         val avgPeriod = if (closed.isEmpty()) s.cycleSettings.periodLength else closed.average().roundToInt()
-        return CycleInfo(runs, avgCycle, avgPeriod, lengths, today, open)
+        // положительный тест на ЛГ: овуляция обычно в течение 12–36 часов
+        val lh = runs.lastOrNull()?.let { r -> days.filter { it.ovulationTest == 2 && it.day > r.end && it.day <= today }.maxOfOrNull { it.day } }
+        return CycleInfo(runs, avgCycle, avgPeriod, lengths, today, open, lh?.plus(1))
     }
 
     val symptoms = listOf(

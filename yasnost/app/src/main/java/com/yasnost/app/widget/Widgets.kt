@@ -82,6 +82,17 @@ class MiniWidget : AppWidgetProvider() {
     }
 }
 
+/** Ярлыки 1×1 без настройки. */
+open class IconWidget(private val kind: String) : AppWidgetProvider() {
+    override fun onUpdate(context: Context, manager: AppWidgetManager, ids: IntArray) {
+        val pending = goAsync()
+        widgetScope.launch { try { WidgetUpdater.renderIcons(context, ids, kind) } finally { pending.finish() } }
+    }
+}
+class MiniAlcoholWidget : IconWidget("alcohol")
+class MiniSmokingWidget : IconWidget("smoking")
+class MiniCycleWidget : IconWidget("cycle")
+
 object WidgetUpdater {
     fun prefs(ctx: Context) = ctx.getSharedPreferences("widgets", Context.MODE_PRIVATE)
 
@@ -90,7 +101,60 @@ object WidgetUpdater {
         renderCounters(ctx, m.getAppWidgetIds(ComponentName(ctx, CounterWidget::class.java)))
         renderSummaries(ctx, m.getAppWidgetIds(ComponentName(ctx, SummaryWidget::class.java)))
         renderMinis(ctx, m.getAppWidgetIds(ComponentName(ctx, MiniWidget::class.java)))
+        renderIcons(ctx, m.getAppWidgetIds(ComponentName(ctx, MiniAlcoholWidget::class.java)), "alcohol")
+        renderIcons(ctx, m.getAppWidgetIds(ComponentName(ctx, MiniSmokingWidget::class.java)), "smoking")
+        renderIcons(ctx, m.getAppWidgetIds(ComponentName(ctx, MiniCycleWidget::class.java)), "cycle")
         Ticker.scheduleBoundary(ctx)
+    }
+
+    /** Ярлык с числом. kind: alcohol / smoking / cycle */
+    suspend fun renderIcons(ctx: Context, ids: IntArray, kind: String) {
+        if (ids.isEmpty()) return
+        val s = Repository.get(ctx).current()
+        val m = AppWidgetManager.getInstance(ctx)
+        val now = System.currentTimeMillis()
+        ids.forEach { id ->
+            val v = when (kind) {
+                "cycle" -> cycleIcon(ctx, id, s)
+                else -> {
+                    val type = if (kind == "smoking") HabitType.SMOKING else HabitType.ALCOHOL
+                    habitIcon(ctx, id, s.habits.firstOrNull { it.type == type }, type, now)
+                }
+            }
+            m.updateAppWidget(id, v)
+        }
+    }
+
+    private fun tileFor(t: HabitType) = when (t) {
+        HabitType.ALCOHOL -> R.drawable.tile_bg_alcohol; HabitType.SMOKING -> R.drawable.tile_bg_smoking; HabitType.CUSTOM -> R.drawable.tile_bg_custom
+    }
+
+    private fun habitIcon(ctx: Context, id: Int, h: Habit?, type: HabitType, now: Long): RemoteViews {
+        val v = RemoteViews(ctx.packageName, R.layout.widget_icon)
+        v.setInt(R.id.tile, "setBackgroundResource", tileFor(type))
+        v.setImageViewResource(R.id.glyph, iconFor(type))
+        v.setTextViewText(R.id.days, h?.let { Fmt.intNum(it.stats(now).days) } ?: "—")
+        v.setTextViewText(R.id.label, if (h == null) "Добавь в приложении" else when (type) {
+            HabitType.ALCOHOL -> "Не пью"; HabitType.SMOKING -> "Не курю"; HabitType.CUSTOM -> h.title
+        })
+        v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, h?.id))
+        return v
+    }
+
+    private fun cycleIcon(ctx: Context, id: Int, s: AppState): RemoteViews {
+        val v = RemoteViews(ctx.packageName, R.layout.widget_icon)
+        v.setInt(R.id.tile, "setBackgroundResource", R.drawable.tile_bg_cycle)
+        v.setImageViewResource(R.id.glyph, R.drawable.ic_drop)
+        val ci = if (s.cycleSettings.enabled) com.yasnost.app.domain.CycleLogic.info(s, java.time.LocalDate.now().toEpochDay()) else null
+        val name = if (s.profile.female) null else s.cyclePartner()?.name
+        when {
+            ci == null || !ci.hasData -> { v.setTextViewText(R.id.days, "—"); v.setTextViewText(R.id.label, "Отметь цикл") }
+            ci.inPeriodNow -> { v.setTextViewText(R.id.days, "${ci.today - ci.lastStart!! + 1}"); v.setTextViewText(R.id.label, name?.let { "$it · мес." } ?: "День месячных") }
+            ci.lateDays > 0 -> { v.setTextViewText(R.id.days, "+${ci.lateDays}"); v.setTextViewText(R.id.label, name?.let { "$it · задержка" } ?: "Задержка") }
+            else -> { v.setTextViewText(R.id.days, "${ci.nextStart!! - ci.today}"); v.setTextViewText(R.id.label, name?.let { "$it · до мес." } ?: "До месячных") }
+        }
+        v.setOnClickPendingIntent(R.id.root, openApp(ctx, id + 50000, null))
+        return v
     }
 
     /** Обновить один виджет любого типа (после настройки). */
@@ -110,15 +174,7 @@ object WidgetUpdater {
         val now = System.currentTimeMillis()
         ids.forEach { id ->
             val h = s.habit(prefs(ctx).getString("w_$id", null)) ?: s.habits.firstOrNull()
-            if (h == null) { m.updateAppWidget(id, cycleMini(ctx, id, s) ?: emptyViews(ctx)); return@forEach }
-            val v = RemoteViews(ctx.packageName, R.layout.widget_mini)
-            v.setInt(R.id.root, "setBackgroundResource", when (h.type) {
-                HabitType.ALCOHOL -> R.drawable.mini_bg_alcohol; HabitType.SMOKING -> R.drawable.mini_bg_smoking; HabitType.CUSTOM -> R.drawable.mini_bg_custom
-            })
-            v.setTextViewText(R.id.days, Fmt.intNum(h.stats(now).days))
-            v.setTextViewText(R.id.label, h.type.verb.lowercase())
-            v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, h.id))
-            m.updateAppWidget(id, v)
+            m.updateAppWidget(id, if (h == null) cycleIcon(ctx, id, s) else habitIcon(ctx, id, h, h.type, now))
         }
     }
 
@@ -261,7 +317,7 @@ object WidgetUpdater {
         val today = java.time.LocalDate.now().toEpochDay()
         val ci = if (s.cycleSettings.enabled) com.yasnost.app.domain.CycleLogic.info(s, today) else null
         if (ci != null && ci.hasData && roomy) {
-            val who = if (s.profile.female) "Мой цикл" else if (s.profile.partnerName.isBlank()) "Цикл девушки" else "Цикл · ${s.profile.partnerName}"
+            val who = if (s.profile.female) "Мой цикл" else (s.cyclePartner()?.let { "Цикл · ${it.name}" } ?: "Цикл девушки")
             v.setViewVisibility(R.id.cycle, View.VISIBLE)
             v.setTextViewText(R.id.cycle, "🌸 $who: ${com.yasnost.app.ui.screens.cycleStatus(ci)}")
         } else v.setViewVisibility(R.id.cycle, View.GONE)
@@ -315,7 +371,7 @@ object WidgetUpdater {
         val ci = if (s.cycleSettings.enabled) com.yasnost.app.domain.CycleLogic.info(s, today) else null
         val hasCycle = ci != null && ci.hasData
         if (hasCycle) {
-            val who = if (s.profile.female) "Мой цикл" else if (s.profile.partnerName.isBlank()) "Цикл девушки" else "Цикл · ${s.profile.partnerName}"
+            val who = if (s.profile.female) "Мой цикл" else (s.cyclePartner()?.let { "Цикл · ${it.name}" } ?: "Цикл девушки")
             v.setViewVisibility(R.id.cycle, View.VISIBLE)
             v.setTextViewText(R.id.cycle, "🌸 $who: ${com.yasnost.app.ui.screens.cycleStatus(ci!!)}")
         }
@@ -374,7 +430,7 @@ object WidgetUpdater {
         v.setImageViewResource(R.id.icon, R.drawable.ic_drop)
         val lvl = Levels.of(s, System.currentTimeMillis())
         v.setTextViewText(R.id.level, "Ур. ${lvl.n} · ${lvl.title}")
-        val who = if (s.profile.female) "МОЙ ЦИКЛ" else if (s.profile.partnerName.isBlank()) "ЦИКЛ ДЕВУШКИ" else "ЦИКЛ · ${s.profile.partnerName.uppercase()}"
+        val who = if (s.profile.female) "МОЙ ЦИКЛ" else (s.cyclePartner()?.let { "ЦИКЛ · ${it.name.uppercase()}" } ?: "ЦИКЛ ДЕВУШКИ")
         v.setTextViewText(R.id.total, who)
         v.setTextColor(R.id.total, 0xFFFF7AB6.toInt())
         v.setTextViewTextSize(R.id.total, android.util.TypedValue.COMPLEX_UNIT_SP, 13f)

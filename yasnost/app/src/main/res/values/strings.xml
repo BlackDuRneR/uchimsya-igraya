@@ -7,6 +7,12 @@
     <string name="widget_summary_desc">Все привычки и сэкономленные деньги</string>
     <string name="sos_short">SOS</string>
     <string name="sos_long">Тяга — помоги переждать</string>
-    <string name="widget_mini">Мини</string>
+    <string name="widget_mini">Ярлык (выбрать привычку)</string>
     <string name="widget_mini_desc">Только число дней — размером с ярлык</string>
+    <string name="widget_icon_alcohol">Не пью · ярлык</string>
+    <string name="widget_icon_alcohol_desc">Иконка с числом трезвых дней</string>
+    <string name="widget_icon_smoking">Не курю · ярлык</string>
+    <string name="widget_icon_smoking_desc">Иконка с числом дней без сигарет</string>
+    <string name="widget_icon_cycle">Месячные · ярлык</string>
+    <string name="widget_icon_cycle_desc">Иконка: сколько дней до месячных</string>
 </resources>

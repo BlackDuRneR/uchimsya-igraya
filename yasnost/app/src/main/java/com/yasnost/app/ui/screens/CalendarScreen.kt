@@ -222,11 +222,11 @@ private fun DayCell(date: LocalDate, s: AppState, today: LocalDate, onClick: () 
         c != null -> Brush.linearGradient(listOf(Color(0x40FFFFFF), Color(0x30FFFFFF)))
         else -> null
     }
-    CalendarDay(date, today, bg, darkText = bg != null && (c != null || relapsed), onClick = onClick)
+    CalendarDay(date, today, bg, darkText = bg != null && (c != null || relapsed), marks = if ((c?.naBeer ?: 0) > 0) "🍺" else null, onClick = onClick)
 }
 
 @Composable
-fun CalendarDay(date: LocalDate, today: LocalDate, bg: Brush?, darkText: Boolean, dot: Color? = null, onClick: () -> Unit) {
+fun CalendarDay(date: LocalDate, today: LocalDate, bg: Brush?, darkText: Boolean, dot: Color? = null, marks: String? = null, onClick: () -> Unit) {
     val isToday = date == today
     val future = date.isAfter(today)
     Box(
@@ -238,15 +238,18 @@ fun CalendarDay(date: LocalDate, today: LocalDate, bg: Brush?, darkText: Boolean
             .clickable(enabled = !future, onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
-            "${date.dayOfMonth}",
-            style = YType.Sub.copy(fontSize = 14.sp),
-            color = when {
-                darkText -> Color(0xFF0B0C14)
-                future -> Y.Text3.copy(alpha = 0.5f)
-                else -> Y.Text2
-            }
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            if (!marks.isNullOrEmpty()) Text(marks, fontSize = 9.sp, lineHeight = 10.sp, maxLines = 1)
+            Text(
+                "${date.dayOfMonth}",
+                style = YType.Sub.copy(fontSize = if (marks.isNullOrEmpty()) 14.sp else 12.sp, lineHeight = 14.sp),
+                color = when {
+                    darkText -> Color(0xFF0B0C14)
+                    future -> Y.Text3.copy(alpha = 0.5f)
+                    else -> Y.Text2
+                }
+            )
+        }
         if (dot != null) Box(Modifier.align(Alignment.BottomCenter).padding(bottom = 4.dp).size(6.dp).clip(CircleShape).background(dot))
     }
 }
@@ -282,6 +285,7 @@ fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScop
     var clean by remember { mutableStateOf(existing?.cleanHabits?.toSet() ?: s.habits.map { it.id }.toSet()) }
     var triggers by remember { mutableStateOf(existing?.triggers?.toSet() ?: emptySet()) }
     var note by remember { mutableStateOf(existing?.note ?: "") }
+    var naBeer by remember { mutableIntStateOf(existing?.naBeer ?: 0) }
 
     AlertDialog(
         onDismissRequest = onClose,
@@ -335,6 +339,10 @@ fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScop
                         }
                     }
                 }
+                if (s.habits.any { it.type == com.yasnost.app.data.HabitType.ALCOHOL }) {
+                    Stepper("🍺 Безалкогольное пиво", naBeer, 0..10, "бут.") { naBeer = it }
+                    Text("Это не срыв — просто учёт. Если замечаешь, что после него тянет на обычное, лучше сократить.", style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3)
+                }
                 OutlinedTextField(
                     note, { note = it },
                     placeholder = { Text("Заметка: что помогло, что было трудно…", color = Y.Text3) },
@@ -346,7 +354,7 @@ fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScop
         },
         confirmButton = {
             TextButton(onClick = {
-                scope.launch { repo.saveCheckIn(CheckIn(day, mood, craving.toInt(), clean.toList(), note.trim(), if (craving >= 1f) triggers.toList() else emptyList())) }
+                scope.launch { repo.saveCheckIn(CheckIn(day, mood, craving.toInt(), clean.toList(), note.trim(), if (craving >= 1f) triggers.toList() else emptyList(), naBeer)) }
                 onClose()
             }) { Text("Сохранить", color = Y.Violet, style = YType.Sub) }
         },

@@ -130,7 +130,7 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
                 Legend(Brush.linearGradient(listOf(Y.Coral, Y.Rose)), "Незащищённый")
             }
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
-                Legend(Brush.linearGradient(listOf(Y.Violet, Y.Violet)), "Мастурбация (точка)")
+                Text("❤️ секс   ✊ мастурбация   ", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
                 Legend(Brush.linearGradient(listOf(Color(0x40FFFFFF), Color(0x40FFFFFF))), "Ничего")
             }
         }
@@ -142,7 +142,11 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
             SexStatus.NONE -> Brush.linearGradient(listOf(Color(0x30FFFFFF), Color(0x22FFFFFF)))
             null -> null
         }
-        CalendarDay(date, today, bg, darkText = e != null && e.sex != SexStatus.NONE, dot = if (e?.masturbation == true) (if (e.sex == SexStatus.NONE) Y.Violet else Color(0xFF0B0C14)) else null) {
+        val marks = buildString {
+            if (e != null && e.sex != SexStatus.NONE) append("❤️")
+            if (e?.masturbation == true) append("✊")
+        }
+        CalendarDay(date, today, bg, darkText = e != null && e.sex != SexStatus.NONE, marks = marks) {
             editDay = date.toEpochDay()
         }
     }
@@ -198,6 +202,27 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
         StatTile("рекорд", "${st.bestNoMasturbationStreak}", Fmt.days(st.bestNoMasturbationStreak), Y.Violet, Modifier.weight(1f))
     }
 
+    val withPartners = s.intimacy.filter { it.day > t - 90 && it.sex != SexStatus.NONE && it.partnerIds.isNotEmpty() }
+    if (s.partners.size > 1 && withPartners.isNotEmpty()) {
+        SectionLabel("По партнёрам · 90 дней", Modifier.padding(top = 14.dp))
+        Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+            s.partners.forEach { p ->
+                val es = withPartners.filter { p.id in it.partnerIds }
+                if (es.isEmpty()) return@forEach
+                val n = es.sumOf { it.sexCount }
+                val prot = es.filter { it.sex == SexStatus.PROTECTED }.sumOf { it.sexCount }
+                Row(Modifier.padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text(p.name, style = YType.Sub.copy(fontSize = 15.sp), color = Y.Text, modifier = Modifier.weight(1f))
+                    Text("$n · защищ. ${prot * 100 / n}%", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
+                }
+            }
+        }
+    }
+    val kindStats = s.intimacy.filter { it.day > t - 90 && it.sex != SexStatus.NONE && it.kinds.isNotEmpty() }.flatMap { it.kinds }.groupingBy { it }.eachCount()
+    if (kindStats.size > 1) {
+        Text(kindStats.entries.joinToString("  ·  ") { "${it.key.lowercase()} ${it.value}" }, style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp, start = 4.dp))
+    }
+
     if (st.loggedDays >= 3) {
         SectionLabel("12 недель", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), padding = 16.dp) { WeeksChart(s, t) }
@@ -244,7 +269,7 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
 
 @Composable
 private fun PartnerSection(s: AppState, today: Long) {
-    val name = s.profile.partnerName
+    val name = s.mainPartnerName()
     SectionLabel(if (name.isBlank()) "Понять его" else "Понять его · $name", Modifier.padding(top = 14.dp))
     val last = s.intimacy.filter { it.sex != SexStatus.NONE }.maxOfOrNull { it.day }
     val gap = last?.let { today - it }
@@ -366,6 +391,9 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
     var desire by remember { mutableFloatStateOf((e?.desire ?: 3).toFloat()) }
     var alcohol by remember { mutableStateOf(e?.alcohol ?: false) }
     var note by remember { mutableStateOf(e?.note ?: "") }
+    var kinds by remember { mutableStateOf(e?.kinds?.toSet()?.ifEmpty { setOf("Вагинальный") } ?: setOf("Вагинальный")) }
+    var partners by remember { mutableStateOf(e?.partnerIds?.toSet() ?: s.partners.singleOrNull()?.let { setOf(it.id) } ?: emptySet()) }
+    var newPartner by remember { mutableStateOf<String?>(null) }
     val switchColors = SwitchDefaults.colors(checkedTrackColor = Y.Rose, checkedThumbColor = Color.White)
 
     AlertDialog(
@@ -382,6 +410,24 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
                     Chip("Без защ.", sex == SexStatus.UNPROTECTED, Accent(Y.Coral, Y.Rose)) { sex = SexStatus.UNPROTECTED }
                 }
                 if (sex != SexStatus.NONE) {
+                    Text("ВИД", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))
+                    com.yasnost.app.ui.components.ChipsMulti(IntimacyLogic.kinds, kinds, ROSE) { v -> kinds = if (v in kinds) kinds - v else kinds + v }
+                    Text("С КЕМ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))
+                    com.yasnost.app.ui.components.ChipsMulti(s.partners.map { it.name } + "＋ Добавить", s.partners.filter { it.id in partners }.map { it.name }.toSet(), Accent(Y.Sky, Y.Violet)) { v ->
+                        if (v == "＋ Добавить") newPartner = ""
+                        else s.partners.firstOrNull { it.name == v }?.let { p -> partners = if (p.id in partners) partners - p.id else partners + p.id }
+                    }
+                    newPartner?.let { np ->
+                        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 8.dp)) {
+                            OutlinedTextField(np, { newPartner = it.take(24) }, Modifier.weight(1f), singleLine = true, placeholder = { Text("Имя", color = Y.Text3) },
+                                shape = RoundedCornerShape(14.dp), colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Y.Sky, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text))
+                            TextButton(onClick = {
+                                val n = np.trim()
+                                if (n.isNotEmpty()) scope.launch { val id = repo.addPartner(n); partners = partners + id }
+                                newPartner = null
+                            }) { Text("OK", color = Y.Sky) }
+                        }
+                    }
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 10.dp)) {
                         Text("Сколько раз", style = YType.Body, color = Y.Text, modifier = Modifier.weight(1f))
                         IconButton(onClick = { if (count > 1) count-- }) { Text("−", style = YType.Title, color = Y.Text2) }
@@ -405,6 +451,9 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
                     desire, { desire = it }, valueRange = 0f..5f, steps = 4,
                     colors = SliderDefaults.colors(thumbColor = Y.Rose, activeTrackColor = Y.Rose, inactiveTrackColor = Color(0x22FFFFFF), activeTickColor = Color.Transparent, inactiveTickColor = Color.Transparent)
                 )
+                if (sex != SexStatus.NONE && "Анальный" in kinds) {
+                    Text("Анальный секс — самый высокий риск ИППП: нужен презерватив и обильная смазка.", style = YType.Body.copy(fontSize = 12.sp), color = Y.Amber, modifier = Modifier.padding(top = 4.dp))
+                }
                 if (sex == SexStatus.UNPROTECTED) {
                     Text(
                         "Если партнёр новый или его статус неизвестен — посмотри план обследования под календарём. ПКП от ВИЧ эффективна только в первые 72 часа.",
@@ -420,7 +469,8 @@ private fun IntimacyDialog(s: AppState, day: Long, repo: Repository, scope: Coro
         },
         confirmButton = {
             TextButton(onClick = {
-                scope.launch { repo.saveIntimacy(IntimacyEntry(day, sex, if (sex == SexStatus.NONE) 0 else count, mast, desire.toInt(), alcohol, note.trim())) }
+                scope.launch { repo.saveIntimacy(IntimacyEntry(day, sex, if (sex == SexStatus.NONE) 0 else count, mast, desire.toInt(), alcohol, note.trim(),
+                    if (sex == SexStatus.NONE) emptyList() else partners.toList(), if (sex == SexStatus.NONE) emptyList() else kinds.toList())) }
                 onClose()
             }) { Text("Сохранить", color = Y.Rose, style = YType.Sub) }
         },

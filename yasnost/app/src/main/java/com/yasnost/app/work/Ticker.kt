@@ -57,6 +57,10 @@ class BoundaryWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p
         WidgetUpdater.renderCounters(applicationContext, m.getAppWidgetIds(android.content.ComponentName(applicationContext, com.yasnost.app.widget.CounterWidget::class.java)))
         WidgetUpdater.renderSummaries(applicationContext, m.getAppWidgetIds(android.content.ComponentName(applicationContext, com.yasnost.app.widget.SummaryWidget::class.java)))
         WidgetUpdater.renderMinis(applicationContext, m.getAppWidgetIds(android.content.ComponentName(applicationContext, com.yasnost.app.widget.MiniWidget::class.java)))
+        val c = applicationContext
+        WidgetUpdater.renderIcons(c, m.getAppWidgetIds(android.content.ComponentName(c, com.yasnost.app.widget.MiniAlcoholWidget::class.java)), "alcohol")
+        WidgetUpdater.renderIcons(c, m.getAppWidgetIds(android.content.ComponentName(c, com.yasnost.app.widget.MiniSmokingWidget::class.java)), "smoking")
+        WidgetUpdater.renderIcons(c, m.getAppWidgetIds(android.content.ComponentName(c, com.yasnost.app.widget.MiniCycleWidget::class.java)), "cycle")
         return Result.success()
     }
 }
@@ -111,10 +115,13 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
         val hour = LocalTime.now().hour
         if (s.cycleSettings.enabled && hour in 9..21) {
             val today = LocalDate.now().toEpochDay()
-            val ci = com.yasnost.app.domain.CycleLogic.info(s, today)
-            val ns = ci.nextStart
             val female = s.profile.female
-            val her = s.profile.partnerName.ifBlank { "Девушка" }
+            val owners: List<Pair<String, String>> = if (female) listOf("" to "")
+                else s.partners.map { com.yasnost.app.data.ownerKey(it.id) to it.name }.ifEmpty { listOf("" to "Девушка") }
+            for ((owner, her) in owners) {
+            val ci = com.yasnost.app.domain.CycleLogic.info(s, today, owner)
+            val ns = ci.nextStart
+            val ok = if (owner.isEmpty()) "" else "${owner}_"
             fun once(key: String, title: String, text: String) {
                 if (key !in cycleKeys) {
                     Notifier.show(ctx, key.hashCode(), title, text, Notifier.CH_REMINDERS, null)
@@ -127,16 +134,17 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
                 val rd = s.cycleSettings.remindDaysBefore
                 if (rd > 0 && left in 1..rd) {
                     val dn = "$left ${com.yasnost.app.domain.Fmt.days(left)}"
-                    if (female) once("pre_$ns", "Через $dn ожидаются месячные", "Положи в сумку средства гигиены и обезболивающее. НПВП лучше начать при первых признаках.")
-                    else once("pre_$ns", "$her: через $dn могут начаться месячные", "Будь внимательнее и терпеливее — и запасись её любимым шоколадом 🍫")
+                    if (female) once("pre_$ok$ns", "Через $dn ожидаются месячные", "Положи в сумку средства гигиены и обезболивающее. НПВП лучше начать при первых признаках.")
+                    else once("pre_$ok$ns", "$her: через $dn могут начаться месячные", "Будь внимательнее и терпеливее — и запасись её любимым шоколадом 🍫")
                 }
                 if (ci.lateDays >= 3) {
-                    once("late_$ns", if (female) "Задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}" else "$her: задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}",
+                    once("late_$ok$ns", if (female) "Задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}" else "$her: задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}",
                         "Частые причины — стресс, болезнь, перелёт. Если был незащищённый контакт — стоит сделать тест на беременность.")
                 }
                 if (s.cycleSettings.fertileReminder && ci.fertile?.first == today) {
-                    once("fert_$ns", "Начинаются фертильные дни", "Ближайшие ~7 дней шанс беременности самый высокий. Календарь — не контрацепция.")
+                    once("fert_$ok$ns", if (female) "Начинаются фертильные дни" else "$her: начинаются фертильные дни", "Ближайшие ~7 дней шанс беременности самый высокий. Календарь — не контрацепция.")
                 }
+            }
             }
         }
 

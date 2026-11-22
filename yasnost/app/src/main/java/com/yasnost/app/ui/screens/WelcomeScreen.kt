@@ -148,10 +148,11 @@ fun WelcomeScreen(s: AppState, repo: Repository, scope: CoroutineScope) {
         val today = LocalDate.now().toEpochDay()
         scope.launch {
             repo.update(refreshWidgets = true) { st ->
-                val days = lastStart?.let { ls -> (ls..minOf(ls + periodLen - 1, today)).map { CycleDay(it, if (it - ls <= 1) Flow.MEDIUM else Flow.LIGHT) } } ?: emptyList()
+                val days = lastStart?.let { ls -> (ls..minOf(ls + periodLen - 1, today)).map { CycleDay(it, flow = if (it - ls <= 1) Flow.MEDIUM else Flow.LIGHT) } } ?: emptyList()
                 st.copy(
                     settings = st.settings.copy(trackAlcohol = quitAlcohol, trackSmoking = quitSmoking, trackOther = other, intimacyEnabled = intimacy, modulesChosen = true),
                     profile = Profile(name.trim(), gender ?: Gender.MALE, partner.trim(), setupDone = true),
+                    partners = if (partner.isNotBlank() && st.partners.isEmpty()) listOf(com.yasnost.app.data.Partner(com.yasnost.app.data.MAIN_PARTNER, partner.trim(), System.currentTimeMillis())) else st.partners,
                     cycleSettings = st.cycleSettings.copy(enabled = track, cycleLength = cycleLen, periodLength = periodLen),
                     cycle = st.cycle.filterNot { c -> days.any { it.day == c.day } } + days,
                     periodClosedStart = lastStart?.takeIf { it + periodLen - 1 < today } ?: st.periodClosedStart,

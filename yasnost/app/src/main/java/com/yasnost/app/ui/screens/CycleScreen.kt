@@ -52,6 +52,7 @@ import com.yasnost.app.data.CycleDay
 import com.yasnost.app.data.Flow
 import com.yasnost.app.data.Repository
 import com.yasnost.app.data.SexStatus
+import com.yasnost.app.data.ownerKey
 import com.yasnost.app.domain.CycleInfo
 import com.yasnost.app.domain.CycleLogic
 import com.yasnost.app.domain.Fmt
@@ -95,7 +96,12 @@ fun Phase.emoji() = when (this) {
 }
 
 private fun d(day: Long) = shortDayFmt.format(LocalDate.ofEpochDay(day))
-fun partnerTitle(s: AppState) = if (s.profile.partnerName.isBlank()) "Цикл девушки" else "Цикл · ${s.profile.partnerName}"
+fun partnerTitle(s: AppState) = s.cyclePartner()?.let { "Цикл · ${it.name}" } ?: "Цикл девушки"
+
+/** Партнёры с привязкой к текущему циклу (для фильтра записей близости). */
+private fun AppState.cyclePartnerIds() = cyclePartner()?.let { setOf(it.id) } ?: emptySet()
+private fun com.yasnost.app.data.IntimacyEntry.withCyclePerson(s: AppState) =
+    s.profile.female || partnerIds.isEmpty() || s.cyclePartnerIds().isEmpty() || partnerIds.any { it in s.cyclePartnerIds() }
 
 /** Короткая строка статуса для главной и уведомлений. */
 fun cycleStatus(ci: CycleInfo): String {
@@ -119,6 +125,16 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
     var editDay by remember { mutableStateOf<Long?>(null) }
     var pickStart by remember { mutableStateOf(false) }
     val phase = ci.phase()
+
+    if (!female && s.partners.size > 1) {
+        Row(Modifier.padding(bottom = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            s.partners.forEach { p ->
+                Chip(p.name, ownerKey(p.id) == s.cycleOwner, CYCLE) {
+                    scope.launch { repo.update(refreshWidgets = true) { it.copy(cycleOwner = ownerKey(p.id)) } }
+                }
+            }
+        }
+    }
 
     if (!ci.hasData) {
         Glass(Modifier.fillMaxWidth(), padding = 22.dp, tint = BLOOD.copy(alpha = 0.05f)) {
@@ -266,7 +282,7 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
         }
 
         // Риск беременности
-        val lastUnprot = s.intimacy.filter { it.sex == SexStatus.UNPROTECTED && it.day >= (ci.lastStart ?: 0) }.maxByOrNull { it.day }
+        val lastUnprot = s.intimacy.filter { it.sex == SexStatus.UNPROTECTED && it.vaginal && it.day >= (ci.lastStart ?: 0) && it.withCyclePerson(s) }.maxByOrNull { it.day }
         if (lastUnprot != null) {
             val fertileNow = ci.fertile?.let { lastUnprot.day in it } == true
             SectionLabel("Незащищённый контакт", Modifier.padding(top = 14.dp))
@@ -327,7 +343,29 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
         style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp, start = 4.dp)
     )
 
-    editDay?.let { day -> CycleDayDialog(s, day, repo, scope) { editDay = null } }
+    // Графики веса и температуры
+    if (female) {
+        val temps = s.cycle.filter { it.owner == "" && it.temp != null && it.day > t - 60 }.sortedBy { it.day }
+        val weights = s.cycle.filter { it.owner == "" && it.weight != null && it.day > t - 120 }.sortedBy { it.day }
+        if (temps.size >= 3) {
+            SectionLabel("Базальная температура", Modifier.padding(top = 14.dp))
+            Glass(Modifier.fillMaxWidth(), padding = 16.dp) {
+                LineChart(temps.map { it.day to it.temp!! }, Accent(Y.Amber, Y.Coral), "°")
+                Text("После овуляции температура держится выше. Подъём видно только задним числом, поэтому метод подтверждает овуляцию, но не предсказывает её.",
+                    style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp))
+            }
+        }
+        if (weights.size >= 2) {
+            SectionLabel("Вес", Modifier.padding(top = 14.dp))
+            Glass(Modifier.fillMaxWidth(), padding = 16.dp) {
+                LineChart(weights.map { it.day to it.weight!! }, Accent(Y.Sky, Y.Violet), " кг")
+                Text("Перед месячными вес часто «прыгает» на 0,5–2 кг из-за задержки воды — это нормально.",
+                    style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp))
+            }
+        }
+    }
+
+    editDay?.let { day -> CycleDayEditor(s, day, repo, scope) { editDay = null } }
 }
 
 @Composable
@@ -374,80 +412,244 @@ private fun CycleCell(date: LocalDate, today: LocalDate, s: AppState, ci: CycleI
         else -> null
     }
     val dark = (c?.flow != null && c.flow != Flow.SPOTTING) || ci.isOvulation(day)
-    CalendarDay(date, today, bg, darkText = dark, dot = dot, onClick = onClick)
+    val sex = s.settings.intimacyEnabled && s.intimacy.any { it.day == day && it.sex != SexStatus.NONE && it.withCyclePerson(s) }
+    val marks = buildString {
+        if (sex) append("❤️")
+        if (c?.ovulationTest == 2) append("🥚")
+    }
+    CalendarDay(date, today, bg, darkText = dark, dot = dot, marks = marks, onClick = onClick)
 }
 
 @Composable
-private fun CycleDayDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScope, onClose: () -> Unit) {
-    val e = s.cycleOn(day)
+fun LineChart(points: List<Pair<Long, Double>>, acc: Accent, unit: String) {
+    val min = points.minOf { it.second }; val max = points.maxOf { it.second }
+    val span = (max - min).coerceAtLeast(0.1)
+    val first = points.first().first; val last = points.last().first
+    androidx.compose.foundation.Canvas(Modifier.fillMaxWidth().height(100.dp)) {
+        val w = size.width; val h = size.height
+        val path = androidx.compose.ui.graphics.Path()
+        points.forEachIndexed { i, (d, v) ->
+            val x = if (last == first) w / 2 else w * (d - first) / (last - first).toFloat()
+            val y = h - 6.dp.toPx() - (h - 12.dp.toPx()) * ((v - min) / span).toFloat()
+            if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
+            drawCircle(acc.b, 3.dp.toPx(), androidx.compose.ui.geometry.Offset(x, y))
+        }
+        drawPath(path, Brush.horizontalGradient(listOf(acc.a, acc.b)), style = androidx.compose.ui.graphics.drawscope.Stroke(2.5.dp.toPx()))
+    }
+    Row(Modifier.padding(top = 6.dp)) {
+        Text("мин ${"%.1f".format(min).replace('.', ',')}$unit", style = YType.Label, color = Y.Text3, modifier = Modifier.weight(1f))
+        Text("макс ${"%.1f".format(max).replace('.', ',')}$unit", style = YType.Label, color = Y.Text3)
+    }
+}
+
+@Composable
+private fun EditorRow(emoji: String, title: String, trailing: @Composable () -> Unit = {}, content: (@Composable () -> Unit)? = null) {
+    Column(Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(emoji, fontSize = 20.sp)
+            Text(title, style = YType.Sub, color = Y.Text, modifier = Modifier.padding(start = 12.dp).weight(1f))
+            trailing()
+        }
+        if (content != null) Box(Modifier.padding(top = 10.dp)) { content() }
+    }
+    Box(Modifier.fillMaxWidth().height(1.dp).background(Y.Stroke))
+}
+
+/** Полноэкранный редактор дня цикла. */
+@Composable
+fun CycleDayEditor(s: AppState, startDay: Long, repo: Repository, scope: CoroutineScope, onClose: () -> Unit) {
     val female = LocalFemale.current
-    var flow by remember { mutableStateOf(e?.flow) }
-    var pain by remember { mutableFloatStateOf((e?.pain ?: 0).toFloat()) }
-    var symptoms by remember { mutableStateOf(e?.symptoms?.toSet() ?: emptySet()) }
-    var meds by remember { mutableStateOf(e?.meds?.toSet() ?: emptySet()) }
-    var mood by remember { mutableIntStateOf(e?.mood ?: 0) }
-    var note by remember { mutableStateOf(e?.note ?: "") }
+    val today = LocalDate.now().toEpochDay()
+    var day by remember { mutableStateOf(startDay) }
+    val owner = s.currentOwner()
+    val ci = CycleLogic.info(s, today)
 
-    AlertDialog(
-        onDismissRequest = onClose,
-        containerColor = Y.Surface2,
-        shape = RoundedCornerShape(32.dp),
-        title = { Text(dayFmt.format(LocalDate.ofEpochDay(day)).replaceFirstChar { it.uppercase() }, style = YType.Title, color = Y.Text) },
-        text = {
-            Column(Modifier.verticalScroll(rememberScrollState())) {
-                Text(if (female) "ВЫДЕЛЕНИЯ" else "МЕСЯЧНЫЕ У НЕЁ", style = YType.Label, color = Y.Text3)
-                ChipsMulti(
-                    listOf("Нет", "Мажущие", "Слабые", "Средние", "Обильные"),
-                    setOf(when (flow) { null -> "Нет"; Flow.SPOTTING -> "Мажущие"; Flow.LIGHT -> "Слабые"; Flow.MEDIUM -> "Средние"; Flow.HEAVY -> "Обильные" }),
-                    CYCLE,
-                ) { v -> flow = when (v) { "Мажущие" -> Flow.SPOTTING; "Слабые" -> Flow.LIGHT; "Средние" -> Flow.MEDIUM; "Обильные" -> Flow.HEAVY; else -> null } }
-                Spacer(Modifier.height(4.dp))
+    androidx.compose.ui.window.Dialog(onDismissRequest = onClose, properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)) {
+        androidx.compose.runtime.key(day) {
+            val e = s.cycleOn(day, owner)
+            val ie = s.intimacyOn(day)
+            var flow by remember { mutableStateOf(e?.flow) }
+            var pain by remember { mutableFloatStateOf((e?.pain ?: 0).toFloat()) }
+            var symptoms by remember { mutableStateOf(e?.symptoms?.toSet() ?: emptySet()) }
+            var meds by remember { mutableStateOf(e?.meds?.toSet() ?: emptySet()) }
+            var mood by remember { mutableIntStateOf(e?.mood ?: 0) }
+            var note by remember { mutableStateOf(e?.note ?: "") }
+            var lh by remember { mutableIntStateOf(e?.ovulationTest ?: 0) }
+            var weight by remember { mutableStateOf(e?.weight?.toString()?.replace('.', ',') ?: "") }
+            var temp by remember { mutableStateOf(e?.temp?.toString()?.replace('.', ',') ?: "") }
+            var water by remember { mutableIntStateOf(e?.water ?: 0) }
+            val run = ci.periods.firstOrNull { day in it.start..it.end }
+            var isStart by remember { mutableStateOf(run?.start == day) }
+            var isEnd by remember { mutableStateOf(run != null && run.end == day && s.closedStart(owner) == run.start) }
+            var sex by remember { mutableStateOf(ie?.sex ?: SexStatus.NONE) }
+            var kinds by remember { mutableStateOf(ie?.kinds?.toSet()?.ifEmpty { setOf("Вагинальный") } ?: setOf("Вагинальный")) }
+            val fieldColors = OutlinedTextFieldDefaults.colors(focusedBorderColor = BLOOD, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text, focusedLabelColor = BLOOD)
 
-                Text((if (female) "БОЛЬ" else "ЕЁ БОЛЬ") + ": ${pain.toInt()} / 10", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 14.dp))
-                Slider(
-                    pain, { pain = it }, valueRange = 0f..10f, steps = 9,
-                    colors = SliderDefaults.colors(thumbColor = BLOOD, activeTrackColor = BLOOD, inactiveTrackColor = Color(0x22FFFFFF), activeTickColor = Color.Transparent, inactiveTickColor = Color.Transparent)
-                )
-                if (pain >= 7f) Text(
-                    "Сильная боль: попробуй НПВП (ибупрофен) и тепло. Если не помогает — к врачу.",
-                    style = YType.Body.copy(fontSize = 12.sp), color = Y.Coral
-                )
-
-                Text(if (female) "СИМПТОМЫ" else "ЧТО ЕЁ БЕСПОКОИТ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))
-                ChipsMulti(CycleLogic.symptoms, symptoms, CYCLE) { v -> symptoms = if (v in symptoms) symptoms - v else symptoms + v }
-
-                Text("НАСТРОЕНИЕ", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 14.dp))
-                Row(Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    MOODS.forEachIndexed { i, em ->
-                        val sel = mood == i + 1
-                        Box(
-                            Modifier.size(42.dp).clip(CircleShape)
-                                .background(if (sel) Y.Rose.copy(alpha = 0.3f) else Color(0x0FFFFFFF))
-                                .border(if (sel) 1.5.dp else 0.dp, if (sel) Y.Rose else Color.Transparent, CircleShape)
-                                .clickable { mood = if (sel) 0 else i + 1 },
-                            contentAlignment = Alignment.Center,
-                        ) { Text(em, fontSize = 22.sp) }
+            fun save() {
+                val w = weight.replace(',', '.').toDoubleOrNull()
+                val tp = temp.replace(',', '.').toDoubleOrNull()
+                val f = flow ?: if (isStart) Flow.MEDIUM else null
+                scope.launch {
+                    repo.update(refreshWidgets = true) { st ->
+                        var cyc = st.cycle.filterNot { it.day == day && it.owner == owner }
+                        val c = CycleDay(day, owner, f, pain.toInt(), symptoms.toList(), mood, meds.toList(), note.trim(), lh, w, tp, water)
+                        val empty = f == null && c.pain == 0 && c.symptoms.isEmpty() && mood == 0 && c.meds.isEmpty() && c.note.isBlank() && lh == 0 && w == null && tp == null && water == 0
+                        if (!empty) cyc = cyc + c
+                        var closed = st.periodClosed
+                        if (isEnd && f != null) {
+                            // закрыть период: заполнить дни от начала до сегодня
+                            val startOfRun = run?.start ?: day
+                            val fill = (startOfRun until day).filter { d -> cyc.none { it.day == d && it.owner == owner && it.flow != null } }
+                                .map { d -> (cyc.firstOrNull { it.day == d && it.owner == owner } ?: CycleDay(d, owner)).copy(flow = Flow.LIGHT) }
+                            cyc = cyc.filterNot { c2 -> c2.owner == owner && fill.any { it.day == c2.day } } + fill
+                            closed = closed + (owner to startOfRun)
+                        } else if (!isEnd && run != null && st.closedStart(owner) == run.start && run.end == day) {
+                            closed = closed - owner
+                        }
+                        // близость
+                        var intim = st.intimacy
+                        if (st.settings.intimacyEnabled) {
+                            val old = st.intimacyOn(day)
+                            if (sex != SexStatus.NONE) {
+                                val pid = if (!st.profile.female) st.cyclePartner()?.id else null
+                                val base = old ?: com.yasnost.app.data.IntimacyEntry(day)
+                                intim = intim.filterNot { it.day == day } + base.copy(
+                                    sex = sex, sexCount = base.sexCount.coerceAtLeast(1), kinds = kinds.toList(),
+                                    partnerIds = if (pid != null && pid !in base.partnerIds) base.partnerIds + pid else base.partnerIds,
+                                )
+                            } else if (old != null && old.sex != SexStatus.NONE) {
+                                intim = intim.filterNot { it.day == day } + old.copy(sex = SexStatus.NONE, sexCount = 0)
+                            }
+                        }
+                        st.copy(cycle = cyc, periodClosed = closed, intimacy = intim)
                     }
                 }
-
-                Text("ЧТО ПОМОГАЛО", style = YType.Label, color = Y.Text3, modifier = Modifier.padding(top = 14.dp, bottom = 8.dp))
-                ChipsMulti(CycleLogic.meds, meds, Accent(Y.Violet, Y.Sky)) { v -> meds = if (v in meds) meds - v else meds + v }
-
-                OutlinedTextField(
-                    note, { note = it }, placeholder = { Text("Заметка", color = Y.Text3) },
-                    modifier = Modifier.fillMaxWidth().padding(top = 12.dp), shape = RoundedCornerShape(18.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = BLOOD, unfocusedBorderColor = Y.Stroke, focusedTextColor = Y.Text, unfocusedTextColor = Y.Text),
-                )
             }
-        },
-        confirmButton = {
-            TextButton(onClick = {
-                scope.launch { repo.saveCycleDay(CycleDay(day, flow, pain.toInt(), symptoms.toList(), mood, meds.toList(), note.trim())) }
-                onClose()
-            }) { Text("Сохранить", color = BLOOD, style = YType.Sub) }
-        },
-        dismissButton = { TextButton(onClick = onClose) { Text("Отмена", color = Y.Text2) } },
-    )
+
+            Column(Modifier.fillMaxSize().background(Y.Bg)) {
+                Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                    TextButton(onClick = onClose) { Text("Закрыть", color = Y.Text2) }
+                    Row(Modifier.weight(1f), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                        TextButton(onClick = { save(); day -= 1 }) { Text("‹", style = YType.Title, color = Y.Text2) }
+                        Text(if (day == today) "Сегодня" else shortDayFmt.format(LocalDate.ofEpochDay(day)), style = YType.Sub, color = Y.Text)
+                        TextButton(onClick = { if (day < today) { save(); day += 1 } }) { Text("›", style = YType.Title, color = if (day < today) Y.Text2 else Y.Text3) }
+                    }
+                    TextButton(onClick = { save(); onClose() }) { Text("Готово", color = BLOOD, style = YType.Sub) }
+                }
+                Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
+                    if (!female) Text("Отметки для: ${s.cyclePartner()?.name ?: "девушки"}", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(bottom = 4.dp))
+                    Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
+                        EditorRow("↪️", "Начало месячных в этот день", trailing = {
+                            androidx.compose.material3.Checkbox(isStart, { isStart = it; if (it && flow == null) flow = Flow.MEDIUM; if (!it && run?.start == day) flow = null },
+                                colors = androidx.compose.material3.CheckboxDefaults.colors(checkedColor = BLOOD))
+                        })
+                        EditorRow("🩸", "Месячные", content = {
+                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.fillMaxWidth()) {
+                                listOf(Flow.SPOTTING to "Мажущие", Flow.LIGHT to "Слабые", Flow.MEDIUM to "Средние", Flow.HEAVY to "Обильные").forEachIndexed { i, (fl, label) ->
+                                    val sel = flow == fl
+                                    Column(
+                                        Modifier.weight(1f).clip(RoundedCornerShape(14.dp))
+                                            .background(if (sel) BLOOD.copy(alpha = 0.25f) else Color(0x0DFFFFFF))
+                                            .border(1.dp, if (sel) BLOOD else Y.Stroke, RoundedCornerShape(14.dp))
+                                            .clickable { flow = if (sel) null else fl }
+                                            .padding(vertical = 8.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                    ) {
+                                        Text("💧".repeat(i + 1), fontSize = 10.sp, maxLines = 1)
+                                        Text(label, style = YType.Body.copy(fontSize = 11.sp), color = if (sel) Y.Text else Y.Text2)
+                                    }
+                                }
+                            }
+                        })
+                        EditorRow("✅", "Конец месячных в этот день", trailing = {
+                            androidx.compose.material3.Checkbox(isEnd, { isEnd = it; if (it && flow == null) flow = Flow.LIGHT },
+                                colors = androidx.compose.material3.CheckboxDefaults.colors(checkedColor = BLOOD))
+                        })
+                        EditorRow("😖", (if (female) "Боль" else "Её боль") + ": ${pain.toInt()} / 10", content = {
+                            Slider(pain, { pain = it }, valueRange = 0f..10f, steps = 9,
+                                colors = SliderDefaults.colors(thumbColor = BLOOD, activeTrackColor = BLOOD, inactiveTrackColor = Color(0x22FFFFFF), activeTickColor = Color.Transparent, inactiveTickColor = Color.Transparent))
+                        })
+                        EditorRow("💊", if (female) "Лекарства и что помогло" else "Что ей помогало", content = {
+                            ChipsMulti(CycleLogic.meds, meds, Accent(Y.Violet, Y.Sky)) { v -> meds = if (v in meds) meds - v else meds + v }
+                        })
+                        if (s.settings.intimacyEnabled) {
+                            EditorRow("❤️", "Половой акт", trailing = {
+                                androidx.compose.material3.Checkbox(sex != SexStatus.NONE, { sex = if (it) SexStatus.PROTECTED else SexStatus.NONE },
+                                    colors = androidx.compose.material3.CheckboxDefaults.colors(checkedColor = Y.Rose))
+                            }, content = if (sex == SexStatus.NONE) null else ({
+                                Column {
+                                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                        Chip("Защищённый", sex == SexStatus.PROTECTED, Accent(Y.Teal, Y.Mint)) { sex = SexStatus.PROTECTED }
+                                        Chip("Без защиты", sex == SexStatus.UNPROTECTED, Accent(Y.Coral, Y.Rose)) { sex = SexStatus.UNPROTECTED }
+                                    }
+                                    Spacer(Modifier.height(8.dp))
+                                    ChipsMulti(com.yasnost.app.domain.IntimacyLogic.kinds, kinds, Accent(Y.Rose, Y.Magenta)) { v -> kinds = if (v in kinds) kinds - v else kinds + v }
+                                }
+                            }))
+                        }
+                        EditorRow("🩺", if (female) "Симптомы" else "Что её беспокоит", content = {
+                            ChipsMulti(CycleLogic.symptoms, symptoms, CYCLE) { v -> symptoms = if (v in symptoms) symptoms - v else symptoms + v }
+                        })
+                        EditorRow("🙂", "Настроение", content = {
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                MOODS.forEachIndexed { i, em ->
+                                    val sel = mood == i + 1
+                                    Box(
+                                        Modifier.size(44.dp).clip(CircleShape)
+                                            .background(if (sel) Y.Rose.copy(alpha = 0.3f) else Color(0x0FFFFFFF))
+                                            .border(if (sel) 1.5.dp else 0.dp, if (sel) Y.Rose else Color.Transparent, CircleShape)
+                                            .clickable { mood = if (sel) 0 else i + 1 },
+                                        contentAlignment = Alignment.Center,
+                                    ) { Text(em, fontSize = 22.sp) }
+                                }
+                            }
+                        })
+                        EditorRow("🥚", "Тест на овуляцию", content = {
+                            Column {
+                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Chip("Не делали", lh == 0, Accent(Y.Text2, Y.Text3)) { lh = 0 }
+                                    Chip("−", lh == 1, Accent(Y.Sky, Y.Violet)) { lh = 1 }
+                                    Chip("+ положительный", lh == 2, FERTILE) { lh = 2 }
+                                }
+                                if (lh == 2) Text("Овуляция обычно наступает через 12–36 часов после всплеска ЛГ — прогноз уточнён.",
+                                    style = YType.Body.copy(fontSize = 12.sp), color = Y.Teal, modifier = Modifier.padding(top = 6.dp))
+                            }
+                        })
+                        if (female) {
+                            EditorRow("⚖️", "Вес", trailing = {
+                                OutlinedTextField(weight, { weight = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(5) }, Modifier.width(110.dp), singleLine = true,
+                                    suffix = { Text("кг", color = Y.Text3) }, shape = RoundedCornerShape(14.dp), colors = fieldColors,
+                                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Decimal))
+                            })
+                            EditorRow("🌡️", "Температура (базальная)", trailing = {
+                                OutlinedTextField(temp, { temp = it.filter { c -> c.isDigit() || c == ',' || c == '.' }.take(5) }, Modifier.width(110.dp), singleLine = true,
+                                    suffix = { Text("°C", color = Y.Text3) }, shape = RoundedCornerShape(14.dp), colors = fieldColors,
+                                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Decimal))
+                            })
+                            EditorRow("🥛", "Вода: $water из 8 стаканов", trailing = {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    TextButton(onClick = { if (water > 0) water-- }) { Text("−", style = YType.Title, color = Y.Text2) }
+                                    TextButton(onClick = { if (water < 20) water++ }) { Text("+", style = YType.Title, color = Y.Sky) }
+                                }
+                            }, content = {
+                                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    repeat(8) { i -> Text(if (i < water) "💧" else "○", fontSize = 16.sp, color = Y.Text3) }
+                                }
+                            })
+                        }
+                        Column(Modifier.padding(vertical = 10.dp)) {
+                            Text("📝  Заметка", style = YType.Sub, color = Y.Text)
+                            OutlinedTextField(note, { note = it }, Modifier.fillMaxWidth().padding(top = 8.dp), placeholder = { Text("Как самочувствие?", color = Y.Text3) },
+                                shape = RoundedCornerShape(16.dp), colors = fieldColors)
+                        }
+                    }
+                    Spacer(Modifier.height(16.dp))
+                    GradientButton("Сохранить", CYCLE, Modifier.fillMaxWidth()) { save(); onClose() }
+                    Spacer(Modifier.height(40.dp))
+                }
+            }
+        }
+    }
 }
 
 /** Мини-карточка цикла для главной. */

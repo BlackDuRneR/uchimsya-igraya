@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/tile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/tile_bg_cycle">
+
+        <ImageView
+            android:id="@+id/glyph"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginBottom="-4dp"
+            android:alpha="0.28"
+            android:src="@drawable/ic_drop"
+            android:tint="#FFFFFFFF" />
+
+        <TextView
+            android:id="@+id/days"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autoSizeMaxTextSize="28sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:shadowColor="#40000000"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="8"
+            android:textColor="#FF0B0C14" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:shadowColor="#99000000"
+        android:shadowDy="1"
+        android:shadowRadius="3"
+        android:text="До месячных"
+        android:textColor="#FFFFFFFF"
+        android:textSize="12sp" />
+</LinearLayout>
