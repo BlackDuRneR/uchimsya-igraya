@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -148,10 +152,7 @@ private fun AwardTile(a: Award, ctx: AwardCtx, modifier: Modifier) {
             .padding(vertical = 12.dp, horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Box(
-            Modifier.size(46.dp).clip(CircleShape).then(if (got) Modifier.background(LEVEL.brush) else Modifier.background(Color(0x10FFFFFF))),
-            contentAlignment = Alignment.Center,
-        ) { Text(a.emoji, fontSize = 22.sp, modifier = Modifier.alpha(if (got) 1f else 0.35f)) }
+        GlyphTile(a.emoji, LEVEL, 46.dp, dim = !got, round = true)
         Text(a.title, style = YType.Sub.copy(fontSize = 13.sp), color = if (got) Y.Text else Y.Text2, textAlign = TextAlign.Center, maxLines = 2, modifier = Modifier.padding(top = 6.dp))
         Text(a.desc, style = YType.Body.copy(fontSize = 10.sp, lineHeight = 12.sp), color = Y.Text3, textAlign = TextAlign.Center, maxLines = 3)
         Spacer(Modifier.weight(1f))

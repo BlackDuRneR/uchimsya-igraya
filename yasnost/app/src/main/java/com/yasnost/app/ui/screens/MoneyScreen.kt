@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -112,7 +117,10 @@ fun MoneyScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) 
             val goals = Money.goals(s, now)
             if (goals.isEmpty()) {
                 Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp, onClick = { addGoal = true }) {
-                    Text("🎯  Поставь цель", style = YType.Sub, color = Y.Text)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        GlyphTile("🎯", GOLD, 36.dp)
+                        Text("  Поставь цель", style = YType.Sub, color = Y.Text)
+                    }
                     Text(
                         "Например, «Отпуск в Турции — 500 000 ₸». Сэкономленные деньги будут копиться на неё, а приложение посчитает, через сколько дней мечта сбудется.",
                         style = YType.Body.copy(fontSize = 14.sp), color = Y.Text2, modifier = Modifier.padding(top = 6.dp)
@@ -132,7 +140,7 @@ fun MoneyScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) 
                 Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
                     eq.forEach { e ->
                         Row(Modifier.padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text(e.thing.emoji, fontSize = 20.sp)
+                            GlyphTile(e.thing.emoji, MINT, 34.dp)
                             Text(e.thing.title, style = YType.Body, color = Y.Text, modifier = Modifier.padding(start = 12.dp).weight(1f))
                             Text("× ${e.count}", style = YType.Sub, color = Y.Mint)
                         }
@@ -147,7 +155,7 @@ fun MoneyScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) 
                         val left = Rates.fromKzt(th.priceKzt - kzt, cur)
                         val days = kotlin.math.ceil(left / daily).toLong()
                         Row(Modifier.padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text(th.emoji, fontSize = 20.sp)
+                            GlyphTile(th.emoji, GOLD, 34.dp)
                             Column(Modifier.padding(start = 12.dp).weight(1f)) {
                                 Text(th.title, style = YType.Body, color = Y.Text)
                                 Text("≈ ${Fmt.money(Rates.fromKzt(th.priceKzt, cur))} $cur", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
@@ -206,7 +214,10 @@ fun GoalCard(gp: GoalProgress, cur: String, onDelete: (() -> Unit)? = null) {
     Glass(Modifier.fillMaxWidth().padding(bottom = 10.dp), radius = 24.dp, padding = 16.dp, tint = if (gp.done) Y.Amber.copy(alpha = 0.08f) else Color.Transparent) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                Text((if (gp.done) "🎉 " else "") + gp.goal.title, style = YType.Sub, color = Y.Text)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (gp.done) { Glyph("🎉", Y.Amber, 18.dp); Spacer(Modifier.width(6.dp)) }
+                    Text(gp.goal.title, style = YType.Sub, color = Y.Text)
+                }
                 Text(
                     "${Fmt.money(gp.funded)} из ${Fmt.money(gp.goal.price)} $cur",
                     style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2

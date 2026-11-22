@@ -354,7 +354,7 @@ object WidgetUpdater {
         if (ci != null && ci.hasData && roomy) {
             val who = if (s.profile.female) "Мой цикл" else (s.cyclePartner()?.let { "Цикл · ${it.name}" } ?: "Цикл девушки")
             v.setViewVisibility(R.id.cycle, View.VISIBLE)
-            v.setTextViewText(R.id.cycle, "🌸 $who: ${com.yasnost.app.ui.screens.cycleStatus(ci)}")
+            v.setTextViewText(R.id.cycle, "$who: ${com.yasnost.app.ui.screens.cycleStatus(ci)}")
         } else v.setViewVisibility(R.id.cycle, View.GONE)
         if (tall) {
             val ctxA = com.yasnost.app.domain.AwardCtx(s, now)
@@ -362,13 +362,14 @@ object WidgetUpdater {
             v.setViewVisibility(R.id.extra, View.VISIBLE)
             v.setTextViewText(R.id.sx1, "${s.cravingsBeaten}")
             v.setTextViewText(R.id.sx2, "${s.checkIns.size}")
-            v.setTextViewText(R.id.sx3, "$got 🏅")
+            v.setTextViewText(R.id.sx3, "$got")
         }
         if (roomy) {
             v.setViewVisibility(R.id.quote, View.VISIBLE)
             v.setTextViewText(R.id.quote,
-                if (tall) "🔬 " + com.yasnost.app.domain.Facts.today(today, s.habits.map { it.type }.toSet(), s.profile.female).text
+                if (tall) com.yasnost.app.domain.Facts.today(today, s.habits.map { it.type }.toSet(), s.profile.female).text
                 else "«${com.yasnost.app.domain.Quotes.today(today)}»")
+            v.setTextViewCompoundDrawablesRelative(R.id.quote, if (tall) R.drawable.ic_mini_flask else 0, 0, 0, 0)
             v.setInt(R.id.quote, "setMaxLines", if (tall) 3 else if (ci?.hasData == true) 1 else 2)
         } else v.setViewVisibility(R.id.quote, View.GONE)
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id * 10 + 9, null))
@@ -408,7 +409,7 @@ object WidgetUpdater {
         if (hasCycle) {
             val who = if (s.profile.female) "Мой цикл" else (s.cyclePartner()?.let { "Цикл · ${it.name}" } ?: "Цикл девушки")
             v.setViewVisibility(R.id.cycle, View.VISIBLE)
-            v.setTextViewText(R.id.cycle, "🌸 $who: ${com.yasnost.app.ui.screens.cycleStatus(ci!!)}")
+            v.setTextViewText(R.id.cycle, "$who: ${com.yasnost.app.ui.screens.cycleStatus(ci!!)}")
         }
         if (tall) {
             v.setViewVisibility(R.id.extra, View.VISIBLE)
@@ -423,7 +424,8 @@ object WidgetUpdater {
             val best = s.bestStreak(h.id, now) / DAY
             v.setTextViewText(R.id.sx3, "$best ${Fmt.days(best)}")
             v.setViewVisibility(R.id.quote, View.VISIBLE)
-            v.setTextViewText(R.id.quote, "🔬 " + com.yasnost.app.domain.Facts.today(today, setOf(h.type), s.profile.female).text)
+            v.setTextViewText(R.id.quote, com.yasnost.app.domain.Facts.today(today, setOf(h.type), s.profile.female).text)
+            v.setTextViewCompoundDrawablesRelative(R.id.quote, R.drawable.ic_mini_flask, 0, 0, 0)
             v.setInt(R.id.quote, "setMaxLines", 3)
         } else if (!hasCycle) {
             v.setViewVisibility(R.id.quote, View.VISIBLE)
@@ -496,7 +498,8 @@ object WidgetUpdater {
         if (phase != null) {
             val pt = com.yasnost.app.domain.CycleLogic.phaseText(phase)
             val tips = if (s.profile.female) pt.tips else pt.partner
-            v.setTextViewText(R.id.quote, "💡 " + tips[(t % tips.size).toInt()])
+            v.setTextViewText(R.id.quote, tips[(t % tips.size).toInt()])
+            v.setTextViewCompoundDrawablesRelative(R.id.quote, R.drawable.ic_mini_bulb, 0, 0, 0)
             v.setInt(R.id.quote, "setMaxLines", if (tall) 3 else 2)
         }
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id * 10 + 8, null))

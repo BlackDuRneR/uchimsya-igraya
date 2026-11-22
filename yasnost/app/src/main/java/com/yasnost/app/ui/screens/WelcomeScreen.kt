@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -92,7 +96,7 @@ fun GenderCard(title: String, symbol: String, selected: Boolean, acc: Accent, mo
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(Modifier.size(58.dp).clip(CircleShape).background(if (selected) acc.brush else Brush.linearGradient(listOf(Color(0x22FFFFFF), Color(0x11FFFFFF)))), contentAlignment = Alignment.Center) {
-            Text(symbol, fontSize = 28.sp, color = if (selected) Color(0xFF0B0C14) else Y.Text2)
+            Glyph(symbol, if (selected) Color(0xFF0B0C14) else Y.Text2, 32.dp)
         }
         Text(title, style = YType.Sub, color = if (selected) Y.Text else Y.Text2, modifier = Modifier.padding(top = 10.dp))
     }
@@ -101,7 +105,10 @@ fun GenderCard(title: String, symbol: String, selected: Boolean, acc: Accent, mo
 @Composable
 private fun HabitChoice(emoji: String, title: String, quitting: Boolean, yes: String, no: String, acc: Accent, onChange: (Boolean) -> Unit) {
     Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-        Text("$emoji  $title", style = YType.Sub, color = Y.Text)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            GlyphTile(emoji, acc, 36.dp)
+            Text("   $title", style = YType.Sub, color = Y.Text)
+        }
         Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             com.yasnost.app.ui.components.Chip(yes, quitting, acc, Modifier.weight(1f)) { onChange(true) }
             com.yasnost.app.ui.components.Chip(no, !quitting, Accent(Y.Text2, Y.Text3), Modifier.weight(1f)) { onChange(false) }
@@ -112,7 +119,7 @@ private fun HabitChoice(emoji: String, title: String, quitting: Boolean, yes: St
 @Composable
 private fun ModuleRow(emoji: String, title: String, sub: String, value: Boolean, color: Color, onChange: (Boolean) -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp)) {
-        Text(emoji, fontSize = 22.sp)
+        GlyphTile(emoji, Accent(color, color.copy(alpha = 0.7f)), 36.dp, dim = !value)
         Column(Modifier.padding(start = 12.dp).weight(1f)) {
             Text(title, style = YType.Sub, color = Y.Text)
             Text(sub, style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)

@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -147,7 +151,7 @@ fun HabitScreen(id: String, s: AppState, nav: Nav, repo: Repository, scope: Coro
                 Spacer(Modifier.height(10.dp))
                 Glass(Modifier.fillMaxWidth(), radius = 22.dp, padding = 16.dp) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("🍺", fontSize = 22.sp)
+                        GlyphTile("🍺", Accent(Y.Amber, Y.Coral), 40.dp)
                         Column(Modifier.padding(start = 12.dp).weight(1f)) {
                             Text("Безалкогольное пиво", style = YType.Sub, color = Y.Text)
                             Text(if (na == 0) "За 30 дней не отмечено" else "$na бут. за 30 дней · $naDays ${Fmt.days(naDays.toLong())}", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
@@ -248,17 +252,17 @@ fun MoneyHighlights(kzt: Double, cur: String, perDay: Double, onClick: () -> Uni
         if (hl.isEmpty()) Text(com.yasnost.app.domain.Money.idea(kzt), style = YType.Body, color = Y.Text, modifier = Modifier.padding(top = 6.dp))
         hl.forEach { e ->
             Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text(e.thing.emoji, fontSize = 18.sp)
+                GlyphTile(e.thing.emoji, Accent(Y.Teal, Y.Mint), 30.dp)
                 Text(e.thing.title, style = YType.Body, color = Y.Text, modifier = Modifier.padding(start = 10.dp).weight(1f))
                 Text("× ${e.count}", style = YType.Sub, color = Y.Mint)
             }
         }
         if (next != null && perDay > 0) {
             val days = kotlin.math.ceil(com.yasnost.app.domain.Rates.fromKzt(next.priceKzt - kzt, cur) / perDay).toLong()
-            Text(
-                "${next.emoji} ${next.title} — ещё $days ${Fmt.days(days)} без срывов",
-                style = YType.Body.copy(fontSize = 13.sp), color = Y.Amber, modifier = Modifier.padding(top = 10.dp)
-            )
+            Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                Glyph(next.emoji, Y.Amber, 16.dp)
+                Text("  ${next.title} — ещё $days ${Fmt.days(days)} без срывов", style = YType.Body.copy(fontSize = 13.sp), color = Y.Amber)
+            }
         }
         Text("Подробнее и копилка мечты →", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 8.dp))
     }

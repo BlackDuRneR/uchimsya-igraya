@@ -320,13 +320,17 @@
         android:paddingTop="4dp"
         android:paddingEnd="10dp"
         android:paddingBottom="4dp"
-        android:text="🌸 Цикл · Мария: день 18 · месячные через 8 дней"
+        android:drawableStart="@drawable/ic_mini_drop"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="Цикл · Мария: день 18 · месячные через 8 дней"
         android:textColor="#FFFF7AB6"
         android:textSize="12sp"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/quote"
+        android:drawablePadding="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

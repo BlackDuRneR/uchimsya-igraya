@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -159,7 +163,7 @@ private fun WellnessHome(s: AppState, nav: Nav, repo: Repository, scope: Corouti
         val e = s.intimacyOn(today)
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp, onClick = { CalendarTab.tab = "intimacy"; nav.tab(Route.Calendar) }, tint = Y.Rose.copy(alpha = 0.05f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("💞", fontSize = 26.sp)
+                GlyphTile("❤", Accent(Y.Rose, Y.Magenta), 44.dp)
                 Column(Modifier.padding(start = 14.dp).weight(1f)) {
                     Text("Близость", style = YType.Sub, color = Y.Text)
                     Text(if (e == null) "Отметить сегодняшний день" else "Сегодня отмечено", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
@@ -270,7 +274,7 @@ private fun CheckInPrompt(s: AppState, today: Long, onClick: () -> Unit) {
     val c = s.checkIn(today)
     Glass(Modifier.fillMaxWidth(), radius = 26.dp, onClick = onClick) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(if (c == null) "✍️" else MOODS[c.mood - 1], fontSize = 30.sp)
+            if (c == null) GlyphTile("✍", Accent(Y.Violet, Y.Sky), 44.dp) else MoodIcon(c.mood, 40.dp)
             Column(Modifier.padding(start = 14.dp).weight(1f)) {
                 Text(if (c == null) (if (s.habits.isEmpty()) "Как ты сегодня?" else "Отметка за сегодня") else "Сегодня отмечено", style = YType.Sub, color = Y.Text)
                 Text(
@@ -307,7 +311,10 @@ private fun Totals(s: AppState, now: Long, onMoney: () -> Unit) {
 private fun FactOfDay(s: AppState, day: Long) {
     val f = com.yasnost.app.domain.Facts.today(day, s.habits.map { it.type }.toSet(), s.profile.female)
     Glass(Modifier.fillMaxWidth(), radius = 26.dp, padding = 18.dp, tint = Y.Sky.copy(alpha = 0.05f)) {
-        Text("🔬  ФАКТ ДНЯ", style = YType.Label, color = Y.Sky)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Glyph("🔬", Y.Sky, 16.dp)
+            Text("  ФАКТ ДНЯ", style = YType.Label, color = Y.Sky)
+        }
         Text(f.text, style = YType.Body, color = Y.Text, modifier = Modifier.padding(top = 8.dp))
         Text(f.source, style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
     }
@@ -323,7 +330,7 @@ private fun DreamPreview(s: AppState, now: Long, onClick: () -> Unit) {
     } else if (s.habits.any { it.costPerDay > 0 }) {
         Glass(Modifier.fillMaxWidth().padding(bottom = 4.dp), radius = 24.dp, padding = 16.dp, onClick = onClick) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("🎯", fontSize = 26.sp)
+                GlyphTile("🎯", Accent(Y.Amber, Y.Coral), 44.dp)
                 Column(Modifier.padding(start = 14.dp).weight(1f)) {
                     Text("Поставь цель", style = YType.Sub, color = Y.Text)
                     Text("Копи сэкономленные деньги на мечту", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
@@ -334,5 +341,5 @@ private fun DreamPreview(s: AppState, now: Long, onClick: () -> Unit) {
     }
 }
 
-val MOODS = listOf("😣", "😕", "😐", "🙂", "😄")
+val MOODS = listOf("1", "2", "3", "4", "5")
 val MOOD_NAMES = listOf("Тяжело", "Так себе", "Нормально", "Хорошо", "Отлично")

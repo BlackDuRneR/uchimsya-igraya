@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -130,7 +134,8 @@ fun IntimacyContent(s: AppState, repo: Repository, scope: CoroutineScope) {
                 Legend(Brush.linearGradient(listOf(Y.Coral, Y.Rose)), "Незащищённый")
             }
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
-                Text("❤️ секс   ✊ мастурбация   ", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
+                Glyph("❤", Y.Rose, 12.dp); Text(" секс   ", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
+                Glyph("✊", Y.Violet, 12.dp); Text(" мастурбация   ", style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3)
                 Legend(Brush.linearGradient(listOf(Color(0x40FFFFFF), Color(0x40FFFFFF))), "Ничего")
             }
         }
@@ -276,7 +281,10 @@ private fun PartnerSection(s: AppState, today: Long) {
     val card = com.yasnost.app.domain.PartnerInsights.today(today)
     Glass(Modifier.fillMaxWidth(), radius = 26.dp, padding = 18.dp, tint = Y.Sky.copy(alpha = 0.06f)) {
         Text("СОВЕТ ДНЯ ДЛЯ ВАС ДВОИХ", style = YType.Label, color = Y.Sky)
-        Text("${card.emoji}  ${card.title}", style = YType.Sub, color = Y.Text, modifier = Modifier.padding(top = 8.dp))
+        Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            GlyphTile(card.emoji, Accent(Y.Sky, Y.Violet), 36.dp)
+            Text("  ${card.title}", style = YType.Sub, color = Y.Text)
+        }
         Text(card.text, style = YType.Body.copy(fontSize = 14.sp), color = Y.Text2, modifier = Modifier.padding(top = 6.dp))
         Text(card.source, style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
         if (gap != null && gap >= 10) {

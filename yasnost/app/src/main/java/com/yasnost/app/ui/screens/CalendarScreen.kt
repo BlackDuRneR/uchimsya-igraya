@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -138,7 +142,7 @@ private fun DiaryContent(s: AppState, repo: Repository, scope: CoroutineScope) {
         StatTile("серия отметок", "$streak", Fmt.days(streak.toLong()), Y.Teal, Modifier.weight(1f))
         StatTile(
             "настроение 7д",
-            if (last7.isEmpty()) "—" else MOODS[(Math.round(last7.map { it.mood }.average()).toInt() - 1).coerceIn(0, 4)],
+            if (last7.isEmpty()) "—" else MOOD_NAMES[(Math.round(last7.map { it.mood }.average()).toInt() - 1).coerceIn(0, 4)],
             "", Y.Violet, Modifier.weight(1f)
         )
     }
@@ -177,7 +181,7 @@ private fun DiaryContent(s: AppState, repo: Repository, scope: CoroutineScope) {
     notes.forEach { c ->
         Glass(Modifier.fillMaxWidth().padding(bottom = 8.dp), radius = 20.dp, padding = 14.dp, onClick = { editDay = c.day }) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(MOODS[c.mood - 1], fontSize = 22.sp)
+                MoodIcon(c.mood, 26.dp)
                 Column(Modifier.padding(start = 12.dp)) {
                     Text(dayFmt.format(LocalDate.ofEpochDay(c.day)), style = YType.Label, color = Y.Text3)
                     Text(c.note, style = YType.Body, color = Y.Text)
@@ -239,7 +243,15 @@ fun CalendarDay(date: LocalDate, today: LocalDate, bg: Brush?, darkText: Boolean
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            if (!marks.isNullOrEmpty()) Text(marks, fontSize = 9.sp, lineHeight = 10.sp, maxLines = 1)
+            if (!marks.isNullOrEmpty()) Row {
+                var i = 0
+                while (i < marks.length) {
+                    val cp = marks.codePointAt(i); val key = String(Character.toChars(cp)); i += Character.charCount(cp)
+                    if (key == "\uFE0F") continue
+                    val col = when (key) { "❤" -> if (darkText) Color(0xFF0B0C14) else Y.Rose; "✊" -> Y.Violet; "🍺" -> Y.Amber; "🥚" -> Y.Teal; else -> Y.Text2 }
+                    Glyph(key, col, 10.dp)
+                }
+            }
             Text(
                 "${date.dayOfMonth}",
                 style = YType.Sub.copy(fontSize = if (marks.isNullOrEmpty()) 14.sp else 12.sp, lineHeight = 14.sp),
@@ -301,18 +313,7 @@ fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScop
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 Text("НАСТРОЕНИЕ", style = YType.Label, color = Y.Text3)
                 Row(Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    MOODS.forEachIndexed { i, e ->
-                        val sel = mood == i + 1
-                        Box(
-                            Modifier
-                                .size(46.dp)
-                                .clip(CircleShape)
-                                .background(if (sel) Y.Violet.copy(alpha = 0.35f) else Color(0x0FFFFFFF))
-                                .border(if (sel) 1.5.dp else 0.dp, if (sel) Y.Violet else Color.Transparent, CircleShape)
-                                .clickable { mood = i + 1 },
-                            contentAlignment = Alignment.Center,
-                        ) { Text(e, fontSize = 24.sp) }
-                    }
+                    (1..5).forEach { m -> MoodChoice(m, mood == m) { mood = m } }
                 }
                 Text(MOOD_NAMES[mood - 1], style = YType.Body, color = Y.Text2, modifier = Modifier.padding(top = 6.dp))
 
@@ -340,7 +341,10 @@ fun CheckInDialog(s: AppState, day: Long, repo: Repository, scope: CoroutineScop
                     }
                 }
                 if (s.habits.any { it.type == com.yasnost.app.data.HabitType.ALCOHOL }) {
-                    Stepper("🍺 Безалкогольное пиво", naBeer, 0..10, "бут.") { naBeer = it }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Glyph("🍺", Y.Amber, 20.dp)
+                        Box(Modifier.padding(start = 8.dp)) { Stepper("Безалкогольное пиво", naBeer, 0..10, "бут.") { naBeer = it } }
+                    }
                     Text("Это не срыв — просто учёт. Если замечаешь, что после него тянет на обычное, лучше сократить.", style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3)
                 }
                 OutlinedTextField(

@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +19,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -78,10 +83,10 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 14.dp) {
             OutlinedTextField(pname, { pname = it.take(24) }, Modifier.fillMaxWidth(), label = { Text("Имя") }, singleLine = true, shape = RoundedCornerShape(16.dp), colors = fc)
             Row(Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Chip("♂  Мужской", !s.profile.female, Accent(Y.Sky, Y.Violet)) {
+                Chip("Мужской", !s.profile.female, Accent(Y.Sky, Y.Violet)) {
                     scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(gender = com.yasnost.app.data.Gender.MALE)) } }
                 }
-                Chip("♀  Женский", s.profile.female, Accent(Y.Rose, Y.Magenta)) {
+                Chip("Женский", s.profile.female, Accent(Y.Rose, Y.Magenta)) {
                     scope.launch { repo.update(false) { it.copy(profile = it.profile.copy(gender = com.yasnost.app.data.Gender.FEMALE)) } }
                 }
             }
@@ -120,15 +125,15 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("Что отслеживаю", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            ToggleRow("🍷  Алкоголь", if (s.settings.trackAlcohol) g("Бросаю / бросил", "Бросаю / бросила") else "Не пью вообще — раздел скрыт", s.settings.trackAlcohol) { v -> setSettings { it.copy(trackAlcohol = v) } }
+            ToggleRow("Алкоголь", if (s.settings.trackAlcohol) g("Бросаю / бросил", "Бросаю / бросила") else "Не пью вообще — раздел скрыт", s.settings.trackAlcohol, icon = "🍷", iconAccent = Accent(Y.Violet, Y.Magenta)) { v -> setSettings { it.copy(trackAlcohol = v) } }
             Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
-            ToggleRow("🚬  Курение", if (s.settings.trackSmoking) g("Бросаю / бросил", "Бросаю / бросила") else "Не курю вообще — раздел скрыт", s.settings.trackSmoking) { v -> setSettings { it.copy(trackSmoking = v) } }
+            ToggleRow("Курение", if (s.settings.trackSmoking) g("Бросаю / бросил", "Бросаю / бросила") else "Не курю вообще — раздел скрыт", s.settings.trackSmoking, icon = "🚬", iconAccent = Accent(Y.Teal, Y.Mint)) { v -> setSettings { it.copy(trackSmoking = v) } }
             Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
-            ToggleRow("✨  Другие привычки", "Сладкое, соцсети, игры…", s.settings.trackOther) { v -> setSettings { it.copy(trackOther = v) } }
+            ToggleRow("Другие привычки", "Сладкое, соцсети, игры…", s.settings.trackOther, icon = "✨", iconAccent = Accent(Y.Amber, Y.Coral)) { v -> setSettings { it.copy(trackOther = v) } }
             Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
-            ToggleRow("💞  Близость", "Календарь интимной жизни", s.settings.intimacyEnabled) { v -> setSettings { it.copy(intimacyEnabled = v) } }
+            ToggleRow("Близость", "Календарь интимной жизни", s.settings.intimacyEnabled, icon = "❤", iconAccent = Accent(Y.Rose, Y.Magenta)) { v -> setSettings { it.copy(intimacyEnabled = v) } }
             Box(Modifier.fillMaxWidth().padding(vertical = 10.dp).height(1.dp).background(Y.Stroke))
-            ToggleRow("🌸  Цикл", if (s.profile.female) "Месячные, фертильные дни, ПМС" else "Цикл девушки", s.cycleSettings.enabled) { v -> scope.launch { repo.update(false) { it.copy(cycleSettings = it.cycleSettings.copy(enabled = v)) } } }
+            ToggleRow("Цикл", if (s.profile.female) "Месячные, фертильные дни, ПМС" else "Цикл девушки", s.cycleSettings.enabled, icon = "🌸", iconAccent = Accent(androidx.compose.ui.graphics.Color(0xFFFF4D6D), Y.Rose)) { v -> scope.launch { repo.update(false) { it.copy(cycleSettings = it.cycleSettings.copy(enabled = v)) } } }
             Text(
                 "Если выключить раздел, его данные не удаляются — включишь снова, и всё вернётся.",
                 style = YType.Body.copy(fontSize = 12.sp), color = Y.Text3, modifier = Modifier.padding(top = 10.dp)
@@ -180,7 +185,8 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
             Text("Эти причины покажутся на экране SOS, когда будет трудно.", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(bottom = 6.dp))
             s.reasons.forEachIndexed { i, r ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("✦  $r", style = YType.Body, color = Y.Text, modifier = Modifier.weight(1f))
+                    Glyph("✦", Y.Violet, 12.dp, Modifier.padding(end = 10.dp))
+                    Text(r, style = YType.Body, color = Y.Text, modifier = Modifier.weight(1f))
                     IconButton(onClick = { scope.launch { repo.update(false) { st -> st.copy(reasons = st.reasons.filterIndexed { j, _ -> j != i }) } } }) {
                         Icon(Icons.Filled.Close, null, tint = Y.Text3)
                     }
@@ -228,7 +234,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
                 Modifier.fillMaxWidth().clickable { nav.go(Route.Money) }.padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("💰", fontSize = 22.sp)
+                GlyphTile("💰", Accent(Y.Teal, Y.Mint), 36.dp)
                 Text("Деньги и копилка мечты", style = YType.Sub, color = Y.Text, modifier = Modifier.padding(start = 12.dp).weight(1f))
                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null, tint = Y.Text3)
             }
@@ -322,7 +328,7 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.5", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.6", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),
@@ -364,8 +370,9 @@ val SOURCES = listOf(
 )
 
 @Composable
-private fun ToggleRow(title: String, sub: String, value: Boolean, onChange: (Boolean) -> Unit) {
+private fun ToggleRow(title: String, sub: String, value: Boolean, icon: String? = null, iconAccent: Accent = Accent(Y.Violet, Y.Magenta), onChange: (Boolean) -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
+        if (icon != null) { GlyphTile(icon, iconAccent, 38.dp, dim = !value); Spacer(Modifier.width(12.dp)) }
         Column(Modifier.weight(1f)) {
             Text(title, style = YType.Sub, color = Y.Text)
             Text(sub, style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3)

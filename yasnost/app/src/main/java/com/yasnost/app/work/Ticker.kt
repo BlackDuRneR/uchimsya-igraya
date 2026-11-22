@@ -135,7 +135,7 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
                 if (rd > 0 && left in 1..rd) {
                     val dn = "$left ${com.yasnost.app.domain.Fmt.days(left)}"
                     if (female) once("pre_$ok$ns", "Через $dn ожидаются месячные", "Положи в сумку средства гигиены и обезболивающее. НПВП лучше начать при первых признаках.")
-                    else once("pre_$ok$ns", "$her: через $dn могут начаться месячные", "Будь внимательнее и терпеливее — и запасись её любимым шоколадом 🍫")
+                    else once("pre_$ok$ns", "$her: через $dn могут начаться месячные", "Будь внимательнее и терпеливее — и запасись её любимым шоколадом.")
                 }
                 if (ci.lateDays >= 3) {
                     once("late_$ok$ns", if (female) "Задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}" else "$her: задержка ${ci.lateDays} ${com.yasnost.app.domain.Fmt.days(ci.lateDays.toLong())}",
@@ -154,7 +154,7 @@ class TickWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p) {
             val last = s.intimacy.filter { it.sex != com.yasnost.app.data.SexStatus.NONE }.maxOfOrNull { it.day }
             val gap = last?.let { today - it }
             if (gap != null && gap >= 10 && "gap_$last" !in cycleKeys) {
-                Notifier.show(ctx, 778, "Время друг для друга 🤍",
+                Notifier.show(ctx, 778, "Время друг для друга",
                     "Близости не было $gap ${com.yasnost.app.domain.Fmt.days(gap)}. Не обязательно секс — объятия, свидание или разговор «как ты?» тоже сближают.",
                     Notifier.CH_REMINDERS, null)
                 cycleKeys = cycleKeys + "gap_$last"; changed = true

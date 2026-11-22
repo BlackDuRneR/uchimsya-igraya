@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -131,7 +135,7 @@ fun SosScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             if (s.letter.isNotBlank()) {
                 SectionLabel("Письмо от тебя", Modifier.padding(top = 20.dp))
                 Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 18.dp, tint = Y.Violet.copy(alpha = 0.06f)) {
-                    Text("✉️", fontSize = 22.sp)
+                    GlyphTile("✉", Accent(Y.Violet, Y.Magenta), 36.dp)
                     Text(s.letter, style = YType.Body.copy(fontSize = 16.sp, lineHeight = 23.sp), color = Y.Text, modifier = Modifier.padding(top = 8.dp))
                 }
             }
@@ -145,7 +149,7 @@ fun SosScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
                 Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
                     s.reasons.forEach {
                         Row(Modifier.padding(vertical = 5.dp)) {
-                            Text("✦ ", color = Y.Magenta, style = YType.Body)
+                            Glyph("✦", Y.Magenta, 14.dp, Modifier.padding(top = 3.dp, end = 8.dp))
                             Text(it, style = YType.Body, color = Y.Text)
                         }
                     }
@@ -167,7 +171,7 @@ fun SosScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScope) {
             }
 
             Spacer(Modifier.height(20.dp))
-            GradientButton(g("Я справился 💪", "Я справилась 💪"), acc, Modifier.fillMaxWidth()) {
+            GradientButton(g("Я справился", "Я справилась"), acc, Modifier.fillMaxWidth()) {
                 scope.launch { repo.update(refreshWidgets = false) { it.copy(cravingsBeaten = it.cravingsBeaten + 1) } }
                 Toast.makeText(ctx, "Отлично! Ещё одна победа.", Toast.LENGTH_SHORT).show()
                 nav.back()

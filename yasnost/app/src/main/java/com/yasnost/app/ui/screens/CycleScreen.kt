@@ -1,5 +1,9 @@
 package com.yasnost.app.ui.screens
 
+import com.yasnost.app.ui.components.Glyph
+import com.yasnost.app.ui.components.GlyphTile
+import com.yasnost.app.ui.components.MoodIcon
+import com.yasnost.app.ui.components.MoodChoice
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -138,7 +142,7 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
 
     if (!ci.hasData) {
         Glass(Modifier.fillMaxWidth(), padding = 22.dp, tint = BLOOD.copy(alpha = 0.05f)) {
-            Text("🌸", fontSize = 34.sp)
+            GlyphTile("🌸", CYCLE, 52.dp)
             Text(g(partnerTitle(s), "Мой цикл"), style = YType.Title, color = Y.Text, modifier = Modifier.padding(top = 8.dp))
             Text(
                 g("Отметь первый день её последних месячных — приложение посчитает следующие, фертильные дни и ПМС, и напомнит заранее.",
@@ -162,7 +166,10 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
                     }
                 }
                 Column(Modifier.padding(start = 16.dp)) {
-                    if (phase != null) Text("${phase.emoji()} ${phase.title}", style = YType.Sub, color = Y.Text)
+                    if (phase != null) Row(verticalAlignment = Alignment.CenterVertically) {
+                        Glyph(phase.emoji(), phase.accent().b, 18.dp)
+                        Text("  ${phase.title}", style = YType.Sub, color = Y.Text)
+                    }
                     val ns = ci.nextStart!!
                     Text(
                         when {
@@ -334,7 +341,10 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
     SectionLabel(g("Как помочь ей при боли", "Как облегчить боль"), Modifier.padding(top = 14.dp))
     (CycleLogic.painGuide + CycleLogic.pmsGuide).forEach { GuideCard(it) }
     Glass(Modifier.fillMaxWidth().padding(top = 2.dp), radius = 20.dp, padding = 14.dp, tint = Y.Amber.copy(alpha = 0.05f)) {
-        Text("⚠️  Это не контрацепция", style = YType.Sub.copy(fontSize = 15.sp), color = Y.Amber)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Glyph("⚠", Y.Amber, 18.dp)
+            Text("  Это не контрацепция", style = YType.Sub.copy(fontSize = 15.sp), color = Y.Amber)
+        }
         Text(CycleLogic.contraceptionNote, style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2, modifier = Modifier.padding(top = 6.dp))
         Text("Wilcox et al., BMJ 2000; KFF; Fehring et al. 2006", style = YType.Body.copy(fontSize = 11.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp))
     }
@@ -371,7 +381,7 @@ fun CycleContent(s: AppState, repo: Repository, scope: CoroutineScope) {
 @Composable
 private fun ForecastRow(emoji: String, title: String, value: String) {
     Row(Modifier.padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(emoji, fontSize = 18.sp)
+        GlyphTile(emoji, if (emoji == "🌸" || emoji == "🥚") FERTILE else CYCLE, 32.dp)
         Text(title, style = YType.Body, color = Y.Text2, modifier = Modifier.padding(start = 12.dp).weight(1f))
         Text(value, style = YType.Sub.copy(fontSize = 14.sp), color = Y.Text, textAlign = TextAlign.End)
     }
@@ -382,7 +392,7 @@ fun GuideCard(gd: CycleLogic.Guide) {
     var open by remember { mutableStateOf(false) }
     Glass(Modifier.fillMaxWidth().padding(bottom = 8.dp).animateContentSize(), radius = 20.dp, padding = 14.dp, onClick = { open = !open }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(gd.emoji, fontSize = 20.sp)
+            GlyphTile(gd.emoji, CYCLE, 36.dp)
             Text(gd.title, style = YType.Sub.copy(fontSize = 15.sp), color = Y.Text, modifier = Modifier.padding(start = 12.dp).weight(1f))
             Text(if (open) "−" else "+", style = YType.Title, color = Y.Text3)
         }
@@ -446,7 +456,7 @@ fun LineChart(points: List<Pair<Long, Double>>, acc: Accent, unit: String) {
 private fun EditorRow(emoji: String, title: String, trailing: @Composable () -> Unit = {}, content: (@Composable () -> Unit)? = null) {
     Column(Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(emoji, fontSize = 20.sp)
+            GlyphTile(emoji, CYCLE, 34.dp)
             Text(title, style = YType.Sub, color = Y.Text, modifier = Modifier.padding(start = 12.dp).weight(1f))
             trailing()
         }
@@ -555,7 +565,7 @@ fun CycleDayEditor(s: AppState, startDay: Long, repo: Repository, scope: Corouti
                                             .padding(vertical = 8.dp),
                                         horizontalAlignment = Alignment.CenterHorizontally,
                                     ) {
-                                        Text("💧".repeat(i + 1), fontSize = 10.sp, maxLines = 1)
+                                        Row { repeat(i + 1) { Glyph("💧", if (sel) BLOOD else Y.Rose.copy(alpha = 0.7f), 10.dp) } }
                                         Text(label, style = YType.Body.copy(fontSize = 11.sp), color = if (sel) Y.Text else Y.Text2)
                                     }
                                 }
@@ -592,16 +602,7 @@ fun CycleDayEditor(s: AppState, startDay: Long, repo: Repository, scope: Corouti
                         })
                         EditorRow("🙂", "Настроение", content = {
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                MOODS.forEachIndexed { i, em ->
-                                    val sel = mood == i + 1
-                                    Box(
-                                        Modifier.size(44.dp).clip(CircleShape)
-                                            .background(if (sel) Y.Rose.copy(alpha = 0.3f) else Color(0x0FFFFFFF))
-                                            .border(if (sel) 1.5.dp else 0.dp, if (sel) Y.Rose else Color.Transparent, CircleShape)
-                                            .clickable { mood = if (sel) 0 else i + 1 },
-                                        contentAlignment = Alignment.Center,
-                                    ) { Text(em, fontSize = 22.sp) }
-                                }
+                                (1..5).forEach { m -> MoodChoice(m, mood == m, 44.dp) { mood = if (mood == m) 0 else m } }
                             }
                         })
                         EditorRow("🥚", "Тест на овуляцию", content = {
@@ -633,12 +634,15 @@ fun CycleDayEditor(s: AppState, startDay: Long, repo: Repository, scope: Corouti
                                 }
                             }, content = {
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                    repeat(8) { i -> Text(if (i < water) "💧" else "○", fontSize = 16.sp, color = Y.Text3) }
+                                    repeat(8) { i -> Glyph("🥛", if (i < water) Y.Sky else Y.Text3.copy(alpha = 0.4f), 20.dp) }
                                 }
                             })
                         }
                         Column(Modifier.padding(vertical = 10.dp)) {
-                            Text("📝  Заметка", style = YType.Sub, color = Y.Text)
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                GlyphTile("📝", CYCLE, 34.dp)
+                                Text("   Заметка", style = YType.Sub, color = Y.Text)
+                            }
                             OutlinedTextField(note, { note = it }, Modifier.fillMaxWidth().padding(top = 8.dp), placeholder = { Text("Как самочувствие?", color = Y.Text3) },
                                 shape = RoundedCornerShape(16.dp), colors = fieldColors)
                         }
@@ -661,7 +665,7 @@ fun CycleMini(s: AppState, onClick: () -> Unit) {
     Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp, onClick = onClick, tint = (phase?.accent()?.a ?: BLOOD).copy(alpha = 0.06f)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.size(44.dp).clip(RoundedCornerShape(15.dp)).background((phase?.accent() ?: CYCLE).brush), contentAlignment = Alignment.Center) {
-                Text(phase?.emoji() ?: "🌸", fontSize = 20.sp)
+                Glyph(phase?.emoji() ?: "🌸", Color(0xFF0B0C14), 22.dp)
             }
             Column(Modifier.padding(start = 14.dp).weight(1f)) {
                 Text(if (female) "Мой цикл" else partnerTitle(s), style = YType.Sub, color = Y.Text)
@@ -700,7 +704,10 @@ fun CycleHomeCard(s: AppState, repo: Repository, scope: CoroutineScope, onOpen: 
                 }
             }
             Column(Modifier.padding(start = 16.dp)) {
-                if (phase != null) Text("${phase.emoji()} ${phase.title}", style = YType.Sub, color = Y.Text)
+                if (phase != null) Row(verticalAlignment = Alignment.CenterVertically) {
+                    Glyph(phase.emoji(), phase.accent().b, 18.dp)
+                    Text("  ${phase.title}", style = YType.Sub, color = Y.Text)
+                }
                 val ns = ci.nextStart!!
                 Text(
                     when {
@@ -717,7 +724,10 @@ fun CycleHomeCard(s: AppState, repo: Repository, scope: CoroutineScope, onOpen: 
         if (phase != null) {
             val pt = CycleLogic.phaseText(phase)
             val tip = (if (LocalFemale.current) pt.tips else pt.partner).let { it[(t % it.size).toInt()] }
-            Text("💡 $tip", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2, modifier = Modifier.padding(top = 12.dp))
+            Row(Modifier.padding(top = 12.dp)) {
+                Glyph("💡", Y.Amber, 16.dp)
+                Text("  $tip", style = YType.Body.copy(fontSize = 13.sp), color = Y.Text2)
+            }
         }
         Row(Modifier.padding(top = 14.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             if (ci.inPeriodNow) GradientButton("Закончились", CYCLE, Modifier.weight(1f)) { scope.launch { repo.markPeriod(ci.lastStart!!, t, close = true) } }

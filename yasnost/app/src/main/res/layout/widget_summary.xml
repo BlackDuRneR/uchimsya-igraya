@@ -479,6 +479,8 @@
 
                 <TextView
                     android:id="@+id/sx3"
+                    android:drawableEnd="@drawable/ic_mini_medal"
+                    android:drawablePadding="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -501,13 +503,17 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="🌸 Цикл · Аня: день 7 · месячные через 22 дня"
+        android:drawableStart="@drawable/ic_mini_drop"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="Цикл · Аня: день 7 · месячные через 22 дня"
         android:textColor="#FFFF7AB6"
         android:textSize="11sp"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/quote"
+        android:drawablePadding="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
