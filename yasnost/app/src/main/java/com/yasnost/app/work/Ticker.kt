@@ -56,6 +56,7 @@ class BoundaryWorker(ctx: Context, p: WorkerParameters) : CoroutineWorker(ctx, p
         val m = android.appwidget.AppWidgetManager.getInstance(applicationContext)
         WidgetUpdater.renderCounters(applicationContext, m.getAppWidgetIds(android.content.ComponentName(applicationContext, com.yasnost.app.widget.CounterWidget::class.java)))
         WidgetUpdater.renderSummaries(applicationContext, m.getAppWidgetIds(android.content.ComponentName(applicationContext, com.yasnost.app.widget.SummaryWidget::class.java)))
+        WidgetUpdater.renderMinis(applicationContext, m.getAppWidgetIds(android.content.ComponentName(applicationContext, com.yasnost.app.widget.MiniWidget::class.java)))
         return Result.success()
     }
 }

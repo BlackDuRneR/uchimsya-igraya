@@ -178,11 +178,17 @@ class ScreenshotTest {
                 File(out, "$name.png").outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
             }
             val counterLayout = method.first { it.name == "counterLayout" }.apply { isAccessible = true }
-            val summary = method.first { it.name == "summaryViews" }.apply { isAccessible = true }
-            render("w_counter_small_a", counterLayout.invoke(m, ctx, R.layout.widget_counter_small, 1, s.habits[0], s, now) as RemoteViews, 170, 170)
-            render("w_counter_small_s", counterLayout.invoke(m, ctx, R.layout.widget_counter_small, 1, s.habits[1], s, now) as RemoteViews, 170, 170)
-            render("w_counter_wide", counterLayout.invoke(m, ctx, R.layout.widget_counter_wide, 1, s.habits[0], s, now) as RemoteViews, 350, 170)
-            render("w_summary", summary.invoke(m, ctx, 1, s, now) as RemoteViews, 350, 170)
+            val summary = method.first { it.name == "summaryLayout" }.apply { isAccessible = true }
+            val a = s.habits[0]
+            render("w_counter_small", counterLayout.invoke(m, ctx, R.layout.widget_counter_small, 1, a, s, now) as RemoteViews, 170, 170)
+            render("w_counter_wide", counterLayout.invoke(m, ctx, R.layout.widget_counter_wide, 1, a, s, now) as RemoteViews, 350, 170)
+            render("w_counter_large", counterLayout.invoke(m, ctx, R.layout.widget_counter_large, 1, a, s, now) as RemoteViews, 350, 360)
+            render("w_summary_2", summary.invoke(m, ctx, 1, s, now, false) as RemoteViews, 350, 170)
+            val one = s.copy(habits = listOf(a))
+            render("w_summary_1", summary.invoke(m, ctx, 1, one, now, false) as RemoteViews, 350, 170)
+            render("w_summary_tall", summary.invoke(m, ctx, 1, s, now, true) as RemoteViews, 350, 360)
+            val mini = RemoteViews(ctx.packageName, R.layout.widget_mini)
+            render("w_mini", mini, 80, 80)
         }
     }
 }

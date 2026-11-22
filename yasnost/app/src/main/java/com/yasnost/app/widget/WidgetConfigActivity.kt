@@ -50,7 +50,7 @@ class WidgetConfigActivity : ComponentActivity() {
                 fun pick(habitId: String?) {
                     if (habitId != null) WidgetUpdater.prefs(this).edit().putString("w_$id", habitId).apply()
                     scope.launch {
-                        WidgetUpdater.renderCounters(this@WidgetConfigActivity, intArrayOf(id))
+                        WidgetUpdater.renderById(this@WidgetConfigActivity, id)
                         setResult(Activity.RESULT_OK, Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id))
                         finish()
                     }

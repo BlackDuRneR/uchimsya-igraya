@@ -30,6 +30,9 @@ import com.yasnost.app.domain.DAY
 import com.yasnost.app.domain.Fmt
 import com.yasnost.app.domain.stats
 import com.yasnost.app.domain.verb
+import com.yasnost.app.domain.unitsLabel
+import com.yasnost.app.domain.Levels
+import com.yasnost.app.domain.Health
 import com.yasnost.app.work.Ticker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,6 +68,20 @@ class SummaryWidget : AppWidgetProvider() {
     }
 }
 
+/** Мини 1×1: только число дней. */
+class MiniWidget : AppWidgetProvider() {
+    override fun onUpdate(context: Context, manager: AppWidgetManager, ids: IntArray) = async { WidgetUpdater.renderMinis(context, ids) }
+    override fun onDeleted(context: Context, ids: IntArray) {
+        val p = WidgetUpdater.prefs(context).edit()
+        ids.forEach { p.remove("w_$it") }
+        p.apply()
+    }
+    private fun async(block: suspend () -> Unit) {
+        val pending = goAsync()
+        widgetScope.launch { try { block() } finally { pending.finish() } }
+    }
+}
+
 object WidgetUpdater {
     fun prefs(ctx: Context) = ctx.getSharedPreferences("widgets", Context.MODE_PRIVATE)
 
@@ -72,7 +89,37 @@ object WidgetUpdater {
         val m = AppWidgetManager.getInstance(ctx)
         renderCounters(ctx, m.getAppWidgetIds(ComponentName(ctx, CounterWidget::class.java)))
         renderSummaries(ctx, m.getAppWidgetIds(ComponentName(ctx, SummaryWidget::class.java)))
+        renderMinis(ctx, m.getAppWidgetIds(ComponentName(ctx, MiniWidget::class.java)))
         Ticker.scheduleBoundary(ctx)
+    }
+
+    /** Обновить один виджет любого типа (после настройки). */
+    suspend fun renderById(ctx: Context, id: Int) {
+        val cls = AppWidgetManager.getInstance(ctx).getAppWidgetInfo(id)?.provider?.className
+        when (cls) {
+            MiniWidget::class.java.name -> renderMinis(ctx, intArrayOf(id))
+            SummaryWidget::class.java.name -> renderSummaries(ctx, intArrayOf(id))
+            else -> renderCounters(ctx, intArrayOf(id))
+        }
+    }
+
+    suspend fun renderMinis(ctx: Context, ids: IntArray) {
+        if (ids.isEmpty()) return
+        val s = Repository.get(ctx).current()
+        val m = AppWidgetManager.getInstance(ctx)
+        val now = System.currentTimeMillis()
+        ids.forEach { id ->
+            val h = s.habit(prefs(ctx).getString("w_$id", null)) ?: s.habits.firstOrNull()
+            if (h == null) { m.updateAppWidget(id, emptyViews(ctx)); return@forEach }
+            val v = RemoteViews(ctx.packageName, R.layout.widget_mini)
+            v.setInt(R.id.root, "setBackgroundResource", when (h.type) {
+                HabitType.ALCOHOL -> R.drawable.mini_bg_alcohol; HabitType.SMOKING -> R.drawable.mini_bg_smoking; HabitType.CUSTOM -> R.drawable.mini_bg_custom
+            })
+            v.setTextViewText(R.id.days, Fmt.intNum(h.stats(now).days))
+            v.setTextViewText(R.id.label, h.type.verb.lowercase())
+            v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, h.id))
+            m.updateAppWidget(id, v)
+        }
     }
 
     suspend fun renderCounters(ctx: Context, ids: IntArray) {
@@ -101,30 +148,64 @@ object WidgetUpdater {
         if (h == null) return emptyViews(ctx)
         val small = counterLayout(ctx, R.layout.widget_counter_small, id, h, s, now)
         val wide = counterLayout(ctx, R.layout.widget_counter_wide, id, h, s, now)
+        val large = counterLayout(ctx, R.layout.widget_counter_large, id, h, s, now)
         return if (Build.VERSION.SDK_INT >= 31) {
-            RemoteViews(mapOf(SizeF(100f, 100f) to small, SizeF(220f, 100f) to wide))
+            RemoteViews(mapOf(SizeF(100f, 100f) to small, SizeF(220f, 100f) to wide, SizeF(220f, 280f) to large))
         } else {
-            val w = AppWidgetManager.getInstance(ctx).getAppWidgetOptions(id).getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
-            if (w >= 220) wide else small
+            val o = AppWidgetManager.getInstance(ctx).getAppWidgetOptions(id)
+            val w = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
+            val hh = o.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
+            if (w >= 220 && hh >= 280) large else if (w >= 220) wide else small
         }
     }
 
     private fun counterLayout(ctx: Context, layout: Int, id: Int, h: Habit, s: AppState, now: Long): RemoteViews {
         val st = h.stats(now)
+        val cur = s.settings.currency
         val v = RemoteViews(ctx.packageName, layout)
         v.setInt(R.id.root, "setBackgroundResource", bgFor(h.type))
+        v.setInt(R.id.badge, "setBackgroundResource", badgeFor(h.type))
+        v.setImageViewResource(R.id.icon, iconFor(h.type))
+        v.setTextViewText(R.id.verb, h.type.verb.uppercase())
+        v.setTextColor(R.id.verb, colorB(h.type))
         v.setImageViewBitmap(R.id.ring, ring(Achievements.progress(st.elapsed), h.type))
         v.setTextViewText(R.id.days, Fmt.intNum(st.days))
         v.setTextViewText(R.id.daysLabel, Fmt.days(st.days))
-        v.setChronometer(R.id.timer, SystemClock.elapsedRealtime() - (st.elapsed % DAY), null, true)
         v.setTextColor(R.id.daysLabel, colorB(h.type))
-        if (layout == R.layout.widget_counter_wide) {
-            v.setTextViewText(R.id.title, h.title)
-            v.setTextViewText(R.id.verb, h.type.verb.uppercase())
-            v.setTextColor(R.id.verb, colorB(h.type))
-            v.setTextViewText(R.id.money, "${Fmt.money(st.money)} ${s.settings.currency}")
-            val next = Achievements.next(st.elapsed)
-            v.setTextViewText(R.id.next, if (next != null) "до «${next.title}» ${Fmt.duration(next.millis - st.elapsed)}" else "все награды получены")
+        v.setChronometer(R.id.timer, SystemClock.elapsedRealtime() - (st.elapsed % DAY), null, true)
+        val next = Achievements.next(st.elapsed)
+        val nextText = if (next != null) "до «${next.title}» · ${Fmt.duration(next.millis - st.elapsed)}" else "все награды за время получены"
+        if (layout == R.layout.widget_counter_small) {
+            v.setTextViewText(R.id.money, "${Fmt.money(st.money)} $cur")
+        } else {
+            v.setTextViewText(R.id.next, nextText)
+            v.setImageViewBitmap(R.id.bar, bar(Achievements.progress(st.elapsed), h.type))
+            v.setTextViewText(R.id.stat1, "${Fmt.money(st.money)} $cur")
+            if (h.unitsPerDay > 0) {
+                v.setTextViewText(R.id.stat2Label, h.type.unitsLabel.uppercase())
+                v.setTextViewText(R.id.stat2, "${Fmt.num(st.units)} ${h.unitName}")
+            } else {
+                val best = s.bestStreak(h.id, now) / DAY
+                v.setTextViewText(R.id.stat2Label, "РЕКОРД")
+                v.setTextViewText(R.id.stat2, "$best ${Fmt.days(best)}")
+            }
+        }
+        if (layout == R.layout.widget_counter_large) {
+            val lvl = Levels.of(s, now)
+            v.setViewVisibility(R.id.level, View.VISIBLE)
+            v.setTextViewText(R.id.level, "Ур. ${lvl.n} · ${lvl.title}")
+            val best = s.bestStreak(h.id, now) / DAY
+            v.setTextViewText(R.id.stat3, "$best ${Fmt.days(best)}")
+            val steps = Health.forType(h.type, s.profile.female)
+            val step = steps.firstOrNull { it.afterMillis > st.elapsed }
+            if (step != null) {
+                v.setTextViewText(R.id.healthTitle, "СЛЕДУЮЩИЙ ЭТАП · ${step.title.uppercase()} · ЧЕРЕЗ ${Fmt.duration(step.afterMillis - st.elapsed).uppercase()}")
+                v.setTextViewText(R.id.healthText, step.text)
+            } else {
+                v.setTextViewText(R.id.healthTitle, "ВСЕ ЭТАПЫ ПРОЙДЕНЫ")
+                v.setTextViewText(R.id.healthText, steps.last().text)
+            }
+            v.setTextColor(R.id.healthTitle, colorB(h.type))
         }
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id, h.id))
         return v
@@ -133,33 +214,71 @@ object WidgetUpdater {
     // ---------- Сводка ----------
 
     private val rowIds = listOf(
-        intArrayOf(R.id.row1, R.id.badge1, R.id.icon1, R.id.title1, R.id.days1, R.id.timer1, R.id.money1),
-        intArrayOf(R.id.row2, R.id.badge2, R.id.icon2, R.id.title2, R.id.days2, R.id.timer2, R.id.money2),
-        intArrayOf(R.id.row3, R.id.badge3, R.id.icon3, R.id.title3, R.id.days3, R.id.timer3, R.id.money3),
+        intArrayOf(R.id.row1, R.id.badge1, R.id.icon1, R.id.title1, R.id.days1, R.id.timer1, R.id.money1, R.id.bar1, R.id.next1),
+        intArrayOf(R.id.row2, R.id.badge2, R.id.icon2, R.id.title2, R.id.days2, R.id.timer2, R.id.money2, R.id.bar2, R.id.next2),
+        intArrayOf(R.id.row3, R.id.badge3, R.id.icon3, R.id.title3, R.id.days3, R.id.timer3, R.id.money3, R.id.bar3, R.id.next3),
     )
 
     private fun summaryViews(ctx: Context, id: Int, s: AppState, now: Long): RemoteViews {
         if (s.habits.isEmpty()) return emptyViews(ctx)
+        val compact = summaryLayout(ctx, id, s, now, tall = false)
+        val tall = summaryLayout(ctx, id, s, now, tall = true)
+        return if (Build.VERSION.SDK_INT >= 31) RemoteViews(mapOf(SizeF(200f, 100f) to compact, SizeF(200f, 230f) to tall))
+        else {
+            val hh = AppWidgetManager.getInstance(ctx).getAppWidgetOptions(id).getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
+            if (hh >= 230) tall else compact
+        }
+    }
+
+    private fun summaryLayout(ctx: Context, id: Int, s: AppState, now: Long, tall: Boolean): RemoteViews {
         val v = RemoteViews(ctx.packageName, R.layout.widget_summary)
+        val cur = s.settings.currency
         val total = s.habits.sumOf { it.stats(now).money }
-        v.setTextViewText(R.id.total, "${Fmt.money(total)} ${s.settings.currency} сохранено")
+        v.setTextViewText(R.id.total, "${Fmt.money(total)} $cur")
+        val lvl = Levels.of(s, now)
+        v.setTextViewText(R.id.level, "Ур. ${lvl.n} · ${lvl.title}")
+        val shown = s.habits.take(if (tall) 3 else 2)
         rowIds.forEachIndexed { i, r ->
-            val h = s.habits.getOrNull(i)
-            if (h == null) {
-                v.setViewVisibility(r[0], View.GONE)
-                return@forEachIndexed
-            }
+            val h = shown.getOrNull(i)
+            if (h == null) { v.setViewVisibility(r[0], View.GONE); return@forEachIndexed }
             val st = h.stats(now)
             v.setViewVisibility(r[0], View.VISIBLE)
             v.setInt(r[1], "setBackgroundResource", badgeFor(h.type))
             v.setImageViewResource(r[2], iconFor(h.type))
-            v.setTextViewText(r[3], h.title)
-            v.setTextViewText(r[4], "${Fmt.intNum(st.days)} ${Fmt.days(st.days)}")
+            v.setTextViewText(r[3], "${Fmt.days(st.days)} · ${h.type.verb.lowercase()}")
+            v.setTextViewText(r[4], Fmt.intNum(st.days))
             v.setTextColor(r[4], colorB(h.type))
             v.setChronometer(r[5], SystemClock.elapsedRealtime() - (st.elapsed % DAY), null, true)
-            v.setTextViewText(r[6], "${Fmt.money(st.money)} ${s.settings.currency}")
+            v.setTextViewText(r[6], "${Fmt.money(st.money)} $cur")
+            v.setImageViewBitmap(r[7], bar(Achievements.progress(st.elapsed), h.type))
+            val next = Achievements.next(st.elapsed)
+            v.setTextViewText(r[8], if (next != null) "до «${next.title}» · ${Fmt.duration(next.millis - st.elapsed)}" else "все награды получены")
             v.setOnClickPendingIntent(r[0], openApp(ctx, id * 10 + i, h.id))
         }
+        // нижняя часть: цикл и цитата, если есть место
+        val roomy = tall || shown.size == 1
+        val today = java.time.LocalDate.now().toEpochDay()
+        val ci = if (s.cycleSettings.enabled) com.yasnost.app.domain.CycleLogic.info(s, today) else null
+        if (ci != null && ci.hasData && roomy) {
+            val who = if (s.profile.female) "Мой цикл" else if (s.profile.partnerName.isBlank()) "Цикл девушки" else "Цикл · ${s.profile.partnerName}"
+            v.setViewVisibility(R.id.cycle, View.VISIBLE)
+            v.setTextViewText(R.id.cycle, "🌸 $who: ${com.yasnost.app.ui.screens.cycleStatus(ci)}")
+        } else v.setViewVisibility(R.id.cycle, View.GONE)
+        if (tall) {
+            val ctxA = com.yasnost.app.domain.AwardCtx(s, now)
+            val got = com.yasnost.app.domain.Awards.unlocked(ctxA).size + s.habits.sumOf { h -> Achievements.list.count { now - h.startMillis >= it.millis } }
+            v.setViewVisibility(R.id.extra, View.VISIBLE)
+            v.setTextViewText(R.id.sx1, "${s.cravingsBeaten}")
+            v.setTextViewText(R.id.sx2, "${s.checkIns.size}")
+            v.setTextViewText(R.id.sx3, "$got 🏅")
+        }
+        if (roomy) {
+            v.setViewVisibility(R.id.quote, View.VISIBLE)
+            v.setTextViewText(R.id.quote,
+                if (tall) "🔬 " + com.yasnost.app.domain.Facts.today(today, s.habits.map { it.type }.toSet(), s.profile.female).text
+                else "«${com.yasnost.app.domain.Quotes.today(today)}»")
+            v.setInt(R.id.quote, "setMaxLines", if (tall) 3 else if (ci?.hasData == true) 1 else 2)
+        } else v.setViewVisibility(R.id.quote, View.GONE)
         v.setOnClickPendingIntent(R.id.root, openApp(ctx, id * 10 + 9, null))
         return v
     }
@@ -195,6 +314,21 @@ object WidgetUpdater {
     }
     fun iconFor(t: HabitType) = when (t) {
         HabitType.ALCOHOL -> R.drawable.ic_wine; HabitType.SMOKING -> R.drawable.ic_cigarette; HabitType.CUSTOM -> R.drawable.ic_spark
+    }
+
+    /** Полоска прогресса (растягивается по ширине). */
+    private fun bar(progress: Float, t: HabitType): Bitmap {
+        val w = 600; val h = 14
+        val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        val c = Canvas(bmp)
+        val r = h / 2f
+        c.drawRoundRect(RectF(0f, 0f, w.toFloat(), h.toFloat()), r, r, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0x1FFFFFFF })
+        val pw = (w * progress.coerceIn(0.03f, 1f))
+        val p = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            shader = android.graphics.LinearGradient(0f, 0f, pw, 0f, colorA(t), colorB(t), Shader.TileMode.CLAMP)
+        }
+        c.drawRoundRect(RectF(0f, 0f, pw, h.toFloat()), r, r, p)
+        return bmp
     }
 
     /** Кольцо прогресса до следующей награды. */

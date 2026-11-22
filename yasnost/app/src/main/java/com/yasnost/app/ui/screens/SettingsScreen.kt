@@ -237,14 +237,14 @@ fun SettingsScreen(s: AppState, nav: Nav, repo: Repository, scope: CoroutineScop
         SectionLabel("Виджеты", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
             Text(
-                "Долгое нажатие на пустом месте рабочего стола → «Виджеты» → «Ясность». Есть два вида: «Счётчик» с кольцом для одной привычки и «Сводка» со всеми сразу. Размер можно менять.",
+                "Долгое нажатие на пустом месте рабочего стола → «Виджеты» → «Ясность». Есть три вида: «Мини» 1×1 — только число дней; «Счётчик» с кольцом для одной привычки (растяни до 4×3 — появятся рекорд и этап восстановления); «Сводка» со всеми привычками, циклом и фактом дня.",
                 style = YType.Body, color = Y.Text2,
             )
         }
 
         SectionLabel("О приложении", Modifier.padding(top = 14.dp))
         Glass(Modifier.fillMaxWidth(), radius = 24.dp, padding = 16.dp) {
-            Text("Ясность 3.0", style = YType.Sub, color = Y.Text)
+            Text("Ясность 3.1", style = YType.Sub, color = Y.Text)
             Text(
                 "Все данные хранятся только на этом телефоне. Никаких аккаунтов, рекламы и слежки. Информация о здоровье носит справочный характер и не заменяет консультацию врача.",
                 style = YType.Body.copy(fontSize = 13.sp), color = Y.Text3, modifier = Modifier.padding(top = 6.dp),

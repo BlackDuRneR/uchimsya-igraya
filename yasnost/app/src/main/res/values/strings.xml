@@ -7,4 +7,6 @@
     <string name="widget_summary_desc">Все привычки и сэкономленные деньги</string>
     <string name="sos_short">SOS</string>
     <string name="sos_long">Тяга — помоги переждать</string>
+    <string name="widget_mini">Мини</string>
+    <string name="widget_mini_desc">Только число дней — размером с ярлык</string>
 </resources>
